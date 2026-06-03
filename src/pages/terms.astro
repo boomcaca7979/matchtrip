@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Terms of Service - MatchTrip" description="MatchTrip terms of service. Read the terms governing your use of our website.">
+  <Navbar />
+
+  <section class="legal-page">
+    <div class="container">
+      <h1>Terms of Service</h1>
+      <p class="last-updated">Last updated: June 3, 2026</p>
+
+      <h2>1. Acceptance of Terms</h2>
+      <p>By accessing and using MatchTrip, you agree to be bound by these Terms of Service. If you do not agree, please do not use our website.</p>
+
+      <h2>2. Use of the Site</h2>
+      <p>MatchTrip provides sports travel planning information including event details, budget estimates, and links to third-party booking services. All information is provided for general guidance only and may not be fully accurate or up to date.</p>
+
+      <h2>3. Affiliate Relationships</h2>
+      <p>MatchTrip participates in affiliate programs with third-party travel and ticketing services. We may earn commissions when you book through our links. This does not affect the price you pay.</p>
+
+      <h2>4. No Guarantee of Accuracy</h2>
+      <p>While we strive to provide accurate event dates, prices, and travel information, we make no warranties or guarantees. Prices are estimates and may vary. Always verify details directly with the service provider before booking.</p>
+
+      <h2>5. Third-Party Links</h2>
+      <p>Our website contains links to third-party websites. We are not responsible for the content, accuracy, or practices of these external sites.</p>
+
+      <h2>6. Limitation of Liability</h2>
+      <p>MatchTrip shall not be held liable for any losses, damages, or inconveniences arising from the use of information on this site or from bookings made through affiliate links.</p>
+
+      <h2>7. Intellectual Property</h2>
+      <p>All content on MatchTrip, including text, graphics, and logos, is the property of MatchTrip unless otherwise noted. You may not reproduce or distribute our content without permission.</p>
+
+      <h2>8. Changes to Terms</h2>
+      <p>We reserve the right to modify these terms at any time. Continued use of the site after changes constitutes acceptance of the new terms.</p>
+
+      <h2>9. Contact</h2>
+      <p>For questions about these terms, contact us at <a href="mailto:hello@matchtrip.com">hello@matchtrip.com</a>.</p>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .legal-page {
+    padding: 100px 0 80px;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 8px;
+  }
+  .last-updated {
+    color: #9ca3af;
+    font-size: 0.9rem;
+    margin-bottom: 48px;
+  }
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111;
+    margin: 32px 0 12px;
+  }
+  p {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  a {
+    color: #6366f1;
+    text-decoration: none;
+  }
+  a:hover { text-decoration: underline; }
+</style>

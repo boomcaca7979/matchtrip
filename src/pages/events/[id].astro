@@ -1,0 +1,414 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+import { eventsData } from '../../data/events';
+import {
+  buildHotelLink,
+  buildFlightLink,
+  buildTicketLink,
+  buildActivityLink,
+} from '../../utils/affiliate-links';
+
+export function getStaticPaths() {
+  return Object.keys(eventsData).map(id => ({ params: { id } }));
+}
+
+const { id } = Astro.params;
+const event = eventsData[id as keyof typeof eventsData];
+
+if (!event) {
+  return Astro.redirect('/events');
+}
+
+const refs = event.partnerRefs;
+const campaign = id as string;
+
+const hotelUrl = buildHotelLink({ city: refs.hotelCity, campaign });
+const flightUrl = buildFlightLink({ to: refs.flightTo, campaign });
+const ticketUrl = buildTicketLink({ url: refs.ticketUrl, slug: refs.ticketSlug, campaign });
+const activityUrl = refs.activityQuery
+  ? buildActivityLink({ query: refs.activityQuery, campaign })
+  : null;
+---
+
+<Layout
+  title={`${event.title} - Travel Guide | MatchTrip`}
+  description={`Travel guide for ${event.title} in ${event.location}. Budget breakdown for flights, hotels, and tickets. ${event.description}`}
+>
+  <Navbar />
+
+  <!-- Hero -->
+  <section class="event-hero">
+    <div class="container">
+      <a href="/events" class="back-link">&larr; All Events</a>
+      <span class="event-category">{event.category}</span>
+      <h1>{event.title}</h1>
+      <div class="event-meta-bar">
+        <span>{event.date}</span>
+        <span>{event.location}</span>
+        <span>Est. Cost: {event.priceEstimate}</span>
+      </div>
+      <p class="event-description">{event.description}</p>
+    </div>
+  </section>
+
+  <!-- Budget Breakdown -->
+  <section class="budget-section">
+    <div class="container">
+      <h2>Travel Budget Breakdown</h2>
+      <div class="budget-grid">
+        <div class="budget-card">
+          <div class="budget-icon" aria-hidden="true">&#x2708;&#xFE0F;</div>
+          <h3>Flights</h3>
+          <p class="budget-price">{event.avgFlightPrice}</p>
+          <p class="budget-note">Round-trip average</p>
+          <a href={flightUrl} class="btn btn-outline" target="_blank" rel="noopener noreferrer sponsored">Find Flights</a>
+        </div>
+        <div class="budget-card">
+          <div class="budget-icon" aria-hidden="true">&#x1F3E8;</div>
+          <h3>Hotels</h3>
+          <p class="budget-price">{event.avgHotelPrice}</p>
+          <p class="budget-note">Average per night</p>
+          <a href={hotelUrl} class="btn btn-outline" target="_blank" rel="noopener noreferrer sponsored">Find Hotels</a>
+        </div>
+        <div class="budget-card highlight">
+          <div class="budget-icon" aria-hidden="true">&#x1F3AB;</div>
+          <h3>Tickets</h3>
+          <p class="budget-price">{event.matchTickets}</p>
+          <p class="budget-note">Match/session range</p>
+          <a href={ticketUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer">Get Tickets</a>
+        </div>
+      </div>
+      <AffiliateDisclosure />
+    </div>
+  </section>
+
+  <!-- Venues & Cities -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-grid">
+        <div class="venues-card">
+          <h3>Key Venues</h3>
+          <ul>
+            {event.venues.map(venue => (
+              <li>{venue}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="venues-card">
+          <h3>Host Cities</h3>
+          <div class="city-tags">
+            {event.hostCities.map(city => (
+              <span class="city-tag">{city}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tours & Activities (conditional) -->
+  {activityUrl && (
+    <section class="activities-section">
+      <div class="container">
+        <div class="activities-card">
+          <h2>Tours &amp; Activities</h2>
+          <p>Explore local experiences, stadium tours, and guided packages around the event.</p>
+          <a href={activityUrl} class="btn btn-white" target="_blank" rel="noopener noreferrer sponsored">Browse Activities</a>
+        </div>
+        <AffiliateDisclosure />
+      </div>
+    </section>
+  )}
+
+  <!-- Bottom CTA -->
+  <section class="affiliate-cta">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Ready to book your trip?</h2>
+        <p>Compare prices across airlines and hotels. We may earn a small commission when you book through our links.</p>
+        <div class="cta-buttons">
+          <a href={flightUrl} class="btn btn-white" target="_blank" rel="noopener noreferrer sponsored">Search Flights</a>
+          <a href={hotelUrl} class="btn btn-white" target="_blank" rel="noopener noreferrer sponsored">Search Hotels</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Hero */
+  .event-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    color: white;
+    padding: 80px 0 60px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .back-link {
+    display: inline-block;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: white; }
+
+  .event-category {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .event-hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+
+  .event-meta-bar {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+    color: #94a3b8;
+    font-size: 0.95rem;
+    flex-wrap: wrap;
+  }
+
+  .event-description {
+    color: #cbd5e1;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 700px;
+  }
+
+  /* Budget */
+  .budget-section { padding: 60px 0; }
+
+  .budget-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    color: #111;
+  }
+
+  .budget-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .budget-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .budget-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+  }
+
+  .budget-card.highlight {
+    border-color: #6366f1;
+    background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+  }
+
+  .budget-icon { font-size: 2rem; margin-bottom: 12px; }
+
+  .budget-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #111;
+  }
+
+  .budget-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 4px;
+  }
+
+  .budget-note {
+    color: #6b7280;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+
+  /* Venues */
+  .venues-section { padding: 0 0 60px; }
+
+  .venues-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .venues-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 28px;
+  }
+
+  .venues-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #111;
+  }
+
+  .venues-card ul { list-style: none; padding: 0; }
+
+  .venues-card li {
+    padding: 8px 0;
+    color: #4b5563;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .venues-card li:last-child { border-bottom: none; }
+
+  .city-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .city-tag {
+    background: #f3f4f6;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #374151;
+  }
+
+  /* Activities */
+  .activities-section { padding: 0 0 60px; }
+
+  .activities-card {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 1px solid #bbf7d0;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .activities-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 8px;
+  }
+
+  .activities-card p {
+    color: #4b5563;
+    margin-bottom: 24px;
+  }
+
+  /* CTA */
+  .affiliate-cta { padding: 0 0 80px; }
+
+  .cta-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    border-radius: 24px;
+    padding: 64px;
+    text-align: center;
+    color: white;
+  }
+
+  .cta-card h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .cta-card p {
+    color: #94a3b8;
+    max-width: 600px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: #111;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.95rem;
+  }
+
+  .btn-primary:hover {
+    background: #374151;
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: #111;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    font-size: 0.95rem;
+  }
+
+  .btn-outline:hover { background: #f9fafb; }
+
+  .btn-white {
+    background: white;
+    color: #0f172a;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    border: none;
+    transition: transform 0.2s;
+  }
+
+  .btn-white:hover { transform: scale(1.02); }
+
+  @media (max-width: 768px) {
+    .event-hero h1 { font-size: 2rem; }
+    .event-meta-bar { flex-direction: column; gap: 8px; }
+    .budget-grid { grid-template-columns: 1fr; }
+    .venues-grid { grid-template-columns: 1fr; }
+    .cta-buttons { flex-direction: column; align-items: center; }
+    .cta-card { padding: 40px 24px; }
+  }
+</style>

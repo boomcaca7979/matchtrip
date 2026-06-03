@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Privacy Policy - MatchTrip" description="MatchTrip privacy policy. Learn how we collect, use, and protect your personal information.">
+  <Navbar />
+
+  <section class="legal-page">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p class="last-updated">Last updated: June 3, 2026</p>
+
+      <h2>1. Information We Collect</h2>
+      <p>MatchTrip is a static informational website. We do not require user accounts or collect personal information directly. When you click affiliate links to third-party booking sites, those sites may collect data according to their own privacy policies.</p>
+
+      <h2>2. Cookies &amp; Analytics</h2>
+      <p>We may use cookies or analytics tools (such as Google Analytics) to understand how visitors use our site. This helps us improve the experience. You can disable cookies in your browser settings.</p>
+
+      <h2>3. Affiliate Links</h2>
+      <p>Some links on MatchTrip are affiliate links. If you make a purchase through these links, we may earn a commission at no extra cost to you. We only recommend products and services we believe are relevant to sports travel planning.</p>
+
+      <h2>4. Third-Party Services</h2>
+      <p>Our site links to third-party services including but not limited to Booking.com, Skyscanner, Viator, and various event ticketing platforms. We are not responsible for their privacy practices.</p>
+
+      <h2>5. Data Security</h2>
+      <p>We take reasonable measures to protect any data collected through our site. However, no method of transmission over the Internet is 100% secure.</p>
+
+      <h2>6. Changes to This Policy</h2>
+      <p>We may update this privacy policy from time to time. Changes will be posted on this page with an updated date.</p>
+
+      <h2>7. Contact</h2>
+      <p>If you have questions about this privacy policy, please contact us at <a href="mailto:hello@matchtrip.com">hello@matchtrip.com</a>.</p>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .legal-page {
+    padding: 100px 0 80px;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 8px;
+  }
+  .last-updated {
+    color: #9ca3af;
+    font-size: 0.9rem;
+    margin-bottom: 48px;
+  }
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111;
+    margin: 32px 0 12px;
+  }
+  p {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  a {
+    color: #6366f1;
+    text-decoration: none;
+  }
+  a:hover { text-decoration: underline; }
+</style>

@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Page Not Found - MatchTrip" description="The page you're looking for doesn't exist.">
+  <Navbar />
+
+  <section class="not-found">
+    <div class="container">
+      <h1>404</h1>
+      <p class="message">The page you're looking for doesn't exist or has been moved.</p>
+      <div class="actions">
+        <a href="/" class="btn btn-primary">Back to Home</a>
+        <a href="/events" class="btn btn-secondary">Browse Events</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+    padding: 80px 24px;
+  }
+
+  .not-found h1 {
+    font-size: 6rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+
+  .message {
+    font-size: 1.125rem;
+    color: #6b7280;
+    margin-bottom: 32px;
+  }
+
+  .actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: #111;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background: #374151;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #111;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+  }
+
+  .btn-secondary:hover {
+    background: #f9fafb;
+  }
+</style>

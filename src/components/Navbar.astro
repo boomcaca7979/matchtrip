@@ -1,0 +1,163 @@
+---
+// Reusable sticky navbar
+---
+
+<nav class="navbar" aria-label="Main navigation">
+  <div class="container nav-container">
+    <a href="/" class="logo">
+      <span class="logo-icon" aria-hidden="true">⚡</span>
+      <span class="logo-text">MatchTrip</span>
+    </a>
+
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-links">
+      <a href="/#features">Features</a>
+      <a href="/events">Events</a>
+      <a href="/#why">Why MatchTrip</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const btn = document.querySelector('.hamburger');
+  const links = document.querySelector('.nav-links');
+
+  btn?.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    links?.classList.toggle('open');
+    btn.classList.toggle('active');
+  });
+
+  // Close menu on link click (mobile)
+  links?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      btn?.setAttribute('aria-expanded', 'false');
+      links.classList.remove('open');
+      btn?.classList.remove('active');
+    });
+  });
+</script>
+
+<style>
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #111;
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+
+  .logo-icon { font-size: 1.5rem; }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: #4b5563;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: #111;
+  }
+
+  /* Hamburger (hidden on desktop) */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 110;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #111;
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 260px;
+      height: 100vh;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      padding: 80px 24px 24px;
+      background: white;
+      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.08);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links.open {
+      transform: translateX(0);
+    }
+
+    .nav-links a {
+      width: 100%;
+      padding: 14px 0;
+      font-size: 1rem;
+      border-bottom: 1px solid #f3f4f6;
+    }
+  }
+</style>
