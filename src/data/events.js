@@ -2,7 +2,8 @@
  * MatchTrip Events Data
  * =====================
  *
- * Each event contains structured travel data for affiliate link generation.
+ * Each event contains structured travel data for affiliate link generation
+ * and visual theming for cards and detail pages.
  *
  * partnerRefs fields (consumed by src/utils/affiliate-links.js):
  *   - hotelCity     → Booking.com search city
@@ -11,6 +12,11 @@
  *   - ticketUrl     → Official ticket site (direct link, no affiliate)
  *   - ticketSlug    → StubHub event slug for resale tickets
  *   - activityQuery → Viator search query for tours & activities
+ *
+ * theme fields (for card/detail visual rendering):
+ *   - colorFrom     → Gradient start color (hex)
+ *   - colorTo       → Gradient end color (hex)
+ *   - emoji         → Emoji for the event category
  */
 
 export const eventsData = {
@@ -19,8 +25,13 @@ export const eventsData = {
     category: 'Football',
     location: 'USA, Canada & Mexico',
     date: 'June – July 2026',
+    startDate: '2026-06-11T18:00:00-04:00',
+    endDate: '2026-07-19T22:00:00-04:00',
     description: 'The biggest football tournament returns to North America with 48 teams competing across 3 nations for the first time in history.',
     priceEstimate: '$2,500 – $8,000',
+    colorFrom: '#1e3a5f',
+    colorTo: '#2563eb',
+    emoji: '⚽',
     avgFlightPrice: '$600 – $1,200',
     avgHotelPrice: '$180/night',
     matchTickets: '$80 – $1,500',
@@ -35,24 +46,29 @@ export const eventsData = {
     },
   },
 
-  'winter-olympics-2026': {
-    title: 'Winter Olympics 2026',
+  'olympics-2028': {
+    title: 'Olympics 2028',
     category: 'Multi-Sport',
-    location: 'Milan-Cortina, Italy',
-    date: 'February 2026',
-    description: 'The XXV Olympic Winter Games bring the world\'s best winter athletes to the stunning Italian Alps and Dolomites.',
-    priceEstimate: '$3,000 – $10,000',
-    avgFlightPrice: '$700 – $1,400',
-    avgHotelPrice: '$200/night',
+    location: 'Los Angeles, USA',
+    date: 'July 2028',
+    startDate: '2028-07-14T19:00:00-07:00',
+    endDate: '2028-07-30T22:00:00-07:00',
+    description: 'The XXXIV Olympic Games return to Los Angeles, bringing the world\'s best athletes to iconic venues across Southern California.',
+    priceEstimate: '$2,500 – $8,000',
+    colorFrom: '#1e1b4b',
+    colorTo: '#6366f1',
+    emoji: '🏔️',
+    avgFlightPrice: '$400 – $1,000',
+    avgHotelPrice: '$220/night',
     matchTickets: '$50 – $2,000',
-    venues: ['Milano Arena', 'Cortina Olympic Stadium', 'Stelvio Ski Centre'],
-    hostCities: ['Milan', 'Cortina d\'Ampezzo', 'Verona'],
+    venues: ['SoFi Stadium', 'LA Memorial Coliseum', 'Crypto.com Arena'],
+    hostCities: ['Los Angeles'],
     partnerRefs: {
-      hotelCity: 'Milan',
-      flightTo: 'MIL',
-      ticketUrl: 'https://milano-cortina2026.org/en/tickets',
-      ticketSlug: 'winter-olympics-2026',
-      activityQuery: 'Milan Cortina Winter Olympics tours',
+      hotelCity: 'Los Angeles',
+      flightTo: 'LAX',
+      ticketUrl: 'https://www.la28.org',
+      ticketSlug: 'olympics-2028',
+      activityQuery: 'Los Angeles Olympics tours',
     },
   },
 
@@ -61,8 +77,13 @@ export const eventsData = {
     category: 'Motorsport',
     location: 'Monte Carlo, Monaco',
     date: 'May 2026',
+    startDate: '2026-05-22T14:00:00+02:00',
+    endDate: '2026-05-24T17:00:00+02:00',
     description: 'Experience the glamour and speed of F1 racing on the iconic Monaco street circuit, the crown jewel of the Formula 1 calendar.',
     priceEstimate: '$1,200 – $5,000',
+    colorFrom: '#7f1d1d',
+    colorTo: '#dc2626',
+    emoji: '🏎️',
     avgFlightPrice: '$400 – $900',
     avgHotelPrice: '$350/night',
     matchTickets: '$150 – $3,000',
@@ -77,13 +98,18 @@ export const eventsData = {
     },
   },
 
-  'super-bowl-lx': {
+  'super-bowl-2026': {
     title: 'Super Bowl LX',
     category: 'American Football',
     location: 'Santa Clara, USA',
     date: 'February 2026',
+    startDate: '2026-02-08T18:30:00-05:00',
+    endDate: '2026-02-08T22:00:00-05:00',
     description: 'The biggest single-day sporting event in America returns to the Bay Area at Levi\'s Stadium.',
     priceEstimate: '$4,000 – $12,000',
+    colorFrom: '#1e3a2f',
+    colorTo: '#16a34a',
+    emoji: '🏈',
     avgFlightPrice: '$400 – $1,000',
     avgHotelPrice: '$250/night',
     matchTickets: '$3,000 – $10,000',
@@ -98,13 +124,18 @@ export const eventsData = {
     },
   },
 
-  'wimbledon-2026': {
+  'wimbledon': {
     title: 'Wimbledon 2026',
     category: 'Tennis',
     location: 'London, UK',
     date: 'June – July 2026',
+    startDate: '2026-06-29T11:30:00+01:00',
+    endDate: '2026-07-12T21:00:00+01:00',
     description: 'The oldest and most prestigious tennis tournament in the world. Grass-court tradition meets elite competition.',
     priceEstimate: '$600 – $2,500',
+    colorFrom: '#14532d',
+    colorTo: '#22c55e',
+    emoji: '🎾',
     avgFlightPrice: '$500 – $1,000',
     avgHotelPrice: '$200/night',
     matchTickets: '$50 – $500',
@@ -119,13 +150,18 @@ export const eventsData = {
     },
   },
 
-  'champions-league-final-2026': {
+  'champions-league-final': {
     title: 'Champions League Final 2026',
     category: 'Football',
     location: 'Budapest, Hungary',
     date: 'May 2026',
+    startDate: '2026-05-30T21:00:00+02:00',
+    endDate: '2026-05-30T23:00:00+02:00',
     description: 'The biggest club football match in the world. One night, one trophy, one winner at the Puskas Arena.',
     priceEstimate: '$1,500 – $5,000',
+    colorFrom: '#1e1b4b',
+    colorTo: '#3b82f6',
+    emoji: '🏆',
     avgFlightPrice: '$300 – $800',
     avgHotelPrice: '$140/night',
     matchTickets: '$100 – $2,500',
@@ -140,13 +176,18 @@ export const eventsData = {
     },
   },
 
-  'us-open-tennis-2026': {
+  'us-open-tennis': {
     title: 'US Open Tennis 2026',
     category: 'Tennis',
     location: 'New York, USA',
     date: 'August – September 2026',
+    startDate: '2026-08-24T11:00:00-04:00',
+    endDate: '2026-09-13T22:00:00-04:00',
     description: 'The final Grand Slam of the year. Hard-court action under the lights of Flushing Meadows.',
     priceEstimate: '$800 – $3,000',
+    colorFrom: '#7c2d12',
+    colorTo: '#f97316',
+    emoji: '🎾',
     avgFlightPrice: '$300 – $700',
     avgHotelPrice: '$180/night',
     matchTickets: '$60 – $800',
@@ -161,13 +202,18 @@ export const eventsData = {
     },
   },
 
-  'nba-finals-2026': {
+  'nba-finals': {
     title: 'NBA Finals 2026',
     category: 'Basketball',
     location: 'Various Cities, USA',
     date: 'June 2026',
+    startDate: '2026-06-04T20:00:00-04:00',
+    endDate: '2026-06-22T23:00:00-04:00',
     description: 'The championship series of the National Basketball Association. The best two teams battle for the Larry O\'Brien Trophy.',
     priceEstimate: '$800 – $3,500',
+    colorFrom: '#1e1b4b',
+    colorTo: '#8b5cf6',
+    emoji: '🏀',
     avgFlightPrice: '$300 – $800',
     avgHotelPrice: '$150/night',
     matchTickets: '$200 – $5,000',
@@ -182,24 +228,55 @@ export const eventsData = {
     },
   },
 
-  'f1-silverstone-2026': {
-    title: 'Formula 1 British Grand Prix',
+  'f1-singapore-grand-prix': {
+    title: 'Formula 1 Singapore Grand Prix',
     category: 'Motorsport',
-    location: 'Silverstone, UK',
-    date: 'July 2026',
-    description: 'The home of British motorsport. Silverstone delivers high-speed drama and an atmosphere like no other on the F1 calendar.',
-    priceEstimate: '$800 – $3,000',
-    avgFlightPrice: '$300 – $700',
-    avgHotelPrice: '$160/night',
-    matchTickets: '$100 – $1,500',
-    venues: ['Silverstone Circuit'],
-    hostCities: ['London', 'Northampton'],
+    location: 'Singapore',
+    date: 'October 2026',
+    startDate: '2026-10-02T20:00:00+08:00',
+    endDate: '2026-10-04T22:00:00+08:00',
+    description: 'The original night race of Formula 1. Experience the spectacle of F1 cars roaring through the illuminated streets of Marina Bay.',
+    priceEstimate: '$1,500 – $4,500',
+    colorFrom: '#0c4a6e',
+    colorTo: '#0ea5e9',
+    emoji: '🏎️',
+    avgFlightPrice: '$500 – $1,000',
+    avgHotelPrice: '$250/night',
+    matchTickets: '$150 – $2,500',
+    venues: ['Marina Bay Street Circuit'],
+    hostCities: ['Singapore'],
     partnerRefs: {
-      hotelCity: 'Northampton',
-      flightTo: 'LON',
-      ticketUrl: 'https://www.formula1.com/en/racing/2026/Great-Britain',
-      ticketSlug: 'f1-british-gp-2026',
-      activityQuery: 'Silverstone F1 experience',
+      hotelCity: 'Singapore',
+      flightTo: 'SIN',
+      ticketUrl: 'https://www.formula1.com/en/racing/2026/Singapore',
+      ticketSlug: 'f1-singapore-gp-2026',
+      activityQuery: 'Singapore Grand Prix experience',
+    },
+  },
+
+  'masters-golf': {
+    title: 'The Masters 2026',
+    category: 'Golf',
+    location: 'Augusta, USA',
+    date: 'April 2026',
+    startDate: '2026-04-09T08:00:00-04:00',
+    endDate: '2026-04-12T19:00:00-04:00',
+    description: 'The most prestigious tournament in golf. Tradition, azaleas, and the iconic Green Jacket at Augusta National Golf Club.',
+    priceEstimate: '$2,000 – $6,000',
+    colorFrom: '#14532d',
+    colorTo: '#16a34a',
+    emoji: '⛳',
+    avgFlightPrice: '$300 – $700',
+    avgHotelPrice: '$200/night',
+    matchTickets: '$75 – $1,500',
+    venues: ['Augusta National Golf Club'],
+    hostCities: ['Augusta', 'Atlanta'],
+    partnerRefs: {
+      hotelCity: 'Augusta',
+      flightTo: 'AGS',
+      ticketUrl: 'https://www.masters.com',
+      ticketSlug: 'masters-golf-2026',
+      activityQuery: 'Augusta Masters golf experience',
     },
   },
 };

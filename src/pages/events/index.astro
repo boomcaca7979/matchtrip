@@ -11,21 +11,45 @@ const events = Object.entries(eventsData).map(([id, data]) => ({
   location: data.location,
   date: data.date,
   description: data.description,
-  priceEstimate: data.priceEstimate
+  priceEstimate: data.priceEstimate,
+  colorFrom: data.colorFrom,
+  colorTo: data.colorTo,
+  emoji: data.emoji,
 }));
+
+// CollectionPage structured data for SEO
+const eventsPageUrl = new URL('/events', Astro.site).href;
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Sports Events 2026 Schedule – Football, F1, NBA & Tennis Fixtures",
+  "description": "Discover 2026 sports events including football tournaments, F1 races, NBA Finals, Wimbledon & more. View schedules, dates, and match details updated regularly.",
+  "url": eventsPageUrl,
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": events.map((event, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": new URL('/events/' + event.id, Astro.site).href,
+      "name": event.title + " Schedule",
+    })),
+  },
+};
+
+const collectionPageHtml = `<script type="application/ld+json">${JSON.stringify(collectionPageSchema, null, '\t')}</script>`;
 
 const categories = ['All', ...new Set(events.map(e => e.category))];
 ---
 
-<Layout title="Events - MatchTrip" description="Browse major sporting events worldwide. Get travel plans, budget estimates, and city guides for FIFA World Cup, Olympics, F1, and more.">
+<Layout title="Sports Events 2026 Schedule – Football, F1, NBA & Tennis Fixtures | MatchTrip" description="Discover 2026 sports events including football tournaments, F1 races, NBA Finals, Wimbledon & more. View schedules, dates, and match details updated regularly.">
   <Navbar />
 
   <section class="events-hero">
     <div class="container">
-      <p class="overline">Global Sporting Calendar</p>
-      <h1>Find Your Next<br/><span class="gradient">Epic Event</span></h1>
+      <p class="overline">Global Sporting Calendar 2026</p>
+      <h1>Sports Events 2026 Schedule</h1>
       <p class="subtitle">
-        Browse major sporting events worldwide. Get travel plans, budget estimates, and city guides.
+        Explore the biggest sports events in 2026 including football tournaments, Formula 1 races, NBA Finals, Wimbledon, and global championships. Find updated schedules, match dates, and key event information in one place.
       </p>
 
       <div class="search-bar">
@@ -39,20 +63,47 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
     </div>
   </section>
 
+  <!-- Topic Cluster: Hub-and-Spoke Navigation -->
+  <section class="topic-cluster">
+    <div class="container">
+      <h2 class="cluster-heading">Browse by Sport</h2>
+      <div class="cluster-grid">
+        <a href="/events/football/" class="cluster-card">
+          <span class="cluster-icon">⚽</span>
+          <span class="cluster-label">Football Events 2026</span>
+          <span class="cluster-count">2 events</span>
+        </a>
+        <a href="/events/f1/" class="cluster-card">
+          <span class="cluster-icon">🏎️</span>
+          <span class="cluster-label">F1 2026 Schedule</span>
+          <span class="cluster-count">2 events</span>
+        </a>
+        <a href="/events/nba/" class="cluster-card">
+          <span class="cluster-icon">🏀</span>
+          <span class="cluster-label">NBA Finals 2026</span>
+          <span class="cluster-count">1 event</span>
+        </a>
+        <a href="/events/tennis/" class="cluster-card">
+          <span class="cluster-icon">🎾</span>
+          <span class="cluster-label">Tennis Tournaments 2026</span>
+          <span class="cluster-count">2 events</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section class="events-section">
     <div class="container">
       <div class="events-header">
         <h2>Upcoming Events</h2>
-        <p class="events-count">{events.length} events found</p>
+        <p class="events-count"><span id="eventsCount">{events.length}</span> events found</p>
       </div>
 
       <div class="events-grid" id="eventsGrid">
         {events.map(event => (
           <article class="event-card" data-category={event.category} data-title={event.title.toLowerCase()} data-location={event.location.toLowerCase()}>
-            <div class="event-image">
-              <div class="event-image-placeholder">
-                <span>{event.category[0]}</span>
-              </div>
+            <div class="event-image" style={`background: linear-gradient(135deg, ${event.colorFrom} 0%, ${event.colorTo} 100%)`}>
+              <span class="event-emoji">{event.emoji}</span>
               <span class="event-badge">{event.category}</span>
             </div>
             <div class="event-content">
@@ -60,7 +111,7 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
                 <span class="event-date">{event.date}</span>
                 <span class="event-location">{event.location}</span>
               </div>
-              <h3>{event.title}</h3>
+              <a href={`/events/${event.id}/`} class="event-card-title-link"><h3>{event.title} Schedule</h3></a>
               <p>{event.description}</p>
               <div class="event-footer">
                 <div class="event-price">
@@ -73,6 +124,8 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
           </article>
         ))}
       </div>
+
+      <p class="no-results" id="noResults" style="display:none;">No events match your search. Try a different keyword or category.</p>
     </div>
   </section>
 
@@ -85,12 +138,15 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
     </div>
   </section>
 
+
+		<!-- Schema.org CollectionPage -->
+		<Fragment set:html={collectionPageHtml} />
   <Footer />
 </Layout>
 
 <style>
   .events-hero {
-    padding: 80px 0 48px;
+    padding: 100px 0 48px;
     text-align: center;
     background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
   }
@@ -107,24 +163,17 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
   .events-hero h1 {
     font-size: 3.5rem;
     font-weight: 800;
-    line-height: 1.1;
+    letter-spacing: -1px;
     margin-bottom: 20px;
     color: #111;
   }
 
-  .gradient {
-    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
   .subtitle {
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
     color: #6b7280;
-    max-width: 600px;
+    max-width: 640px;
     margin: 0 auto 40px;
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
   .search-bar {
@@ -159,6 +208,65 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
     cursor: pointer;
     outline: none;
     font-family: inherit;
+  }
+
+  .topic-cluster {
+    padding: 0 0 48px;
+    background: #ffffff;
+  }
+
+  .cluster-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .cluster-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cluster-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 24px 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    text-align: center;
+  }
+
+  .cluster-card:hover {
+    border-color: #6366f1;
+    background: #f5f3ff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.1);
+  }
+
+  .cluster-icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .cluster-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #111;
+  }
+
+  .cluster-count {
+    font-size: 0.75rem;
+    color: #6b7280;
+    font-weight: 500;
   }
 
   .events-section {
@@ -211,24 +319,14 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
   .event-image {
     position: relative;
     height: 180px;
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .event-image-placeholder {
-    width: 64px;
-    height: 64px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+  .event-emoji {
+    font-size: 3.5rem;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
   }
 
   .event-badge {
@@ -255,7 +353,18 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
     color: #6b7280;
   }
 
-  .event-content h3 {
+  .event-card-title-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: color 0.2s ease;
+  }
+
+  .event-card-title-link:hover {
+    color: #6366f1;
+  }
+
+  .event-card-title-link h3 {
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 8px;
@@ -267,6 +376,10 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
     font-size: 0.95rem;
     line-height: 1.5;
     margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .event-footer {
@@ -293,6 +406,13 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
     font-size: 1rem;
     font-weight: 700;
     color: #111;
+  }
+
+  .no-results {
+    text-align: center;
+    color: #6b7280;
+    padding: 48px 0;
+    font-size: 1.05rem;
   }
 
   .cta-section {
@@ -349,6 +469,12 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
     .events-grid { grid-template-columns: 1fr; }
     .search-bar { flex-direction: column; }
     .cta-card { padding: 40px 24px; }
+    .cluster-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+  }
+
+  @media (max-width: 480px) {
+    .cluster-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .cluster-card { padding: 18px 12px; }
   }
 </style>
 
@@ -356,6 +482,8 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
   const searchInput = document.getElementById('searchInput') as HTMLInputElement;
   const categoryFilter = document.getElementById('categoryFilter') as HTMLSelectElement;
   const eventsGrid = document.getElementById('eventsGrid');
+  const eventsCount = document.getElementById('eventsCount');
+  const noResults = document.getElementById('noResults');
 
   if (eventsGrid) {
     const cards = eventsGrid.querySelectorAll('.event-card');
@@ -363,6 +491,7 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
     function filterEvents() {
       const query = searchInput?.value.toLowerCase() ?? '';
       const category = categoryFilter?.value ?? '';
+      let visibleCount = 0;
 
       cards.forEach(card => {
         const el = card as HTMLElement;
@@ -373,8 +502,13 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
         const matchesSearch = title.includes(query) || location.includes(query);
         const matchesCategory = !category || cardCategory === category;
 
-        el.style.display = matchesSearch && matchesCategory ? '' : 'none';
+        const visible = matchesSearch && matchesCategory;
+        el.style.display = visible ? '' : 'none';
+        if (visible) visibleCount++;
       });
+
+      if (eventsCount) eventsCount.textContent = String(visibleCount);
+      if (noResults) noResults.style.display = visibleCount === 0 ? '' : 'none';
     }
 
     searchInput?.addEventListener('input', filterEvents);

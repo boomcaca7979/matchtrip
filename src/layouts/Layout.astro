@@ -2,14 +2,34 @@
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
 const {
   title = 'MatchTrip - Sports Travel Planner',
   description = 'Discover major sporting events worldwide and get complete travel plans with budget estimates. Follow the game, plan the journey.',
+  image = '/og-image.png',
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://matchtrip.vercel.app');
+const site = Astro.site ?? new URL('https://matchtrip-blue.vercel.app');
+const canonicalURL = new URL(Astro.url.pathname, site);
+
+const siteOrigin = site.origin;
+const jsonld = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "MatchTrip",
+  "url": siteOrigin,
+  "description": "Discover major sporting events worldwide and get complete travel plans with budget estimates.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": siteOrigin + "/events?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
 ---
 
 <!doctype html>
@@ -17,22 +37,38 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://matchtri
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#111827" />
+		<meta name="google-site-verification" content="hUhmeBzq4EIbPrlUciqwxguszGEqbTXAssk-PM5ep-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<link rel="apple-touch-icon" href="/favicon.svg" />
 		<link rel="canonical" href={canonicalURL} />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
+
+		<!-- Open Graph -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, site)} />
 		<meta property="og:site_name" content="MatchTrip" />
+
+		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={new URL(image, site)} />
+
+		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+		<!-- JSON-LD Structured Data -->
+		<script type="application/ld+json" set:html={JSON.stringify(jsonld, null, '\t')}>
+		</script>
+
 		<title>{title}</title>
 	</head>
 	<body>

@@ -1,0 +1,242 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="About - MatchTrip" description="MatchTrip helps sports fans plan their travel to major sporting events worldwide. Discover events, compare costs, and book with confidence.">
+  <Navbar />
+
+  <section class="about-hero">
+    <div class="container">
+      <span class="tag">About Us</span>
+      <h1>Follow the Game.<br/><span class="gradient">Plan the Journey.</span></h1>
+      <p class="lead">MatchTrip helps sports fans plan their travel to the biggest sporting events on the planet.</p>
+    </div>
+  </section>
+
+  <section class="story">
+    <div class="container narrow">
+      <h2>Our Story</h2>
+      <p>MatchTrip started with a simple frustration: planning travel around major sporting events meant juggling a dozen browser tabs — flights here, hotels there, tickets somewhere else, and a city guide on yet another site. There had to be a better way.</p>
+      <p>So we built it. One place to find events, compare costs, and book everything you need. No accounts, no noise — just the information traveling sports fans actually need.</p>
+    </div>
+  </section>
+
+  <section class="mission">
+    <div class="container">
+      <div class="mission-grid">
+        <div class="mission-card">
+          <div class="mission-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Curated Events</h3>
+          <p>We hand-pick the most significant sporting events worldwide so you don't have to hunt for them.</p>
+        </div>
+        <div class="mission-card">
+          <div class="mission-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Honest Pricing</h3>
+          <p>Budget estimates are based on real market data. We show you what to expect, not marketing fluff.</p>
+        </div>
+        <div class="mission-card">
+          <div class="mission-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Global Coverage</h3>
+          <p>From the World Cup to Wimbledon, from Monaco to Milan — we cover events across continents.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="container narrow">
+      <h2>How We Keep It Free</h2>
+      <p>MatchTrip is completely free to use. When you book through our affiliate links to partners like Booking.com, Skyscanner, and Viator, we may earn a small commission at no extra cost to you. This lets us keep the site running, add new events, and improve the experience for everyone.</p>
+      <p>We only partner with trusted travel and ticketing platforms that we'd use ourselves. Every affiliate link is clearly disclosed, and we never recommend something just for the commission.</p>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="container narrow">
+      <h2>Get in Touch</h2>
+      <p>Questions, suggestions, or feedback? We'd love to hear from you.</p>
+      <a href="mailto:hello@matchtrip.com" class="btn btn-primary btn-lg">Email Us</a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .about-hero {
+    padding: 120px 0 60px;
+    text-align: center;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 6px 16px;
+    background: #f1f5f9;
+    border-radius: 100px;
+    font-size: 0.875rem;
+    color: #475569;
+    font-weight: 500;
+    margin-bottom: 24px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .about-hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    color: #111;
+  }
+
+  .gradient {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .lead {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .story,
+  .values,
+  .contact {
+    padding: 80px 0;
+  }
+
+  .narrow {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .story h2,
+  .values h2,
+  .contact h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #111;
+  }
+
+  .story p,
+  .values p {
+    color: #4b5563;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .mission {
+    padding: 0 0 80px;
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .mission-card {
+    padding: 36px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    text-align: center;
+  }
+
+  .mission-icon {
+    width: 56px;
+    height: 56px;
+    background: #f1f5f9;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+
+  .mission-card h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #111;
+  }
+
+  .mission-card p {
+    color: #6b7280;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .values {
+    background: #f8fafc;
+  }
+
+  .contact {
+    text-align: center;
+  }
+
+  .contact p {
+    color: #6b7280;
+    font-size: 1.05rem;
+    margin-bottom: 32px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-lg {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+
+  .btn-primary {
+    background: #111;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #374151;
+    transform: translateY(-1px);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  @media (max-width: 768px) {
+    .about-hero h1 { font-size: 2.25rem; }
+    .mission-grid { grid-template-columns: 1fr; }
+    .story, .values, .contact { padding: 60px 0; }
+  }
+</style>

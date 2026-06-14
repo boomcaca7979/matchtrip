@@ -7,6 +7,6 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   output: 'static',
   adapter: vercel(),
-  site: 'https://matchtrip.vercel.app',
+  site: 'https://matchtrip-blue.vercel.app',
   integrations: [sitemap()],
 });

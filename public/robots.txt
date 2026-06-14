@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://matchtrip.vercel.app/sitemap-index.xml
+Sitemap: https://matchtrip-blue.vercel.app/sitemap-index.xml

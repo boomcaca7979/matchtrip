@@ -45,12 +45,12 @@ function trackedUrl(program, basePath, searchParams = {}, campaign = '') {
     if (v) url.searchParams.set(k, v);
   }
 
-  // UTM params (only if affiliate ID is set — don't pollute direct links)
-  if (p.id) {
-    for (const [k, v] of Object.entries(UTM_DEFAULTS)) {
-      url.searchParams.set(k, v);
-    }
-    if (campaign) {
+ // UTM params (only if affiliate ID is set — don't pollute direct links)
+ if (p.id) {
+   for (const [k, v] of Object.entries(UTM_DEFAULTS)) {
+      if (v) url.searchParams.set(k, v);
+   }
+   if (campaign) {
       url.searchParams.set('utm_campaign', campaign);
     }
   }

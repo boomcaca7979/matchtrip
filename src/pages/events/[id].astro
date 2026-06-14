@@ -31,6 +31,56 @@ const ticketUrl = buildTicketLink({ url: refs.ticketUrl, slug: refs.ticketSlug, 
 const activityUrl = refs.activityQuery
   ? buildActivityLink({ query: refs.activityQuery, campaign })
   : null;
+
+const otherEvents = Object.entries(eventsData)
+  .filter(([eid]) => eid !== id)
+  .slice(0, 3)
+  .map(([eid, data]) => ({ id: eid, ...data }));
+
+// Category mapping for hub-and-spoke linking
+const categoryToCluster = {
+  'Football': { url: '/events/football/', label: 'Football Events 2026' },
+  'Motorsport': { url: '/events/f1/', label: 'F1 2026 Schedule' },
+  'Basketball': { url: '/events/nba/', label: 'NBA Finals 2026' },
+  'Tennis': { url: '/events/tennis/', label: 'Tennis Tournaments 2026' },
+};
+const clusterLink = categoryToCluster[event.category as keyof typeof categoryToCluster] || { url: '/events/', label: 'All Events' };
+// Event structured data for SEO (JSON-LD)
+const eventUrl = new URL('/events/' + id, Astro.site).href;
+const eventSchema = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": event.title,
+  "startDate": event.startDate,
+  "endDate": event.endDate,
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": event.venues[0],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": event.hostCities[0],
+      "addressRegion": event.location.split(',').pop()?.trim() || ""
+    }
+  },
+  "image": ["https://matchtrip-blue.vercel.app/og-image.jpg"],
+  "description": event.description,
+  "offers": {
+    "@type": "Offer",
+    "url": eventUrl,
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": "MatchTrip",
+    "url": "https://matchtrip-blue.vercel.app"
+  }
+};
+
+const eventSchemaHtml = `<script type="application/ld+json">${JSON.stringify(eventSchema, null, '\t')}</script>`;
 ---
 
 <Layout
@@ -40,17 +90,23 @@ const activityUrl = refs.activityQuery
   <Navbar />
 
   <!-- Hero -->
-  <section class="event-hero">
+  <section class="event-hero" style={`background: linear-gradient(135deg, ${event.colorFrom} 0%, ${event.colorTo} 100%)`}>
     <div class="container">
       <a href="/events" class="back-link">&larr; All Events</a>
-      <span class="event-category">{event.category}</span>
-      <h1>{event.title}</h1>
-      <div class="event-meta-bar">
-        <span>{event.date}</span>
-        <span>{event.location}</span>
-        <span>Est. Cost: {event.priceEstimate}</span>
+      <a href={clusterLink.url} class="back-link badge-link">{clusterLink.label}</a>
+      <div class="hero-content">
+        <span class="event-emoji">{event.emoji}</span>
+        <span class="event-category">{event.category}</span>
+        <h1>{event.title}</h1>
+        <div class="event-meta-bar">
+          <span>{event.date}</span>
+          <span class="meta-dot">·</span>
+          <span>{event.location}</span>
+          <span class="meta-dot">·</span>
+          <span>Est. Cost: {event.priceEstimate}</span>
+        </div>
+        <p class="event-description">{event.description}</p>
       </div>
-      <p class="event-description">{event.description}</p>
     </div>
   </section>
 
@@ -58,6 +114,7 @@ const activityUrl = refs.activityQuery
   <section class="budget-section">
     <div class="container">
       <h2>Travel Budget Breakdown</h2>
+      <p class="section-sub">Estimated costs to help you plan your trip</p>
       <div class="budget-grid">
         <div class="budget-card">
           <div class="budget-icon" aria-hidden="true">&#x2708;&#xFE0F;</div>
@@ -116,17 +173,52 @@ const activityUrl = refs.activityQuery
         <div class="activities-card">
           <h2>Tours &amp; Activities</h2>
           <p>Explore local experiences, stadium tours, and guided packages around the event.</p>
-          <a href={activityUrl} class="btn btn-white" target="_blank" rel="noopener noreferrer sponsored">Browse Activities</a>
+          <a href={activityUrl} class="btn btn-green" target="_blank" rel="noopener noreferrer sponsored">Browse Activities</a>
         </div>
         <AffiliateDisclosure />
       </div>
     </section>
   )}
 
+  <!-- Other Events -->
+  <section class="related-section">
+    <div class="container">
+      <h2>More Events</h2>
+      <div class="related-grid">
+        {otherEvents.map(other => (
+          <a href={`/events/${other.id}`} class="related-card">
+            <div class="related-image" style={`background: linear-gradient(135deg, ${other.colorFrom} 0%, ${other.colorTo} 100%)`}>
+              <span class="related-emoji">{other.emoji}</span>
+            </div>
+            <div class="related-body">
+              <span class="related-badge">{other.category}</span>
+              <h3>{other.title}</h3>
+              <p>{other.location} · {other.date}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Browse by Sport (Hub-and-Spoke) -->
+  <section class="detail-cluster">
+    <div class="container">
+      <h2>Browse by Sport</h2>
+      <div class="detail-cluster-grid">
+        <a href="/events/" class="detail-cluster-link hub-link">All Events Hub</a>
+        <a href="/events/football/" class="detail-cluster-link">Football Events 2026</a>
+        <a href="/events/f1/" class="detail-cluster-link">F1 2026 Schedule</a>
+        <a href="/events/nba/" class="detail-cluster-link">NBA Finals 2026</a>
+        <a href="/events/tennis/" class="detail-cluster-link">Tennis Tournaments 2026</a>
+      </div>
+    </div>
+  </section>
+
   <!-- Bottom CTA -->
   <section class="affiliate-cta">
     <div class="container">
-      <div class="cta-card">
+      <div class="cta-card" style={`background: linear-gradient(135deg, ${event.colorFrom} 0%, ${event.colorTo} 100%)`}>
         <h2>Ready to book your trip?</h2>
         <p>Compare prices across airlines and hotels. We may earn a small commission when you book through our links.</p>
         <div class="cta-buttons">
@@ -137,15 +229,30 @@ const activityUrl = refs.activityQuery
     </div>
   </section>
 
-  <Footer />
+  
+		<!-- Schema.org Event -->
+		<Fragment set:html={eventSchemaHtml} />
+<Footer />
 </Layout>
 
 <style>
   /* Hero */
   .event-hero {
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
     color: white;
-    padding: 80px 0 60px;
+    padding: 100px 0 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .event-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+    pointer-events: none;
   }
 
   .container {
@@ -156,18 +263,46 @@ const activityUrl = refs.activityQuery
 
   .back-link {
     display: inline-block;
-    color: #94a3b8;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     font-size: 0.9rem;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     transition: color 0.2s;
+  }
+
+  .badge-link {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 12px;
+    backdrop-filter: blur(4px);
+  }
+
+  .badge-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
   }
 
   .back-link:hover { color: white; }
 
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .event-emoji {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 16px;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+  }
+
   .event-category {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
     padding: 6px 16px;
     border-radius: 20px;
     font-size: 0.85rem;
@@ -179,32 +314,41 @@ const activityUrl = refs.activityQuery
     font-size: 3rem;
     font-weight: 800;
     margin-bottom: 20px;
+    line-height: 1.1;
   }
 
   .event-meta-bar {
     display: flex;
-    gap: 24px;
+    align-items: center;
+    gap: 8px;
     margin-bottom: 20px;
-    color: #94a3b8;
+    color: rgba(255, 255, 255, 0.8);
     font-size: 0.95rem;
     flex-wrap: wrap;
   }
 
+  .meta-dot { opacity: 0.4; }
+
   .event-description {
-    color: #cbd5e1;
+    color: rgba(255, 255, 255, 0.9);
     font-size: 1.1rem;
     line-height: 1.6;
     max-width: 700px;
   }
 
   /* Budget */
-  .budget-section { padding: 60px 0; }
+  .budget-section { padding: 80px 0 60px; }
 
   .budget-section h2 {
     font-size: 1.75rem;
     font-weight: 700;
-    margin-bottom: 32px;
+    margin-bottom: 4px;
     color: #111;
+  }
+
+  .section-sub {
+    color: #6b7280;
+    margin-bottom: 40px;
   }
 
   .budget-grid {
@@ -280,9 +424,10 @@ const activityUrl = refs.activityQuery
   .venues-card ul { list-style: none; padding: 0; }
 
   .venues-card li {
-    padding: 8px 0;
+    padding: 10px 0;
     color: #4b5563;
     border-bottom: 1px solid #f3f4f6;
+    font-size: 0.95rem;
   }
 
   .venues-card li:last-child { border-bottom: none; }
@@ -295,7 +440,7 @@ const activityUrl = refs.activityQuery
 
   .city-tag {
     background: #f3f4f6;
-    padding: 6px 14px;
+    padding: 8px 16px;
     border-radius: 20px;
     font-size: 0.9rem;
     color: #374151;
@@ -324,28 +469,163 @@ const activityUrl = refs.activityQuery
     margin-bottom: 24px;
   }
 
+  /* Related Events */
+  .related-section { padding: 0 0 80px; }
+
+  .related-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #111;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .related-card {
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .related-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+  }
+
+  .related-image {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .related-emoji {
+    font-size: 2rem;
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.3));
+  }
+
+  .related-body {
+    padding: 16px;
+  }
+
+  .related-badge {
+    display: inline-block;
+    background: #f3f4f6;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 6px;
+  }
+
+  .related-body h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 4px;
+  }
+
+  .related-body p {
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+
   /* CTA */
+  .detail-cluster {
+    padding: 0 0 60px;
+  }
+
+  .detail-cluster h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 20px;
+  }
+
+  .detail-cluster-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .detail-cluster-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #111;
+    transition: all 0.2s ease;
+  }
+
+  .detail-cluster-link:hover {
+    border-color: #6366f1;
+    background: #f5f3ff;
+    color: #6366f1;
+  }
+
+  .hub-link {
+    background: #111827;
+    border-color: #111827;
+    color: white;
+  }
+
+  .hub-link:hover {
+    background: #374151;
+    border-color: #374151;
+    color: white;
+  }
+
   .affiliate-cta { padding: 0 0 80px; }
 
   .cta-card {
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
     border-radius: 24px;
     padding: 64px;
     text-align: center;
     color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+    pointer-events: none;
   }
 
   .cta-card h2 {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
   }
 
   .cta-card p {
-    color: #94a3b8;
+    color: rgba(255, 255, 255, 0.8);
     max-width: 600px;
     margin: 0 auto 32px;
     line-height: 1.6;
+    position: relative;
+    z-index: 1;
   }
 
   .cta-buttons {
@@ -353,6 +633,8 @@ const activityUrl = refs.activityQuery
     gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
   }
 
   /* Buttons */
@@ -393,21 +675,40 @@ const activityUrl = refs.activityQuery
 
   .btn-white {
     background: white;
-    color: #0f172a;
+    color: #111;
     padding: 14px 28px;
     border-radius: 12px;
     font-weight: 600;
     border: none;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
 
-  .btn-white:hover { transform: scale(1.02); }
+  .btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-green {
+    background: #16a34a;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.95rem;
+  }
+
+  .btn-green:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+  }
 
   @media (max-width: 768px) {
     .event-hero h1 { font-size: 2rem; }
-    .event-meta-bar { flex-direction: column; gap: 8px; }
+    .event-meta-bar { flex-direction: column; gap: 4px; align-items: flex-start; }
+    .meta-dot { display: none; }
     .budget-grid { grid-template-columns: 1fr; }
     .venues-grid { grid-template-columns: 1fr; }
+    .related-grid { grid-template-columns: 1fr; }
     .cta-buttons { flex-direction: column; align-items: center; }
     .cta-card { padding: 40px 24px; }
   }
