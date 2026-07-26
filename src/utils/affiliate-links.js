@@ -16,7 +16,29 @@ import { AFFILIATE_PROGRAMS, UTM_DEFAULTS } from '../config/affiliates';
 
 function isEnabled(program) {
   const p = AFFILIATE_PROGRAMS[program];
-  return p && p.enabled;
+  return !!(p && p.enabled);
+}
+
+/**
+ * Safe fallback URLs used when an affiliate program is disabled or missing ID.
+ * These are non-monetized but functional, avoiding dead '#' links and naked
+ * affiliate links that would leak traffic without commission.
+ */
+function fallbackHotels(city) {
+  const q = city ? `hotels in ${city}` : 'hotels';
+  return `https://www.google.com/travel/hotels?q=${encodeURIComponent(q)}`;
+}
+function fallbackFlights(to) {
+  const q = to ? `flights to ${to}` : 'flights';
+  return `https://www.google.com/travel/flights?q=${encodeURIComponent(q)}`;
+}
+function fallbackTickets(slug) {
+  const q = slug ? slug.replace(/-/g, ' ') : 'event tickets';
+  return `https://www.google.com/search?q=${encodeURIComponent(q + ' tickets')}`;
+}
+function fallbackActivities(query) {
+  const q = query ? `${query} tours` : 'tours and activities';
+  return `https://www.google.com/search?q=${encodeURIComponent(q)}`;
 }
 
 /**
@@ -65,7 +87,11 @@ function trackedUrl(program, basePath, searchParams = {}, campaign = '') {
  * @param {{ city: string, checkin?: string, checkout?: string, campaign?: string }} opts
  */
 export function buildHotelLink({ city = '', checkin = '', checkout = '', campaign = '' } = {}) {
-  if (!isEnabled('booking')) return '#';
+  // If program disabled, use fallback (no dead '#' link).
+  if (!isEnabled('booking')) return fallbackHotels(city);
+  // If affiliate ID is missing, do NOT generate naked booking.com URL
+  // (that would leak traffic without commission). Use fallback instead.
+  if (!AFFILIATE_PROGRAMS.booking.id) return fallbackHotels(city);
 
   return trackedUrl('booking', AFFILIATE_PROGRAMS.booking.baseUrl, {
     ss: city,             // Booking.com search query
@@ -79,7 +105,10 @@ export function buildHotelLink({ city = '', checkin = '', checkout = '', campaig
  * @param {{ from?: string, to?: string, campaign?: string }} opts
  */
 export function buildFlightLink({ from = '', to = '', campaign = '' } = {}) {
-  if (!isEnabled('skyscanner')) return '#';
+  // If program disabled or ID missing, use fallback (no dead '#' link).
+  if (!isEnabled('skyscanner') || !AFFILIATE_PROGRAMS.skyscanner.id) {
+    return fallbackFlights(to);
+  }
 
   // Skyscanner URL format: /transport/flights/{from}/{to}/
   const path = (from && to)
@@ -97,7 +126,10 @@ export function buildTicketLink({ url = '', slug = '', campaign = '' } = {}) {
   // If there's a direct official URL (FIFA, UEFA, etc.), use it as-is.
   // StubHub/Viagogo can be offered as secondary options.
   if (url) return url;
-  if (!isEnabled('stubhub')) return '#';
+  // If StubHub disabled or ID missing, use fallback (no dead '#' link).
+  if (!isEnabled('stubhub') || !AFFILIATE_PROGRAMS.stubhub.id) {
+    return fallbackTickets(slug);
+  }
   return trackedUrl('stubhub', `${AFFILIATE_PROGRAMS.stubhub.baseUrl}/e/${slug}`, {}, campaign);
 }
 
@@ -106,7 +138,10 @@ export function buildTicketLink({ url = '', slug = '', campaign = '' } = {}) {
  * @param {{ query: string, campaign?: string }} opts
  */
 export function buildActivityLink({ query = '', campaign = '' } = {}) {
-  if (!isEnabled('viator')) return '#';
+  // If program disabled or ID missing, use fallback (no dead '#' link).
+  if (!isEnabled('viator') || !AFFILIATE_PROGRAMS.viator.id) {
+    return fallbackActivities(query);
+  }
   return trackedUrl('viator', AFFILIATE_PROGRAMS.viator.baseUrl, { text: query }, campaign);
 }
 
