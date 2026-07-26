@@ -37,6 +37,7 @@ export const eventsData = {
     matchTickets: '$80 – $1,500',
     venues: ['MetLife Stadium (NJ)', 'SoFi Stadium (LA)', 'AT&T Stadium (TX)', 'Azteca Stadium (Mexico City)'],
     hostCities: ['New York', 'Los Angeles', 'Dallas', 'Mexico City', 'Toronto', 'Vancouver'],
+    organizer: { name: 'FIFA', url: 'https://www.fifa.com' },
     partnerRefs: {
       hotelCity: 'New York',
       flightTo: 'NYC',
@@ -63,6 +64,7 @@ export const eventsData = {
     matchTickets: '$50 – $2,000',
     venues: ['SoFi Stadium', 'LA Memorial Coliseum', 'Crypto.com Arena'],
     hostCities: ['Los Angeles'],
+    organizer: { name: 'International Olympic Committee', url: 'https://olympics.com' },
     partnerRefs: {
       hotelCity: 'Los Angeles',
       flightTo: 'LAX',
@@ -89,6 +91,7 @@ export const eventsData = {
     matchTickets: '$150 – $3,000',
     venues: ['Circuit de Monaco', 'Monte Carlo'],
     hostCities: ['Monaco', 'Nice'],
+    organizer: { name: 'Automobile Club de Monaco', url: 'https://www.acm.mc' },
     partnerRefs: {
       hotelCity: 'Monaco',
       flightTo: 'NCE',
@@ -115,6 +118,7 @@ export const eventsData = {
     matchTickets: '$3,000 – $10,000',
     venues: ['Levi\'s Stadium'],
     hostCities: ['San Francisco', 'San Jose'],
+    organizer: { name: 'NFL', url: 'https://www.nfl.com' },
     partnerRefs: {
       hotelCity: 'Santa Clara',
       flightTo: 'SFO',
@@ -141,6 +145,7 @@ export const eventsData = {
     matchTickets: '$50 – $500',
     venues: ['All England Lawn Tennis Club'],
     hostCities: ['London'],
+    organizer: { name: 'All England Lawn Tennis Club', url: 'https://www.wimbledon.com' },
     partnerRefs: {
       hotelCity: 'London',
       flightTo: 'LON',
@@ -167,6 +172,7 @@ export const eventsData = {
     matchTickets: '$100 – $2,500',
     venues: ['Puskas Arena'],
     hostCities: ['Budapest'],
+    organizer: { name: 'UEFA', url: 'https://www.uefa.com' },
     partnerRefs: {
       hotelCity: 'Budapest',
       flightTo: 'BUD',
@@ -193,6 +199,7 @@ export const eventsData = {
     matchTickets: '$60 – $800',
     venues: ['Arthur Ashe Stadium', 'USTA Billie Jean King National Tennis Center'],
     hostCities: ['New York'],
+    organizer: { name: 'USTA', url: 'https://www.usta.com' },
     partnerRefs: {
       hotelCity: 'New York',
       flightTo: 'NYC',
@@ -219,6 +226,7 @@ export const eventsData = {
     matchTickets: '$200 – $5,000',
     venues: ['TBD - Conference Champion Home Courts'],
     hostCities: ['TBD'],
+    organizer: { name: 'NBA', url: 'https://www.nba.com' },
     partnerRefs: {
       hotelCity: '',
       flightTo: '',
@@ -245,6 +253,7 @@ export const eventsData = {
     matchTickets: '$150 – $2,500',
     venues: ['Marina Bay Street Circuit'],
     hostCities: ['Singapore'],
+    organizer: { name: 'Singapore GP', url: 'https://www.singaporegp.sg' },
     partnerRefs: {
       hotelCity: 'Singapore',
       flightTo: 'SIN',
@@ -271,6 +280,7 @@ export const eventsData = {
     matchTickets: '$75 – $1,500',
     venues: ['Augusta National Golf Club'],
     hostCities: ['Augusta', 'Atlanta'],
+    organizer: { name: 'Augusta National Golf Club', url: 'https://www.masters.com' },
     partnerRefs: {
       hotelCity: 'Augusta',
       flightTo: 'AGS',
