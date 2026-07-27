@@ -44,7 +44,7 @@ export const AFFILIATE_PROGRAMS = {
   klook: {
     id: '738032',          // Travelpayouts marker (复用)
     enabled: true,
-    promoId: '',           // ⏸️ 待填: Klook 在 Travelpayouts 的 program ID (p 参数)
+    promoId: '4110',       // ✅ Klook Travelpayouts program ID
     baseUrl: 'https://tp.media/r',
     param: 'marker',
     extra: {},             // p 在运行时从 promoId 注入
