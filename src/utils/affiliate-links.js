@@ -83,48 +83,96 @@ function trackedUrl(program, basePath, searchParams = {}, campaign = '') {
 // ── Public API ────────────────────────────────────────
 
 /**
+ * Build a Travelpayouts redirect URL for any hotel/experience provider.
+ * Common shape: tp.media/r?marker=xxx&p={promoId}&u=<encoded target URL>&utm_*=...
+ * Used by Klook / KKday / Booking providers.
+ * @param {object} p        Program config (klook | kkday | booking)
+ * @param {string} city
+ * @param {string} checkin
+ * @param {string} checkout
+ * @param {string} campaign
+ */
+function buildTravelpayoutsRedirect(p, { city = '', checkin = '', checkout = '', campaign = '' } = {}) {
+  if (!p || !p.id || !p.enabled) return null;
+
+  // promoId required for Klook/KKday (Booking uses extra.p instead)
+  const promoId = p.promoId || (p.extra && p.extra.p) || '';
+  if (!promoId) return null;
+
+  // Build target URL (klook.com / kkday.com / booking.com search page)
+  const targetUrl = new URL(p.targetBaseUrl);
+
+  // Provider-specific search param (klook: query, kkday: keyword, booking: ss)
+  const searchParam = p.targetSearchParam || 'ss';
+  if (city) targetUrl.searchParams.set(searchParam, city);
+
+  // Booking.com supports checkin/checkout; Klook/KKday don't but we pass them
+  // for future compatibility (they'll be ignored by the target site).
+  if (checkin) targetUrl.searchParams.set('checkin', checkin);
+  if (checkout) targetUrl.searchParams.set('checkout', checkout);
+
+  // Wrap into tp.media/r redirect
+  const redirectUrl = new URL(p.baseUrl);
+  redirectUrl.searchParams.set(p.param, p.id);
+  redirectUrl.searchParams.set('p', promoId);
+  redirectUrl.searchParams.set('u', targetUrl.toString());
+
+  // UTM params
+  for (const [k, v] of Object.entries(UTM_DEFAULTS)) {
+    if (v) redirectUrl.searchParams.set(k, v);
+  }
+  if (campaign) redirectUrl.searchParams.set('utm_campaign', campaign);
+
+  return redirectUrl.toString();
+}
+
+/**
  * Build a hotel booking link.
- * Supports two modes:
- *  1. Travelpayouts redirect: tp.media/r?marker=xxx&p=4114&u=<encoded booking.com URL>
- *  2. Standard direct: booking.com?aid=xxx&ss=city (Awin / Booking.com official)
+ * Dispatches based on AFFILIATE_PROGRAMS.hotelProvider:
+ *  - 'klook':  优先 Klook, promoId 未填则回退 KKday, 再回退 fallback
+ *  - 'kkday':  优先 KKday, promoId 未填则回退 Klook, 再回退 fallback
+ *  - 'booking': 走原 Booking.com Travelpayouts redirect (p=4114)
  * @param {{ city: string, checkin?: string, checkout?: string, campaign?: string }} opts
  */
 export function buildHotelLink({ city = '', checkin = '', checkout = '', campaign = '' } = {}) {
-  // If program disabled, use fallback (no dead '#' link).
+  const provider = AFFILIATE_PROGRAMS.hotelProvider || 'booking';
+
+  if (provider === 'klook') {
+    // Try Klook first
+    const klookUrl = buildTravelpayoutsRedirect(AFFILIATE_PROGRAMS.klook, { city, checkin, checkout, campaign });
+    if (klookUrl) return klookUrl;
+    // Fallback to KKday
+    const kkdayUrl = buildTravelpayoutsRedirect(AFFILIATE_PROGRAMS.kkday, { city, checkin, checkout, campaign });
+    if (kkdayUrl) return kkdayUrl;
+    // Final fallback: Google Hotels (no commission, functional)
+    return fallbackHotels(city);
+  }
+
+  if (provider === 'kkday') {
+    // Try KKday first
+    const kkdayUrl = buildTravelpayoutsRedirect(AFFILIATE_PROGRAMS.kkday, { city, checkin, checkout, campaign });
+    if (kkdayUrl) return kkdayUrl;
+    // Fallback to Klook
+    const klookUrl = buildTravelpayoutsRedirect(AFFILIATE_PROGRAMS.klook, { city, checkin, checkout, campaign });
+    if (klookUrl) return klookUrl;
+    return fallbackHotels(city);
+  }
+
+  // Legacy / default: Booking.com via Travelpayouts redirect (p=4114)
+  // Preserved so re-enabling Booking only requires setting hotelProvider='booking'.
   if (!isEnabled('booking')) return fallbackHotels(city);
-  // If affiliate ID is missing, do NOT generate naked booking.com URL
-  // (that would leak traffic without commission). Use fallback instead.
   const p = AFFILIATE_PROGRAMS.booking;
   if (!p.id) return fallbackHotels(city);
 
-  // Travelpayouts redirect mode: wrap a target booking.com URL into tp.media/r?...&u=<encoded>
+  // Booking redirect mode
   if (p.redirectMode && p.targetBaseUrl) {
-    const targetUrl = new URL(p.targetBaseUrl);
-    if (city) targetUrl.searchParams.set('ss', city);
-    if (checkin) targetUrl.searchParams.set('checkin', checkin);
-    if (checkout) targetUrl.searchParams.set('checkout', checkout);
-
-    const redirectUrl = new URL(p.baseUrl);
-    redirectUrl.searchParams.set(p.param, p.id);
-    if (p.extra) {
-      for (const [k, v] of Object.entries(p.extra)) {
-        redirectUrl.searchParams.set(k, v);
-      }
-    }
-    redirectUrl.searchParams.set('u', targetUrl.toString());
-
-    // UTM params
-    for (const [k, v] of Object.entries(UTM_DEFAULTS)) {
-      if (v) redirectUrl.searchParams.set(k, v);
-    }
-    if (campaign) redirectUrl.searchParams.set('utm_campaign', campaign);
-
-    return redirectUrl.toString();
+    const url = buildTravelpayoutsRedirect(p, { city, checkin, checkout, campaign });
+    if (url) return url;
   }
 
   // Standard mode (Awin / Booking.com direct): booking.com?aid=xxx&ss=city
   return trackedUrl('booking', p.baseUrl, {
-    ss: city,             // Booking.com search query
+    ss: city,
     checkin,
     checkout,
   }, campaign);
