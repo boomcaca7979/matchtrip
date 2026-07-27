@@ -8,6 +8,8 @@ import {
   buildHotelLink,
   buildFlightLink,
   buildTicketLink,
+  buildOfficialTicketLink,
+  buildResaleTicketLinks,
   buildActivityLink,
 } from '../../utils/affiliate-links';
 
@@ -25,9 +27,18 @@ if (!event) {
 const refs = event.partnerRefs;
 const campaign = id as string;
 
-const hotelUrl = buildHotelLink({ city: refs.hotelCity, campaign });
+// Pass event dates as default checkin/checkout so users land on date-matched search results
+const checkin = event.startDate ? event.startDate.split('T')[0] : '';
+const checkout = event.endDate ? event.endDate.split('T')[0] : '';
+const hotelUrl = buildHotelLink({ city: refs.hotelCity, checkin, checkout, campaign });
 const flightUrl = buildFlightLink({ to: refs.flightTo, campaign });
 const ticketUrl = buildTicketLink({ url: refs.ticketUrl, slug: refs.ticketSlug, campaign });
+const officialTicketUrl = buildOfficialTicketLink({ url: refs.ticketUrl, slug: refs.ticketSlug });
+const resaleTicketLinks = buildResaleTicketLinks({
+  slug: refs.ticketSlug,
+  campaign,
+  resaleTickets: refs.resaleTickets,
+});
 const activityUrl = refs.activityQuery
   ? buildActivityLink({ query: refs.activityQuery, campaign })
   : null;
@@ -53,6 +64,14 @@ const imageUrl = new URL('/favicon.svg', Astro.site).href;
 const ticketPriceMatch = event.matchTickets?.match(/\$(\d[\d,]*)/);
 const ticketPrice = ticketPriceMatch ? ticketPriceMatch[1].replace(/,/g, '') : "0";
 
+// Event status drives schema fields. ended events use EventCompleted + SoldOut.
+const eventStatus = event.status === 'ended'
+  ? 'https://schema.org/EventCompleted'
+  : 'https://schema.org/EventScheduled';
+const offerAvailability = event.status === 'ended'
+  ? 'https://schema.org/SoldOut'
+  : 'https://schema.org/InStock';
+
 const eventSchema = {
   "@context": "https://schema.org",
   "@type": "Event",
@@ -60,7 +79,7 @@ const eventSchema = {
   "startDate": event.startDate,
   "endDate": event.endDate,
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-  "eventStatus": "https://schema.org/EventScheduled",
+  "eventStatus": eventStatus,
   "location": {
     "@type": "Place",
     "name": event.venues[0],
@@ -77,7 +96,7 @@ const eventSchema = {
     "url": refs.ticketUrl || eventUrl,
     "price": ticketPrice,
     "priceCurrency": "USD",
-    "availability": "https://schema.org/InStock"
+    "availability": offerAvailability
   },
   "organizer": event.organizer ? {
     "@type": "Organization",
@@ -91,6 +110,47 @@ const eventSchema = {
 };
 
 const eventSchemaHtml = `<script type="application/ld+json">${JSON.stringify(eventSchema, null, '\t')}</script>`;
+
+// Article schema: only emitted on pages with travelGuide (editorial content).
+// Coexists with Event schema — Google accepts both on the same page.
+let articleSchemaHtml = '';
+if (event.travelGuide) {
+  const articleBodyParts = [];
+  if (event.travelGuide.ticketTips?.length) {
+    articleBodyParts.push('Tickets Guide: ' + event.travelGuide.ticketTips.map(t => `${t.type} — ${t.detail}`).join(' | '));
+  }
+  if (event.travelGuide.accommodationAreas?.length) {
+    articleBodyParts.push('Where to Stay: ' + event.travelGuide.accommodationAreas.map(a => `${a.name}. ${a.description}`).join(' | '));
+  }
+  if (event.travelGuide.transportationTips?.length) {
+    articleBodyParts.push('Transportation: ' + event.travelGuide.transportationTips.map(t => `${t.mode} — ${t.detail}`).join(' | '));
+  }
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": `${event.title} Travel Guide`,
+    "author": {
+      "@type": "Organization",
+      "name": "MatchTrip",
+      "url": "https://matchtrip-blue.vercel.app"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MatchTrip",
+      "url": "https://matchtrip-blue.vercel.app"
+    },
+    "datePublished": event.startDate,
+    "dateModified": event.startDate,
+    "articleBody": articleBodyParts.join('\n\n'),
+    "url": eventUrl,
+    "image": [imageUrl],
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": eventUrl
+    }
+  };
+  articleSchemaHtml = `<script type="application/ld+json">${JSON.stringify(articleSchema, null, '\t')}</script>`;
+}
 ---
 
 <Layout
@@ -145,7 +205,15 @@ const eventSchemaHtml = `<script type="application/ld+json">${JSON.stringify(eve
           <h3>Tickets</h3>
           <p class="budget-price">{event.matchTickets}</p>
           <p class="budget-note">Match/session range</p>
-          <a href={ticketUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer">Get Tickets</a>
+          <a href={officialTicketUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer">Get Official Tickets</a>
+          {resaleTicketLinks.length > 0 && (
+            <div class="resale-links">
+              <span class="resale-label">Compare Resale:</span>
+              {resaleTicketLinks.map(rt => (
+                <a href={rt.url} class="resale-link" target="_blank" rel="noopener noreferrer sponsored">{rt.label}</a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <AffiliateDisclosure />
@@ -175,6 +243,81 @@ const eventSchemaHtml = `<script type="application/ld+json">${JSON.stringify(eve
       </div>
     </div>
   </section>
+
+  <!-- Travel Guide Modules (conditional: only for events with travelGuide data) -->
+  {event.travelGuide && (
+    <>
+      <!-- Tickets Guide -->
+      {event.travelGuide.ticketTips && event.travelGuide.ticketTips.length > 0 && (
+        <section class="guide-section tickets-guide">
+          <div class="container">
+            <h2>Tickets Guide</h2>
+            <p class="section-sub">Choose the right ticket option for your budget and experience</p>
+            <div class="guide-grid">
+              {event.travelGuide.ticketTips.map(tip => (
+                <div class="guide-card">
+                  <h3>{tip.type}</h3>
+                  <p>{tip.detail}</p>
+                </div>
+              ))}
+            </div>
+            <div class="guide-cta">
+              <a href={officialTicketUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer">Get Official Tickets</a>
+              {resaleTicketLinks.length > 0 && resaleTicketLinks.map(rt => (
+                <a href={rt.url} class="btn btn-outline" target="_blank" rel="noopener noreferrer sponsored">Compare on {rt.label}</a>
+              ))}
+            </div>
+            <AffiliateDisclosure />
+          </div>
+        </section>
+      )}
+
+      <!-- Where to Stay -->
+      {event.travelGuide.accommodationAreas && event.travelGuide.accommodationAreas.length > 0 && (
+        <section class="guide-section stay-guide">
+          <div class="container">
+            <h2>Where to Stay</h2>
+            <p class="section-sub">Recommended neighborhoods for every budget</p>
+            <div class="guide-grid">
+              {event.travelGuide.accommodationAreas.map(area => (
+                <div class="guide-card">
+                  <h3>{area.name}</h3>
+                  <p>{area.description}</p>
+                  <a href={buildHotelLink({ city: area.searchQuery || `${area.name} ${refs.hotelCity}`, checkin, checkout, campaign })} class="btn btn-outline stay-area-cta" target="_blank" rel="noopener noreferrer sponsored">Find Hotels in {area.name}</a>
+                </div>
+              ))}
+            </div>
+            <div class="guide-cta">
+              <a href={hotelUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Find Hotels in {refs.hotelCity}</a>
+            </div>
+            <AffiliateDisclosure />
+          </div>
+        </section>
+      )}
+
+      <!-- Transportation -->
+      {event.travelGuide.transportationTips && event.travelGuide.transportationTips.length > 0 && (
+        <section class="guide-section transport-guide">
+          <div class="container">
+            <h2>Transportation</h2>
+            <p class="section-sub">How to get to the venue and navigate the city</p>
+            <div class="guide-grid">
+              {event.travelGuide.transportationTips.map(tip => (
+                <div class="guide-card">
+                  <span class="transport-mode">{tip.mode}</span>
+                  <p>{tip.detail}</p>
+                </div>
+              ))}
+            </div>
+            <div class="guide-cta">
+              <a href={flightUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Find Flights to {refs.flightTo}</a>
+            </div>
+            <AffiliateDisclosure />
+          </div>
+        </section>
+      )}
+    </>
+  )}
 
   <!-- Tours & Activities (conditional) -->
   {activityUrl && (
@@ -239,9 +382,11 @@ const eventSchemaHtml = `<script type="application/ld+json">${JSON.stringify(eve
     </div>
   </section>
 
-  
+
 		<!-- Schema.org Event -->
 		<Fragment set:html={eventSchemaHtml} />
+		{/* Schema.org Article (only on pages with travelGuide editorial content) */}
+		{articleSchemaHtml && <Fragment set:html={articleSchemaHtml} />}
 <Footer />
 </Layout>
 
@@ -408,6 +553,47 @@ const eventSchemaHtml = `<script type="application/ld+json">${JSON.stringify(eve
     margin-bottom: 20px;
   }
 
+  /* Resale ticket links inside Tickets card */
+  .resale-links {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .resale-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: 100%;
+  }
+
+  .resale-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #374151;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .resale-link:hover {
+    border-color: #6366f1;
+    color: #6366f1;
+    transform: translateY(-1px);
+  }
+
   /* Venues */
   .venues-section { padding: 0 0 60px; }
 
@@ -454,6 +640,108 @@ const eventSchemaHtml = `<script type="application/ld+json">${JSON.stringify(eve
     border-radius: 20px;
     font-size: 0.9rem;
     color: #374151;
+  }
+
+  /* Travel Guide Modules */
+  .guide-section {
+    padding: 60px 0;
+  }
+
+  .tickets-guide { background: #fafafa; }
+  .stay-guide { background: #ffffff; }
+  .transport-guide { background: #fafafa; }
+
+  .guide-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #111;
+  }
+
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .guide-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .stay-guide .guide-card,
+  .transport-guide .guide-card {
+    background: white;
+  }
+
+  .tickets-guide .guide-card {
+    background: white;
+    border-color: #fed7aa;
+  }
+
+  .guide-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+  }
+
+  .guide-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 10px;
+  }
+
+  .guide-card p {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+
+  /* Per-area Booking CTA inside Where to Stay cards */
+  .stay-area-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #374151;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .stay-area-cta:hover {
+    border-color: #6366f1;
+    color: #6366f1;
+    transform: translateY(-1px);
+  }
+
+  .transport-mode {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #075985;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+
+  .guide-cta {
+    margin-top: 32px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   /* Activities */
@@ -721,5 +1009,8 @@ const eventSchemaHtml = `<script type="application/ld+json">${JSON.stringify(eve
     .related-grid { grid-template-columns: 1fr; }
     .cta-buttons { flex-direction: column; align-items: center; }
     .cta-card { padding: 40px 24px; }
+    .guide-grid { grid-template-columns: 1fr; }
+    .guide-cta { flex-direction: column; align-items: stretch; }
+    .guide-cta .btn { text-align: center; }
   }
 </style>

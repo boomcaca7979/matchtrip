@@ -18,7 +18,7 @@ const allEvents = Object.entries(eventsData).map(([id, data]) => ({
 const featuredEvents = allEvents.slice(0, 3);
 
 const stats = [
-  { number: '9+', label: 'Major Events' },
+  { number: `${allEvents.length}+`, label: 'Major Events' },
   { number: '15+', label: 'Host Cities' },
   { number: '100%', label: 'Free to Use' },
 ];

@@ -15,13 +15,16 @@
 
 export const AFFILIATE_PROGRAMS = {
 
-  /* ── Hotel Booking ─────────────────────────────────── */
+  /* ── Hotel Booking (via Travelpayouts redirect) ───── */
   booking: {
-    id: '',            // ⏳ Awin 审核中
+    id: '738032',      // ✅ Travelpayouts marker
     enabled: true,
-    baseUrl: 'https://www.booking.com/searchresults.html',
-    param: 'aid',      // Booking.com uses ?aid=<your_id>
-    extra: {},
+    baseUrl: 'https://tp.media/r',
+    param: 'marker',   // Travelpayouts uses ?marker=<your_id>
+    extra: { p: '4114' }, // p=4114 = Booking.com program ID on Travelpayouts
+    // Travelpayouts redirect mode: wraps a target booking.com URL into tp.media/r?...&u=<encoded>
+    redirectMode: true,
+    targetBaseUrl: 'https://www.booking.com/searchresults.html',
   },
 
   /* ── Flight Search ─────────────────────────────────── */

@@ -13,8 +13,8 @@ const categoryUrl = new URL('/events/f1', Astro.site).href;
 const collectionPageSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "F1 2026 Schedule – Monaco & British GP",
-  "description": "View the 2026 Formula 1 schedule including Monaco Grand Prix and British GP at Silverstone. Find race dates, circuit info, and travel guides.",
+  "name": "F1 2026 Schedule – Monaco & Singapore Grand Prix",
+  "description": "View the 2026 Formula 1 schedule including Monaco Grand Prix and Singapore Grand Prix. Find race dates, circuit info, and travel guides.",
   "url": categoryUrl,
   "mainEntity": {
     "@type": "ItemList",
@@ -31,8 +31,8 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
 ---
 
 <Layout
-  title="F1 2026 Schedule – Monaco & British GP | MatchTrip"
-  description="View the 2026 Formula 1 schedule including Monaco Grand Prix and British Grand Prix at Silverstone. Find race dates, circuit information, and travel guides."
+  title="F1 2026 Schedule – Monaco & Singapore Grand Prix | MatchTrip"
+  description="View the 2026 Formula 1 schedule including Monaco Grand Prix and Singapore Grand Prix. Find race dates, circuit information, and travel guides."
 >
   <Navbar />
 
@@ -41,7 +41,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
       <a href="/events/" class="back-link">&larr; All Events</a>
       <p class="overline">Motorsport</p>
       <h1>F1 2026 Schedule</h1>
-      <p class="subtitle">Follow the Formula 1 2026 season with race schedules for the Monaco Grand Prix and British Grand Prix at Silverstone. Get travel guides, budget estimates, and circuit information for each race weekend.</p>
+      <p class="subtitle">Follow the Formula 1 2026 season with race schedules for the Monaco Grand Prix and Singapore Grand Prix. Get travel guides, budget estimates, and circuit information for each race weekend.</p>
     </div>
   </section>
 

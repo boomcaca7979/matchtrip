@@ -84,6 +84,9 @@ function trackedUrl(program, basePath, searchParams = {}, campaign = '') {
 
 /**
  * Build a hotel booking link.
+ * Supports two modes:
+ *  1. Travelpayouts redirect: tp.media/r?marker=xxx&p=4114&u=<encoded booking.com URL>
+ *  2. Standard direct: booking.com?aid=xxx&ss=city (Awin / Booking.com official)
  * @param {{ city: string, checkin?: string, checkout?: string, campaign?: string }} opts
  */
 export function buildHotelLink({ city = '', checkin = '', checkout = '', campaign = '' } = {}) {
@@ -91,9 +94,36 @@ export function buildHotelLink({ city = '', checkin = '', checkout = '', campaig
   if (!isEnabled('booking')) return fallbackHotels(city);
   // If affiliate ID is missing, do NOT generate naked booking.com URL
   // (that would leak traffic without commission). Use fallback instead.
-  if (!AFFILIATE_PROGRAMS.booking.id) return fallbackHotels(city);
+  const p = AFFILIATE_PROGRAMS.booking;
+  if (!p.id) return fallbackHotels(city);
 
-  return trackedUrl('booking', AFFILIATE_PROGRAMS.booking.baseUrl, {
+  // Travelpayouts redirect mode: wrap a target booking.com URL into tp.media/r?...&u=<encoded>
+  if (p.redirectMode && p.targetBaseUrl) {
+    const targetUrl = new URL(p.targetBaseUrl);
+    if (city) targetUrl.searchParams.set('ss', city);
+    if (checkin) targetUrl.searchParams.set('checkin', checkin);
+    if (checkout) targetUrl.searchParams.set('checkout', checkout);
+
+    const redirectUrl = new URL(p.baseUrl);
+    redirectUrl.searchParams.set(p.param, p.id);
+    if (p.extra) {
+      for (const [k, v] of Object.entries(p.extra)) {
+        redirectUrl.searchParams.set(k, v);
+      }
+    }
+    redirectUrl.searchParams.set('u', targetUrl.toString());
+
+    // UTM params
+    for (const [k, v] of Object.entries(UTM_DEFAULTS)) {
+      if (v) redirectUrl.searchParams.set(k, v);
+    }
+    if (campaign) redirectUrl.searchParams.set('utm_campaign', campaign);
+
+    return redirectUrl.toString();
+  }
+
+  // Standard mode (Awin / Booking.com direct): booking.com?aid=xxx&ss=city
+  return trackedUrl('booking', p.baseUrl, {
     ss: city,             // Booking.com search query
     checkin,
     checkout,
@@ -120,7 +150,7 @@ export function buildFlightLink({ from = '', to = '', campaign = '' } = {}) {
 
 /**
  * Build an event ticket link (resale marketplace).
- * @param {{ slug: string, campaign?: string }} opts
+ * @param {{ url: string, slug: string, campaign?: string }} opts
  */
 export function buildTicketLink({ url = '', slug = '', campaign = '' } = {}) {
   // If there's a direct official URL (FIFA, UEFA, etc.), use it as-is.
@@ -131,6 +161,72 @@ export function buildTicketLink({ url = '', slug = '', campaign = '' } = {}) {
     return fallbackTickets(slug);
   }
   return trackedUrl('stubhub', `${AFFILIATE_PROGRAMS.stubhub.baseUrl}/e/${slug}`, {}, campaign);
+}
+
+/**
+ * Build an official ticket link (direct, no affiliate commission).
+ * Returns the official URL as-is, or a fallback search if no URL is provided.
+ * @param {{ url: string, slug?: string }} opts
+ */
+export function buildOfficialTicketLink({ url = '', slug = '' } = {}) {
+  if (url) return url;
+  // Fallback to a search query if no official URL is available.
+  return fallbackTickets(slug);
+}
+
+/**
+ * Build resale ticket links across all enabled resale programs.
+ * Returns an array of { provider, label, url } for each available resale channel.
+ * Programs without affiliate ID or disabled are skipped (no dead links).
+ * @param {{ slug: string, campaign?: string, resaleTickets?: Array }} opts
+ */
+export function buildResaleTicketLinks({ slug = '', campaign = '', resaleTickets = [] } = {}) {
+  const results = [];
+
+  // Build from explicit resaleTickets config if provided (new data structure)
+  if (Array.isArray(resaleTickets) && resaleTickets.length > 0) {
+    for (const rt of resaleTickets) {
+      if (!rt || !rt.enabled || !rt.slug) continue;
+      const program = rt.provider;
+      const p = AFFILIATE_PROGRAMS[program];
+      if (!p || !p.id || !p.enabled) continue;
+      const tracked = trackedUrl(
+        program,
+        `${p.baseUrl}/e/${rt.slug}`,
+        {},
+        campaign
+      );
+      results.push({
+        provider: program,
+        label: program === 'stubhub' ? 'StubHub' : (program === 'viagogo' ? 'Viagogo' : program),
+        url: tracked,
+      });
+    }
+    return results;
+  }
+
+  // Legacy fallback: use the slug param against stubhub + viagogo
+  if (!slug) return results;
+
+  // StubHub
+  if (isEnabled('stubhub') && AFFILIATE_PROGRAMS.stubhub.id) {
+    results.push({
+      provider: 'stubhub',
+      label: 'StubHub',
+      url: trackedUrl('stubhub', `${AFFILIATE_PROGRAMS.stubhub.baseUrl}/e/${slug}`, {}, campaign),
+    });
+  }
+
+  // Viagogo
+  if (isEnabled('viagogo') && AFFILIATE_PROGRAMS.viagogo.id) {
+    results.push({
+      provider: 'viagogo',
+      label: 'Viagogo',
+      url: trackedUrl('viagogo', `${AFFILIATE_PROGRAMS.viagogo.baseUrl}/e/${slug}`, {}, campaign),
+    });
+  }
+
+  return results;
 }
 
 /**

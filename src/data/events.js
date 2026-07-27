@@ -21,6 +21,9 @@
 
 export const eventsData = {
   'world-cup-2026': {
+    seriesId: 'world-cup',
+    year: 2026,
+    status: 'ended',
     title: 'FIFA World Cup 2026',
     category: 'Football',
     location: 'USA, Canada & Mexico',
@@ -44,10 +47,17 @@ export const eventsData = {
       ticketUrl: 'https://www.fifa.com/fifaplus/en/tickets',
       ticketSlug: 'fifa-world-cup-2026',
       activityQuery: 'FIFA World Cup 2026',
+      resaleTickets: [
+        { provider: 'stubhub', slug: 'fifa-world-cup-2026', enabled: false },
+        { provider: 'viagogo', slug: 'fifa-world-cup-2026', enabled: false },
+      ],
     },
   },
 
   'olympics-2028': {
+    seriesId: 'olympics-summer',
+    year: 2028,
+    status: 'upcoming',
     title: 'Olympics 2028',
     category: 'Multi-Sport',
     location: 'Los Angeles, USA',
@@ -71,10 +81,17 @@ export const eventsData = {
       ticketUrl: 'https://www.la28.org',
       ticketSlug: 'olympics-2028',
       activityQuery: 'Los Angeles Olympics tours',
+      resaleTickets: [
+        { provider: 'stubhub', slug: 'olympics-2028', enabled: false },
+        { provider: 'viagogo', slug: 'olympics-2028', enabled: false },
+      ],
     },
   },
 
   'f1-monaco-2026': {
+    seriesId: 'f1-monaco',
+    year: 2026,
+    status: 'ended',
     title: 'Formula 1 Monaco Grand Prix',
     category: 'Motorsport',
     location: 'Monte Carlo, Monaco',
@@ -98,10 +115,17 @@ export const eventsData = {
       ticketUrl: 'https://www.formula1.com/en/racing/2026/Monaco',
       ticketSlug: 'formula-1-monaco-gp-2026',
       activityQuery: 'Monaco Grand Prix experience',
+      resaleTickets: [
+        { provider: 'stubhub', slug: 'formula-1-monaco-gp-2026', enabled: false },
+        { provider: 'viagogo', slug: 'formula-1-monaco-gp-2026', enabled: false },
+      ],
     },
   },
 
   'super-bowl-2026': {
+    seriesId: 'super-bowl',
+    year: 2026,
+    status: 'ended',
     title: 'Super Bowl LX',
     category: 'American Football',
     location: 'Santa Clara, USA',
@@ -125,10 +149,17 @@ export const eventsData = {
       ticketUrl: 'https://www.nfl.com/super-bowl/',
       ticketSlug: 'super-bowl-lx',
       activityQuery: 'San Francisco Bay Area tours',
+      resaleTickets: [
+        { provider: 'stubhub', slug: 'super-bowl-lx', enabled: false },
+        { provider: 'viagogo', slug: 'super-bowl-lx', enabled: false },
+      ],
     },
   },
 
   'wimbledon': {
+    seriesId: 'wimbledon',
+    year: 2026,
+    status: 'ended',
     title: 'Wimbledon 2026',
     category: 'Tennis',
     location: 'London, UK',
@@ -152,10 +183,17 @@ export const eventsData = {
       ticketUrl: 'https://www.wimbledon.com',
       ticketSlug: 'wimbledon-2026',
       activityQuery: 'Wimbledon tennis tour London',
+      resaleTickets: [
+        { provider: 'stubhub', slug: 'wimbledon-2026', enabled: false },
+        { provider: 'viagogo', slug: 'wimbledon-2026', enabled: false },
+      ],
     },
   },
 
   'champions-league-final': {
+    seriesId: 'champions-league-final',
+    year: 2026,
+    status: 'ended',
     title: 'Champions League Final 2026',
     category: 'Football',
     location: 'Budapest, Hungary',
@@ -179,10 +217,17 @@ export const eventsData = {
       ticketUrl: 'https://www.uefa.com/uefachampionsleague/',
       ticketSlug: 'champions-league-final-2026',
       activityQuery: 'Budapest city tour',
+      resaleTickets: [
+        { provider: 'stubhub', slug: 'champions-league-final-2026', enabled: false },
+        { provider: 'viagogo', slug: 'champions-league-final-2026', enabled: false },
+      ],
     },
   },
 
   'us-open-tennis': {
+    seriesId: 'us-open-tennis',
+    year: 2026,
+    status: 'upcoming',
     title: 'US Open Tennis 2026',
     category: 'Tennis',
     location: 'New York, USA',
@@ -205,11 +250,35 @@ export const eventsData = {
       flightTo: 'NYC',
       ticketUrl: 'https://www.usopen.org',
       ticketSlug: 'us-open-tennis-2026',
-      activityQuery: 'New York Flushing Meadows tour',
+      activityQuery: 'New York City tours near Flushing Meadows',
+      resaleTickets: [
+        { provider: 'stubhub', slug: 'us-open-tennis-2026', enabled: false },
+        { provider: 'viagogo', slug: 'us-open-tennis-2026', enabled: false },
+      ],
+    },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Flushing Meadows (Queens)', description: 'Closest to the USTA National Tennis Center. 10-15 min walk to Arthur Ashe Stadium. Limited hotel options but unbeatable proximity.', searchQuery: 'Flushing Meadows New York' },
+        { name: 'Midtown Manhattan', description: '30-40 min subway ride on the 7 train to Mets-Willets Point station. Best for travelers who want the full NYC experience.', searchQuery: 'Midtown Manhattan New York' },
+        { name: 'Long Island City (Queens)', description: '15-20 min subway to the venue. More affordable than Manhattan with skyline views.', searchQuery: 'Long Island City New York' },
+      ],
+      transportationTips: [
+        { mode: 'Flight', detail: 'Fly into JFK, LGA, or EWR. JFK is closest to Flushing Meadows (20 min taxi). LGA is 15 min away. EWR is in New Jersey, 45-60 min by public transit.' },
+        { mode: 'Subway', detail: 'Take the 7 train to Mets-Willets Point station. The station is right next to the USTA National Tennis Center. Service is frequent during the tournament.' },
+        { mode: 'LIRR', detail: 'Long Island Rail Road from Penn Station to Mets-Willets Point. Faster than subway during peak hours, ~20 min ride.' },
+      ],
+      ticketTips: [
+        { type: 'Grounds Pass', detail: 'Access to outside courts and practice sessions. Does not include Arthur Ashe or Louis Armstrong Stadium entry. Best for budget-conscious fans.' },
+        { type: 'Arthur Ashe Stadium Tickets', detail: 'Premium reserved seats in the main stadium. Prices range from $80 to $800+ depending on session and round.' },
+        { type: 'Louis Armstrong Stadium Tickets', detail: 'Mid-tier option with reserved seating in the second-largest stadium. Good balance of price and experience.' },
+      ],
     },
   },
 
   'nba-finals': {
+    seriesId: 'nba-finals',
+    year: 2026,
+    status: 'ended',
     title: 'NBA Finals 2026',
     category: 'Basketball',
     location: 'Various Cities, USA',
@@ -233,10 +302,17 @@ export const eventsData = {
       ticketUrl: 'https://www.nba.com/playoffs',
       ticketSlug: 'nba-finals-2026',
       activityQuery: '',
+      resaleTickets: [
+        { provider: 'stubhub', slug: 'nba-finals-2026', enabled: false },
+        { provider: 'viagogo', slug: 'nba-finals-2026', enabled: false },
+      ],
     },
   },
 
   'f1-singapore-grand-prix': {
+    seriesId: 'f1-singapore',
+    year: 2026,
+    status: 'upcoming',
     title: 'Formula 1 Singapore Grand Prix',
     category: 'Motorsport',
     location: 'Singapore',
@@ -259,11 +335,35 @@ export const eventsData = {
       flightTo: 'SIN',
       ticketUrl: 'https://www.formula1.com/en/racing/2026/Singapore',
       ticketSlug: 'f1-singapore-gp-2026',
-      activityQuery: 'Singapore Grand Prix experience',
+      activityQuery: 'Singapore city tours Marina Bay',
+      resaleTickets: [
+        { provider: 'stubhub', slug: 'f1-singapore-gp-2026', enabled: false },
+        { provider: 'viagogo', slug: 'f1-singapore-gp-2026', enabled: false },
+      ],
+    },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Marina Bay', description: 'Premium choice with track-view rooms at Marina Bay Sands, The Fullerton, and Raffles. Walking distance to circuit gates. Expect $400-1000+ per night during race weekend.', searchQuery: 'Marina Bay Singapore' },
+        { name: 'Sentosa Island', description: 'Resort-style stay 15-20 min from circuit via Sentosa Express. Quieter escape with beaches and attractions. Good for extending the trip into a vacation.', searchQuery: 'Sentosa Island Singapore' },
+        { name: 'Orchard Road', description: 'Shopping district 10-15 min by MRT to circuit. Wide range of hotels from mid-tier to luxury. Better availability and pricing than Marina Bay.', searchQuery: 'Orchard Road Singapore' },
+      ],
+      transportationTips: [
+        { mode: 'Flight', detail: 'Changi Airport (SIN) is a major Asian hub with excellent global connectivity. 20-30 min taxi to Marina Bay, or 45 min via East-West MRT line.' },
+        { mode: 'MRT', detail: 'Singapore MRT is the most efficient way to reach the circuit. Stations: Bayfront, Promenade, Nicoll Highway, and City Hall all provide access to different gates.' },
+        { mode: 'Walking', detail: 'The street circuit is in the heart of the city. Multiple pedestrian gates (Gate 1-7) connect to surrounding hotels and MRT stations. Plan your gate based on your grandstand.' },
+      ],
+      ticketTips: [
+        { type: 'Walkabout Tickets', detail: 'General admission with no reserved seat. Access to spectator viewing platforms around the circuit. Most affordable option, great for first-time visitors who want to explore.' },
+        { type: 'Grandstand Tickets', detail: 'Reserved seats in dedicated grandstands. Popular options: Bay Grandstand (waterfront view), Padang (main straight), and Stamford (turn 1). Prices $300-1500+ for 3-day pass.' },
+        { type: 'Hospitality Packages', detail: 'Premium experience with food, drinks, and prime viewing. Options include Sky Suites, Paddock Club, and Green Room. $1500-5000+ per person, ideal for corporate or luxury travelers.' },
+      ],
     },
   },
 
   'masters-golf': {
+    seriesId: 'masters-golf',
+    year: 2026,
+    status: 'ended',
     title: 'The Masters 2026',
     category: 'Golf',
     location: 'Augusta, USA',
@@ -287,6 +387,10 @@ export const eventsData = {
       ticketUrl: 'https://www.masters.com',
       ticketSlug: 'masters-golf-2026',
       activityQuery: 'Augusta Masters golf experience',
+      resaleTickets: [
+        { provider: 'stubhub', slug: 'masters-golf-2026', enabled: false },
+        { provider: 'viagogo', slug: 'masters-golf-2026', enabled: false },
+      ],
     },
   },
 };
