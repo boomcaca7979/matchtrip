@@ -454,6 +454,23 @@ export const eventsData = {
         { provider: 'viagogo', slug: 'kentucky-derby-2027', enabled: false },
       ],
     },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Downtown Louisville', description: 'Closest to Churchill Downs, 10-15 min drive. Walkable to bourbon distilleries, Muhammad Ali Center, and Whiskey Row. Premium pricing during Derby weekend.', searchQuery: 'Downtown Louisville Kentucky' },
+        { name: 'Louisville Airport Area', description: '5 min from SDF airport, 15 min to Churchill Downs. Budget-friendly chain hotels, good for short stays.', searchQuery: 'Louisville Airport hotel' },
+        { name: 'Indianapolis (IN)', description: '2-hour drive north. Viable alternative for travelers combining Derby with Indianapolis 500 (same month). Lower rates than Louisville.', searchQuery: 'Indianapolis Indiana hotels' },
+      ],
+      transportationTips: [
+        { mode: 'Flight', detail: 'Fly into Louisville International (SDF), 10 min from Churchill Downs. Alternatively Indianapolis (IND) is 2 hours north by car.' },
+        { mode: 'Driving', detail: 'Parking near Churchill Downs is extremely limited on Derby day. Use offsite lots with shuttle service, or ride-share to a drop point 2-3 blocks from the gates.' },
+        { mode: 'Public Transit', detail: 'TARC buses serve Churchill Downs. Expect heavy delays on Derby day — allow extra time. Many attendees park downtown and walk 20 min.' },
+      ],
+      ticketTips: [
+        { type: 'General Admission', detail: 'Infield access only, no reserved seat. Party atmosphere, limited track view. Most affordable option at $60-150.' },
+        { type: 'Grandstand Seats', detail: 'Reserved seating with track view. $300-1000+ depending on section. The closer to the finish line, the higher the price.' },
+        { type: 'Mint Julep Club / Millionaire\'s Row', detail: 'Premium indoor hospitality with food, drinks, and viewing. $1000-5000+ per person. Dress code enforced.' },
+      ],
+    },
   },
 
   'indy-500-2027': {
@@ -488,6 +505,23 @@ export const eventsData = {
       resaleTickets: [
         { provider: 'stubhub', slug: 'indianapolis-500-2027', enabled: false },
         { provider: 'viagogo', slug: 'indianapolis-500-2027', enabled: false },
+      ],
+    },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Downtown Indianapolis', description: '10-15 min drive to Indianapolis Motor Speedway. Walkable to Lucas Oil Stadium, Canal Walk, and Mass Ave dining. Best for combining race weekend with city exploration.', searchQuery: 'Downtown Indianapolis hotel' },
+        { name: 'Speedway / 16th Street', description: 'Closest to IMS, 5 min walk to gates. Limited hotel inventory, mostly budget chains. Book months ahead — rates spike race weekend.', searchQuery: 'Speedway Indiana hotels' },
+        { name: 'Airport Area (Plainfield)', description: '10 min from IND airport, 20 min to IMS. Reliable chain hotels at moderate rates. Good for short overnight stays.', searchQuery: 'Indianapolis airport hotel' },
+      ],
+      transportationTips: [
+        { mode: 'Flight', detail: 'Indianapolis International (IND) is 15 min from downtown. Nonstop flights from most major US hubs.' },
+        { mode: 'Driving', detail: 'IMS has on-site parking lots but traffic is severe on race day. Arrive before 9 AM for the 500, or use offsite lots with shuttle.' },
+        { mode: 'Shuttle', detail: 'Free shuttle buses run from downtown hotels and the airport to IMS gates on race day. Allow 60-90 min total travel time due to traffic.' },
+      ],
+      ticketTips: [
+        { type: 'General Admission', detail: 'Infield access, no reserved seat. Party atmosphere at Turn 3 "Snake Pit." Most affordable option at $60-150.' },
+        { type: 'Grandstand Seats', detail: 'Reserved seating in dedicated stands. $150-800+ depending on location. Tower seats and Start/Finish line command premium pricing.' },
+        { type: 'Suite / Hospitality', detail: 'Premium indoor suites with food, drinks, and climate control. $1000-3000+ per person. Ideal for corporate groups.' },
       ],
     },
   },
@@ -527,6 +561,23 @@ export const eventsData = {
         { provider: 'viagogo', slug: 'australian-open-2027', enabled: false },
       ],
     },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Melbourne CBD', description: '15-20 min walk or 10 min tram to Melbourne Park. Best for travelers who want restaurants, bars, and Federation Square at their doorstep.', searchQuery: 'Melbourne CBD hotel' },
+        { name: 'Southbank', description: 'Adjacent to Melbourne Park and Yarra River. Walkable to Rod Laver Arena in 10 min. Casino, dining, and arts precinct. Premium rates during tournament.', searchQuery: 'Southbank Melbourne hotel' },
+        { name: 'Richmond', description: 'Residential neighborhood 10 min by tram from Melbourne Park. Quieter than CBD, more boutique-style stays at moderate prices.', searchQuery: 'Richmond Melbourne hotel' },
+      ],
+      transportationTips: [
+        { mode: 'Flight', detail: 'Fly into Melbourne Tullamarine (MEL), 25 km from CBD. SkyBus to Southern Cross Station takes 30 min. Avalon (AVV) is further out, only for budget domestic flights.' },
+        { mode: 'Tram', detail: 'Free tram zone covers CBD. Trams 70, 75, and 48 stop at Melbourne Park. Use myki card for paid zones outside CBD.' },
+        { mode: 'Walking', detail: 'Melbourne Park is walkable from CBD via Birrarung Marr parklands, a scenic 15-20 min walk along the Yarra River.' },
+      ],
+      ticketTips: [
+        { type: 'Ground Pass', detail: 'Access to outside courts and Kia Arena. Does not include Rod Laver Arena (center court). Best value at $50-80 for early rounds.' },
+        { type: 'Rod Laver Arena Tickets', detail: 'Reserved seats in the main stadium. Day sessions start at $80-150; night sessions $100-300+. Prices rise for later rounds and finals.' },
+        { type: 'Finals Weekend Packages', detail: 'Premium packages for semifinals and finals. $500-2000+ per session. Often sold out, resale market is active.' },
+      ],
+    },
   },
 
   'french-open-2027': {
@@ -562,6 +613,23 @@ export const eventsData = {
       resaleTickets: [
         { provider: 'stubhub', slug: 'french-open-2027', enabled: false },
         { provider: 'viagogo', slug: 'french-open-2027', enabled: false },
+      ],
+    },
+    travelGuide: {
+      accommodationAreas: [
+        { name: '16th Arrondissement (Passy / Auteuil)', description: 'Closest to Roland Garros, 10-15 min walk. Residential and quiet, with upscale hotels and公寓 options. Limited nightlife but ideal for tournament focus.', searchQuery: '16th arrondissement Paris hotel' },
+        { name: '7th Arrondissement (Eiffel Tower area)', description: '20 min by metro to Roland Garros. Iconic Paris location near Eiffel Tower and Invalides. Mix of mid-range and luxury hotels.', searchQuery: '7th arrondissement Paris hotel' },
+        { name: 'Saint-Germain-des-Prés (6th Arr.)', description: '25 min by metro. Literary district with cafés, boutiques, and lively evening atmosphere. Central location for exploring Paris.', searchQuery: 'Saint-Germain-des-Prés Paris hotel' },
+      ],
+      transportationTips: [
+        { mode: 'Flight', detail: 'Fly into Paris Charles de Gaulle (CDG), 45 min by RER B to central Paris. Orly (ORY) is closer, 30 min via Orlyval.' },
+        { mode: 'Metro', detail: 'Metro lines 9 and 10 serve Roland Garros. Stations: Michel-Ange-Molitor, Michel-Ange-Auteuil, and Porte d\'Auteuil. Allow 30-40 min from central Paris.' },
+        { mode: 'Walking', detail: 'Roland Garros is walkable from Passy or Auteuil (15 min). From central Paris, prefer metro — walking across the Seine and Bois de Boulogne takes 60+ min.' },
+      ],
+      ticketTips: [
+        { type: 'Ground Pass (Annexes)', detail: 'Access to secondary courts (Simonne-Mathieu, Court 14, etc.). Does not include Philippe-Chatrier or Suzanne-Lenglen. $50-100 for early rounds.' },
+        { type: 'Philippe-Chatrier Tickets', detail: 'Reserved seats in main stadium. $200-800+ depending on round. Night sessions (introduced 2021) command premium pricing.' },
+        { type: 'Suzanne-Lenglen Tickets', detail: 'Second-largest stadium, reserved seats. $100-400+. Good balance of atmosphere and price for serious tennis fans.' },
       ],
     },
   },
@@ -601,6 +669,23 @@ export const eventsData = {
         { provider: 'viagogo', slug: 'f1-miami-gp-2027', enabled: false },
       ],
     },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Miami Gardens', description: 'Closest to Hard Rock Stadium, 5-10 min drive. Limited hotel inventory, mostly budget chains. Book early — rates triple during race weekend.', searchQuery: 'Miami Gardens hotel' },
+        { name: 'South Beach', description: '30-40 min drive to circuit. Iconic Miami experience with beachfront hotels, nightlife, and restaurants. Premium pricing but unmatched atmosphere.', searchQuery: 'South Beach Miami hotel' },
+        { name: 'Downtown Miami / Brickell', description: '25-30 min drive to circuit. Urban core with skyline views, dining, and metro access. Good balance of price and accessibility.', searchQuery: 'Downtown Miami hotel' },
+      ],
+      transportationTips: [
+        { mode: 'Flight', detail: 'Miami International (MIA) is 20 min from Hard Rock Stadium. Fort Lauderdale (FLL) is 30 min north, often cheaper for domestic flights.' },
+        { mode: 'Driving', detail: 'Hard Rock Stadium parking is limited and pre-sold. Use official race shuttles from downtown or ride-share to designated drop zones. Traffic is severe on race Sunday.' },
+        { mode: 'Metrorail', detail: 'Tri-Rail and Metrorail serve the area but require transfers. Park at Earlington Heights station and take Metro 271 bus to Hard Rock Stadium.' },
+      ],
+      ticketTips: [
+        { type: 'Campus Pass', detail: 'General admission, no reserved seat. Access to viewing platforms around the circuit. Most affordable at $200-400 for race weekend.' },
+        { type: 'Grandstand Tickets', detail: 'Reserved seats at key corners. Popular: Turn 1 (heavy braking), South Beach Grandstand (chicane), and Start/Finish. $500-2000+ for 3-day pass.' },
+        { type: 'Hospitality / Paddock Club', detail: 'Premium experience with food, open bar, pit lane walk, and F1 driver appearances. $3000-8000+ per person for race weekend.' },
+      ],
+    },
   },
 
   'f1-las-vegas-grand-prix-2027': {
@@ -636,6 +721,23 @@ export const eventsData = {
       resaleTickets: [
         { provider: 'stubhub', slug: 'f1-las-vegas-gp-2027', enabled: false },
         { provider: 'viagogo', slug: 'f1-las-vegas-gp-2027', enabled: false },
+      ],
+    },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Las Vegas Strip', description: 'Circuit runs through the Strip. Trackside hotels (Bellagio, Caesars Palace, Wynn) offer room packages with viewing. Expect $500-3000+ per night during race weekend.', searchQuery: 'Las Vegas Strip hotel' },
+        { name: 'Downtown / Fremont Street', description: '15 min from Strip, budget-friendly alternative. Classic Vegas vibe with lower table minimums. Not trackside but easy access via monorail.', searchQuery: 'Downtown Las Vegas hotel' },
+        { name: 'Summerlin / West Las Vegas', description: '20 min from Strip, residential area with resorts like Red Rock. Quieter, lower rates. Good for travelers prioritizing comfort over proximity.', searchQuery: 'Summerlin Las Vegas hotel' },
+      ],
+      transportationTips: [
+        { mode: 'Flight', detail: 'Harry Reid International (LAS) is 10 min from Strip. Direct flights from all major US and international hubs. Allow extra time for arrivals on race weekend.' },
+        { mode: 'Monorail / Walking', detail: 'Las Vegas Monorail runs along the Strip east side. Walking is viable but distances are deceptive — allow 30 min between Strip properties. The Strip is closed to traffic during race sessions.' },
+        { mode: 'Taxi / Ride-share', detail: 'Use designated hotel ride-share zones. Avoid hailing on the Strip itself. Expect surge pricing during race sessions and after the checkered flag.' },
+      ],
+      ticketTips: [
+        { type: 'General Admission', detail: 'Standing-room viewing areas around the circuit. $300-500 for race weekend. Limited track views, best for atmosphere and budget.' },
+        { type: 'Grandstand Tickets', detail: 'Reserved seats at key sections: East Harmon Zone, West Harmon Zone, MSG Sphere Section. $500-2000+ for 3-day pass. Premium for main straight views.' },
+        { type: 'Hospitality / Suites', detail: 'Trackside suites at Bellagio, Caesars Palace, and Wynn with food, open bar, and prime viewing. $3000-15000+ per person. The pinnacle of F1 hospitality.' },
       ],
     },
   },
