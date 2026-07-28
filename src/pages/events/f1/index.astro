@@ -6,7 +6,7 @@ import { eventsData } from '../../../data/events';
 
 const categoryEvents = Object.entries(eventsData)
   .filter(([, data]) => data.category === 'Motorsport')
-  .map(([id, data]) => ({ id, ...data }));
+  .map(([id, data]) => ({ id, ...data, location: data.location?.label || data.location }));
 
 const categoryUrl = new URL('/events/f1', Astro.site).href;
 
@@ -33,6 +33,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
 <Layout
   title="F1 2026 Schedule – Monaco & Singapore Grand Prix | MatchTrip"
   description="View the 2026 Formula 1 schedule including Monaco Grand Prix and Singapore Grand Prix. Find race dates, circuit information, and travel guides."
+  canonical="/sports/motorsport/"
 >
   <Navbar />
 

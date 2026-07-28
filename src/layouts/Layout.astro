@@ -3,16 +3,21 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  canonical?: string;
 }
 
 const {
   title = 'MatchTrip - Sports Travel Planner',
   description = 'Discover major sporting events worldwide and get complete travel plans with budget estimates. Follow the game, plan the journey.',
   image = '/favicon.svg',
+  canonical,
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://matchtrip-blue.vercel.app');
-const canonicalURL = new URL(Astro.url.pathname, site);
+const canonicalURL = canonical ? new URL(canonical, site) : new URL(Astro.url.pathname, site);
+
+// GA4 Measurement ID — 通过 Vercel 环境变量注入，不硬编码
+const GA_MEASUREMENT_ID = import.meta.env.GA_MEASUREMENT_ID || '';
 
 const siteOrigin = site.origin;
 const jsonld = {
@@ -69,10 +74,43 @@ const jsonld = {
 		<script type="application/ld+json" set:html={JSON.stringify(jsonld, null, '\t')}>
 		</script>
 
+		<!-- GA4 — 仅在配置了 GA_MEASUREMENT_ID 环境变量时加载 -->
+		{GA_MEASUREMENT_ID && (
+			<>
+				<script
+					is:inline
+					async
+					src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+				/>
+				<script is:inline set:html={`
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){dataLayer.push(arguments);}
+					gtag('js', new Date());
+					gtag('config', '${GA_MEASUREMENT_ID}');
+				`} />
+			</>
+		)}
+
 		<title>{title}</title>
 	</head>
 	<body>
 		<slot />
+		<script is:inline>
+			// Affiliate click tracking — 预埋 dataLayer 事件，不依赖 GA4/GTM
+			// 未来接入 analytics 时可直接消费 window.dataLayer
+			window.dataLayer = window.dataLayer || [];
+			document.addEventListener('click', function (e) {
+				var el = e.target.closest && e.target.closest('[data-affiliate]');
+				if (!el) return;
+				window.dataLayer.push({
+					event: 'affiliate_click',
+					affiliate: el.dataset.affiliate,
+					campaign: el.dataset.campaign,
+					destination: el.dataset.destination,
+					page: window.location.pathname
+				});
+			});
+		</script>
 	</body>
 </html>
 

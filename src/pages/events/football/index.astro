@@ -6,7 +6,7 @@ import { eventsData } from '../../../data/events';
 
 const categoryEvents = Object.entries(eventsData)
   .filter(([, data]) => data.category === 'Football')
-  .map(([id, data]) => ({ id, ...data }));
+  .map(([id, data]) => ({ id, ...data, location: data.location?.label || data.location }));
 
 const categoryUrl = new URL('/events/football', Astro.site).href;
 
@@ -34,6 +34,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
 <Layout
   title="Football Events 2026 – World Cup & Champions League | MatchTrip"
   description="Discover football events in 2026 – FIFA World Cup across North America and the Champions League Final. View schedules, dates, and match fixture info."
+  canonical="/sports/football/"
 >
   <Navbar />
 

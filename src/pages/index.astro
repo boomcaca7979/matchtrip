@@ -8,7 +8,7 @@ const allEvents = Object.entries(eventsData).map(([id, data]) => ({
   id,
   title: data.title,
   category: data.category,
-  location: data.location,
+  location: data.location?.label || data.location,
   date: data.date,
   colorFrom: data.colorFrom,
   colorTo: data.colorTo,

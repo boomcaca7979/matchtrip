@@ -12,6 +12,13 @@ import {
   buildResaleTicketLinks,
   buildActivityLink,
 } from '../../utils/affiliate-links';
+import {
+  getEventLocation,
+  getFlightPrice,
+  getHotelPrice,
+  getTicketPrice,
+  getTravelPrice,
+} from '../../utils/eventHelpers';
 
 export function getStaticPaths() {
   return Object.keys(eventsData).map(id => ({ params: { id } }));
@@ -26,11 +33,14 @@ if (!event) {
 
 const refs = event.partnerRefs;
 const campaign = id as string;
+const city = event.location?.city || refs.hotelCity || event.hostCities[0] || '';
+const stayCity = event.location?.city || refs.hotelCity || '';
 
 // Pass event dates as default checkin/checkout so users land on date-matched search results
 const checkin = event.startDate ? event.startDate.split('T')[0] : '';
 const checkout = event.endDate ? event.endDate.split('T')[0] : '';
 const hotelUrl = buildHotelLink({ city: refs.hotelCity, checkin, checkout, campaign });
+const stayHotelUrl = buildHotelLink({ city: stayCity, checkin, checkout, campaign });
 const flightUrl = buildFlightLink({ to: refs.flightTo, campaign });
 const ticketUrl = buildTicketLink({ url: refs.ticketUrl, slug: refs.ticketSlug, campaign });
 const officialTicketUrl = buildOfficialTicketLink({ url: refs.ticketUrl, slug: refs.ticketSlug });
@@ -43,8 +53,25 @@ const activityUrl = refs.activityQuery
   ? buildActivityLink({ query: refs.activityQuery, campaign })
   : null;
 
-const otherEvents = Object.entries(eventsData)
-  .filter(([eid]) => eid !== id)
+// Related events: same category first, then same continent. Upcoming events first.
+const sortByStatus = (a, b) => {
+  const aUpcoming = a[1].status === 'upcoming' ? 0 : 1;
+  const bUpcoming = b[1].status === 'upcoming' ? 0 : 1;
+  if (aUpcoming !== bUpcoming) return aUpcoming - bUpcoming;
+  return (b[1].year || 0) - (a[1].year || 0);
+};
+
+const otherEntries = Object.entries(eventsData).filter(([eid]) => eid !== id);
+const sameCategory = otherEntries.filter(([, d]) => d.category === event.category).sort(sortByStatus);
+const sameContinent = otherEntries.filter(([, d]) =>
+  d.category !== event.category &&
+  d.location?.continent === event.location?.continent
+).sort(sortByStatus);
+const fillers = otherEntries.filter(([eid]) =>
+  !sameCategory.some(([id]) => id === eid) &&
+  !sameContinent.some(([id]) => id === eid)
+).sort(sortByStatus);
+const otherEvents = [...sameCategory, ...sameContinent, ...fillers]
   .slice(0, 3)
   .map(([eid, data]) => ({ id: eid, ...data }));
 
@@ -61,8 +88,7 @@ const eventUrl = new URL('/events/' + id, Astro.site).href;
 const imageUrl = new URL('/favicon.svg', Astro.site).href;
 
 // Parse minimum ticket price for schema (e.g., "$80 – $1,500" → "80")
-const ticketPriceMatch = event.matchTickets?.match(/\$(\d[\d,]*)/);
-const ticketPrice = ticketPriceMatch ? ticketPriceMatch[1].replace(/,/g, '') : "0";
+const ticketPrice = event.price?.ticket?.min != null ? String(event.price.ticket.min) : '0';
 
 // Event status drives schema fields. ended events use EventCompleted + SoldOut.
 const eventStatus = event.status === 'ended'
@@ -82,11 +108,11 @@ const eventSchema = {
   "eventStatus": eventStatus,
   "location": {
     "@type": "Place",
-    "name": event.venues[0],
+    "name": event.location?.label || event.venues[0],
     "address": {
       "@type": "PostalAddress",
       "addressLocality": event.hostCities[0],
-      "addressCountry": event.location.split(',').pop()?.trim() || ""
+      "addressCountry": event.location?.country || ""
     }
   },
   "image": [imageUrl],
@@ -155,7 +181,7 @@ if (event.travelGuide) {
 
 <Layout
   title={`${event.title} - Travel Guide | MatchTrip`}
-  description={`Travel guide for ${event.title} in ${event.location}. Budget breakdown for flights, hotels, and tickets. ${event.description}`}
+  description={`${event.title} travel guide. Plan your trip with hotels, flights, tickets, budget estimates and things to do in ${city}.`}
 >
   <Navbar />
 
@@ -171,11 +197,24 @@ if (event.travelGuide) {
         <div class="event-meta-bar">
           <span>{event.date}</span>
           <span class="meta-dot">·</span>
-          <span>{event.location}</span>
+          <span>{getEventLocation(event)}</span>
           <span class="meta-dot">·</span>
-          <span>Est. Cost: {event.priceEstimate}</span>
+          <span>Est. Cost: {getTravelPrice(event)}</span>
         </div>
         <p class="event-description">{event.description}</p>
+        <!-- Trip Planning CTA -->
+        <div class="hero-trip-planning">
+          <h3 class="hero-cta-heading">Plan Your Trip</h3>
+          <div class="hero-cta-checks">
+            <span class="hero-check">&#10003; Hotels near {city}</span>
+            <span class="hero-check">&#10003; Flights to {city}</span>
+            {activityUrl && <span class="hero-check">&#10003; Things to do in {city}</span>}
+          </div>
+          <div class="hero-cta-buttons">
+            <a href={hotelUrl} class="btn btn-trip" target="_blank" rel="noopener noreferrer sponsored">Find Hotels in {city}</a>
+            {activityUrl && <a href={activityUrl} class="btn btn-trip" data-affiliate="viator" data-campaign={campaign} data-destination="viator" target="_blank" rel="noopener noreferrer sponsored">Explore {city} Experiences</a>}
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -184,26 +223,30 @@ if (event.travelGuide) {
   <section class="budget-section">
     <div class="container">
       <h2>Travel Budget Breakdown</h2>
-      <p class="section-sub">Estimated costs to help you plan your trip</p>
+      <p class="section-sub">Estimated cost for a typical sports trip</p>
+      <div class="budget-summary">
+        <span class="budget-summary-label">Estimated Trip Budget</span>
+        <span class="budget-summary-value">{getTravelPrice(event)}</span>
+      </div>
       <div class="budget-grid">
         <div class="budget-card">
           <div class="budget-icon" aria-hidden="true">&#x2708;&#xFE0F;</div>
           <h3>Flights</h3>
-          <p class="budget-price">{event.avgFlightPrice}</p>
+          <p class="budget-price">{getFlightPrice(event)}</p>
           <p class="budget-note">Round-trip average</p>
           <a href={flightUrl} class="btn btn-outline" target="_blank" rel="noopener noreferrer sponsored">Find Flights</a>
         </div>
         <div class="budget-card">
           <div class="budget-icon" aria-hidden="true">&#x1F3E8;</div>
           <h3>Hotels</h3>
-          <p class="budget-price">{event.avgHotelPrice}</p>
+          <p class="budget-price">{getHotelPrice(event)}</p>
           <p class="budget-note">Average per night</p>
-          <a href={hotelUrl} class="btn btn-outline" target="_blank" rel="noopener noreferrer sponsored">Find Hotels</a>
+          <a href={hotelUrl} class="btn btn-outline" target="_blank" rel="noopener noreferrer sponsored">Find Hotels in {city}</a>
         </div>
         <div class="budget-card highlight">
           <div class="budget-icon" aria-hidden="true">&#x1F3AB;</div>
           <h3>Tickets</h3>
-          <p class="budget-price">{event.matchTickets}</p>
+          <p class="budget-price">{getTicketPrice(event)}</p>
           <p class="budget-note">Match/session range</p>
           <a href={officialTicketUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer">Get Official Tickets</a>
           {resaleTicketLinks.length > 0 && (
@@ -219,6 +262,22 @@ if (event.travelGuide) {
       <AffiliateDisclosure />
     </div>
   </section>
+
+  <!-- Where To Stay (standalone) -->
+  {stayCity && (
+    <section class="stay-section">
+      <div class="container">
+        <h2>Where To Stay in {stayCity}</h2>
+        <p class="section-sub">Find accommodation near the event venue</p>
+        <div class="stay-standalone-card">
+          <span class="stay-standalone-icon" aria-hidden="true">&#x1F3E8;</span>
+          <p class="stay-standalone-text">Find the best hotels in {stayCity} for your sports trip. Compare prices and book your stay near the event.</p>
+          <a href={stayHotelUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Find Hotels in {stayCity}</a>
+        </div>
+        <AffiliateDisclosure />
+      </div>
+    </section>
+  )}
 
   <!-- Venues & Cities -->
   <section class="venues-section">
@@ -295,11 +354,11 @@ if (event.travelGuide) {
         </section>
       )}
 
-      <!-- Transportation -->
+      <!-- Getting There -->
       {event.travelGuide.transportationTips && event.travelGuide.transportationTips.length > 0 && (
         <section class="guide-section transport-guide">
           <div class="container">
-            <h2>Transportation</h2>
+            <h2>Getting To {city}</h2>
             <p class="section-sub">How to get to the venue and navigate the city</p>
             <div class="guide-grid">
               {event.travelGuide.transportationTips.map(tip => (
@@ -319,14 +378,14 @@ if (event.travelGuide) {
     </>
   )}
 
-  <!-- Tours & Activities (conditional) -->
+  <!-- Things To Do (conditional) -->
   {activityUrl && (
     <section class="activities-section">
       <div class="container">
         <div class="activities-card">
-          <h2>Tours &amp; Activities</h2>
-          <p>Explore local experiences, stadium tours, and guided packages around the event.</p>
-          <a href={activityUrl} class="btn btn-green" target="_blank" rel="noopener noreferrer sponsored">Browse Activities</a>
+          <h2>Things To Do in {city}</h2>
+          <p>Discover tours, attractions, and unforgettable experiences near {event.title}.</p>
+          <a href={activityUrl} class="btn btn-green" data-affiliate="viator" data-campaign={campaign} data-destination="viator" target="_blank" rel="noopener noreferrer sponsored">Book Experiences</a>
         </div>
         <AffiliateDisclosure />
       </div>
@@ -346,7 +405,7 @@ if (event.travelGuide) {
             <div class="related-body">
               <span class="related-badge">{other.category}</span>
               <h3>{other.title}</h3>
-              <p>{other.location} · {other.date}</p>
+              <p>{getEventLocation(other)} · {other.date}</p>
             </div>
           </a>
         ))}
@@ -376,7 +435,8 @@ if (event.travelGuide) {
         <p>Compare prices across airlines and hotels. We may earn a small commission when you book through our links.</p>
         <div class="cta-buttons">
           <a href={flightUrl} class="btn btn-white" target="_blank" rel="noopener noreferrer sponsored">Search Flights</a>
-          <a href={hotelUrl} class="btn btn-white" target="_blank" rel="noopener noreferrer sponsored">Search Hotels</a>
+          <a href={hotelUrl} class="btn btn-white" target="_blank" rel="noopener noreferrer sponsored">Find Hotels in {city}</a>
+          {activityUrl && <a href={activityUrl} class="btn btn-white" data-affiliate="viator" data-campaign={campaign} data-destination="viator" target="_blank" rel="noopener noreferrer sponsored">Explore {city} Experiences</a>}
         </div>
       </div>
     </div>
@@ -504,6 +564,30 @@ if (event.travelGuide) {
   .section-sub {
     color: #6b7280;
     margin-bottom: 40px;
+  }
+
+  .budget-summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+  }
+
+  .budget-summary-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #475569;
+  }
+
+  .budget-summary-value {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #111;
   }
 
   .budget-grid {
@@ -1000,6 +1084,95 @@ if (event.travelGuide) {
     transform: translateY(-1px);
   }
 
+  /* Hero Trip Planning CTA */
+  .hero-trip-planning {
+    margin-top: 32px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    max-width: 500px;
+  }
+
+  .hero-cta-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: white;
+  }
+
+  .hero-cta-checks {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .hero-check {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .hero-cta-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-trip {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: white;
+    color: #111;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-trip:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Where To Stay standalone */
+  .stay-section {
+    padding: 0 0 60px;
+  }
+
+  .stay-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #111;
+  }
+
+  .stay-standalone-card {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 1px solid #bae6fd;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .stay-standalone-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .stay-standalone-text {
+    color: #4b5563;
+    margin-bottom: 24px;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   @media (max-width: 768px) {
     .event-hero h1 { font-size: 2rem; }
     .event-meta-bar { flex-direction: column; gap: 4px; align-items: flex-start; }
@@ -1012,5 +1185,8 @@ if (event.travelGuide) {
     .guide-grid { grid-template-columns: 1fr; }
     .guide-cta { flex-direction: column; align-items: stretch; }
     .guide-cta .btn { text-align: center; }
+    .hero-trip-planning { max-width: 100%; }
+    .hero-cta-buttons { flex-direction: column; }
+    .btn-trip { text-align: center; justify-content: center; }
   }
 </style>

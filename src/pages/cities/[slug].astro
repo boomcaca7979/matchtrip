@@ -1,0 +1,598 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { eventsData } from '../../data/events';
+import { buildHotelLink, buildActivityLink } from '../../utils/affiliate-links';
+
+export function getStaticPaths() {
+  const cityMap = new Map();
+
+  Object.entries(eventsData).forEach(([id, event]) => {
+    const city = event.location?.city;
+    if (!city) return;
+
+    const slug = city.toLowerCase().replace(/\s+/g, '-');
+
+    if (!cityMap.has(slug)) {
+      cityMap.set(slug, {
+        slug,
+        city,
+        country: event.location.country,
+        continent: event.location.continent,
+        events: [],
+      });
+    }
+
+    cityMap.get(slug).events.push({ id, ...event });
+  });
+
+  return Array.from(cityMap.values()).map(entry => ({
+    params: { slug: entry.slug },
+    props: entry,
+  }));
+}
+
+const { city, country, continent, events } = Astro.props;
+
+const slug = city.toLowerCase().replace(/\s+/g, '-');
+const pageUrl = new URL(`/cities/${slug}`, Astro.site).href;
+
+const upcomingEvents = events.filter(e => e.status !== 'ended');
+const pastEvents = events.filter(e => e.status === 'ended');
+const eventCount = events.length;
+const upcomingCount = upcomingEvents.length;
+
+// First event with an activityQuery for the Things To Do CTA
+const activityEvent = events.find(e => e.partnerRefs?.activityQuery);
+const activityUrl = activityEvent
+  ? buildActivityLink({ query: activityEvent.partnerRefs.activityQuery, campaign: `city-${slug}` })
+  : null;
+
+// Hotel CTA: use the first event's checkin/checkout for context (or none for city page)
+const hotelUrl = buildHotelLink({ city, campaign: `city-${slug}` });
+
+// Related cities: same continent, exclude self
+const allCities = new Map();
+Object.entries(eventsData).forEach(([, event]) => {
+  const c = event.location?.city;
+  if (!c) return;
+  const s = c.toLowerCase().replace(/\s+/g, '-');
+  if (!allCities.has(s)) {
+    allCities.set(s, {
+      slug: s,
+      city: c,
+      country: event.location.country,
+      continent: event.location.continent,
+    });
+  }
+});
+const relatedCities = Array.from(allCities.values())
+  .filter(c => c.slug !== slug && c.continent === continent)
+  .slice(0, 4);
+
+// Schema
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": `${city} Sports Events`,
+  "description": `Sports events in ${city}, ${country}. Find schedules, travel guides, hotels, and tickets for sporting events in ${city}.`,
+  "url": pageUrl,
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": events.map((event, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": new URL(`/events/${event.id}`, Astro.site).href,
+      "name": event.title,
+    })),
+  },
+};
+
+const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collectionPageSchema, null, '\t')}</script>`;
+
+const pageTitle = `${city} Sports Travel Guide | MatchTrip`;
+const pageDescription = `Plan your ${city} sports trip with event guides, hotels, flights, tickets and things to do.`;
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Navbar />
+
+  <!-- Hero -->
+  <section class="city-hero">
+    <div class="container">
+      <a href="/events" class="back-link">&larr; All Events</a>
+      <h1>{city} Sports Travel Guide</h1>
+      <p class="city-country">{country}</p>
+      <p class="city-count">{upcomingCount > 0 ? `${upcomingCount} upcoming event${upcomingCount !== 1 ? 's' : ''}` : `${eventCount} event${eventCount !== 1 ? 's' : ''}`}</p>
+      <p class="city-subtitle">Plan your trip to {city} for the biggest sporting events. Find hotels, tickets, and things to do.</p>
+    </div>
+  </section>
+
+  <!-- Things To Do -->
+  {activityUrl && (
+    <section class="city-activities-section">
+      <div class="container">
+        <div class="city-activities-card">
+          <h2>Things To Do in {city}</h2>
+          <p>Explore tours, attractions, and experiences for travelers visiting {city}.</p>
+          <a href={activityUrl} class="btn btn-green" data-affiliate="viator" data-campaign={`city-${slug}`} data-destination="viator" target="_blank" rel="noopener noreferrer sponsored">Explore {city} Experiences</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Events -->
+  <section class="events-section">
+    <div class="container">
+      {upcomingEvents.length > 0 && (
+        <>
+          <h2>Upcoming Events in {city}</h2>
+          <div class="events-grid">
+            {upcomingEvents.map(event => (
+              <article class="event-card">
+                <div class="event-image" style={`background: linear-gradient(135deg, ${event.colorFrom || '#6366f1'} 0%, ${event.colorTo || '#a855f7'} 100%)`}>
+                  <span class="event-emoji">{event.emoji || '🏟️'}</span>
+                  <span class="event-badge">{event.category}</span>
+                </div>
+                <div class="event-content">
+                  <div class="event-meta">
+                    <span class="event-date">{event.date}</span>
+                  </div>
+                  <a href={`/events/${event.id}/`} class="event-card-title-link"><h3>{event.title}</h3></a>
+                  <p>{event.description}</p>
+                  <div class="event-footer">
+                    <div class="event-price">
+                      <span class="price-label">Est. Travel Cost</span>
+                      <span class="price-value">{event.priceEstimate}</span>
+                    </div>
+                    <a href={`/events/${event.id}`} class="btn btn-primary">Plan Trip</a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </>
+      )}
+
+      {pastEvents.length > 0 && (
+        <>
+          <h2 class="past-heading">Past Events in {city}</h2>
+          <div class="events-grid">
+            {pastEvents.map(event => (
+              <article class="event-card">
+                <div class="event-image" style={`background: linear-gradient(135deg, ${event.colorFrom || '#6366f1'} 0%, ${event.colorTo || '#a855f7'} 100%)`}>
+                  <span class="event-emoji">{event.emoji || '🏟️'}</span>
+                  <span class="event-badge">{event.category}</span>
+                </div>
+                <div class="event-content">
+                  <div class="event-meta">
+                    <span class="event-date">{event.date}</span>
+                  </div>
+                  <a href={`/events/${event.id}/`} class="event-card-title-link"><h3>{event.title}</h3></a>
+                  <p>{event.description}</p>
+                  <div class="event-footer">
+                    <div class="event-price">
+                      <span class="price-label">Est. Travel Cost</span>
+                      <span class="price-value">{event.priceEstimate}</span>
+                    </div>
+                    <a href={`/events/${event.id}`} class="btn btn-outline">View Event</a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  </section>
+
+  <!-- Hotel CTA -->
+  <section class="hotel-cta-section">
+    <div class="container">
+      <div class="hotel-cta-card">
+        <h2>Find Hotels in {city}</h2>
+        <p>Compare prices and book your stay in {city}. We may earn a small commission when you book through our links.</p>
+        <a href={hotelUrl} class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer sponsored">Find Hotels in {city}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Things To Do -->
+  {activityUrl && (
+    <section class="activities-section">
+      <div class="container">
+        <div class="activities-card">
+          <h2>Things To Do in {city}</h2>
+          <p>Explore local experiences, tours, and attractions around {city}.</p>
+          <a href={activityUrl} class="btn btn-green" data-affiliate="viator" data-campaign={`city-${slug}`} data-destination="viator" target="_blank" rel="noopener noreferrer sponsored">Explore {city} Experiences</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Related Cities -->
+  {relatedCities.length > 0 && (
+    <section class="related-section">
+      <div class="container">
+        <h2>More Cities in {continent}</h2>
+        <div class="related-grid">
+          {relatedCities.map(rc => (
+            <a href={`/cities/${rc.slug}`} class="related-card">
+              <div class="related-body">
+                <h3>{rc.city}</h3>
+                <p>{rc.country}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <Fragment set:html={schemaHtml} />
+  <Footer />
+</Layout>
+
+<style>
+  .city-hero {
+    padding: 100px 0 60px;
+    text-align: center;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: #6366f1;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: #4f46e5; }
+
+  .city-hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    color: #111;
+  }
+
+  .city-country {
+    font-size: 1.1rem;
+    color: #6366f1;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .city-count {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-bottom: 16px;
+  }
+
+  .city-subtitle {
+    font-size: 1.0625rem;
+    color: #6b7280;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Events */
+  .events-section {
+    padding: 60px 0 80px;
+  }
+
+  .events-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 32px;
+  }
+
+  .past-heading {
+    margin-top: 48px;
+  }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 24px;
+  }
+
+  .event-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+  }
+
+  .event-image {
+    position: relative;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .event-emoji {
+    font-size: 3rem;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+  }
+
+  .event-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #111;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .event-content {
+    padding: 24px;
+  }
+
+  .event-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+
+  .event-card-title-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: color 0.2s ease;
+  }
+
+  .event-card-title-link:hover { color: #6366f1; }
+
+  .event-card-title-link h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #111;
+  }
+
+  .event-content p {
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .event-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .event-price {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .price-label {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .price-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111;
+  }
+
+  /* Hotel CTA */
+  .hotel-cta-section {
+    padding: 0 0 80px;
+  }
+
+  .hotel-cta-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    border-radius: 24px;
+    padding: 64px;
+    text-align: center;
+    color: white;
+  }
+
+  .hotel-cta-card h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .hotel-cta-card p {
+    color: #94a3b8;
+    max-width: 520px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  /* City Activities (Hero 后) */
+  .city-activities-section {
+    padding: 0 0 60px;
+  }
+
+  .city-activities-card {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 1px solid #bbf7d0;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .city-activities-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 8px;
+  }
+
+  .city-activities-card p {
+    color: #4b5563;
+    margin-bottom: 24px;
+  }
+
+  /* Activities */
+  .activities-section {
+    padding: 0 0 80px;
+  }
+
+  .activities-card {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 1px solid #bbf7d0;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .activities-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 8px;
+  }
+
+  .activities-card p {
+    color: #4b5563;
+    margin-bottom: 24px;
+  }
+
+  /* Related */
+  .related-section {
+    padding: 0 0 80px;
+  }
+
+  .related-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #111;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .related-card {
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+
+  .related-card:hover {
+    border-color: #6366f1;
+    background: #f5f3ff;
+    transform: translateY(-2px);
+  }
+
+  .related-body h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 4px;
+  }
+
+  .related-body p {
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-lg {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+
+  .btn-primary {
+    background: #111;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.9rem;
+  }
+
+  .btn-primary:hover {
+    background: #374151;
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: #111;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    font-size: 0.9rem;
+  }
+
+  .btn-outline:hover { background: #f9fafb; }
+
+  .btn-green {
+    background: #16a34a;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.95rem;
+  }
+
+  .btn-green:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    .city-hero h1 { font-size: 2rem; }
+    .events-grid { grid-template-columns: 1fr; }
+    .related-grid { grid-template-columns: 1fr 1fr; }
+    .hotel-cta-card { padding: 40px 24px; }
+  }
+</style>

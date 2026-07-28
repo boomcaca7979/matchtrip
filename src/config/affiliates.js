@@ -16,56 +16,10 @@
 export const AFFILIATE_PROGRAMS = {
 
   /* ── Hotel provider selector ─────────────────────── */
-  // 选择当前激活的酒店 affiliate provider。
-  // 可选值: 'klook' | 'kkday' | 'booking'
-  // - 'klook':  优先 Klook，若 promoId 未填则回退 KKday，再回退 fallback
-  // - 'kkday':  优先 KKday，若 promoId 未填则回退 Klook，再回退 fallback
-  // - 'booking': 走原 Booking.com Travelpayouts redirect（p=4114，需 Travelpayouts 后台权限）
-  hotelProvider: 'klook',
-
-  /* ── Hotel Booking (via Travelpayouts redirect) ───── */
-  // ⏸️ 当前 Travelpayouts Booking.com program 无权限，tp.media/r 点击 Forbidden。
-  // 保留配置以便权限恢复后只需把 hotelProvider 改回 'booking' 即可启用。
-  booking: {
-    id: '738032',      // ✅ Travelpayouts marker
-    enabled: true,
-    baseUrl: 'https://tp.media/r',
-    param: 'marker',   // Travelpayouts uses ?marker=<your_id>
-    extra: { p: '4114' }, // p=4114 = Booking.com program ID on Travelpayouts
-    // Travelpayouts redirect mode: wraps a target booking.com URL into tp.media/r?...&u=<encoded>
-    redirectMode: true,
-    targetBaseUrl: 'https://www.booking.com/searchresults.html',
-  },
-
-  /* ── Klook (via Travelpayouts redirect) ───────────── */
-  // Klook 在 Travelpayouts 的 program。复用同一 marker 738032。
-  // promoId 留空时自动走 fallback（KKday 或 Google Hotels）。
-  // 拿到 promoId 后填入即可启用，无需改代码。
-  klook: {
-    id: '738032',          // Travelpayouts marker (复用)
-    enabled: true,
-    promoId: '4110',       // ✅ Klook Travelpayouts program ID
-    baseUrl: 'https://tp.media/r',
-    param: 'marker',
-    extra: {},             // p 在运行时从 promoId 注入
-    redirectMode: true,
-    targetBaseUrl: 'https://www.klook.com/search/',
-    targetSearchParam: 'query',  // Klook 搜索 URL 的 query 参数名
-  },
-
-  /* ── KKday (via Travelpayouts redirect, fallback) ── */
-  // Klook 不可用时的回退 provider。同样复用 marker 738032。
-  kkday: {
-    id: '738032',          // Travelpayouts marker (复用)
-    enabled: true,
-    promoId: '',           // ⏸️ 待填: KKday 在 Travelpayouts 的 program ID (p 参数)
-    baseUrl: 'https://tp.media/r',
-    param: 'marker',
-    extra: {},
-    redirectMode: true,
-    targetBaseUrl: 'https://www.kkday.com/en/search/',
-    targetSearchParam: 'keyword',  // KKday 搜索 URL 的 query 参数名
-  },
+  // MatchTrip 不做酒店 affiliate。酒店 CTA 仅提供住宿搜索功能，不追求佣金。
+  // 固定走 Google Hotels fallback。未来若获得可靠酒店 affiliate（Booking / Agoda /
+  // Expedia / Trip.com），再在此处改回 provider 名并补回对应配置块。
+  hotelProvider: 'google',
 
   /* ── Flight Search ─────────────────────────────────── */
   skyscanner: {

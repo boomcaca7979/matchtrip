@@ -6,7 +6,7 @@ import { eventsData } from '../../../data/events';
 
 const categoryEvents = Object.entries(eventsData)
   .filter(([, data]) => data.category === 'Basketball')
-  .map(([id, data]) => ({ id, ...data }));
+  .map(([id, data]) => ({ id, ...data, location: data.location?.label || data.location }));
 
 const categoryUrl = new URL('/events/nba', Astro.site).href;
 
@@ -33,6 +33,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
 <Layout
   title="NBA Finals 2026 – Basketball Championship Schedule | MatchTrip"
   description="Get the NBA Finals 2026 schedule, dates, and travel guide. Plan your trip to watch basketball's championship series live."
+  canonical="/sports/basketball/"
 >
   <Navbar />
 
