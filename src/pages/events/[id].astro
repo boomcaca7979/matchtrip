@@ -28,7 +28,7 @@ const { id } = Astro.params;
 const event = eventsData[id as keyof typeof eventsData];
 
 if (!event) {
-  return Astro.redirect('/events');
+  return Astro.redirect('/events/');
 }
 
 const refs = event.partnerRefs;
@@ -84,7 +84,7 @@ const categoryToCluster = {
 };
 const clusterLink = categoryToCluster[event.category as keyof typeof categoryToCluster] || { url: '/events/', label: 'All Events' };
 // Event structured data for SEO (JSON-LD)
-const eventUrl = new URL('/events/' + id, Astro.site).href;
+const eventUrl = new URL('/events/' + id + '/', Astro.site).href;
 const imageUrl = new URL('/favicon.svg', Astro.site).href;
 
 // Parse minimum ticket price for schema (e.g., "$80 – $1,500" → "80")
@@ -188,7 +188,7 @@ if (event.travelGuide) {
   <!-- Hero -->
   <section class="event-hero" style={`background: linear-gradient(135deg, ${event.colorFrom} 0%, ${event.colorTo} 100%)`}>
     <div class="container">
-      <a href="/events" class="back-link">&larr; All Events</a>
+      <a href="/events/" class="back-link">&larr; All Events</a>
       <a href={clusterLink.url} class="back-link badge-link">{clusterLink.label}</a>
       <div class="hero-content">
         <span class="event-emoji">{event.emoji}</span>
@@ -398,7 +398,7 @@ if (event.travelGuide) {
       <h2>More Events</h2>
       <div class="related-grid">
         {otherEvents.map(other => (
-          <a href={`/events/${other.id}`} class="related-card">
+          <a href={`/events/${other.id}/`} class="related-card">
             <div class="related-image" style={`background: linear-gradient(135deg, ${other.colorFrom} 0%, ${other.colorTo} 100%)`}>
               <span class="related-emoji">{other.emoji}</span>
             </div>

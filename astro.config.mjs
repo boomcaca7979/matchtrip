@@ -8,5 +8,6 @@ export default defineConfig({
   output: 'static',
   adapter: vercel(),
   site: 'https://matchtrip-blue.vercel.app',
+  trailingSlash: 'always',
   integrations: [sitemap()],
 });

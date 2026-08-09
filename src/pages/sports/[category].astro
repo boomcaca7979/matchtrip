@@ -31,7 +31,7 @@ const description = `Plan your ${category.toLowerCase()} sports trip with event 
 const seoDescription = description.length > 159 ? description.substring(0, 156) + '...' : description;
 
 // Schema.org CollectionPage + ItemList
-const pageUrl = new URL('/sports/' + slug, Astro.site).href;
+const pageUrl = new URL('/sports/' + slug + '/', Astro.site).href;
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
@@ -43,7 +43,7 @@ const schema = {
     itemListElement: categoryEvents.map((event, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: new URL('/events/' + event.id, Astro.site).href,
+      url: new URL('/events/' + event.id + '/', Astro.site).href,
       name: event.title,
     })),
   },
@@ -67,10 +67,17 @@ const activityUrl = activityEvent
   <!-- Hero -->
   <section class="sport-hero">
     <div class="container">
-      <a href="/events" class="back-link">&larr; All Events</a>
+      <a href="/events/" class="back-link">&larr; All Events</a>
       <h1>{category}</h1>
       <p class="hero-count">{eventCount} event{eventCount !== 1 ? 's' : ''}</p>
       <p class="hero-sub">{seoDescription}</p>
+    </div>
+  </section>
+
+  <!-- Sport Introduction -->
+  <section class="sport-intro">
+    <div class="container narrow">
+      <p>From {category === 'Motorsport' ? 'the roar of F1 engines at iconic circuits to the precision of endurance racing' : category === 'Football' ? 'the passion of the Champions League final to the global unity of the World Cup' : category === 'Tennis' ? 'grass-court tradition at Wimbledon to the hard-hitting night sessions of the US Open' : category === 'Basketball' ? 'the fast-paced drama of the NBA Finals to international tournaments' : category === 'American Football' ? 'the spectacle of the Super Bowl to the energy of college football' : category === 'Golf' ? 'the pristine fairways of Augusta National to major championships worldwide' : category === 'Horse Racing' ? 'the thunder of the Kentucky Derby to international racing events' : category === 'Multi-Sport' ? 'the grandeur of the Olympic Games to world championship events' : category === 'Baseball' ? 'the timeless tradition of the World Series' : 'major competitions across the globe'}, our {category.toLowerCase()} travel guides give you everything you need to plan the ultimate sports trip — from where to stay and how to get there to ticket strategies and local tips.</p>
     </div>
   </section>
 
@@ -97,7 +104,7 @@ const activityUrl = activityEvent
                   <span class="price-label">Est. Travel Cost</span>
                   <span class="price-value">{event.priceEstimate}</span>
                 </div>
-                <a href={`/events/${event.id}`} class="btn btn-primary">Plan Trip</a>
+                <a href={`/events/${event.id}/`} class="btn btn-primary">Plan Trip</a>
               </div>
             </div>
           </article>
@@ -198,6 +205,23 @@ const activityUrl = activityEvent
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.7;
+  }
+
+  .narrow {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .sport-intro {
+    padding: 0 0 40px;
+  }
+
+  .sport-intro p {
+    color: #4b5563;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    text-align: center;
   }
 
   .container {

@@ -40,8 +40,8 @@ const stats = [
         Discover major sporting events worldwide and get complete travel plans with budget estimates — flights, hotels, tickets, and city guides, all in one place.
       </p>
       <div class="hero-actions">
-        <a href="/events" class="btn btn-primary btn-lg">Explore Events</a>
-        <a href="/about" class="btn btn-secondary btn-lg">How It Works</a>
+        <a href="/events/" class="btn btn-primary btn-lg">Explore Events</a>
+        <a href="/about/" class="btn btn-secondary btn-lg">How It Works</a>
       </div>
       <div class="hero-stats">
         {stats.map(stat => (
@@ -72,7 +72,7 @@ const stats = [
           </div>
           <h3>Event Calendar</h3>
           <p>Browse major sporting events worldwide with dates, locations, and ticket info — from the World Cup to the Grand Slam finals.</p>
-          <a href="/events" class="feature-link">Browse events &rarr;</a>
+          <a href="/events/" class="feature-link">Browse events &rarr;</a>
         </div>
         <div class="feature-card featured">
           <div class="feature-icon">
@@ -80,7 +80,7 @@ const stats = [
           </div>
           <h3>Travel Budget</h3>
           <p>Get complete cost breakdowns including flights, hotels, and tickets so you know exactly what to expect before you book.</p>
-          <a href="/events" class="feature-link">See estimates &rarr;</a>
+          <a href="/events/" class="feature-link">See estimates &rarr;</a>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
@@ -88,7 +88,7 @@ const stats = [
           </div>
           <h3>City Guides</h3>
           <p>Discover host cities with venue maps, transport tips, and local recommendations to make the most of your trip.</p>
-          <a href="/events" class="feature-link">Explore guides &rarr;</a>
+          <a href="/events/" class="feature-link">Explore guides &rarr;</a>
         </div>
       </div>
     </div>
@@ -105,7 +105,7 @@ const stats = [
 
       <div class="events-grid">
         {featuredEvents.map(event => (
-          <a href={`/events/${event.id}`} class="event-card">
+          <a href={`/events/${event.id}/`} class="event-card">
             <div class="event-visual" style={`background: linear-gradient(135deg, ${event.colorFrom} 0%, ${event.colorTo} 100%)`}>
               <span class="event-visual-emoji">{event.emoji}</span>
             </div>
@@ -120,7 +120,7 @@ const stats = [
       </div>
 
       <div class="events-cta">
-        <a href="/events" class="btn btn-primary btn-lg">View All Events</a>
+        <a href="/events/" class="btn btn-primary btn-lg">View All Events</a>
       </div>
     </div>
   </section>
@@ -135,7 +135,7 @@ const stats = [
       </div>
       <div class="all-events-links">
         {allEvents.map(event => (
-          <a href={`/events/${event.id}`} class="all-event-link">
+          <a href={`/events/${event.id}/`} class="all-event-link">
             <span class="all-event-emoji">{event.emoji}</span>
             <span class="all-event-title">{event.title}</span>
             <span class="all-event-meta">{event.location} &middot; {event.date}</span>
@@ -187,15 +187,7 @@ const stats = [
           <h2>Stay Updated</h2>
           <p>New events added weekly. Get notified when we add more destinations and travel guides.</p>
         </div>
-        <form class="newsletter-form" action="https://gmail.us22.list-manage.com/subscribe/post" method="POST" target="_blank">
-          <input type="hidden" name="u" value="YOUR_MAILCHIMP_U" />
-          <input type="hidden" name="id" value="YOUR_MAILCHIMP_ID" />
-          <div class="newsletter-input-group">
-            <input type="email" name="EMAIL" placeholder="Your email address" required aria-label="Email for updates" />
-            <button type="submit" class="btn btn-primary newsletter-btn">Subscribe</button>
-          </div>
-          <p class="newsletter-note">No spam, unsubscribe anytime. We'll only send event updates.</p>
-        </form>
+        <a href="/contact/" class="btn btn-primary newsletter-btn">Get in Touch</a>
       </div>
     </div>
   </section>
@@ -612,43 +604,23 @@ const stats = [
     margin-bottom: 32px;
   }
 
-  .newsletter-input-group {
-    display: flex;
-    gap: 12px;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-
-  .newsletter-input-group input {
-    flex: 1;
-    padding: 14px 20px;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    font-size: 1rem;
-    outline: none;
-    font-family: inherit;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
-  .newsletter-input-group input:focus {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-  }
-
   .newsletter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 14px 28px;
-    white-space: nowrap;
-  }
-
-  .newsletter-note {
-    color: #9ca3af;
-    font-size: 0.8rem;
-    margin-top: 12px;
-  }
-
-  .newsletter-note a {
-    color: #6366f1;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 10px;
     text-decoration: none;
+    background: #111;
+    color: white;
+    transition: all 0.2s ease;
+  }
+
+  .newsletter-btn:hover {
+    background: #374151;
+    transform: translateY(-1px);
   }
 
   /* Buttons */
@@ -714,7 +686,6 @@ const stats = [
     .why-grid { grid-template-columns: 1fr; }
     .all-events-links { grid-template-columns: 1fr; }
     .all-event-meta { display: none; }
-    .newsletter-input-group { flex-direction: column; }
     .events-grid { gap: 16px; }
     .feature-card { padding: 28px; }
     .newsletter-card { padding: 32px 24px; }

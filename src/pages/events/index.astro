@@ -18,7 +18,7 @@ const events = Object.entries(eventsData).map(([id, data]) => ({
 }));
 
 // CollectionPage structured data for SEO
-const eventsPageUrl = new URL('/events', Astro.site).href;
+const eventsPageUrl = new URL('/events/', Astro.site).href;
 const collectionPageSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -30,7 +30,7 @@ const collectionPageSchema = {
     "itemListElement": events.map((event, index) => ({
       "@type": "ListItem",
       "position": index + 1,
-      "url": new URL('/events/' + event.id, Astro.site).href,
+      "url": new URL('/events/' + event.id + '/', Astro.site).href,
       "name": event.title + " Schedule",
     })),
   },
@@ -118,7 +118,7 @@ const categories = ['All', ...new Set(events.map(e => e.category))];
                   <span class="price-label">Est. Travel Cost</span>
                   <span class="price-value">{event.priceEstimate}</span>
                 </div>
-                <a href={`/events/${event.id}`} class="btn btn-primary">Plan Trip</a>
+                <a href={`/events/${event.id}/`} class="btn btn-primary">Plan Trip</a>
               </div>
             </div>
           </article>

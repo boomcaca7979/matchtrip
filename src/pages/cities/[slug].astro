@@ -36,7 +36,7 @@ export function getStaticPaths() {
 const { city, country, continent, events } = Astro.props;
 
 const slug = city.toLowerCase().replace(/\s+/g, '-');
-const pageUrl = new URL(`/cities/${slug}`, Astro.site).href;
+const pageUrl = new URL(`/cities/${slug}/`, Astro.site).href;
 
 const upcomingEvents = events.filter(e => e.status !== 'ended');
 const pastEvents = events.filter(e => e.status === 'ended');
@@ -83,7 +83,7 @@ const collectionPageSchema = {
     "itemListElement": events.map((event, index) => ({
       "@type": "ListItem",
       "position": index + 1,
-      "url": new URL(`/events/${event.id}`, Astro.site).href,
+      "url": new URL(`/events/${event.id}/`, Astro.site).href,
       "name": event.title,
     })),
   },
@@ -101,11 +101,18 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
   <!-- Hero -->
   <section class="city-hero">
     <div class="container">
-      <a href="/events" class="back-link">&larr; All Events</a>
+      <a href="/events/" class="back-link">&larr; All Events</a>
       <h1>{city} Sports Travel Guide</h1>
       <p class="city-country">{country}</p>
       <p class="city-count">{upcomingCount > 0 ? `${upcomingCount} upcoming event${upcomingCount !== 1 ? 's' : ''}` : `${eventCount} event${eventCount !== 1 ? 's' : ''}`}</p>
       <p class="city-subtitle">Plan your trip to {city} for the biggest sporting events. Find hotels, tickets, and things to do.</p>
+    </div>
+  </section>
+
+  <!-- City Introduction -->
+  <section class="city-intro">
+    <div class="container narrow">
+      <p>{city} is a premier sports destination in {country}, hosting world-class events that attract fans from across {continent === 'North America' ? 'the globe' : continent === 'Europe' ? 'Europe and beyond' : continent === 'Asia' ? 'Asia and beyond' : 'around the world'}. Whether you're here for a championship match, a Grand Prix, or a historic tournament, our guides help you find the best hotels, plan your transportation, and discover local experiences that make your trip unforgettable.</p>
     </div>
   </section>
 
@@ -146,7 +153,7 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
                       <span class="price-label">Est. Travel Cost</span>
                       <span class="price-value">{event.priceEstimate}</span>
                     </div>
-                    <a href={`/events/${event.id}`} class="btn btn-primary">Plan Trip</a>
+                    <a href={`/events/${event.id}/`} class="btn btn-primary">Plan Trip</a>
                   </div>
                 </div>
               </article>
@@ -176,7 +183,7 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
                       <span class="price-label">Est. Travel Cost</span>
                       <span class="price-value">{event.priceEstimate}</span>
                     </div>
-                    <a href={`/events/${event.id}`} class="btn btn-outline">View Event</a>
+                    <a href={`/events/${event.id}/`} class="btn btn-outline">View Event</a>
                   </div>
                 </div>
               </article>
@@ -218,7 +225,7 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
         <h2>More Cities in {continent}</h2>
         <div class="related-grid">
           {relatedCities.map(rc => (
-            <a href={`/cities/${rc.slug}`} class="related-card">
+            <a href={`/cities/${rc.slug}/`} class="related-card">
               <div class="related-body">
                 <h3>{rc.city}</h3>
                 <p>{rc.country}</p>
@@ -279,6 +286,23 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
     max-width: 560px;
     margin: 0 auto;
     line-height: 1.7;
+  }
+
+  .narrow {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .city-intro {
+    padding: 0 0 40px;
+  }
+
+  .city-intro p {
+    color: #4b5563;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    text-align: center;
   }
 
   .container {

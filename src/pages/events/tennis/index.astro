@@ -8,7 +8,7 @@ const categoryEvents = Object.entries(eventsData)
   .filter(([, data]) => data.category === 'Tennis')
   .map(([id, data]) => ({ id, ...data, location: data.location?.label || data.location }));
 
-const categoryUrl = new URL('/events/tennis', Astro.site).href;
+const categoryUrl = new URL('/events/tennis/', Astro.site).href;
 
 const collectionPageSchema = {
   "@context": "https://schema.org",
@@ -21,7 +21,7 @@ const collectionPageSchema = {
     "itemListElement": categoryEvents.map((event, index) => ({
       "@type": "ListItem",
       "position": index + 1,
-      "url": new URL('/events/' + event.id, Astro.site).href,
+      "url": new URL('/events/' + event.id + '/', Astro.site).href,
       "name": event.title,
     })),
   },
@@ -33,7 +33,6 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
 <Layout
   title="Tennis Tournaments 2026 – Wimbledon & US Open | MatchTrip"
   description="View tennis Grand Slam tournaments in 2026 including Wimbledon and the US Open. Get schedules, dates, and ticket information."
-  canonical="/sports/tennis/"
 >
   <Navbar />
 
@@ -100,7 +99,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
                   <span class="price-label">Est. Travel Cost</span>
                   <span class="price-value">{event.priceEstimate}</span>
                 </div>
-                <a href={`/events/${event.id}`} class="btn btn-primary">Plan Trip</a>
+                <a href={`/events/${event.id}/`} class="btn btn-primary">Plan Trip</a>
               </div>
             </div>
           </article>

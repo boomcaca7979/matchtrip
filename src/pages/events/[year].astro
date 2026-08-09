@@ -23,7 +23,7 @@ export function getStaticPaths() {
 
 const { year, events } = Astro.props;
 
-const pageUrl = new URL(`/events/${year}`, Astro.site).href;
+const pageUrl = new URL(`/events/${year}/`, Astro.site).href;
 
 // Group events by category
 const categories = [...new Set(events.map(e => e.category))].sort();
@@ -49,7 +49,7 @@ const collectionPageSchema = {
     "itemListElement": events.map((event, index) => ({
       "@type": "ListItem",
       "position": index + 1,
-      "url": new URL(`/events/${event.id}`, Astro.site).href,
+      "url": new URL(`/events/${event.id}/`, Astro.site).href,
       "name": event.title,
     })),
   },
@@ -63,7 +63,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
 
   <section class="year-hero">
     <div class="container">
-      <a href="/events" class="back-link">&larr; All Events</a>
+      <a href="/events/" class="back-link">&larr; All Events</a>
       <h1>{year} Sports Events</h1>
       <p class="year-count">{events.length} events across {categories.length} sports</p>
       <p class="year-subtitle">Browse the {year} sporting calendar. Find schedules, travel guides, and booking links for the biggest events in {upcomingEvents.length > 0 ? `${upcomingEvents.length} upcoming` : ''}{upcomingEvents.length > 0 && pastEvents.length > 0 ? ' and ' : ''}{pastEvents.length > 0 ? `${pastEvents.length} past` : ''} events.</p>
@@ -94,7 +94,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
                       <span class="price-label">Est. Travel Cost</span>
                       <span class="price-value">{event.priceEstimate}</span>
                     </div>
-                    <a href={`/events/${event.id}`} class="btn btn-primary">Plan Trip</a>
+                    <a href={`/events/${event.id}/`} class="btn btn-primary">Plan Trip</a>
                   </div>
                 </div>
               </article>
