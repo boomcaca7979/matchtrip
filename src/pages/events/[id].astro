@@ -273,6 +273,7 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
 <Layout
   title={`${event.title} - Travel Guide | MatchTrip`}
   description={`${event.title} travel guide. Plan your trip with hotels, flights, tickets, budget estimates and things to do in ${city}.`}
+  category={event.category}
 >
   <Navbar />
 
@@ -362,6 +363,19 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
         <p class="section-sub">What to expect when planning your trip</p>
         <div class="overview-card">
           <p class="overview-text">{travelOverviewText}</p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Why Attend (only for events with travelGuide.whyAttend data) -->
+  {event.travelGuide?.whyAttend && (
+    <section class="why-attend-section">
+      <div class="container">
+        <h2>Why Attend {event.title}</h2>
+        <p class="section-sub">What makes this event worth the trip</p>
+        <div class="overview-card">
+          <p class="overview-text">{event.travelGuide.whyAttend}</p>
         </div>
       </div>
     </section>
@@ -459,6 +473,26 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
             </div>
             <div class="guide-cta">
               <a href={hotelUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Find Hotels in {refs.hotelCity}</a>
+            </div>
+            <AffiliateDisclosure />
+          </div>
+        </section>
+      )}
+
+      <!-- Best Areas for Visitors (only for events with travelGuide.bestAreas data) -->
+      {event.travelGuide?.bestAreas && event.travelGuide.bestAreas.length > 0 && (
+        <section class="guide-section best-areas-guide">
+          <div class="container">
+            <h2>Best Areas for Visitors</h2>
+            <p class="section-sub">Top neighborhoods to base yourself during the event</p>
+            <div class="guide-grid">
+              {event.travelGuide.bestAreas.map(area => (
+                <div class="guide-card">
+                  <h3>{area.name}</h3>
+                  <p>{area.description}</p>
+                  <a href={buildHotelLink({ city: area.searchQuery, campaign: `${id}-areas` })} class="btn btn-outline stay-area-cta" target="_blank" rel="noopener noreferrer sponsored">Search hotels</a>
+                </div>
+              ))}
             </div>
             <AffiliateDisclosure />
           </div>
@@ -944,6 +978,16 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     max-width: 900px;
   }
 
+  /* Why Attend */
+  .why-attend-section { padding: 60px 0; }
+
+  .why-attend-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #111;
+  }
+
   /* Travel Guide Modules */
   .guide-section {
     padding: 60px 0;
@@ -952,6 +996,7 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
   .tickets-guide { background: #fafafa; }
   .stay-guide { background: #ffffff; }
   .transport-guide { background: #fafafa; }
+  .best-areas-guide { background: #ffffff; }
 
   .guide-section h2 {
     font-size: 1.75rem;

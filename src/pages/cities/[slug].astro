@@ -75,6 +75,9 @@ const relatedCities = Array.from(allCities.values())
   .filter(c => c.slug !== slug && c.continent === continent)
   .slice(0, 4);
 
+// Venue guide links for the More on MatchTrip section (only cities with editorial content)
+const linkedVenues = (content?.majorVenues || []).filter(v => v && v.venueSlug);
+
 // Schema
 const collectionPageSchema = {
   "@context": "https://schema.org",
@@ -93,7 +96,20 @@ const collectionPageSchema = {
   },
 };
 
-const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collectionPageSchema, null, '\t')}</script>`;
+// Breadcrumb structured data: Home > Cities > City
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": new URL('/', Astro.site).href },
+    { "@type": "ListItem", "position": 2, "name": "Cities", "item": new URL('/cities/', Astro.site).href },
+    { "@type": "ListItem", "position": 3, "name": city, "item": pageUrl },
+  ],
+};
+
+const schemaHtml = [collectionPageSchema, breadcrumbSchema]
+  .map(schema => `<script type="application/ld+json">${JSON.stringify(schema, null, '\t')}</script>`)
+  .join('\n');
 
 const pageTitle = `${city} Sports Travel Guide | MatchTrip`;
 const pageDescription = `Plan your ${city} sports trip with event guides, hotels, flights, tickets and things to do.`;
@@ -151,6 +167,26 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
           </ul>
         </div>
       </section>
+
+      <!-- Airports & Arrival -->
+      {content.airports?.length > 0 && (
+        <section class="guide-section">
+          <div class="container">
+            <h2>Airports &amp; Arrival</h2>
+            <div class="guide-grid">
+              {content.airports.map(airport => (
+                <div class="guide-card">
+                  <div class="airport-head">
+                    <span class="airport-code">{airport.code}</span>
+                    <h3 class="guide-card-title airport-name">{airport.name}</h3>
+                  </div>
+                  <p>{airport.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <!-- Getting Around -->
       <section class="guide-section">
@@ -318,6 +354,39 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
     </section>
   )}
 
+  <!-- More on MatchTrip -->
+  {content && (
+    <section class="related-section">
+      <div class="container">
+        <h2>More on MatchTrip</h2>
+        <div class="more-links-grid">
+          <a href="/guides/" class="more-link-card">
+            <span class="more-link-tag">Guides</span>
+            <h3>Travel Guides</h3>
+            <p>Destination guides for sports cities around the world.</p>
+          </a>
+          <a href="/venues/" class="more-link-card">
+            <span class="more-link-tag">Venues</span>
+            <h3>Venue Guides</h3>
+            <p>Seating, transport, and match-day tips for iconic stadiums and arenas.</p>
+          </a>
+          <a href="/events/" class="more-link-card">
+            <span class="more-link-tag">Events</span>
+            <h3>All Events</h3>
+            <p>Every major sporting event you can build a trip around.</p>
+          </a>
+          {linkedVenues.map(v => (
+            <a href={`/venues/${v.venueSlug}/`} class="more-link-card">
+              <span class="more-link-tag">Venue</span>
+              <h3>{v.name}</h3>
+              <p>Capacity, how to get there, where to sit, and where to stay.</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <Fragment set:html={schemaHtml} />
   <Footer />
 </Layout>
@@ -470,6 +539,30 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
     font-size: 0.8rem;
     font-weight: 600;
     margin-bottom: 12px;
+  }
+
+  .airport-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .airport-code {
+    display: inline-block;
+    background: #eef2ff;
+    color: #4f46e5;
+    font-size: 1.375rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 6px 16px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+
+  .airport-name {
+    margin: 0;
   }
 
   .guide-card-title {
@@ -773,6 +866,57 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
   .related-body p {
     font-size: 0.8rem;
     color: #6b7280;
+  }
+
+  /* More on MatchTrip */
+  .more-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .more-link-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .more-link-card:hover {
+    transform: translateY(-2px);
+    border-color: #6366f1;
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+  }
+
+  .more-link-tag {
+    display: inline-block;
+    background: #eef2ff;
+    color: #4f46e5;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+
+  .more-link-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 6px;
+  }
+
+  .more-link-card p {
+    color: #6b7280;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
   }
 
   /* Buttons */

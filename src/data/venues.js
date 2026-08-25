@@ -14,8 +14,13 @@
  *                      ids not yet present in eventsData are skipped at
  *                      render time (no dead links)
  *   - colorFrom / colorTo / emoji → card theming (same convention as events)
+ *   - seoTitle / description / image → SEO fields: optional title override,
+ *     meta description (150-160 chars), reserved OG image path
  *   - overview / locationDetail / transportation / nearbyHotels /
  *     matchDayTips / faq → editorial content for the venue detail page
+ *   - eventHistory / seating / parking / foodOptions → additional
+ *     editorial sections (history, seating guide, parking, food) rendered
+ *     on the venue detail page
  */
 
 export const venuesData = {
@@ -32,6 +37,8 @@ export const venuesData = {
     colorFrom: '#0f172a',
     colorTo: '#1e40af',
     emoji: '🏟️',
+    description: 'SoFi Stadium guide: Super Bowl LXI host venue in Los Angeles. Seating tips, transport options, parking and the best hotels near Inglewood for event travel.',
+    image: '/images/og/venues/sofi-stadium.png',
     overview:
       'SoFi Stadium is the crown jewel of American sports venues, a $5.5 billion indoor-outdoor stadium at Hollywood Park in Inglewood, California. Home to the NFL\'s Los Angeles Rams and Los Angeles Chargers, it opened in 2020 as the most expensive stadium ever built and the first indoor-outdoor venue of its kind. The stadium hosted Super Bowl LVI in 2022 and is set to stage Super Bowl LXI in February 2027, eight FIFA World Cup 2026 matches, and the LA 2028 Olympic Opening Ceremony. With its sweeping canopy, double-sided Oculus video board, and lakefront setting, SoFi delivers one of the most technologically advanced fan experiences in world sport. For sports travelers, few venues sit at the center of as many mega-events over a single four-year stretch.',
     locationDetail:
@@ -85,6 +92,29 @@ export const venuesData = {
       'After the final whistle, grab food at American Airlines Plaza or nearby Inglewood spots while 70,000 fans clear the lots and shuttle lines.',
       'Bring a light jacket for night events — the canopy covers most seats, but the ocean breeze drops temperatures quickly after sunset.',
     ],
+    eventHistory:
+      'SoFi Stadium opened in September 2020 as the centerpiece of the Hollywood Park development, though pandemic restrictions meant fans only filled its stands from early 2021. Its first mega-event arrived quickly: Super Bowl LVI in February 2022, when the Rams lifted the Vince Lombardi Trophy on home turf over the Bengals. The stadium then added the 2023 College Football Playoff National Championship and record-breaking concerts from Taylor Swift to BTS. The biggest stretch is still ahead: eight FIFA World Cup 2026 matches, Super Bowl LXI in February 2027, and the Opening and Closing Ceremonies of the LA 2028 Olympics and Paralympics — a four-year run no American venue has ever matched.',
+    seating:
+      'SoFi Stadium seats 70,240 for NFL games, expandable to roughly 100,000 for mega-events, with every seat sheltered beneath the sweeping translucent canopy that filters sunlight while keeping the venue open-air. The bowl stacks in three tiers, with the famous 70,000-square-foot double-sided Oculus video board suspended above the field — seats directly underneath offer the most unique (and neck-straining) views. Lower-level sideline seats between the goal lines are priciest; the upper deck delivers skyline and lake views through the canopy. There are no bad sightlines thanks to the steep rake, and 260-plus suites and 13,000 club seats ring the bowl between levels.',
+    parking:
+      'All Hollywood Park parking must be pre-booked through SeatGeek before event day — on-site lots rarely sell at the gate and prices climb as inventory shrinks. Lots surround the stadium within a 15-25 minute walk, and the entire district is cashless. Rideshare drop-off sits along Arbor Vitae; many fans park at the Forum and walk.',
+    foodOptions: [
+      {
+        name: 'American Airlines Plaza Food Stands',
+        description:
+          'The open-air plaza beneath the Oculus serves as SoFi\'s main food hall, with dozens of stands spanning LA street food to Smashburger and Beyond Meat. Order ahead in the SoFi app for pickup windows that skip hour-long lines between quarters.',
+      },
+      {
+        name: 'Genesis Club Premium Dining',
+        description:
+          'Club seat holders dine in spaces like the Genesis Club, where carving stations, sushi bars, and craft cocktails replace standard stadium fare. Access is included with club tickets — arrive early to eat a full meal before kickoff while the bowl fills.',
+      },
+      {
+        name: 'Inglewood Eats Beyond the Gates',
+        description:
+          'Outside the gates, Inglewood\'s food scene delivers — from beloved taco trucks on Crenshaw to soul food institutions like The Serving Spoon, a ten-minute drive away. Eat a proper pre-game meal here while post-event traffic clears.',
+      },
+    ],
     faq: [
       {
         question: 'What is the capacity of SoFi Stadium?',
@@ -127,6 +157,8 @@ export const venuesData = {
     colorFrom: '#111827',
     colorTo: '#a21caf',
     emoji: '🏎️',
+    description: 'Las Vegas Strip Circuit guide: home of the F1 Las Vegas Grand Prix night race. Grandstand tips, monorail transport and the best Strip hotels for race weekend.',
+    image: '/images/og/venues/las-vegas-strip-circuit.png',
     overview:
       'The Las Vegas Strip Circuit is Formula 1\'s most spectacular street track, a 3.8-mile, 17-turn layout that sends cars racing down the famous Las Vegas Boulevard at speeds over 200 mph. The Grand Prix runs at night under the neon glow of the Sphere, Caesars Palace, and the Bellagio fountains, with sessions starting in the evening and the race at 6 PM local time. Since its debut in 2023, the event has drawn around 300,000 fans across the weekend, transforming the Strip into the biggest spectacle on the F1 calendar. Grandstands, hospitality suites, and trackside viewing zones line the circuit from the paddock near Koval Lane to the neon-soaked stretch past the fountains.',
     locationDetail:
@@ -180,6 +212,29 @@ export const venuesData = {
       'Pick grandstands facing the Sphere or the Bellagio fountains — the neon backdrop in your photos will make the race instantly recognizable.',
       'Collect tickets and credentials on Thursday practice day, when queues are short; Friday and Saturday pick-up lines can stretch over an hour.',
     ],
+    eventHistory:
+      'Formula 1 returned to Las Vegas in November 2023 for the first time in more than four decades, since the Caesars Palace Grand Prix of the early 1980s. The revived Las Vegas Grand Prix instantly became one of the biggest events in the sport\'s history — an estimated 315,000 fans attended the debut weekend, generating over $1 billion in economic impact for the city. Max Verstappen won the chaotic first race after early collisions and a red flag. The race became famous for its Saturday-night start under the Sphere\'s glowing displays, establishing Vegas as the calendar\'s flagship night race, with editions already scheduled through 2027.',
+    seating:
+      'Viewing options divide into grandstands and zones around the 3.8-mile lap. The East Harmon and West Harmon grandstands line the main straight beside the Sphere, capturing launch, overtakes, and the pit exit at over 200 mph. East Grand Prix and South Grand Prix stands sit around turns 1-3, where late-braking passes happen. General-admission zones include the T-Mobile Zone at Sphere with giant screens and live entertainment, while the Paddock Grandstand sits opposite the pits. The Bellagio Fountain Club and trackside suites offer the most exclusive vantage points above the fountains.',
+    parking:
+      'There is no general spectator parking at the circuit itself — the Strip closes to through traffic. Racegoers walk from Strip hotels or use designated offsite lots with shuttle service, booked in advance through the official ticket site. Uber and Lyft operate from assigned lots along the east side; expect surge pricing and 30-45 minute waits after the checkered flag.',
+    foodOptions: [
+      {
+        name: 'Bacchanal Buffet at Caesars Palace',
+        description:
+          'Steps from the circuit, Bacchanal\'s nine live kitchens serve everything from king crab legs to dim sum — book a pre-race dinner slot weeks ahead, or a late 10 PM seating after the checkered flag falls.',
+      },
+      {
+        name: 'Grandstand Concessions',
+        description:
+          'Grandstand areas stock standard stadium fare plus Vegas twists — slices, burgers, and margaritas at Strip-uplifted prices. Bring a card: the circuit is fully cashless, and lines peak between sessions when everyone heads out at once.',
+      },
+      {
+        name: 'The Buffet at Wynn',
+        description:
+          'Wynn\'s elegant buffet rivals any on the Strip, with made-to-order pasta, a raw bar, and desserts worth skipping lunch for. Its northeast position near the paddock end makes it an easy pre-session dinner base for grandstand ticketholders.',
+      },
+    ],
     faq: [
       {
         question: 'What is the Las Vegas Strip Circuit?',
@@ -222,6 +277,8 @@ export const venuesData = {
     colorFrom: '#450a0a',
     colorTo: '#dc2626',
     emoji: '⚽',
+    description: 'Riyadh Air Metropolitano guide: 2027 Champions League final venue in Madrid. Metro transport, parking, seating tips and the best hotels near the stadium.',
+    image: '/images/og/venues/metropolitano.png',
     overview:
       'Riyadh Air Metropolitano is the home of Atlético de Madrid and one of Europe\'s most modern arenas, opened in September 2017 in the northeast of the Spanish capital. With a capacity of 70,692, it is the first stadium in the world with 100% LED lighting and features a 360-degree "Sky Ribbon" video screen around the bowl. The venue hosted the 2019 Champions League final, when Liverpool beat Tottenham, and will stage the final again on 5 June 2027 — the second time in under a decade. Built as part of Atlético\'s Ciudad del Deporte project — a 265,000-square-metre leisure, entertainment, and sports district — the stadium is also shortlisted as a venue for the 2030 FIFA World Cup.',
     locationDetail:
@@ -275,6 +332,29 @@ export const venuesData = {
       'For the 2027 Champions League final, book refundable Madrid hotel rooms the day dates are announced — city-wide rates will surge instantly.',
       'Wear red and white to blend into the Atlético crowd, and avoid the away section unless you genuinely support the visiting side.',
     ],
+    eventHistory:
+      'The Metropolitano opened on 16 September 2017 with a 1-0 Atlético win over Málaga, carrying a name that honours the club\'s original 1923-1966 Metropolitano ground. It needed only two seasons to land football\'s biggest occasion: the 2019 UEFA Champions League final, when Liverpool beat Tottenham 2-0. Atlético\'s era has since delivered the 2021 La Liga title and thunderous European nights under the Sky Ribbon, while Spain internationals, World Rugby Sevens finals, boxing, and concerts from Bruce Springsteen to Bad Bunny have broadened the calendar. In 2027 the Champions League final returns — and the stadium is shortlisted as a venue for the 2030 FIFA World Cup.',
+    seating:
+      'The Metropolitano\'s 70,692 seats are arranged in three tiers — a lower tier of roughly 20,000, a middle tier of around 14,000, and an upper tier of more than 30,000 — that rise steeply and close to the pitch, creating an intimate, wall-of-noise feel unusual for a stadium this size. Every seat sits under the wave-shaped roof, one of the most distinctive silhouettes in European football. The Fondo Sur behind the south goal houses the loudest Atlético support and the main fan zone; the family-friendly Fondo Norte is fully non-smoking. The 360-degree Sky Ribbon screen keeps replays visible from every angle.',
+    parking:
+      'Match-day parking inside the stadium complex is reserved for permit holders only. The public option is the IFEMA fairground car park, connected by shuttle buses on major match days. Most fans skip driving entirely: Metro Line 7 drops you beside the turnstiles, Cercanías rail serves Fuente de la Mora a short walk away, and M-40 exit ramps jam solidly 90 minutes before kick-off.',
+    foodOptions: [
+      {
+        name: 'Concourse Tapas & Bocadillos',
+        description:
+          'Inside the ground, concourse stands sell bocadillos calamares, jamón serrano rolls, tortilla slices, and Mahou beer. Prices are fair by stadium standards; queues move fastest at the upper-tier kiosks away from the tunnel entrances.',
+      },
+      {
+        name: 'Mercado de San Miguel',
+        description:
+          'Pre-match in the centre? This glass-walled market near Plaza Mayor pours Rioja and plates Iberian ham, Galician octopus, and croquetas. Make a tapas crawl here your ritual before hopping the Metro Line 7 northeast.',
+      },
+      {
+        name: 'Tabernas of the Rosas District',
+        description:
+          'Around the stadium, the quiet Rosas district hides family-run tabernas where a caña still comes with a free tapa — match-day grills set up around the fan zones early, so arrive hungry and before the crowds.',
+      },
+    ],
     faq: [
       {
         question: 'What is the capacity of Riyadh Air Metropolitano?',
@@ -317,6 +397,8 @@ export const venuesData = {
     colorFrom: '#0c4a6e',
     colorTo: '#06b6d4',
     emoji: '🌃',
+    description: 'Marina Bay Street Circuit guide: home of the F1 Singapore Grand Prix night race. Grandstand tips, MRT transport options and the best hotels near Marina Bay.',
+    image: '/images/og/venues/marina-bay-circuit.png',
     overview:
       'The Marina Bay Street Circuit is the home of the Formula 1 Singapore Grand Prix, the original night race that lit up the sport when it debuted in 2008. The 4.9 km, 19-turn layout threads between downtown skyscrapers, heritage bridges, and the glittering Marina Bay waterfront, with cars racing beneath floodlights from 8 PM local time. Combining heat, humidity, walls that punish the smallest mistake, and a backdrop of the city skyline and Gardens by the Bay, it is widely called one of the most physically demanding races on the F1 calendar. More than 250,000 fans pass through the gates across the race weekend, making it Southeast Asia\'s biggest party in motorsport.',
     locationDetail:
@@ -370,6 +452,29 @@ export const venuesData = {
       'Track-crossing bridges only open between sessions, so plan moves between zones around the on-track timetable — otherwise you can get stuck on the wrong side of the circuit.',
       'Ear plugs are cheap at the gates and genuinely essential — modern F1 cars are far louder between street-circuit walls than they seem on television.',
     ],
+    eventHistory:
+      'The Singapore Grand Prix made history on 28 September 2008 as Formula 1\'s first-ever night race, a spectacle conceived to bring the sport to prime-time European television audiences. Fernando Alonso won that inaugural floodlit event, which quickly established itself as the most demanding physical test on the calendar. The race fell off the calendar only during the 2020-21 pandemic before returning stronger than ever. Sebastian Vettel and Lewis Hamilton share the record for Marina Bay wins with four apiece. Beyond F1, the circuit\'s night-race formula has been copied in Saudi Arabia, Las Vegas, and beyond — Singapore remains the original, and the weekend\'s sell-out crowds and Padang concerts have made it a fixture of the Asian sporting calendar.',
+    seating:
+      'Spectator areas split into four zones: your ticket covers its own zone plus all higher-numbered ones. The Pit and Super Pit grandstands (Zone 1) line the start-finish straight, covering the grid, garages, and podium ceremony. The Padang Grandstand sits opposite the main concert stage and City Hall, while Turn 1 and Turn 2 stands capture the best overtaking as cars brake from 290 km/h. The vast Bay Grandstand — long the circuit\'s biggest and cheapest — has been unavailable in recent seasons due to waterfront redevelopment. Zone 4 walkabout tickets roam bleachers and the Esplanade waterfront; arrive early for shaded, elevated spots.',
+    parking:
+      'There is no spectator parking around the circuit — downtown road closures make driving pointless. Take the MRT (City Hall, Esplanade, Promenade, Bayfront, and Nicoll Highway all serve the gates), or use Grab from designated pickup points outside the closure zone; expect heavy surge pricing after the final session.',
+    foodOptions: [
+      {
+        name: 'Lau Pa Sat Hawker Centre',
+        description:
+          'A short MRT ride from the circuit, this Victorian cast-iron market serves satay skewers, laksa, and chicken rice at hawker prices. The evening satay street outside fills with grill smoke after dark — an ideal late dinner after qualifying ends.',
+      },
+      {
+        name: 'In-Circuit Hawker Stands',
+        description:
+          'Inside the gates, hawker-style stalls sell chicken rice, char kway teow, and chilled sugarcane juice at gentler prices than the international stands. Track down the stalls near the Padang and Village stages — queues stay shortest between sessions.',
+      },
+      {
+        name: 'Makansutra Gluttons Bay',
+        description:
+          'Right by the Esplanade gates, Gluttons Bay\'s open-air hawker stalls grill stingray and satay with the skyline behind you — pricey by hawker standards but unbeatably close to the track action.',
+      },
+    ],
     faq: [
       {
         question: 'What is the Marina Bay Street Circuit?',
@@ -412,6 +517,8 @@ export const venuesData = {
     colorFrom: '#1e3a8a',
     colorTo: '#22c55e',
     emoji: '🎾',
+    description: 'Arthur Ashe Stadium guide: US Open tennis host venue in New York. Seating tips, subway transport, parking and the best hotels near Flushing for match trips.',
+    image: '/images/og/venues/arthur-ashe-stadium.png',
     overview:
       'Arthur Ashe Stadium is the cathedral of American tennis and the largest tennis stadium in the world, seating 23,771 fans at the heart of the USTA Billie Jean King National Tennis Center in Flushing Meadows–Corona Park, Queens. Named after the 1968 US Open champion, it has hosted the tournament\'s biggest matches since 1997. Its retractable roof, completed in 2016, guarantees play through New York\'s summer storms and creates the electric, roof-closed night sessions famous for their decibel levels. For two weeks every late August and September, the world\'s best players fight for titles on the stadium\'s blue hard courts while New York throws its loudest party in sport, complete with live music, food vendors, and celebrity-studded stands.',
     locationDetail:
@@ -465,6 +572,29 @@ export const venuesData = {
       'Food Village lines peak between 6 and 8 PM; the smaller stands near the outer courts and the Kosher kiosk often move twice as fast.',
       'After night sessions, take the LIRR from the adjacent station instead of the 7 train — it skips local stops and beats the platform crush.',
     ],
+    eventHistory:
+      'Arthur Ashe Stadium opened in 1997 as the US Open\'s new centrepiece, named after the 1968 champion who became the first Black man to win a Grand Slam singles title before his death in 1993. It replaced Louis Armstrong Stadium as the main show court and remains the largest tennis stadium in the world. Its near-three decades of history are stacked with tennis\' defining moments: Serena Williams\' six titles and emotional 2022 farewell, Federer\'s five straight championships, Nadal\'s comeback triumphs, Carlos Alcaraz\'s rise, and the roof-closed night sessions that have become New York\'s loudest sporting ritual since the retractable roof was completed in 2016.',
+    seating:
+      'Arthur Ashe Stadium seats 23,771 across three tiers: courtside seats at court level, promenade (lower bowl) above them, and the upper bowl at the top. Courtside rows put you close enough to hear players argue with the umpire, while the promenade offers the best balance of view and atmosphere. The upper bowl delivers the full geometry of serve patterns and the Manhattan skyline beyond the Unisphere side. Corner sections in the upper tier offer the cheapest reserved seats. The retractable roof changes the acoustics dramatically — night sessions under a closed roof are the loudest in tennis.',
+    parking:
+      'Don\'t drive. Flushing Meadows–Corona Park closes to through traffic on major match days, on-site lots are permit-only, and the Grand Central Parkway jams for hours. The 7 train and LIRR both stop a five-minute walk from the gates — arrive by rail and let post-match crowds clear over dinner in Flushing.',
+    foodOptions: [
+      {
+        name: 'US Open Food Village',
+        description:
+          'Between the outer courts, the Food Village assembles dozens of New York\'s favorite vendors on one lawn — from Fuku chicken sandwiches to fresh poke and artisanal pizza. Lines peak between 6 and 8 PM; beat them during afternoon changeovers.',
+      },
+      {
+        name: 'The Famous Lobster Roll',
+        description:
+          'No item says US Open quite like the buttery lobster roll from the seafood stands near Ashe — expect $25-plus and zero regrets, ideally with the tournament\'s signature Honey Deuce cocktail. Eat on the promenade at golden hour.',
+      },
+      {
+        name: 'Downtown Flushing Food Scene',
+        description:
+          'Two 7-train stops away, downtown Flushing serves the best Chinese and Korean food in New York — soup dumplings, hand-pulled noodles, and Korean barbecue at a fraction of Manhattan prices. The classic move: an early dinner before night sessions.',
+      },
+    ],
     faq: [
       {
         question: 'What is the capacity of Arthur Ashe Stadium?',
@@ -507,6 +637,9 @@ export const venuesData = {
     colorFrom: '#172554',
     colorTo: '#3b82f6',
     emoji: '⚽',
+    seoTitle: 'Wembley Stadium Guide: Seating, Hotels, Transport & Matchday Tips',
+    description: 'Wembley Stadium guide: home of English football and FA Cup final venue in London. Seating tips, tube transport, parking and the best hotels near Wembley.',
+    image: '/images/og/venues/wembley.png',
     overview:
       'Wembley Stadium is the home of English football and the largest stadium in the United Kingdom, with 90,000 seats beneath its iconic 133-metre arch that lights the London skyline. Opened in 2007 on the site of the old twin-towered ground, it hosts England internationals, the FA Cup final, the EFL play-off finals, and regular-season NFL games from London. No venue has staged more Champions League finals — recent editions include 2011, 2013, 2023, and 2024 — and the stadium also hosted the finals of Euro 2020 and women\'s Euro 2022. From FA Cup ghosts to Olympic football and record-breaking concerts, Wembley remains the stage England reserves for its biggest occasions.',
     locationDetail:
@@ -559,6 +692,29 @@ export const venuesData = {
       'Bags larger than A4 are banned inside Wembley — bring only essentials, or you will waste pre-match time at the bag drop.',
       'For NFL games, arrive three hours early to catch the tailgate fan zones, marching bands, and pre-game performances around the stadium.',
       'Pre-book your train home — the last Chiltern and Metropolitan services typically leave within 90 minutes of the final whistle on event nights.',
+    ],
+    eventHistory:
+      'Wembley\'s history begins with the 1923 FA Cup Final — the White Horse Final, when a mounted policeman and his grey horse famously cleared an estimated 200,000-plus fans off the pitch before kick-off. The old twin-towered stadium went on to host the 1948 Olympics, England\'s 1966 World Cup triumph, and five European Cup finals before closing in 2000. The rebuilt ground opened in 2007 and has since staged more Champions League finals than any venue on earth — 2011, 2013, 2023, and 2024 — plus the Euro 2020 and women\'s Euro 2022 finals, annual NFL London games, and England\'s home internationals. London 2012\'s Olympic football finals were played here too.',
+    seating:
+      'Wembley\'s 90,000 seats wrap around the pitch in one continuous, unbroken bowl across three tiers — the lower tier (blocks 101-144), the Club Wembley middle tier (blocks 201-252), and the upper tier (blocks 501-552) — with no internal pillars anywhere, since the 133-metre arch carries most of the roof load. Lower-tier blocks along the halfway line are the premium pick; front rows of the upper tier on the sides deliver the best tactical view for the money, courtesy of the steep rake. Behind-the-goal lower blocks hold the loudest atmosphere; Club Wembley adds padded comfort and lounge access.',
+    parking:
+      'Skip the car: controlled parking zones, gridlocked North Circular traffic, and £40-plus pre-booked lots make driving miserable on event days. Wembley Park station\'s Jubilee and Metropolitan lines put you an eight-minute walk from the turnstiles down Olympic Way — arriving on foot past the food stalls is part of the Wembley occasion.',
+    foodOptions: [
+      {
+        name: 'Boxpark Wembley',
+        description:
+          'The stack of shipping containers beside Wembley Park station packs street-food traders — from smash burgers to Korean fried chicken and loaded fries — plus rooftop bars. It\'s the default pre-match rendezvous; arrive two hours early or queue for everything.',
+      },
+      {
+        name: 'London Designer Outlet',
+        description:
+          'A five-minute walk from the arch, the Designer Outlet\'s restaurants — pizza, tapas, burgers, coffee chains — offer sit-down meals at non-stadium prices. Shopping here is a smart way to wait out post-match station queues.',
+      },
+      {
+        name: 'Olympic Way Street Stalls',
+        description:
+          'On event days, food stalls and bars line the pedestrianised Olympic Way between Wembley Park station and the turnstiles — pies, jerk chicken, and pints flow from mid-morning. Cashless only; grab a pre-match pint and let the crowds stream past.',
+      },
     ],
     faq: [
       {

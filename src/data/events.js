@@ -114,6 +114,12 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      whyAttend: 'The Olympics return to Los Angeles for a third time, joining London and Paris as the only cities ever to stage three Summer Games — and LA28 leans on what this city already does best. Instead of new construction, athletes compete in venues you know from highlights reels: track and field at the 1932 and 1984 Coliseum, swimming at SoFi Stadium, gymnastics at Crypto.com Arena, and beach volleyball on proper Southern California sand. The Games spread across one sprawling metro, so every session doubles as a sightseeing tour. Add July sunshine, taco stands between sessions, and metro lines connecting the clusters, and you get the most accessible Olympics ever staged for American travelers.',
+      bestAreas: [
+        { name: 'Exposition Park & USC', description: 'For session-stacking fans, the blocks around USC put you a short walk from the Coliseum, BMO Stadium, and the convention halls, with the E Line\'s Expo Park/USC station connecting downtown in minutes. Modest hotels and guesthouses sit among campus bars and cheap eats, keeping you close to the medal moments at gentler prices.', searchQuery: 'Exposition Park Los Angeles hotels' },
+        { name: 'Long Beach', description: 'Book Long Beach if you lean toward the coastal cluster — rowing and canoe sprint on the historic Marine Stadium, plus arena sports around the convention campus — with the A Line reaching downtown LA in under an hour. Hotel rates stay gentler than central LA, and the waterfront dining scene gives evenings a resort feel.', searchQuery: 'Long Beach California hotels' },
+        { name: 'Sawtelle & West LA', description: 'Westside neighborhoods like Sawtelle offer a calmer value base with the E Line running straight to Exposition Park and downtown clusters, plus unbeatable ramen along Sawtelle Boulevard. Rates undercut Santa Monica while keeping you a bike ride from the beach and a direct train ride from the biggest venues.', searchQuery: 'Sawtelle Los Angeles hotels' },
+      ],
       accommodationAreas: [
         { name: 'Downtown Los Angeles', description: 'The heart of the action with easy access to Crypto.com Arena and LA Live. Walkable to many venues, with the widest range of dining and entertainment options. Close to Metro lines connecting to other Olympic sites.', searchQuery: 'Downtown Los Angeles hotels' },
         { name: 'Santa Monica', description: 'Beachside base with a relaxed Southern California vibe. About 30-40 minutes from downtown venues by car or Metro E Line. Great for combining Olympic events with a classic LA beach vacation.', searchQuery: 'Santa Monica Los Angeles hotels' },
@@ -128,6 +134,11 @@ export const eventsData = {
         { type: 'Olympic Ticket Planning', detail: 'Olympic tickets are released in phases, typically starting 12-18 months before the Games. Register on the official LA28 website for priority access. Popular events like gymnastics, swimming, and the opening ceremony sell out within hours of public release.' },
         { type: 'Event Schedule Planning', detail: 'With 32 sports across dozens of venues, strategic planning is essential. Consider grouping events by venue cluster — downtown (Crypto.com Arena, LA Convention Center), Exposition Park (Coliseum, BMO Stadium), and Inglewood (SoFi Stadium, Intuit Dome) to minimize transit time.' },
         { type: 'Budget Planning', detail: 'Ticket prices range from $50 for preliminary rounds to $2,000+ for premium finals and the opening ceremony. Allocate your budget across multiple sessions to experience different sports. Multi-sport session passes offer the best value for attendees planning to spend 5+ days.' },
+      ],
+      itinerary: [
+        { day: 'Day 1', title: 'Downtown Cluster Immersion', description: 'Start with the downtown cluster: morning preliminaries at Crypto.com Arena or the Convention Center, lunch at Grand Central Market, then an afternoon among the Coliseum\'s Olympic history in Exposition Park. Finish with an evening medal session, riding the A and E Lines between venues to skip the freeway entirely.' },
+        { day: 'Day 2', title: 'Inglewood Marquee Day', description: 'Devote a full day to Inglewood\'s modern palaces. Catch basketball at the brand-new Intuit Dome, then cross the street to SoFi Stadium, where temporary pools transform football\'s most futuristic arena into swimming\'s grandest stage. Arrive early for security lines, and linger afterward — the whole district stays festive deep into the evening.' },
+        { day: 'Day 3', title: 'Coastal Cool-Down', description: 'Balance the intensity with the coastal venues: rowing or canoe sprint on Long Beach\'s historic Marine Stadium, beach volleyball on the sand, then a slow afternoon in Santa Monica. As sunset paints the Pacific, toast your Olympic week from a rooftop above the water — LA\'s version of a closing ceremony.' },
       ],
     },
   },
@@ -379,6 +390,12 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      whyAttend: 'Nothing in tennis feels like a night session in Arthur Ashe Stadium. Twenty-three thousand seven hundred and seventy-one seats — the largest arena in the sport — shake when the roof closes and a US Open crowd gets behind a three-setter past midnight. This is the Slam with stadium-sized attitude: buzzing crowd, celebrity rows, food from NYC\'s top chefs, and two full weeks of matches across twenty-plus courts at Flushing Meadows. August in New York wraps the tournament in summer energy — rooftop sessions before, bar crawls in LIC after. Grounds passes let you hop between showcourts all day for modest money, while the subway ride out on the 7 train is a rolling party of accents from every tennis nation on earth.',
+      bestAreas: [
+        { name: 'Astoria (Queens)', description: 'Right across the river in Queens, Astoria pairs real neighborhood New York — Greek tavernas, beer gardens, bustling cafés — with hotel rates well below Manhattan. The N or W train reaches Queensboro Plaza in minutes, where a one-stop transfer onto the 7 drops you at Mets-Willets Point in under thirty minutes door-to-gate.', searchQuery: 'Astoria New York hotels' },
+        { name: 'Murray Hill', description: 'For the simplest commute in the city, stay near Grand Central, where the 7 train departs directly for Mets-Willets Point every few minutes. Murray Hill\'s mid-range hotels and quiet side streets suit early arrivals and night-session stragglers alike, while Grand Central\'s dining concourse feeds you before or after any session without detouring.', searchQuery: 'Murray Hill New York hotels' },
+        { name: 'Williamsburg (Brooklyn)', description: 'If the trip is as much about August in New York as the tennis, Brooklyn\'s trendiest neighborhood makes a spirited base. The L train connects to the 7 at Court Square in about fifteen minutes, and off-court hours fill with rooftop bars, vintage shops, and weekend markets. Hotel and Airbnb rates undercut Midtown, with far more personality.', searchQuery: 'Williamsburg Brooklyn hotels' },
+      ],
       accommodationAreas: [
         { name: 'Flushing Meadows (Queens)', description: 'Closest to the USTA National Tennis Center. 10-15 min walk to Arthur Ashe Stadium. Limited hotel options but unbeatable proximity.', searchQuery: 'Flushing Meadows New York' },
         { name: 'Midtown Manhattan', description: '30-40 min subway ride on the 7 train to Mets-Willets Point station. Best for travelers who want the full NYC experience.', searchQuery: 'Midtown Manhattan New York' },
@@ -393,6 +410,11 @@ export const eventsData = {
         { type: 'Grounds Pass', detail: 'Access to outside courts and practice sessions. Does not include Arthur Ashe or Louis Armstrong Stadium entry. Best for budget-conscious fans.' },
         { type: 'Arthur Ashe Stadium Tickets', detail: 'Premium reserved seats in the main stadium. Prices range from $80 to $800+ depending on session and round.' },
         { type: 'Louis Armstrong Stadium Tickets', detail: 'Mid-tier option with reserved seating in the second-largest stadium. Good balance of price and experience.' },
+      ],
+      itinerary: [
+        { day: 'Day 1', title: 'Arrival & First Night Session', description: 'Land at JFK or LaGuardia and check in before the afternoon session. Ride the 7 train out with the crowd, pick up a grounds pass for the outer courts, then upgrade the evening with a resale ticket to Ashe. Stay for the night session — the stadium after dark is the whole point.' },
+        { day: 'Day 2', title: 'Grounds Day & Manhattan Evening', description: 'Start early with coffee and a bagel, then roam the outer courts where future stars grind through early rounds. Eat your way through the food village — cronuts, bao, lobster rolls — and browse the practice courts for player sightings. Afterward, head back to Manhattan for dinner and a Broadway-lit evening stroll.' },
+        { day: 'Day 3', title: 'Championship Weekend Push', description: 'Time your final day to the stakes: quarterfinals and beyond mean Ashe tickets climb, but Louis Armstrong and the Grandstand still deliver world-class tennis for less. Soak in the last sunshine over Flushing Meadows, then close the trip with cocktails in Long Island City, watching the skyline light up across the river.' },
       ],
     },
   },
@@ -485,6 +507,12 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      whyAttend: 'Singapore remains Formula 1\'s original night race and still its most demanding test of man and machine. Twenty-odd turns thread past Marina Bay\'s illuminated skyline, the Fullerton Waterboat House, and the Padang, reflecting off the water as cars spark over kerbs in the tropical dark. The circuit wraps around the bay rather than outside town, so you step from your hotel, hawker center, or rooftop bar straight into the gates — no shuttle buses, no out-of-town industrial parks. Add nightly headline concerts at the Padang and Village stages, world-class street food minutes away, and the humidity that makes this the championship\'s toughest physical challenge, and you get a race weekend that doubles as a full-on city festival.',
+      bestAreas: [
+        { name: 'Clarke Quay', description: 'The riverside quay sits within walking distance of several circuit gates and doubles as the race weekend\'s party central, its converted warehouses packed with bars and restaurants that stay loud long after the final lap. Hotel rates undercut Marina Bay substantially, and the riverside promenade delivers an easy stroll home when the MRT queues stretch past an hour.', searchQuery: 'Clarke Quay Singapore hotels' },
+        { name: 'Kampong Glam', description: 'For atmosphere over polish, the Malay-Arab heritage quarter trades glossy towers for shophouses, street art along Haji Lane, and some of the city\'s best café and supper culture. It is a short walk to the Nicoll Highway gates, noticeably cheaper than bayfront hotels, and packed with affordable boutique stays that still sell out race week.', searchQuery: 'Kampong Glam Singapore hotels' },
+        { name: 'City Hall & Bugis', description: 'Sitting at the junction of the MRT\'s key interchange lines, this civic-district pocket is the smartest base for shuttling between gates, shopping on Orchard, and the Padang stage concerts. Plenty of mid-range hotels cluster here at gentler rates than the bay, and both Promenade and City Hall stations deliver you trackside in under ten minutes.', searchQuery: 'City Hall Singapore hotels' },
+      ],
       accommodationAreas: [
         { name: 'Marina Bay', description: 'Premium choice with track-view rooms at Marina Bay Sands, The Fullerton, and Raffles. Walking distance to circuit gates. Expect $400-1000+ per night during race weekend.', searchQuery: 'Marina Bay Singapore' },
         { name: 'Sentosa Island', description: 'Resort-style stay 15-20 min from circuit via Sentosa Express. Quieter escape with beaches and attractions. Good for extending the trip into a vacation.', searchQuery: 'Sentosa Island Singapore' },
@@ -499,6 +527,11 @@ export const eventsData = {
         { type: 'Walkabout Tickets', detail: 'General admission with no reserved seat. Access to spectator viewing platforms around the circuit. Most affordable option, great for first-time visitors who want to explore.' },
         { type: 'Grandstand Tickets', detail: 'Reserved seats in dedicated grandstands. Popular options: Bay Grandstand (waterfront view), Padang (main straight), and Stamford (turn 1). Prices $300-1500+ for 3-day pass.' },
         { type: 'Hospitality Packages', detail: 'Premium experience with food, drinks, and prime viewing. Options include Sky Suites, Paddock Club, and Green Room. $1500-5000+ per person, ideal for corporate or luxury travelers.' },
+      ],
+      itinerary: [
+        { day: 'Day 1', title: 'Arrival & Night Practice', description: 'Land at Changi and drop your bags before dusk. Grab chicken rice or laksa at a Maxwell-style hawker center, then walk off dinner along the light-soaked Marina Bay waterfront as Friday practice echoes between the towers. Cap the night with a cold Tiger beer at a rooftop bar overlooking the circuit.' },
+        { day: 'Day 2', title: 'Qualifying & Concert Night', description: 'Sleep in, then spend the afternoon at Gardens by the Bay\'s cooled conservatories or Orchard Road\'s air-conditioned malls before the heat peaks. In the evening, take in FP3 and qualifying from your grandstand, then follow the crowd to the Padang stage, where headline acts play free for ticket holders until midnight.' },
+        { day: 'Day 3', title: 'Race Night Under the Lights', description: 'Race day is all about pacing through the tropical humidity. Ease into brunch in Kampong Glam, claim your seat early for the support races, and rise with the crowd when the five lights go out around the bay. After the podium, join the river of fans flowing into Clarke Quay for a celebratory nightcap.' },
       ],
     },
   },
@@ -591,6 +624,12 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      whyAttend: 'The Kentucky Derby is American spectacle distilled into two minutes. On the first Saturday in May, 150,000 people pack Churchill Downs — many in extravagant hats and seersucker — to watch three-year-olds thunder a mile and a quarter for the garland of roses. It is the longest continuously run sporting event in America, and the whole week around it glows: dawn workouts at the backside, balloon glows, steamboat races on the Ohio, and a bourbon scene that runs from Louisville\'s Urban Bourbon Trail to legendary distilleries an hour away. Infield general admission costs less than a decent dinner, Millionaires\' Row costs more than a used car, and both crowds will tell you they had the better day. Everyone goes home hoarse.',
+      bestAreas: [
+        { name: 'NuLu (East Market District)', description: 'Louisville\'s trendiest strip sits minutes east of downtown and a ten-minute drive from the track\'s gates, pairing boutique hotels with the city\'s best restaurant row on East Market Street. After the races, the distillery tasting rooms, coffee roasters, and galleries keep going — book early, because Derby week sells the neighborhood out first.', searchQuery: 'NuLu Louisville hotels' },
+        { name: 'Old Louisville', description: 'America\'s largest Victorian neighborhood borders Churchill Downs\' south side, and its Gilded Age mansions double as charming bed-and-breakfasts with rates that undercut downtown chains. Hosts pour morning coffee on wraparound porches, sidewalks pass stained-glass facades on the walk to the track, and the Derby-week atmosphere feels gloriously unhurried.', searchQuery: 'Old Louisville bed and breakfast' },
+        { name: 'The Highlands (Bardstown Road)', description: 'Louisville\'s nightlife spine stretches along Bardstown Road south of downtown, an easy drive or bus ride from the gates. Indie bars, record shops, and patio restaurants line the strip, while Highlands hotels and guesthouses price well below downtown during Derby week. Choose it when you want late nights and local color over lobby marble.', searchQuery: 'The Highlands Louisville hotels' },
+      ],
       accommodationAreas: [
         { name: 'Downtown Louisville', description: 'Closest to Churchill Downs, 10-15 min drive. Walkable to bourbon distilleries, Muhammad Ali Center, and Whiskey Row. Premium pricing during Derby weekend.', searchQuery: 'Downtown Louisville Kentucky' },
         { name: 'Louisville Airport Area', description: '5 min from SDF airport, 15 min to Churchill Downs. Budget-friendly chain hotels, good for short stays.', searchQuery: 'Louisville Airport hotel' },
@@ -605,6 +644,11 @@ export const eventsData = {
         { type: 'General Admission', detail: 'Infield access only, no reserved seat. Party atmosphere, limited track view. Most affordable option at $60-150.' },
         { type: 'Grandstand Seats', detail: 'Reserved seating with track view. $300-1000+ depending on section. The closer to the finish line, the higher the price.' },
         { type: 'Mint Julep Club / Millionaire\'s Row', detail: 'Premium indoor hospitality with food, drinks, and viewing. $1000-5000+ per person. Dress code enforced.' },
+      ],
+      itinerary: [
+        { day: 'Day 1', title: 'Arrival & Whiskey Row', description: 'Fly into SDF, check in downtown, and ease into Louisville\'s rhythm with a walk down Whiskey Row. Tour the Evan Williams Bourbon Experience or Angel\'s Envy, then dinner on NuLu\'s restaurant row. Cap the night with a bourbon-bar nightcap as Derby-week crowds pour into town.' },
+        { day: 'Day 2', title: 'Oaks Day & Horse Country', description: 'Friday belongs to the Kentucky Oaks, the fillies\' counterpart that Louisville attends in pink. Soak up a sunnier, more local race day, then finish with an evening farm visit or bourbon along the Urban Bourbon Trail. Rest up — tomorrow brings the two most famous minutes in sports.' },
+        { day: 'Day 3', title: 'Derby Day', description: 'Wear your best hat and arrive by late morning — undercard races build all afternoon toward the early-evening Derby. Sip a mint julep in a souvenir cup, sing My Old Kentucky Home with 150,000 strangers, and roar them home down the stretch. Post-race, celebrate downtown until the charter flights clear.' },
       ],
     },
   },
@@ -698,6 +742,12 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      whyAttend: 'Melbourne in January is where the tennis year begins, and nobody does a relaxed Slam better — players literally call it the Happy Slam. Blue courts bake under proper summer sun while Rod Laver Arena night sessions crackle past midnight, and the whole Melbourne Park precinct runs like a festival: live bands on Grand Slam Oval, shaded food lanes serving everything from dumplings to gelato, and free-to-watch practice courts where tomorrow\'s champions grind. The free CBD tram zone drops you at the gates, city lanes filled with street art and espresso sit ten minutes away, and Melbourne\'s famously fickle summer heat can flip from scorcher to thunderstorm mid-afternoon, making every session an adventure. It is sport, festival, and summer holiday in one ticket.',
+      bestAreas: [
+        { name: 'Fitzroy', description: 'Melbourne\'s indie heart supplies the best post-match atmosphere in town — Brunswick Street cafés, rooftop bars, and vintage stores — at noticeably lower rates than Southbank. The precinct sits two tram hops north of the tennis, the MCG grounds between, and Gertrude Street\'s dining keeps every evening interesting.', searchQuery: 'Fitzroy Melbourne hotels' },
+        { name: 'Docklands', description: 'For value with a view, Docklands\' newer apartment hotels look over the marina and the Bolte Bridge while pricing well below the CBD on tournament dates. Tram 70 traces a straight line from the waterfront to the Melbourne Park gates in about twenty minutes, and the free City Circle tram links you to laneway dining anytime.', searchQuery: 'Docklands Melbourne hotels' },
+        { name: 'East Melbourne', description: 'The quietest shortcut to the tennis: East Melbourne\'s Victorian terraces and garden-side apartments sit between the Fitzroy Gardens and the MCG, barely fifteen minutes on foot from Melbourne Park\'s gates. Accommodation skews toward boutique guesthouses, so book early — this pocket is where locals put their tournament-visiting friends.', searchQuery: 'East Melbourne hotels' },
+      ],
       accommodationAreas: [
         { name: 'Melbourne CBD', description: '15-20 min walk or 10 min tram to Melbourne Park. Best for travelers who want restaurants, bars, and Federation Square at their doorstep.', searchQuery: 'Melbourne CBD hotel' },
         { name: 'Southbank', description: 'Adjacent to Melbourne Park and Yarra River. Walkable to Rod Laver Arena in 10 min. Casino, dining, and arts precinct. Premium rates during tournament.', searchQuery: 'Southbank Melbourne hotel' },
@@ -712,6 +762,11 @@ export const eventsData = {
         { type: 'Ground Pass', detail: 'Access to outside courts and Kia Arena. Does not include Rod Laver Arena (center court). Best value at $50-80 for early rounds.' },
         { type: 'Rod Laver Arena Tickets', detail: 'Reserved seats in the main stadium. Day sessions start at $80-150; night sessions $100-300+. Prices rise for later rounds and finals.' },
         { type: 'Finals Weekend Packages', detail: 'Premium packages for semifinals and finals. $500-2000+ per session. Often sold out, resale market is active.' },
+      ],
+      itinerary: [
+        { day: 'Day 1', title: 'Arrival & Night Session', description: 'Land at Tullamarine, ride the SkyBus into town, and check in before the heat peaks. Walk down through Birrarung Marr as the precinct hums, grab a ground pass, and roam the outer courts until dusk. Finish with a Rod Laver night session — Melbourne\'s crowds stay rowdy well past midnight.' },
+        { day: 'Day 2', title: 'Full Park Day & Laneways', description: 'Arrive at gates opening for morning matches on the show courts, breaking for lunch in the shaded food precincts when the sun bites. After the day session, escape the heat with a siesta or a swim, then spend the evening in the CBD laneways — espresso bars, rooftop cinema, and Chinatown dinner.' },
+        { day: 'Day 3', title: 'Big Names & Beach Recovery', description: 'Use your last day for marquee matchups: book Rod Laver or Margaret Court Arena for the biggest names on the draw. Once play wraps, ride a tram south to St Kilda for a sunset along the esplanade, gelato on Acland Street, and a final long dinner by the water.' },
       ],
     },
   },
@@ -752,6 +807,12 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      whyAttend: 'Roland Garros is tennis slowed down and intensified — rallies stretch long on terre battue, points become chess matches, and the red clay stains the champions as much as the sneakers. The tournament owns the most intimate grounds in Grand Slam tennis: Simonne-Mathieu\'s court sits inside a botanical greenhouse garden, and you can stand close enough to hear the ball compress on Chatrier\'s famous court. Paris in late spring wraps around it all — picnics along the Seine between sessions, apéritifs at sidewalk cafés, museum-grade art a metro ride away. Tickets remain the most affordable of the four Slams, the French crowds bring opera-level drama, and annexes passes in week one let you bounce between a dozen courts all day.',
+      bestAreas: [
+        { name: 'Porte de Saint-Cloud & Boulogne', description: 'Sleep a baseline lob from the gates. The Porte de Saint-Cloud side, just west of the stadium, pairs quiet residential hotels with a ten-minute walk to the Suzanne-Lenglen entrance, skipping the post-match metro scrum entirely. You trade nightlife for match-day serenity, with the Bois de Boulogne\'s lakes as your morning running route.', searchQuery: 'Porte de Saint-Cloud Paris hotels' },
+        { name: 'Le Marais (3rd & 4th Arr.)', description: 'Base in the Marais if you want Paris to compete with the tennis: medieval lanes, falafel queues on Rue des Rosiers, and Sunday openings when the rest of Paris sleeps. Metro 1 plus a quick transfer to line 9 delivers you to the Porte d\'Auteuil gates in roughly half an hour, bookending clay sessions with the city\'s best evening energy.', searchQuery: 'Le Marais Paris hotels' },
+        { name: '15th Arrondissement (Beaugrenelle)', description: 'The unsung neighbor south of the 16th runs noticeably cheaper while sitting directly on Metro 10, the same line that stops at Roland Garros\'s Michel-Ange gates. Beaugrenelle\'s modern shopping complex, riverside walks, and authentic boulangerie streets give you everyday Paris rather than postcard Paris, at a distinctly gentler price.', searchQuery: '15th arrondissement Paris hotels' },
+      ],
       accommodationAreas: [
         { name: '16th Arrondissement (Passy / Auteuil)', description: 'Closest to Roland Garros, 10-15 min walk. Residential and quiet, with upscale hotels and公寓 options. Limited nightlife but ideal for tournament focus.', searchQuery: '16th arrondissement Paris hotel' },
         { name: '7th Arrondissement (Eiffel Tower area)', description: '20 min by metro to Roland Garros. Iconic Paris location near Eiffel Tower and Invalides. Mix of mid-range and luxury hotels.', searchQuery: '7th arrondissement Paris hotel' },
@@ -766,6 +827,11 @@ export const eventsData = {
         { type: 'Ground Pass (Annexes)', detail: 'Access to secondary courts (Simonne-Mathieu, Court 14, etc.). Does not include Philippe-Chatrier or Suzanne-Lenglen. $50-100 for early rounds.' },
         { type: 'Philippe-Chatrier Tickets', detail: 'Reserved seats in main stadium. $200-800+ depending on round. Night sessions (introduced 2021) command premium pricing.' },
         { type: 'Suzanne-Lenglen Tickets', detail: 'Second-largest stadium, reserved seats. $100-400+. Good balance of atmosphere and price for serious tennis fans.' },
+      ],
+      itinerary: [
+        { day: 'Day 1', title: 'Arrival & Annexe Courts', description: 'Land at CDG, drop bags near Passy or Saint-Germain, and ride Metro 10 to Porte d\'Auteuil for an afternoon annexe ticket. Wander Simonne-Mathieu\'s garden court and the outer terre battue, where tomorrow\'s stars grind through early rounds closer than you\'ll ever sit at any other Slam.' },
+        { day: 'Day 2', title: 'Chatrier Day & Seine Evening', description: 'Claim your Philippe-Chatrier seat for the marquee matches — arrive at gates to watch players warm up on the annexes first. Break at midday for a picnic gathered from a bakery and market, then return for the night session under the new roof. Afterward, unwind with a slow Seine-side walk.' },
+        { day: 'Day 3', title: 'Quarterfinals & Paris Farewell', description: 'Time your departure around the quarterfinals, when singles draws thin and every match carries stakes. Watch the morning\'s tennis, then spend your final afternoon on classic Paris — the Eiffel Tower lawn, espresso in Saint-Germain, or the Musée d\'Orsay — before an evening flight home with clay dust still on your shoes.' },
       ],
     },
   },
@@ -914,6 +980,12 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      whyAttend: 'Super Bowl LXI lands at SoFi Stadium on Valentine\'s Day weekend, and no venue in football frames the spectacle better. SoFi\'s sweeping translucent ETFE canopy bathes the bowl in Southern California sunshine by day while keeping the noise, energy, and pageantry locked inside at night — you get open-air comfort with arena-level acoustics. The halftime show turns midfield into the world\'s biggest stage for twelve minutes, a production that regularly out-rates the game itself, and this edition promises another A-list headliner under the Oculus scoreboard. Beyond kickoff, Los Angeles rolls out a week of Super Bowl Live festivals, celebrity parties, and fan experiences from Inglewood to the coast. Mild February weather, Valentine\'s dining, and beach afternoons complete a trip that plays as vacation and spectacle at once.',
+      bestAreas: [
+        { name: 'Inglewood & Century Boulevard', description: 'For pure game-day logistics, nothing beats staying within a fifteen-minute drive of SoFi Stadium. Century Boulevard\'s hotel cluster puts you first through the gates and first out after the final whistle, skipping the freeway crush entirely. You\'re also steps from the Intuit Dome and the Forum, so pre-game dinners and post-game celebrations stay within walking or shuttle distance.', searchQuery: 'Century Boulevard Inglewood hotels' },
+        { name: 'Hollywood', description: 'If Super Bowl week is as much about the party as the game, Hollywood delivers the loudest atmosphere in the city. Rooftop lounges, historic theaters, and celebrity-hosted events cluster along the boulevard, and the Metro B Line whisks you toward Inglewood connections. Rates run high, but the nightlife within walking distance is unmatched anywhere else in LA.', searchQuery: 'Hollywood Los Angeles hotels' },
+        { name: 'Koreatown', description: 'Value hunters should look at Koreatown, where hotels cost meaningfully less than downtown or the coast while sitting halfway between Hollywood and Inglewood. The neighborhood\'s late-night Korean barbecue, karaoke rooms, and spas keep the celebration going after the game, and quick rideshare runs reach SoFi in twenty minutes outside rush hour.', searchQuery: 'Koreatown Los Angeles hotels' },
+      ],
       accommodationAreas: [
         { name: 'Inglewood / Stadium Area', description: 'SoFi Stadium sits in Inglewood, where hotel inventory is limited but growing around the Intuit Dome and Forum entertainment district. Expect premium rates with 3-4 night minimums for Super Bowl week. Nearby chains on Century Boulevard offer the shortest stadium commute, roughly 10-15 minutes by car or shuttle on game day.', searchQuery: 'Inglewood California hotels' },
         { name: 'Downtown Los Angeles', description: 'Downtown Los Angeles offers the widest selection of hotels within 15-20 minutes of SoFi Stadium, from luxury towers near Crypto.com Arena and LA Live to renovated classics on Broadway. Stay here for walkable dining, the Arts District, and easy freeway access. Super Bowl week brings pop-up events, official parties, and media row to downtown hotels.', searchQuery: 'Downtown Los Angeles hotels' },
@@ -973,6 +1045,12 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      whyAttend: 'There is no higher summit in club football. The Champions League final decides Europe\'s true champion in a single, merciless night, where one goal can crown legends and break hearts in the same ninety minutes. Madrid — winner of more European Cups than any city on earth — hosts the 2027 edition at the Riyadh Air Metropolitano, and few capitals live football this intensely. Here the pre-match ritual starts over cañas and croquetas in tapas bars from La Latina to Salamanca, fan zones flood the central plazas, and matchday builds like a slow drumbeat toward kickoff at nine. Combine world-class football with June evenings in Retiro Park, late dinners, and a city that stays up as long as you do, and the trip becomes far more than ninety minutes.',
+      bestAreas: [
+        { name: 'La Latina', description: 'Madrid\'s most atmospheric tapas quarter becomes the unofficial fan capital on final weekend. Cava Baja\'s bars overflow with supporters from both camps, streets close for celebrations, and the noise rolls past two in the morning. Rooms are mostly small boutique hotels and apartments, so book early — you\'re trading square footage for the most electric pre-match ambiance in the city.', searchQuery: 'La Latina Madrid hotels' },
+        { name: 'Bernabéu & Paseo de la Castellana', description: 'Pilgrimage-minded fans will love basing themselves along the Castellana, where the Santiago Bernabéu — the cathedral of European football — anchors a stretch of modern hotels, rooftop bars, and the AZCA business district. Metro connections whisk you to the Metropolitano or the center in under thirty minutes, and the stadium tour makes a perfect finals-eve warm-up.', searchQuery: 'Paseo de la Castellana Madrid hotels' },
+        { name: 'Chamberí', description: 'This elegant residential district north of center offers some of Madrid\'s best value on final weekend, with handsome 19th-century streets, superb vermouth bars, and far gentler hotel pricing than Sol or Salamanca. Direct metro links reach both the fan zones and the stadium in about twenty-five minutes, making it the smart pick for travelers balancing budget and location.', searchQuery: 'Chamberí Madrid hotels' },
+      ],
       accommodationAreas: [
         { name: 'City Center (Sol & Gran Vía)', description: 'Staying central puts you steps from Puerta del Sol, Plaza Mayor, and the Gran Vía theater district, with the stadium reachable in 25 minutes by metro. Hundreds of hotels span every budget, though final weekend pushes rates up sharply and imposes 2-3 night minimums. Book refundable rates early and reprice closer to the final.', searchQuery: 'Madrid city center hotels' },
         { name: 'Salamanca District', description: 'Madrid\'s most elegant neighborhood pairs upscale hotels with golden-stone streets, boutique shopping on Calle Serrano, and some of the city\'s best tapas bars. It\'s a quiet, residential-feeling base about 20 minutes from the stadium by taxi or metro. Expect polished service and higher prices, ideal for a comfortable final weekend.', searchQuery: 'Salamanca Madrid hotels' },
@@ -1032,6 +1110,12 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      whyAttend: 'Las Vegas is the only Grand Prix that owns its city rather than borrowing it. Formula 1 cars blast down the Strip at 340 km/h, threading past the Sphere, Caesars Palace, and the Bellagio fountains under full desert darkness on a Saturday night — the calendar\'s lone prime-time Saturday race and its most cinematic broadcast. The weekend runs Thursday to Saturday, so track action tilts toward evening under the neon. What separates this race is the entertainment wrapped around it: A-list residencies, headline clubs, celebrity-studded parties, and restaurants you cannot book any other weekend all run alongside the on-track action. Cold November asphalt keeps racing unpredictable, with championship stakes often on the line. It is sport and spectacle fused at the loudest possible volume, and there is nothing else like it.',
+      bestAreas: [
+        { name: 'East Harmon & the Sphere District', description: 'Staying in the East Harmon corridor puts you inside the circuit\'s buzz without Strip prices, since the Sphere grandstands and Harmon Zone gates sit minutes from your door on foot. You\'ll wake to engines echoing from practice, walk to sessions past the circuit fences, and retreat between track action. Inventory is limited, so lock rooms in early.', searchQuery: 'East Harmon Las Vegas hotels' },
+        { name: 'Arts District', description: 'A fifteen-minute walk or short rideshare south of the circuit, the Arts District offers the city\'s best non-casino atmosphere: independent galleries, craft breweries, vinyl bars, and chef-driven restaurants in repurposed warehouses. Rooms run far below Strip rates, the crowd skews local, and post-race you can actually hear your friends talk. It\'s Vegas with the volume turned down.', searchQuery: 'Las Vegas Arts District hotels' },
+        { name: 'Paradise Road & UNLV', description: 'Veterans of race week base themselves along Paradise Road, the quiet artery that becomes the weekend\'s strategic shortcut. Hotels here cost a fraction of Strip towers while sitting minutes from Koval Lane\'s campus of circuit access points and the Harry Reid Airport run home. Add casual dining and the university\'s cheap eats, and the savings fund a better grandstand seat.', searchQuery: 'Paradise Road Las Vegas hotels' },
+      ],
       accommodationAreas: [
         { name: 'Las Vegas Strip', description: 'The circuit runs directly through the Strip, and trackside resorts like Bellagio, Caesars Palace, and Wynn offer room packages with grandstand or terrace views. Expect $500-3,000+ per night with 3-night minimums for race weekend. Book the moment inventory opens — Strip hotels sell out nine to twelve months ahead of the race.', searchQuery: 'Las Vegas Strip hotel' },
         { name: 'Downtown / Fremont Street', description: 'Fifteen minutes north of the Strip, downtown offers classic-Vegas energy at lower table minimums and meaningfully cheaper rooms. Fremont Street\'s light canopy, vintage casinos, and new Circa Resort give the area genuine buzz. You\'ll commute to the circuit by monorail, bus, or rideshare — budget 25-40 minutes each way on race nights.', searchQuery: 'Downtown Las Vegas hotel' },

@@ -2,19 +2,31 @@
 interface Props {
   title?: string;
   description?: string;
-  image?: string;
+  category?: string;
   canonical?: string;
 }
 
 const {
   title = 'MatchTrip - Sports Travel Planner',
   description = 'Discover major sporting events worldwide and get complete travel plans with budget estimates. Follow the game, plan the journey.',
-  image = '/favicon.svg',
+  category = 'default',
   canonical,
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://matchtrip-blue.vercel.app');
 const canonicalURL = canonical ? new URL(canonical, site) : new URL(Astro.url.pathname, site);
+
+// OG image per page category (files generated under /images/og/):
+// football→football, motorsport→f1, tennis→tennis, golf→golf, everything else→default
+const OG_IMAGE_BY_CATEGORY: Record<string, string> = {
+  football: 'football',
+  motorsport: 'f1',
+  tennis: 'tennis',
+  golf: 'golf',
+};
+const categoryKey = String(category).trim().toLowerCase().replace(/[\s-]+/g, '-');
+const ogImageFile = OG_IMAGE_BY_CATEGORY[categoryKey] || 'default';
+const ogImageURL = new URL(`/images/og/${ogImageFile}.png`, site);
 
 // GA4 Measurement ID — 通过 Vercel 环境变量注入，不硬编码
 const GA_MEASUREMENT_ID = import.meta.env.GA_MEASUREMENT_ID || '';
@@ -56,14 +68,14 @@ const jsonld = {
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content={new URL(image, site)} />
+		<meta property="og:image" content={ogImageURL} />
 		<meta property="og:site_name" content="MatchTrip" />
 
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={new URL(image, site)} />
+		<meta name="twitter:image" content={ogImageURL} />
 
 		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">

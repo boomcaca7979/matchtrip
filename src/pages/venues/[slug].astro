@@ -50,6 +50,7 @@ const placeSchema = {
     "addressLocality": venue.cityDisplay,
     "addressCountry": venue.country,
   },
+  ...(venue.image ? { image: [new URL(venue.image, Astro.site).href] } : {}),
 };
 
 const faqSchema = {
@@ -79,11 +80,13 @@ const schemaHtml = [placeSchema, faqSchema, breadcrumbSchema]
   .map(schema => `<script type="application/ld+json">${JSON.stringify(schema, null, '\t')}</script>`)
   .join('\n');
 
-const pageTitle = `${venue.name} Guide - Capacity, Transport & Hotels | MatchTrip`;
-const pageDescription = `Plan your visit to ${venue.name} in ${venue.cityDisplay}: capacity, how to get there, where to stay, match day tips, and answers to frequently asked questions.`;
+// SEO title: per-venue seoTitle wins; otherwise default format, compacted when over 60 chars.
+const defaultTitle = `${venue.name} Guide: Events, Seating, Hotels & Transportation`;
+const compactTitle = `${venue.name} Guide: Seating, Hotels & Transport`;
+const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : defaultTitle);
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={venue.description}>
   <Navbar />
 
   <!-- Hero -->
@@ -134,6 +137,26 @@ const pageDescription = `Plan your visit to ${venue.name} in ${venue.cityDisplay
     </div>
   </section>
 
+  <!-- Event History -->
+  {venue.eventHistory && (
+    <section class="history-section">
+      <div class="container narrow">
+        <h2>Event History</h2>
+        <p>{venue.eventHistory}</p>
+      </div>
+    </section>
+  )}
+
+  <!-- Seating & Views -->
+  {venue.seating && (
+    <section class="seating-section">
+      <div class="container narrow">
+        <h2>Seating &amp; Views</h2>
+        <p>{venue.seating}</p>
+      </div>
+    </section>
+  )}
+
   <!-- Transportation -->
   <section class="transport-section">
     <div class="container">
@@ -148,6 +171,33 @@ const pageDescription = `Plan your visit to ${venue.name} in ${venue.cityDisplay
       </div>
     </div>
   </section>
+
+  <!-- Parking -->
+  {venue.parking && (
+    <section class="parking-section">
+      <div class="container narrow">
+        <h2>Parking</h2>
+        <p>{venue.parking}</p>
+      </div>
+    </section>
+  )}
+
+  <!-- Food & Drink -->
+  {venue.foodOptions?.length > 0 && (
+    <section class="food-section">
+      <div class="container">
+        <h2>Food &amp; Drink</h2>
+        <div class="guide-grid">
+          {venue.foodOptions.map(option => (
+            <div class="guide-card">
+              <span class="transport-mode">{option.name}</span>
+              <p>{option.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Nearby Hotels -->
   <section class="hotels-section">
@@ -363,7 +413,11 @@ const pageDescription = `Plan your visit to ${venue.name} in ${venue.cityDisplay
   .hotels-section h2,
   .tips-section h2,
   .faq-section h2,
-  .events-section h2 {
+  .events-section h2,
+  .history-section h2,
+  .seating-section h2,
+  .parking-section h2,
+  .food-section h2 {
     font-size: 1.75rem;
     font-weight: 700;
     color: #111;
@@ -379,6 +433,22 @@ const pageDescription = `Plan your visit to ${venue.name} in ${venue.cityDisplay
     font-size: 1.05rem;
     line-height: 1.8;
     text-align: center;
+  }
+
+  /* Event History / Seating / Parking / Food */
+  .history-section,
+  .seating-section,
+  .parking-section,
+  .food-section {
+    padding: 0 0 60px;
+  }
+
+  .history-section p,
+  .seating-section p,
+  .parking-section p {
+    color: #4b5563;
+    font-size: 1.05rem;
+    line-height: 1.8;
   }
 
   /* Location & Capacity */

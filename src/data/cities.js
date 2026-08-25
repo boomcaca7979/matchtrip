@@ -21,6 +21,13 @@ export const citiesContent = {
       { name: 'Rose Bowl', venueSlug: null },
     ],
     eventCalendarNote: 'LA\'s sports calendar peaks with the FIFA World Cup in summer 2026, when SoFi Stadium hosts multiple matches including a knockout-round clash, and builds toward the LA28 Olympic and Paralympic Games. In between, you\'ll find Dodgers baseball all summer, Lakers and Clippers hoops from October, NFL regular-season games at SoFi, and major boxing and UFC cards downtown — check dates early, because hotel rates spike sharply around marquee weekends.',
+    airports: [
+      {
+        name: 'Los Angeles International Airport',
+        code: 'LAX',
+        detail: 'LAX is LA\'s main gateway, 16 miles southwest of downtown. The LAX-it shuttle and the K Line via Aviation/Century station connect to Metro rail; allow 30-90 minutes to your hotel depending on traffic. Rideshares, taxis, and rental cars operate at all hours, though rush-hour queues can stretch long.',
+      },
+    ],
     transportation: [
       {
         mode: 'Los Angeles International (LAX)',
@@ -67,6 +74,8 @@ export const citiesContent = {
       'TAP cards work across Metro rail and buses — buy one at any station machine and load a day pass for multi-event weekends.',
       'Allow double the GPS estimate for any cross-town drive; LA distances are huge and freeways jam unpredictably around event start times.',
       'Tailgating culture is big at SoFi and Dodger Stadium — arrive 2-3 hours early to soak up the pre-game atmosphere and beat parking queues.',
+      'Rent a car if your weekend spans venues — SoFi, Dodger Stadium, and Anaheim sit far apart, and transit between them can take two hours. Skip the rental if you\'re staying downtown for one arena only.',
+      'The Dodger Stadium Express bus runs from Union Station on game days and is free with a game ticket — it skips the worst of the stadium traffic.',
     ],
   },
 
@@ -81,7 +90,14 @@ export const citiesContent = {
       { name: 'T-Mobile Arena', venueSlug: null },
       { name: 'MGM Grand Garden Arena', venueSlug: null },
     ],
-    eventCalendarNote: 'Vegas\' headline acts arrive in waves: the F1 Las Vegas Grand Prix lights up the Strip every November, the Super Bowl returns in February 2027, and championship boxing and UFC cards land at T-Mobile Arena year-round. The Raiders and Golden Knights fill the fall-to-spring schedule, while March Madness viewing parties turn every sportsbook into an event itself.',
+    eventCalendarNote: 'Vegas\' headline acts arrive in waves: the F1 Las Vegas Grand Prix lights up the Strip every November, the Super Bowl returns in February 2027, and championship boxing and UFC cards land at T-Mobile Arena year-round. The Raiders and Golden Knights fill the fall-to-spring schedule, while March Madness viewing parties turns every sportsbook into an event itself.',
+    airports: [
+      {
+        name: 'Harry Reid International Airport',
+        code: 'LAS',
+        detail: 'Harry Reid International (LAS) sits just two miles from the south end of the Strip — one of the quickest airport-to-resort transfers anywhere. Taxis, rideshares, and shuttles reach most hotels in 10-20 minutes, and the RTC bus runs 24/7 along Las Vegas Boulevard for a few dollars at any hour.',
+      },
+    ],
     transportation: [
       {
         mode: 'Harry Reid International (LAS)',
@@ -128,6 +144,8 @@ export const citiesContent = {
       'Hydrate relentlessly: desert air plus casino air-conditioning dehydrates you fast, and it\'s easy to confuse thirst for a bad beat.',
       'Use casino sportsbooks for non-ticketed events — watching a fight or race among thousands of bettors is a Vegas experience itself.',
       'Sunday and weekday arrivals dodge the worst check-in lines and traffic; flying out Monday morning after a big fight is chaos.',
+      'Rely on the monorail and your own two feet on fight nights — buy a multi-day monorail pass online for savings, and remember Strip distances run longer than they look from street level.',
+      'Save mobile tickets to your phone wallet before heading to Allegiant or T-Mobile — connectivity slows with 60,000-strong crowds and the gate scanners keep moving.',
     ],
   },
 
@@ -135,7 +153,7 @@ export const citiesContent = {
     slug: 'singapore',
     city: 'Singapore',
     intro: 'Singapore is where Formula 1 magic meets garden-city polish. The original F1 night race has lit up Marina Bay since 2008, turning the city\'s skyline of glass towers and supertrees into the sport\'s most photogenic backdrop. Beyond the Grand Prix, this compact island nation punches above its weight with world-class events at the National Stadium, a buzzy basketball and badminton scene, and a food culture — hawker centers included — that sports travelers rave about. Everything runs on time, English is universal, and one Metro ride connects your hotel to almost any venue. This guide covers what to see, where to stay, and how to make the most of a Singapore sports weekend.',
-    sportsCulture: 'Singapore\'s sporting identity was transformed in 2008 when it staged Formula 1\'s first-ever night race — the Singapore Grand Prix around Marina Bay instantly became the calendar\'s most spectacular weekend, with cars flashing past the skyline, gardens, and floating stadium under floodlights. The city-state also welcomes international football friendlies, athletics, and major live events at the 55,000-seat National Stadium in Kallang. Grassroots passion runs deep in badminton, table tennis, and swimming, sports where Singapore punches well above its size. Compact, safe, and impeccably organized, Singapore treats every major event like a national occasion — expect precinct-wide festivals, concerts, and fan zones whenever the big crowds come to town. For visitors, that means the party spills far beyond the track and the stadiums.',
+    sportsCulture: 'Singapore\'s sporting identity was transformed in 2008 when it staged Formula 1\'s first-ever night race — the Singapore Grand Prix around Marina Bay instantly became the calendar\'s most spectacular weekend, with cars flashing past the skyline, gardens, and floating stadium under floodlights. The city-state also welcomes international football friendlies, athletics, and major live events at the 55,000-seat National Stadium in Kallang. Grassroots passion runs deep in badminton, table tennis, and swimming, sports where Singapore punches well above its size. Compact, safe, and impeccably organized, Singapore treats every major event like a national occasion — expect precinct-wide festivals, concerts, and fan zones whenever the big crowds come to town. Recent years have added football friendlies against Liverpool, Arsenal, and Bayern Munich, plus the Singapore Smash bringing table tennis\'s elite to town, giving the small island a genuine year-round spotlight on the world\'s sporting stage. For visitors, that means the party spills far beyond the track and the stadiums.',
     majorVenues: [
       { name: 'Marina Bay Street Circuit', venueSlug: 'marina-bay-circuit' },
       { name: 'National Stadium', venueSlug: null },
@@ -143,6 +161,13 @@ export const citiesContent = {
       { name: 'Jalan Besar Stadium', venueSlug: null },
     ],
     eventCalendarNote: 'The Singapore Grand Prix anchors the calendar every late September or October, when the Marina Bay street circuit takes shape and three days of concerts and fan zones take over the downtown core. Through the rest of the year, catch international football friendlies, rugby sevens, badminton\'s Singapore Open, and WTA tennis at Kallang — book early for race weekend, when the whole city books out.',
+    airports: [
+      {
+        name: 'Singapore Changi Airport',
+        code: 'SIN',
+        detail: 'Changi (SIN) is repeatedly voted the world\'s best airport and sits just 13 miles from downtown. The MRT reaches the city center in about 30 minutes with a transfer at Tanah Merah, taxis take 20-30 minutes, and airport shuttles run to major hotels. Immigration lines move fast.',
+      },
+    ],
     transportation: [
       {
         mode: 'Changi Airport (SIN)',
@@ -184,6 +209,8 @@ export const citiesContent = {
       'Hawker centers like Lau Pa Sat and Maxwell offer Michelin-recognized meals for under $10 — the best pre-race dining value anywhere.',
       'Buy an EZ-Link card or simply tap a contactless credit card on the MRT; cash is rarely needed anywhere in Singapore, even at many hawker stalls.',
       'Rooftop bars along Marina Bay and the Esplanade host ticketless race-viewing parties all weekend — reserve a table early if you skipped grandstand seats for Sunday.',
+      'Check your ticket\'s gate number before the Grand Prix — the Marina Bay circuit has multiple entry gates across its zones, and walking between the wrong ones can add twenty minutes along the fences.',
+      'Buy a Singapore Tourist Pass only if you\'ll make more than six or seven trips a day — pay-per-ride EZ-Link or contactless works out cheaper for most sports weekends.',
     ],
   },
 
@@ -200,6 +227,18 @@ export const citiesContent = {
       { name: 'Barclays Center', venueSlug: null },
     ],
     eventCalendarNote: 'New York\'s sports year peaks with the US Open in late August, two weeks when Queens becomes the center of the tennis world. The Knicks and Rangers light up MSG from October through spring, the Yankees and Mets own the summer, and the NYC Marathon draws 50,000 runners through all five boroughs each November. Big fights and playoff runs drop in whenever the city demands them.',
+    airports: [
+      {
+        name: 'John F. Kennedy International Airport',
+        code: 'JFK',
+        detail: 'JFK is New York\'s busiest gateway, in Queens about 15 miles from Midtown. The AirTrain links to the subway and Long Island Rail Road, reaching Manhattan in 60-75 minutes for a few dollars; taxis charge a flat fare of about $70 and take 45-90 minutes depending on traffic.',
+      },
+      {
+        name: 'Newark Liberty International Airport',
+        code: 'EWR',
+        detail: 'Newark Liberty (EWR) sits across the Hudson in New Jersey, 16 miles from Midtown. The AirTrain plus NJ Transit train reaches New York Penn Station in about 45 minutes; taxis and rideshares cost $70-100 plus tolls and can take well over an hour in rush-hour traffic.',
+      },
+    ],
     transportation: [
       {
         mode: 'Airports (JFK, LGA, EWR)',
@@ -246,6 +285,8 @@ export const citiesContent = {
       'Skip taxis after games at MSG and Barclays — the subway runs 24/7 and beats surface traffic every single time.',
       'Yankee Stadium\'s Monument Park and the MSG \'Defining Moments\' exhibits are worth arriving early for; gates open two hours before first pitch.',
       'Reserve restaurant tables well ahead on event nights, especially around Penn Station and Atlantic Avenue, which fill completely after final whistles.',
+      'Leave the rental car at home — garage parking near the arenas runs $50-80 a night, alternate-side rules confuse visitors, and the 24/7 subway plus Citi Bike covers every sports venue in the five boroughs.',
+      'Night sessions at the US Open cool off fast — Arthur Ashe Stadium\'s upper deck turns breezy after sunset, so pack a light layer even in August heat.',
     ],
   },
 
@@ -253,7 +294,7 @@ export const citiesContent = {
     slug: 'augusta',
     city: 'Augusta',
     intro: 'Augusta, Georgia, is golf\'s most hallowed ground — a quiet Southern city on the Savannah River that becomes the center of the sporting universe every April when the Masters transforms Augusta National Golf Club into the most exclusive ticket in sports. Beyond the tournament\'s azaleas and Amen Corner, Augusta offers riverwalk strolls, soul food institutions, and easy drives to Aiken\'s horse country and Thurmond Lake. Whether you\'re chasing badge dreams for tournament week or exploring the region\'s sporting heritage year-round, this guide covers everything from practice-round ticket lotteries to the best places to stay and eat during the most anticipated week in golf.',
-    sportsCulture: 'Augusta\'s identity is inseparable from the Masters, staged at Augusta National since 1934 — the green jacket ceremony, Amen Corner, and Magnolia Lane are sporting lore known far beyond golf. Tournament week swells the city with patrons, players, and media from around the world, while the annual Drive, Chip and Putt Championship gives young golfers their own Sunday stage. Beyond the National, the region lives sport year-round: the Augusta GreenJackets play minor-league baseball at riverside SRP Park, Augusta University teams draw loyal local crowds, and the area\'s public and private courses make it one of the golfiest corners of America. Cyclocross and disc golf scenes round out a quietly passionate sporting culture. Golf\'s greatest champions are made here every second Sunday in April, and the whole city tunes in — even those who never swing a club.',
+    sportsCulture: 'Augusta\'s identity is inseparable from the Masters, staged at Augusta National since 1934 — the green jacket ceremony, Amen Corner, and Magnolia Lane are sporting lore known far beyond golf. Tournament week swells the city with patrons, players, and media from around the world, while the annual Drive, Chip and Putt Championship gives young golfers their own Sunday stage. Beyond the National, the region lives sport year-round: the Augusta GreenJackets play minor-league baseball at riverside SRP Park, Augusta University teams draw loyal local crowds, and the area\'s public and private courses make it one of the golfiest corners of America. Cyclocross and disc golf scenes round out a quietly passionate sporting culture. Rowing crews from across the Southeast sweep the Savannah River each November for the Head of the South regatta, and the area\'s lakes and trails keep the sporting calendar moving long after the Masters crowds head home. Golf\'s greatest champions are made here every second Sunday in April, and the whole city tunes in — even those who never swing a club.',
     majorVenues: [
       { name: 'Augusta National Golf Club', venueSlug: null },
       { name: 'SRP Park', venueSlug: null },
@@ -261,6 +302,18 @@ export const citiesContent = {
       { name: 'James Brown Arena', venueSlug: null },
     ],
     eventCalendarNote: 'The Masters owns the first full week of April, from Monday practice rounds through Sunday\'s final putt — and the city plans its entire year around it. Practice-round tickets are distributed by lottery each June, with daily tournament badges famously passed down like heirlooms. Outside Masters week, catch GreenJackets baseball from April through summer and college events across the river in Aiken and North Augusta.',
+    airports: [
+      {
+        name: 'Augusta Regional Airport',
+        code: 'AGS',
+        detail: 'Augusta Regional (AGS) is a small field 10 miles south of downtown, served by domestic connections through Atlanta and Charlotte. Taxis, rideshares, and rental cars cover the 15-20 minute run into town, but seats are limited and pricey during Masters week — book as soon as schedules open.',
+      },
+      {
+        name: 'Hartsfield-Jackson Atlanta International Airport',
+        code: 'ATL',
+        detail: 'Atlanta (ATL), the world\'s busiest airport, is the most practical gateway for most Masters visitors. It sits 145 miles west of Augusta; Interstate 20 delivers you to town in about 2.5 hours by rental car. Reserve that car by early autumn — tournament week sells out the region\'s fleets.',
+      },
+    ],
     transportation: [
       {
         mode: 'Getting There',
@@ -298,6 +351,8 @@ export const citiesContent = {
       'Dress for all four seasons in one week — April in Georgia swings from chilly mornings to 85-degree afternoons with pop-up showers.',
       'Book restaurant reservations for tournament week months ahead; institution-worthy spots like TBonz and Frog Hollow fill completely during the Masters.',
       'Arrive early on practice days — the Par 3 Contest on Wednesday afternoon is the most charming, family-friendly spectacle in golf.',
+      'Don\'t count on scooters or rideshares during Masters week — shared mobility services pull out of the area around the course, so rent a car early or plan on walking from Washington Road hotels.',
+      'Book tee times in Aiken or Evans months out if you want to play during Masters week — the region\'s public courses fill fast and raise rates for tournament visitors.',
     ],
   },
 
@@ -305,7 +360,7 @@ export const citiesContent = {
     slug: 'madrid',
     city: 'Madrid',
     intro: 'Madrid is football royalty — a city where Real Madrid\'s record 15 European Cups and Atlético\'s defiant passion divide families, and where the Champions League Final returns in June 2027 at the Riyadh Air Metropolitano. Between the two football cathedrals, the Spanish capital layers tennis at the Caja Mágica, basketball at WiZink Center, and tapas-fueled nights that stretch past any post-match celebration. Getting around is easy on one of Europe\'s best metros, and the summer-final timing means long golden evenings in plazas afterward. This guide covers events, transport, and where to stay for a Madrid sports trip built around the beautiful game — and everything after the final whistle.',
-    sportsCulture: 'Madrid is defined by its two footballing giants: Real Madrid, the most decorated club in European history at the Santiago Bernabéu, and Atlético Madrid, whose Riyadh Air Metropolitano fortress roars with one of the game\'s most intense atmospheres. The city has staged four European Cup finals, most recently at the Metropolitano in 2019, and welcomes another in 2027. Beyond football, the Mutua Madrid Open brings the tennis world to the clay of the Caja Mágica each spring, Real Madrid\'s basketball side is a EuroLeague powerhouse, and the WiZink Center stages finals and big-fight nights. With 300 days of sun, late dinners, and streets that fill with celebration after every triumph, sport here is woven into the rhythm of daily life. For visiting fans, a Clásico or derby ticket is the ultimate Spanish sporting souvenir.',
+    sportsCulture: 'Madrid is defined by its two footballing giants: Real Madrid, the most decorated club in European history at the Santiago Bernabéu, and Atlético Madrid, whose Riyadh Air Metropolitano fortress roars with one of the game\'s most intense atmospheres. The city has staged four European Cup finals, most recently at the Metropolitano in 2019, and welcomes another in 2027. Beyond football, the Mutua Madrid Open brings the tennis world to the clay of the Caja Mágica each spring, Real Madrid\'s basketball side is a EuroLeague powerhouse, and the WiZink Center stages finals and big-fight nights. With 300 days of sun, late dinners, and streets that fill with celebration after every triumph, sport here is woven into the rhythm of daily life. The Vuelta a España traditionally crowns its champion in Madrid each September, and the Madrid Marathon fills the streets each spring — even the city\'s parks and grand avenues double as sporting arenas. For visiting fans, a Clásico or derby ticket is the ultimate Spanish sporting souvenir.',
     majorVenues: [
       { name: 'Riyadh Air Metropolitano', venueSlug: 'metropolitano' },
       { name: 'Santiago Bernabéu', venueSlug: null },
@@ -313,6 +368,13 @@ export const citiesContent = {
       { name: 'WiZink Center', venueSlug: null },
     ],
     eventCalendarNote: 'Madrid\'s calendar now builds toward the Champions League Final on June 5, 2027, at the Riyadh Air Metropolitano — expect a week of fan festivals, the UEFA Champions Festival along the city\'s grand avenues, and hotel demand unlike anything in the city\'s recent history. Year-round, catch El Derbi between Real and Atlético, the Mutua Madrid Open each April-May, and EuroLeague basketball at WiZink Center.',
+    airports: [
+      {
+        name: 'Adolfo Suárez Madrid–Barajas Airport',
+        code: 'MAD',
+        detail: 'Madrid–Barajas (MAD) is one of Europe\'s busiest hubs and among the closest major airports to a city center — barely 10 miles from downtown. Metro Line 8 reaches Nuevos Ministerios in 12 minutes, the 24-hour express bus runs to Atocha in 35-40 minutes, and flat-fare taxis reach the center in 20-30 minutes.',
+      },
+    ],
     transportation: [
       {
         mode: 'Adolfo Suárez Madrid–Barajas (MAD)',
@@ -350,6 +412,8 @@ export const citiesContent = {
       'Pickpockets work the crowded metro lines around big matches: keep phones and wallets in front pockets and bags fully zipped.',
       'Buy a rechargeable metro card or use contactless payment at the gates; a ten-trip bonus ticket saves money over single fares.',
       'Tapas bars around Sol and La Latina fill up before kickoff — claim standing room an hour early for derby nights.',
+      'Madrid\'s Metro runs from around 6am to 1:30am — late kickoffs still leave time to catch a train, but pre-book a taxi or Uber if extra time pushes toward the last departures.',
+      'The Mutua Madrid Open plays well into the evening — night sessions at the Caja Mágica turn cool after sunset, so pack a layer for the open-air show courts.',
     ],
   },
 };
