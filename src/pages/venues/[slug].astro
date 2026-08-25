@@ -1,0 +1,782 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { venuesData } from '../../data/venues';
+import { eventsData } from '../../data/events';
+import { buildHotelLink } from '../../utils/affiliate-links';
+
+export function getStaticPaths() {
+  return Object.entries(venuesData).map(([slug, venue]) => ({
+    params: { slug },
+    props: { slug, venue },
+  }));
+}
+
+const { slug, venue } = Astro.props;
+
+const pageUrl = new URL(`/venues/${slug}/`, Astro.site).href;
+const capacityLabel = venue.capacity.toLowerCase().includes('circuit') ? 'Circuit' : 'Capacity';
+
+// Interlinking: only render event ids that exist in eventsData (no dead links).
+const venueEvents = (venue.eventIds || [])
+  .map(id => (eventsData[id] ? { id, ...eventsData[id] } : null))
+  .filter(Boolean);
+const upcomingEvents = venueEvents.filter(e => e.status !== 'ended');
+const pastEvents = venueEvents.filter(e => e.status === 'ended');
+
+// City page link — only rendered when a matching city page exists (derived from eventsData).
+const availableCitySlugs = new Set(
+  Object.values(eventsData)
+    .map(e => (e.location?.city ? e.location.city.toLowerCase().replace(/\s+/g, '-') : null))
+    .filter(Boolean)
+);
+const cityUrl = availableCitySlugs.has(venue.citySlug) ? `/cities/${venue.citySlug}/` : null;
+
+// Hotel affiliate links — one per nearby hotel card.
+const hotelLinks = venue.nearbyHotels.map(hotel =>
+  buildHotelLink({ city: hotel.searchQuery, campaign: `venue-${slug}` })
+);
+
+// ── Structured data ──────────────────────────────────
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": venue.name,
+  "url": pageUrl,
+  "description": `${venue.overview} ${capacityLabel}: ${venue.capacity}.`,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": venue.cityDisplay,
+    "addressCountry": venue.country,
+  },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": venue.faq.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer,
+    },
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": new URL('/', Astro.site).href },
+    { "@type": "ListItem", "position": 2, "name": "Venues", "item": new URL('/venues/', Astro.site).href },
+    { "@type": "ListItem", "position": 3, "name": venue.name, "item": pageUrl },
+  ],
+};
+
+const schemaHtml = [placeSchema, faqSchema, breadcrumbSchema]
+  .map(schema => `<script type="application/ld+json">${JSON.stringify(schema, null, '\t')}</script>`)
+  .join('\n');
+
+const pageTitle = `${venue.name} Guide - Capacity, Transport & Hotels | MatchTrip`;
+const pageDescription = `Plan your visit to ${venue.name} in ${venue.cityDisplay}: capacity, how to get there, where to stay, match day tips, and answers to frequently asked questions.`;
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Navbar />
+
+  <!-- Hero -->
+  <section class="venue-hero">
+    <div class="container">
+      <a href="/venues/" class="back-link">&larr; All Venues</a>
+      <h1>{venue.name}</h1>
+      <p class="venue-location">{venue.cityDisplay}, {venue.country}</p>
+      <p class="venue-meta"><strong>{capacityLabel}:</strong> {venue.capacity}</p>
+      <div class="venue-tags">
+        {venue.sports.map(sport => <span class="sport-tag">{sport}</span>)}
+      </div>
+      <p class="venue-subtitle">Complete venue guide for sports travelers — capacity, transportation, hotels, and match day tips for your trip to {venue.cityDisplay}.</p>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <section class="venue-intro">
+    <div class="container narrow">
+      <h2>Venue Overview</h2>
+      <p>{venue.overview}</p>
+    </div>
+  </section>
+
+  <!-- Location & Capacity -->
+  <section class="location-section">
+    <div class="container">
+      <h2>Location &amp; Capacity</h2>
+      <div class="fact-grid">
+        <div class="fact-card">
+          <span class="fact-label">{capacityLabel}</span>
+          <span class="fact-value">{venue.capacity}</span>
+        </div>
+        <div class="fact-card">
+          <span class="fact-label">City</span>
+          <span class="fact-value">{venue.cityDisplay}</span>
+        </div>
+        <div class="fact-card">
+          <span class="fact-label">Country</span>
+          <span class="fact-value">{venue.country}</span>
+        </div>
+        <div class="fact-card">
+          <span class="fact-label">Sports</span>
+          <span class="fact-value">{venue.sports.join(', ')}</span>
+        </div>
+      </div>
+      <p class="location-detail">{venue.locationDetail}</p>
+    </div>
+  </section>
+
+  <!-- Transportation -->
+  <section class="transport-section">
+    <div class="container">
+      <h2>Getting to {venue.name}</h2>
+      <div class="guide-grid">
+        {venue.transportation.map(item => (
+          <div class="guide-card">
+            <span class="transport-mode">{item.mode}</span>
+            <p>{item.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Nearby Hotels -->
+  <section class="hotels-section">
+    <div class="container">
+      <h2>Nearby Hotels</h2>
+      <p class="section-sub">Places to stay within easy reach of {venue.name}. We may earn a small commission when you book through our links.</p>
+      <div class="hotels-grid">
+        {venue.nearbyHotels.map((hotel, index) => (
+          <article class="hotel-card">
+            <h3>{hotel.name}</h3>
+            <p>{hotel.description}</p>
+            <a href={hotelLinks[index]} class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Search Hotels</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Match Day Tips -->
+  <section class="tips-section">
+    <div class="container narrow">
+      <h2>Match Day Tips</h2>
+      <ol class="tips-list">
+        {venue.matchDayTips.map(tip => <li>{tip}</li>)}
+      </ol>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container narrow">
+      <h2>Frequently Asked Questions</h2>
+      {venue.faq.map(item => (
+        <div class="faq-item">
+          <h3>{item.question}</h3>
+          <p>{item.answer}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section class="events-section">
+    <div class="container">
+      {venueEvents.length > 0 ? (
+        <>
+          {upcomingEvents.length > 0 && (
+            <>
+              <h2>Upcoming Events at {venue.name}</h2>
+              <div class="events-grid">
+                {upcomingEvents.map(event => (
+                  <article class="event-card">
+                    <div class="event-image" style={`background: linear-gradient(135deg, ${event.colorFrom || '#6366f1'} 0%, ${event.colorTo || '#a855f7'} 100%)`}>
+                      <span class="event-emoji">{event.emoji || '🏟️'}</span>
+                      <span class="event-badge">{event.category}</span>
+                    </div>
+                    <div class="event-content">
+                      <div class="event-meta">
+                        <span class="event-date">{event.date}</span>
+                      </div>
+                      <a href={`/events/${event.id}/`} class="event-card-title-link"><h3>{event.title}</h3></a>
+                      <p>{event.description}</p>
+                      <div class="event-footer">
+                        <div class="event-price">
+                          <span class="price-label">Est. Travel Cost</span>
+                          <span class="price-value">{event.priceEstimate}</span>
+                        </div>
+                        <a href={`/events/${event.id}/`} class="btn btn-primary">Plan Trip</a>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </>
+          )}
+
+          {pastEvents.length > 0 && (
+            <>
+              <h2 class="past-heading">Past Events at {venue.name}</h2>
+              <div class="events-grid">
+                {pastEvents.map(event => (
+                  <article class="event-card">
+                    <div class="event-image" style={`background: linear-gradient(135deg, ${event.colorFrom || '#6366f1'} 0%, ${event.colorTo || '#a855f7'} 100%)`}>
+                      <span class="event-emoji">{event.emoji || '🏟️'}</span>
+                      <span class="event-badge">{event.category}</span>
+                    </div>
+                    <div class="event-content">
+                      <div class="event-meta">
+                        <span class="event-date">{event.date}</span>
+                      </div>
+                      <a href={`/events/${event.id}/`} class="event-card-title-link"><h3>{event.title}</h3></a>
+                      <p>{event.description}</p>
+                      <div class="event-footer">
+                        <div class="event-price">
+                          <span class="price-label">Est. Travel Cost</span>
+                          <span class="price-value">{event.priceEstimate}</span>
+                        </div>
+                        <a href={`/events/${event.id}/`} class="btn btn-outline">View Event</a>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </>
+          )}
+        </>
+      ) : (
+        <div class="events-fallback-card">
+          <h2>Events at {venue.name}</h2>
+          <p>Browse upcoming sports events on MatchTrip to find the next big occasion at or near {venue.name}.</p>
+          <a href="/events/" class="btn btn-primary">Explore All Events</a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- City link -->
+  {cityUrl && (
+    <section class="city-cta-section">
+      <div class="container">
+        <div class="city-cta-card">
+          <h2>Explore More in {venue.cityDisplay}</h2>
+          <p>Find sports events, hotels, and things to do in {venue.cityDisplay}.</p>
+          <a href={cityUrl} class="btn btn-outline">{venue.cityDisplay} Travel Guide</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <Fragment set:html={schemaHtml} />
+  <Footer />
+</Layout>
+
+<style>
+  .venue-hero {
+    padding: 100px 0 60px;
+    text-align: center;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: #6366f1;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: #4f46e5; }
+
+  .venue-hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    color: #111;
+  }
+
+  .venue-location {
+    font-size: 1.1rem;
+    color: #6366f1;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .venue-meta {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-bottom: 16px;
+  }
+
+  .venue-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .sport-tag {
+    background: #eef2ff;
+    color: #4f46e5;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .venue-subtitle {
+    font-size: 1.0625rem;
+    color: #6b7280;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .narrow {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .venue-intro h2,
+  .location-section h2,
+  .transport-section h2,
+  .hotels-section h2,
+  .tips-section h2,
+  .faq-section h2,
+  .events-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 24px;
+  }
+
+  .venue-intro {
+    padding: 0 0 60px;
+  }
+
+  .venue-intro p {
+    color: #4b5563;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  /* Location & Capacity */
+  .location-section {
+    padding: 0 0 60px;
+  }
+
+  .fact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .fact-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+
+  .fact-label {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  .fact-value {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+  }
+
+  .location-detail {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 860px;
+  }
+
+  /* Transportation */
+  .transport-section {
+    padding: 0 0 60px;
+  }
+
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .guide-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .guide-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+  }
+
+  .transport-mode {
+    display: inline-block;
+    background: #eef2ff;
+    color: #4f46e5;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .guide-card p {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Hotels */
+  .hotels-section {
+    padding: 0 0 60px;
+  }
+
+  .section-sub {
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin: -12px 0 24px;
+  }
+
+  .hotels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .hotel-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .hotel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+  }
+
+  .hotel-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 10px;
+  }
+
+  .hotel-card p {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+
+  /* Tips */
+  .tips-section {
+    padding: 0 0 60px;
+  }
+
+  .tips-list {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .tips-list li {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .tips-list li::marker {
+    color: #6366f1;
+    font-weight: 700;
+  }
+
+  /* FAQ */
+  .faq-section {
+    padding: 0 0 80px;
+  }
+
+  .faq-item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .faq-item h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 10px;
+  }
+
+  .faq-item p {
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Events */
+  .events-section {
+    padding: 0 0 80px;
+  }
+
+  .past-heading {
+    margin-top: 48px;
+  }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 24px;
+  }
+
+  .event-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+  }
+
+  .event-image {
+    position: relative;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .event-emoji {
+    font-size: 3rem;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+  }
+
+  .event-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #111;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .event-content {
+    padding: 24px;
+  }
+
+  .event-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+
+  .event-card-title-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: color 0.2s ease;
+  }
+
+  .event-card-title-link:hover { color: #6366f1; }
+
+  .event-card-title-link h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #111;
+  }
+
+  .event-content p {
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .event-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .event-price {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .price-label {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .price-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111;
+  }
+
+  .events-fallback-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+    border: 1px solid #e0e7ff;
+    border-radius: 16px;
+    padding: 48px;
+    text-align: center;
+  }
+
+  .events-fallback-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 8px;
+  }
+
+  .events-fallback-card p {
+    color: #4b5563;
+    max-width: 480px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+  }
+
+  /* City CTA */
+  .city-cta-section {
+    padding: 0 0 80px;
+  }
+
+  .city-cta-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    border-radius: 24px;
+    padding: 56px;
+    text-align: center;
+    color: white;
+  }
+
+  .city-cta-card h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: white;
+  }
+
+  .city-cta-card p {
+    color: #94a3b8;
+    max-width: 520px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: #111;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.9rem;
+  }
+
+  .btn-primary:hover {
+    background: #374151;
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    font-size: 0.95rem;
+  }
+
+  .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    .venue-hero h1 { font-size: 2rem; }
+    .guide-grid { grid-template-columns: 1fr; }
+    .hotels-grid { grid-template-columns: 1fr; }
+    .fact-grid { grid-template-columns: 1fr 1fr; }
+    .events-grid { grid-template-columns: 1fr; }
+    .city-cta-card { padding: 40px 24px; }
+    .events-fallback-card { padding: 32px 24px; }
+  }
+</style>

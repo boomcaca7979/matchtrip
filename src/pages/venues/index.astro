@@ -1,0 +1,329 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { venuesData } from '../../data/venues';
+
+const venues = Object.entries(venuesData).map(([slug, venue]) => ({ slug, ...venue }));
+const pageUrl = new URL('/venues/', Astro.site).href;
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Sports Venue Guides",
+  "description": "Stadium and circuit travel guides for the world's great sports venues. Find capacity, transport, hotels, and match day tips.",
+  "url": pageUrl,
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": venues.map((venue, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": new URL(`/venues/${venue.slug}/`, Astro.site).href,
+      "name": venue.name,
+    })),
+  },
+};
+
+const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collectionSchema, null, '\t')}</script>`;
+
+const pageTitle = 'Sports Venue Guides - Stadium & Circuit Travel | MatchTrip';
+const pageDescription = "Guides to the world's great sports venues — capacities, how to get there, where to stay, and match day tips for stadiums and circuits.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Navbar />
+
+  <!-- Hero -->
+  <section class="venues-hero">
+    <div class="container">
+      <a href="/events/" class="back-link">&larr; All Events</a>
+      <h1>Sports Venue Guides</h1>
+      <p class="venues-count">{venues.length} venue{venues.length !== 1 ? 's' : ''}</p>
+      <p class="venues-subtitle">Stadiums and circuits around the world — capacities, transportation, nearby hotels, and match day tips for sports travelers.</p>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="venues-intro">
+    <div class="container narrow">
+      <p>MatchTrip's venue guides cover the stadiums and street circuits every sports traveler dreams of visiting — from SoFi Stadium's billion-dollar bowl in Los Angeles to the floodlit streets of Singapore. Each guide explains how to get there, where to stay, and what to expect on match day, and links directly to the events each venue hosts.</p>
+    </div>
+  </section>
+
+  <!-- Venues -->
+  <section class="venues-section">
+    <div class="container">
+      <div class="venues-grid">
+        {venues.map(venue => (
+          <article class="venue-card">
+            <div class="venue-image" style={`background: linear-gradient(135deg, ${venue.colorFrom} 0%, ${venue.colorTo} 100%)`}>
+              <span class="venue-emoji">{venue.emoji}</span>
+              <span class="venue-badge">{venue.country}</span>
+            </div>
+            <div class="venue-content">
+              <div class="venue-meta">
+                <span class="venue-city">{venue.cityDisplay}</span>
+                <span class="venue-capacity">{venue.capacity.toLowerCase().includes('circuit') ? 'Circuit' : 'Capacity'}: {venue.capacity}</span>
+              </div>
+              <a href={`/venues/${venue.slug}/`} class="venue-title-link"><h3>{venue.name}</h3></a>
+              <p>{venue.overview.split('. ')[0]}.</p>
+              <div class="venue-footer">
+                <span class="venue-sports">{venue.sports.join(' · ')}</span>
+                <a href={`/venues/${venue.slug}/`} class="btn btn-primary">Venue Guide</a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Events CTA -->
+  <section class="events-cta-section">
+    <div class="container">
+      <div class="events-cta-card">
+        <h2>Find Your Next Event</h2>
+        <p>Browse every event guide on MatchTrip and start planning your trip.</p>
+        <a href="/events/" class="btn btn-primary btn-lg">Explore All Events</a>
+      </div>
+    </div>
+  </section>
+
+  <Fragment set:html={schemaHtml} />
+  <Footer />
+</Layout>
+
+<style>
+  .venues-hero {
+    padding: 100px 0 60px;
+    text-align: center;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: #6366f1;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: #4f46e5; }
+
+  .venues-hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    color: #111;
+  }
+
+  .venues-count {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-bottom: 16px;
+  }
+
+  .venues-subtitle {
+    font-size: 1.0625rem;
+    color: #6b7280;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .narrow {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .venues-intro {
+    padding: 0 0 40px;
+  }
+
+  .venues-intro p {
+    color: #4b5563;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Venues grid */
+  .venues-section {
+    padding: 0 0 80px;
+  }
+
+  .venues-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 24px;
+  }
+
+  .venue-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .venue-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+  }
+
+  .venue-image {
+    position: relative;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .venue-emoji {
+    font-size: 3rem;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+  }
+
+  .venue-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #111;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .venue-content {
+    padding: 24px;
+  }
+
+  .venue-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+
+  .venue-city {
+    color: #6366f1;
+    font-weight: 600;
+  }
+
+  .venue-title-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: color 0.2s ease;
+  }
+
+  .venue-title-link:hover { color: #6366f1; }
+
+  .venue-title-link h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #111;
+  }
+
+  .venue-content p {
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .venue-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .venue-sports {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    font-weight: 600;
+  }
+
+  /* Events CTA */
+  .events-cta-section {
+    padding: 0 0 80px;
+  }
+
+  .events-cta-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    border-radius: 24px;
+    padding: 64px;
+    text-align: center;
+    color: white;
+  }
+
+  .events-cta-card h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .events-cta-card p {
+    color: #94a3b8;
+    max-width: 520px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-lg {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+
+  .btn-primary {
+    background: #111;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 0.9rem;
+  }
+
+  .btn-primary:hover {
+    background: #374151;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    .venues-hero h1 { font-size: 2rem; }
+    .venues-grid { grid-template-columns: 1fr; }
+    .events-cta-card { padding: 40px 24px; }
+  }
+</style>

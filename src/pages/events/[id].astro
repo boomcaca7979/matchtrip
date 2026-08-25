@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
 import { eventsData } from '../../data/events';
+import { venuesData } from '../../data/venues';
 import {
   buildHotelLink,
   buildFlightLink,
@@ -30,6 +31,14 @@ const event = eventsData[id as keyof typeof eventsData];
 if (!event) {
   return Astro.redirect('/events/');
 }
+
+// Related venue guide: the venue whose eventIds include this event.
+const relatedVenue = Object.values(venuesData).find(v => v.eventIds?.includes(id as string));
+const relatedVenueCapacity = relatedVenue && relatedVenue.capacity != null
+  ? (typeof relatedVenue.capacity === 'number'
+      ? relatedVenue.capacity.toLocaleString('en-US')
+      : String(relatedVenue.capacity))
+  : null;
 
 const refs = event.partnerRefs;
 const campaign = id as string;
@@ -177,6 +186,88 @@ if (event.travelGuide) {
   };
   articleSchemaHtml = `<script type="application/ld+json">${JSON.stringify(articleSchema, null, '\t')}</script>`;
 }
+
+// Travel Overview paragraph (only for events with a travelGuide):
+// assembled from existing event fields — description, date, location, budget estimate.
+let travelOverviewText = '';
+if (event.travelGuide) {
+  const overviewSentences = [];
+  if (event.description) overviewSentences.push(event.description);
+  const overviewLocation = getEventLocation(event);
+  if (event.date || overviewLocation) {
+    overviewSentences.push(
+      `${event.title} takes place${event.date ? ` ${event.date}` : ''}${overviewLocation ? ` in ${overviewLocation}` : ''}.`
+    );
+  }
+  const overviewBudget = getTravelPrice(event);
+  if (overviewBudget) {
+    overviewSentences.push(`A typical trip including flights, hotels, and tickets is estimated at ${overviewBudget}.`);
+  }
+  travelOverviewText = overviewSentences.join(' ');
+}
+
+// FAQ: data-driven Q&A assembled from existing event fields (rendered for every event).
+const faqVenueList = (event.venues || []).join(', ');
+const faqHostCityList = (event.hostCities || []).join(', ');
+const faqTicketPriceLabel = getTicketPrice(event);
+const faqStayAreas = (event.travelGuide?.accommodationAreas || []).slice(0, 2).map(a => a.name);
+const faqFirstTransport = event.travelGuide?.transportationTips?.[0];
+
+const faqItems = [
+  {
+    q: `When is ${event.title}?`,
+    a: `${event.title} takes place${event.date ? ` ${event.date}` : ''}${city ? ` in ${city}` : ''}.`,
+  },
+  {
+    q: `Where is ${event.title} held?`,
+    a: `${event.title} is held at ${faqVenueList}${faqHostCityList ? ` in host cities including ${faqHostCityList}` : ''}.`,
+  },
+  {
+    q: 'How much do tickets cost?',
+    a: faqTicketPriceLabel
+      ? `Tickets for ${event.title} typically cost ${faqTicketPriceLabel}.`
+      : `Ticket prices for ${event.title} vary by session and seat category.`,
+  },
+  {
+    q: 'Where should I stay?',
+    a: faqStayAreas.length
+      ? `Recommended places to stay include ${faqStayAreas.join(' and ')}.`
+      : `We recommend staying in ${stayCity || city}.`,
+  },
+  {
+    q: 'How do I get there?',
+    a: faqFirstTransport
+      ? `The recommended way to get there is by ${faqFirstTransport.mode}. ${faqFirstTransport.detail}`
+      : `The easiest way to get there is to fly into ${refs.flightTo || city}.`,
+  },
+];
+
+// FAQPage structured data: answers use the exact same text as the page.
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
+};
+const faqSchemaHtml = `<script type="application/ld+json">${JSON.stringify(faqSchema, null, '\t')}</script>`;
+
+// BreadcrumbList structured data: Home > Events > Event.
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": new URL('/', Astro.site).href },
+    { "@type": "ListItem", "position": 2, "name": "Events", "item": new URL('/events/', Astro.site).href },
+    { "@type": "ListItem", "position": 3, "name": event.title, "item": eventUrl },
+  ]
+};
+const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema, null, '\t')}</script>`;
 ---
 
 <Layout
@@ -263,6 +354,19 @@ if (event.travelGuide) {
     </div>
   </section>
 
+  <!-- Travel Overview (only for events with travelGuide data) -->
+  {event.travelGuide && travelOverviewText && (
+    <section class="overview-section">
+      <div class="container">
+        <h2>Travel Overview</h2>
+        <p class="section-sub">What to expect when planning your trip</p>
+        <div class="overview-card">
+          <p class="overview-text">{travelOverviewText}</p>
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- Where To Stay (standalone) -->
   {stayCity && (
     <section class="stay-section">
@@ -290,12 +394,19 @@ if (event.travelGuide) {
               <li>{venue}</li>
             ))}
           </ul>
+          {relatedVenue && (
+            <div class="venue-featured">
+              <a href={`/venues/${relatedVenue.slug}/`} class="venue-featured-name">{relatedVenue.name}</a>
+              {relatedVenueCapacity && <span class="venue-featured-capacity">Capacity: {relatedVenueCapacity}</span>}
+              <a href={`/venues/${relatedVenue.slug}/`} class="btn btn-outline venue-guide-btn">Venue Guide</a>
+            </div>
+          )}
         </div>
         <div class="venues-card">
           <h3>Host Cities</h3>
           <div class="city-tags">
             {event.hostCities.map(city => (
-              <span class="city-tag">{city}</span>
+              <a href={`/cities/${city.toLowerCase().replace(/\s+/g, '-')}/`} class="city-tag">{city}</a>
             ))}
           </div>
         </div>
@@ -378,6 +489,26 @@ if (event.travelGuide) {
     </>
   )}
 
+  <!-- 3-Day Trip Itinerary (conditional: only for events with itinerary data) -->
+  {event.travelGuide?.itinerary && event.travelGuide.itinerary.length > 0 && (
+    <section class="itinerary-section">
+      <div class="container">
+        <h2>3-Day Trip Itinerary</h2>
+        <p class="section-sub">A suggested day-by-day plan for your trip</p>
+        <div class="itinerary-grid">
+          {event.travelGuide.itinerary.map(item => (
+            <div class="itinerary-card">
+              <span class="itinerary-node" aria-hidden="true"></span>
+              <span class="itinerary-day">{item.day}</span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- Things To Do (conditional) -->
   {activityUrl && (
     <section class="activities-section">
@@ -391,6 +522,22 @@ if (event.travelGuide) {
       </div>
     </section>
   )}
+
+  <!-- FAQ (data-driven, rendered for every event) -->
+  <section class="faq-section">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <p class="section-sub">Quick answers about attending {event.title}</p>
+      <div class="faq-list">
+        {faqItems.map(faq => (
+          <details class="faq-item">
+            <summary class="faq-question">{faq.q}</summary>
+            <p class="faq-answer">{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <!-- Other Events -->
   <section class="related-section">
@@ -447,6 +594,10 @@ if (event.travelGuide) {
 		<Fragment set:html={eventSchemaHtml} />
 		{/* Schema.org Article (only on pages with travelGuide editorial content) */}
 		{articleSchemaHtml && <Fragment set:html={articleSchemaHtml} />}
+		{/* Schema.org FAQPage (data-driven FAQ, same answers as the page) */}
+		<Fragment set:html={faqSchemaHtml} />
+		{/* Schema.org BreadcrumbList: Home > Events > Event */}
+		<Fragment set:html={breadcrumbSchemaHtml} />
 <Footer />
 </Layout>
 
@@ -724,6 +875,73 @@ if (event.travelGuide) {
     border-radius: 20px;
     font-size: 0.9rem;
     color: #374151;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .city-tag:hover {
+    background: #e0e7ff;
+    color: #4338ca;
+  }
+
+  /* Featured venue guide link (Key Venues) */
+  .venue-featured {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .venue-featured-name {
+    color: #6366f1;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  .venue-featured-name:hover { text-decoration: underline; }
+
+  .venue-featured-capacity {
+    background: #f3f4f6;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: #4b5563;
+  }
+
+  .venue-guide-btn {
+    margin-left: auto;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+  }
+
+  /* Travel Overview */
+  .overview-section { padding: 60px 0; background: #fafafa; }
+
+  .overview-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #111;
+  }
+
+  .overview-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-top: 32px;
+  }
+
+  .overview-text {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 900px;
   }
 
   /* Travel Guide Modules */
@@ -826,6 +1044,153 @@ if (event.travelGuide) {
     gap: 12px;
     flex-wrap: wrap;
     align-items: center;
+  }
+
+  /* 3-Day Trip Itinerary */
+  .itinerary-section { padding: 60px 0; }
+
+  .itinerary-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #111;
+  }
+
+  .itinerary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .itinerary-card {
+    position: relative;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  /* Horizontal timeline connector between cards */
+  .itinerary-card::before {
+    content: '';
+    position: absolute;
+    top: 31px;
+    left: -24px;
+    right: -24px;
+    height: 2px;
+    background: #e5e7eb;
+  }
+
+  .itinerary-card:first-child::before { left: 32px; }
+  .itinerary-card:last-child::before { right: calc(100% - 32px); }
+
+  .itinerary-card:hover {
+    border-color: #c7d2fe;
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+  }
+
+  .itinerary-node {
+    display: block;
+    position: relative;
+    z-index: 1;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #6366f1;
+    box-shadow: 0 0 0 4px #ffffff;
+    margin-bottom: 16px;
+  }
+
+  .itinerary-day {
+    display: inline-block;
+    background: #ede9fe;
+    color: #5b21b6;
+    padding: 4px 14px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .itinerary-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 10px;
+  }
+
+  .itinerary-card p {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  /* FAQ */
+  .faq-section { padding: 60px 0; background: #fafafa; }
+
+  .faq-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #111;
+  }
+
+  .faq-list {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 900px;
+  }
+
+  .faq-item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    transition: border-color 0.2s;
+  }
+
+  .faq-item[open] { border-color: #c7d2fe; }
+
+  .faq-question {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #111;
+  }
+
+  .faq-question::-webkit-details-marker { display: none; }
+
+  .faq-question::after {
+    content: '+';
+    flex-shrink: 0;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #6b7280;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .faq-item[open] .faq-question::after {
+    content: '−';
+    color: #6366f1;
+  }
+
+  .faq-answer {
+    padding: 0 24px 20px;
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.65;
   }
 
   /* Activities */
@@ -1188,5 +1553,13 @@ if (event.travelGuide) {
     .hero-trip-planning { max-width: 100%; }
     .hero-cta-buttons { flex-direction: column; }
     .btn-trip { text-align: center; justify-content: center; }
+    .itinerary-grid { grid-template-columns: 1fr; }
+    .itinerary-card::before { display: none; }
+    .itinerary-node { display: none; }
+    .venue-featured { flex-direction: column; align-items: flex-start; }
+    .venue-guide-btn { margin-left: 0; }
+    .overview-card { padding: 24px 20px; }
+    .faq-question { padding: 16px 20px; }
+    .faq-answer { padding: 0 20px 16px; }
   }
 </style>

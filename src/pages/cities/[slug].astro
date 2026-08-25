@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import { eventsData } from '../../data/events';
+import { citiesContent } from '../../data/cities';
 import { buildHotelLink, buildActivityLink } from '../../utils/affiliate-links';
 
 export function getStaticPaths() {
@@ -37,6 +38,9 @@ const { city, country, continent, events } = Astro.props;
 
 const slug = city.toLowerCase().replace(/\s+/g, '-');
 const pageUrl = new URL(`/cities/${slug}/`, Astro.site).href;
+
+// Editorial city guide content (falls back to the generic layout when absent)
+const content = citiesContent[slug];
 
 const upcomingEvents = events.filter(e => e.status !== 'ended');
 const pastEvents = events.filter(e => e.status === 'ended');
@@ -112,9 +116,84 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
   <!-- City Introduction -->
   <section class="city-intro">
     <div class="container narrow">
-      <p>{city} is a premier sports destination in {country}, hosting world-class events that attract fans from across {continent === 'North America' ? 'the globe' : continent === 'Europe' ? 'Europe and beyond' : continent === 'Asia' ? 'Asia and beyond' : 'around the world'}. Whether you're here for a championship match, a Grand Prix, or a historic tournament, our guides help you find the best hotels, plan your transportation, and discover local experiences that make your trip unforgettable.</p>
+      {content ? (
+        <p>{content.intro}</p>
+      ) : (
+        <p>{city} is a premier sports destination in {country}, hosting world-class events that attract fans from across {continent === 'North America' ? 'the globe' : continent === 'Europe' ? 'Europe and beyond' : continent === 'Asia' ? 'Asia and beyond' : 'around the world'}. Whether you're here for a championship match, a Grand Prix, or a historic tournament, our guides help you find the best hotels, plan your transportation, and discover local experiences that make your trip unforgettable.</p>
+      )}
     </div>
   </section>
+
+  {content && (
+    <>
+      <!-- Sports Culture -->
+      <section class="guide-section">
+        <div class="container narrow">
+          <h2>Sports Culture</h2>
+          <p class="guide-text">{content.sportsCulture}</p>
+        </div>
+      </section>
+
+      <!-- Major Venues -->
+      <section class="guide-section">
+        <div class="container">
+          <h2>Major Venues</h2>
+          <ul class="venue-list">
+            {content.majorVenues.map(v => (
+              <li>
+                {v.venueSlug ? (
+                  <a href={`/venues/${v.venueSlug}/`}>{v.name}</a>
+                ) : (
+                  <span>{v.name}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <!-- Getting Around -->
+      <section class="guide-section">
+        <div class="container">
+          <h2>Getting Around {city}</h2>
+          <div class="guide-grid">
+            {content.transportation.map(item => (
+              <div class="guide-card">
+                <span class="transport-mode">{item.mode}</span>
+                <p>{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Where to Stay -->
+      <section class="guide-section">
+        <div class="container">
+          <h2>Where to Stay in {city}</h2>
+          <div class="guide-grid">
+            {content.accommodationZones.map(zone => (
+              <div class="guide-card">
+                <h3 class="guide-card-title">{zone.name}</h3>
+                <p>{zone.description}</p>
+                <a href={buildHotelLink({ city: zone.searchQuery, campaign: `city-${slug}` })} class="btn btn-outline guide-card-link" target="_blank" rel="noopener noreferrer sponsored">Search Hotels</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Travel Tips -->
+      <section class="guide-section">
+        <div class="container narrow">
+          <h2>Travel Tips</h2>
+          <ul class="tips-list">
+            {content.travelTips.map(tip => <li>{tip}</li>)}
+          </ul>
+        </div>
+      </section>
+    </>
+  )}
 
   <!-- Things To Do -->
   {activityUrl && (
@@ -132,6 +211,8 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
   <!-- Events -->
   <section class="events-section">
     <div class="container">
+      {content && <p class="calendar-note">{content.eventCalendarNote}</p>}
+
       {upcomingEvents.length > 0 && (
         <>
           <h2>Upcoming Events in {city}</h2>
@@ -303,6 +384,142 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
     font-size: 1.05rem;
     line-height: 1.8;
     text-align: center;
+  }
+
+  /* City Guide Content (Sports Culture, Venues, Transport, Stay, Tips) */
+  .guide-section {
+    padding: 0 0 60px;
+  }
+
+  .guide-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 24px;
+  }
+
+  .guide-text {
+    color: #4b5563;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  .venue-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .venue-list li {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .venue-list li:hover {
+    border-color: #6366f1;
+    background: #f5f3ff;
+  }
+
+  .venue-list a {
+    color: #4f46e5;
+    text-decoration: none;
+  }
+
+  .venue-list a:hover {
+    text-decoration: underline;
+  }
+
+  .venue-list span {
+    color: #374151;
+  }
+
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .guide-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .guide-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+  }
+
+  .transport-mode {
+    display: inline-block;
+    background: #eef2ff;
+    color: #4f46e5;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .guide-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 10px;
+  }
+
+  .guide-card p {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .guide-card-link {
+    display: inline-block;
+    margin-top: 16px;
+  }
+
+  .tips-list {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .tips-list li {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .tips-list li::marker {
+    color: #6366f1;
+    font-weight: 700;
+  }
+
+  .calendar-note {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.8;
+    background: #f8fafc;
+    border-left: 4px solid #6366f1;
+    padding: 20px 24px;
+    border-radius: 0 12px 12px 0;
+    margin: 0 0 40px;
+    max-width: 860px;
   }
 
   .container {
@@ -618,5 +835,6 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
     .events-grid { grid-template-columns: 1fr; }
     .related-grid { grid-template-columns: 1fr 1fr; }
     .hotel-cta-card { padding: 40px 24px; }
+    .guide-grid { grid-template-columns: 1fr; }
   }
 </style>
