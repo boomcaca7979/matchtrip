@@ -60,6 +60,23 @@ export const eventsData = {
         { provider: 'viagogo', slug: 'fifa-world-cup-2026', enabled: false },
       ],
     },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Host Cities', description: 'The 2026 World Cup spans 16 cities across the USA, Canada, and Mexico. Major hubs include New York (MetLife Stadium), Los Angeles (SoFi Stadium), Dallas (AT&T Stadium), Mexico City (Azteca Stadium), Toronto, and Vancouver. Each city offers vastly different experiences and price points.', searchQuery: 'World Cup 2026 host city hotels' },
+        { name: 'Major Downtown Areas', description: 'Downtown areas in host cities provide the best access to fan zones, public transportation, and entertainment districts. New York (Midtown Manhattan), Los Angeles (DTLA), and Mexico City (Centro Histórico) offer premium stays but at significantly higher prices during tournament time.', searchQuery: 'downtown host city hotels World Cup 2026' },
+        { name: 'Airport / Transit Areas', description: 'Accommodation near major airports with train connections to host city centers offers affordability and mobility. Consider Newark near EWR (NYC events), Santa Monica near LAX, or suburban Dallas near DFW Airport. These areas balance cost with access to multiple match venues.', searchQuery: 'airport hotels World Cup 2026 host cities' },
+      ],
+      transportationTips: [
+        { mode: 'International Flights', detail: 'The three-nation format means your arrival airport depends on which matches you attend. New York (JFK/EWR), Los Angeles (LAX), Dallas (DFW), and Mexico City (MEX) are the primary international gateways. Book multi-city flights if you plan to follow your team across host nations.' },
+        { mode: 'Inter-city Transportation', detail: 'Travel between US host cities is best served by domestic flights — New York-Dallas and LA-Dallas are 3-4 hour flights. Amtrak connects Northeast host cities (NYC, Philadelphia, Boston, DC). Cross-border travel requires a valid passport; US-Canada and US-Mexico land crossings can have significant wait times during the tournament.' },
+        { mode: 'Host City Transit', detail: 'New York subway, LA Metro, Toronto TTC, and Mexico City Metro all serve their respective stadiums. Many host cities offer tournament-specific shuttle services and expanded transit hours on match days. Download each city\'s transit app for real-time routing between venues.' },
+      ],
+      ticketTips: [
+        { type: 'Official Ticketing', detail: 'FIFA handles all official World Cup ticketing through FIFA.com/tickets. Matches sell out in phases — group stage games are more accessible, while knockout rounds (especially the final at MetLife Stadium) are extremely limited. Hospitality packages are available for guaranteed access through FIFA\'s official partners.' },
+        { type: 'Match Schedule Planning', detail: 'With 48 teams and 80 matches across 3 countries, strategic match selection is critical. Single-nation itineraries minimize travel complexity. Consider planning around one geographic cluster — Northeast (NYC, Philadelphia, Boston, Toronto) or Southwest (LA, Dallas, Mexico City, Vancouver).' },
+        { type: 'Budget Planning', detail: 'A World Cup trip spanning 7-14 days with flights, hotels, match tickets, and inter-city transport costs $3,000-8,000+ per person. Host city choice significantly impacts budget — Mexico City offers the lowest costs, while New York and LA are the most expensive. Multi-city flights between US cities add $300-600 to the total.' },
+      ],
+    },
   },
 
   'olympics-2028': {
@@ -94,6 +111,23 @@ export const eventsData = {
       resaleTickets: [
         { provider: 'stubhub', slug: 'olympics-2028', enabled: false },
         { provider: 'viagogo', slug: 'olympics-2028', enabled: false },
+      ],
+    },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Downtown Los Angeles', description: 'The heart of the action with easy access to Crypto.com Arena and LA Live. Walkable to many venues, with the widest range of dining and entertainment options. Close to Metro lines connecting to other Olympic sites.', searchQuery: 'Downtown Los Angeles hotels' },
+        { name: 'Santa Monica', description: 'Beachside base with a relaxed Southern California vibe. About 30-40 minutes from downtown venues by car or Metro E Line. Great for combining Olympic events with a classic LA beach vacation.', searchQuery: 'Santa Monica Los Angeles hotels' },
+        { name: 'Pasadena', description: 'Home to the Rose Bowl and a charming historic district. About 20-30 minutes from downtown by car or Metro A Line. Quieter than central LA with excellent dining options and a more affordable hotel scene.', searchQuery: 'Pasadena California hotels' },
+      ],
+      transportationTips: [
+        { mode: 'Los Angeles International Airport (LAX)', detail: 'The primary gateway for international visitors. LAX is undergoing a major modernization with the new automated people mover connecting to Metro and rental car facilities. Allow 30-60 minutes from airport to downtown depending on traffic.' },
+        { mode: 'Metro / Public Transit', detail: 'LA\'s Metro rail system connects downtown, Santa Monica, Pasadena, Hollywood, and Long Beach. During the Olympics, expect expanded service with dedicated event shuttles from key stations. The E Line (Expo) runs from Santa Monica to downtown, and the A Line reaches Pasadena.' },
+        { mode: 'Rental Car Considerations', detail: 'While LA is a car-centric city, parking near Olympic venues will be limited and expensive. Consider renting only for days you plan to explore beyond the Metro coverage area. Rideshare services like Uber and Lyft will have dedicated pick-up/drop-off zones at venues.' },
+      ],
+      ticketTips: [
+        { type: 'Olympic Ticket Planning', detail: 'Olympic tickets are released in phases, typically starting 12-18 months before the Games. Register on the official LA28 website for priority access. Popular events like gymnastics, swimming, and the opening ceremony sell out within hours of public release.' },
+        { type: 'Event Schedule Planning', detail: 'With 32 sports across dozens of venues, strategic planning is essential. Consider grouping events by venue cluster — downtown (Crypto.com Arena, LA Convention Center), Exposition Park (Coliseum, BMO Stadium), and Inglewood (SoFi Stadium, Intuit Dome) to minimize transit time.' },
+        { type: 'Budget Planning', detail: 'Ticket prices range from $50 for preliminary rounds to $2,000+ for premium finals and the opening ceremony. Allocate your budget across multiple sessions to experience different sports. Multi-sport session passes offer the best value for attendees planning to spend 5+ days.' },
       ],
     },
   },
@@ -132,6 +166,23 @@ export const eventsData = {
         { provider: 'viagogo', slug: 'formula-1-monaco-gp-2026', enabled: false },
       ],
     },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Monte Carlo', description: 'The ultimate race weekend location, steps from the circuit. Luxury hotels, casinos, and fine dining define the experience. Expect premium prices with minimum 3–5 night stays during race week. Book 12+ months ahead.', searchQuery: 'Monte Carlo Monaco hotels' },
+        { name: 'Nice', description: 'A 20–30 minute train ride from Monaco with significantly more affordable options. The charming French Riviera city offers beautiful beaches, a lively old town, and excellent restaurants at a fraction of Monaco prices.', searchQuery: 'Nice France hotels' },
+        { name: 'Menton', description: 'A quieter coastal town just 15 minutes east of Monaco by train. Offers the best value on the Riviera during race week, with a relaxed atmosphere, beautiful old town, and easy access to the circuit via frequent TER trains.', searchQuery: 'Menton France hotels' },
+      ],
+      transportationTips: [
+        { mode: 'Nice Côte d\'Azur Airport', detail: 'The closest international gateway, located 30 km from Monaco. Direct buses and trains run from the airport to Monaco\'s train station. Helicopter transfers are available for premium access (7 min flight, ~€150 one-way).' },
+        { mode: 'Train from Nice', detail: 'The TER train from Nice to Monaco takes 20–25 minutes and runs every 15–30 minutes. It\'s the most reliable way to reach the circuit. Get off at Monaco-Monte Carlo station, a 10-minute walk to the harbor and track entrance.' },
+        { mode: 'Race Weekend Transportation', detail: 'Monaco\'s streets close for the race, creating significant traffic. Walking is the best way to get around during race days. The circuit is compact enough to walk between grandstands. Consider staying in Nice or Menton and taking the train each day.' },
+      ],
+      ticketTips: [
+        { type: 'Grandstand Tickets', detail: 'Each grandstand offers a unique view. K grandstand overlooks the famous harbor and swimming pool complex. T grandstand covers the Tunnel exit and Nouvelle Chicane. Prices range from €350 for general grandstands to €1,000+ for premium positions.' },
+        { type: 'Hospitality Options', detail: 'Full hospitality packages include pit walks, champagne receptions, and rooftop viewing areas with catering. Rooftop terraces along the port offer the most exclusive experience but start at €2,500+ per person for the weekend.' },
+        { type: 'Booking Early', detail: 'Monaco is the most exclusive F1 race on the calendar and sells out months in advance. Official tickets go on sale in October for the following May race. Register with Automobile Club de Monaco for priority notifications and early access.' },
+      ],
+    },
   },
 
   'super-bowl-2026': {
@@ -166,6 +217,23 @@ export const eventsData = {
       resaleTickets: [
         { provider: 'stubhub', slug: 'super-bowl-lx', enabled: false },
         { provider: 'viagogo', slug: 'super-bowl-lx', enabled: false },
+      ],
+    },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Host City Downtown', description: 'San Francisco and San Jose offer vibrant downtown areas with the widest range of dining, entertainment, and hotel options. Expect premium pricing during Super Bowl weekend with minimum night stays.', searchQuery: 'San Francisco downtown hotels' },
+        { name: 'Airport Area', description: 'Hotels near SFO and San Jose International (SJC) provide convenient access and more moderate pricing. Free airport shuttles and proximity to Caltrain/BART make it easy to reach the stadium on game day.', searchQuery: 'SFO airport area hotels' },
+        { name: 'Nearby Suburbs', description: 'Palo Alto, Mountain View, and Sunnyvale offer affordable alternatives with good Caltrain connections to Levi\'s Stadium. These areas are quieter and have better availability during the Super Bowl rush.', searchQuery: 'Palo Alto California hotels' },
+      ],
+      transportationTips: [
+        { mode: 'Airport Transportation', detail: 'SFO is the primary gateway, 35 minutes from Santa Clara via Caltrain or BART to Millbrae transfer. San Jose International (SJC) is only 10 minutes from Levi\'s Stadium. Oakland (OAK) is 45 minutes away via BART.' },
+        { mode: 'Event Day Transportation', detail: 'Levi\'s Stadium is accessible via the Great America ACE/Caltrain station, a 10-minute walk from the stadium gates. VTA light rail also serves the stadium from downtown San Jose. Service is significantly expanded on Super Bowl Sunday.' },
+        { mode: 'Rideshare', detail: 'Uber and Lyft have designated drop-off and pickup zones near Levi\'s Stadium. Expect surge pricing of 3-5x normal rates on game day. Allow an extra 30-45 minutes for the dedicated rideshare queue after the game.' },
+      ],
+      ticketTips: [
+        { type: 'Official Ticket Sources', detail: 'The only guaranteed authentic source is the NFL Ticket Exchange via Ticketmaster. Super Bowl tickets are the most sought-after in sports — resale prices typically start at $3,000+ even for upper-level seats.' },
+        { type: 'Ticket Planning', detail: 'Tickets are allocated through NFL team lotteries and league partners. General public access is through the official NFL OnLocation hospitality packages. Secondary market prices fluctuate wildly — buy early or wait until 48 hours before kickoff for potential drops.' },
+        { type: 'Budget Considerations', detail: 'Expect to spend $3,000-10,000+ per ticket. Add VIP/hospitality packages for $5,000-15,000 including pre-game access and catering. The total trip budget including flights, hotels, and meals can easily exceed $10,000 per person.' },
       ],
     },
   },
@@ -204,6 +272,23 @@ export const eventsData = {
         { provider: 'viagogo', slug: 'wimbledon-2026', enabled: false },
       ],
     },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Wimbledon Village', description: 'The most convenient choice, located right next to the All England Club. Charming village atmosphere with boutique hotels, pubs, and restaurants. A 10-15 minute walk to the grounds, but books up months in advance.', searchQuery: 'Wimbledon Village London hotels' },
+        { name: 'Central London', description: 'A 25-40 minute Tube ride from Southfields or Wimbledon station. Offers the widest range of accommodation options across all budgets. Great for combining Wimbledon with London sightseeing.', searchQuery: 'Central London hotels' },
+        { name: 'South Bank', description: 'Trendy area along the Thames with excellent transport links to Wimbledon via the District Line. Plenty of mid-range hotels, riverside dining, and cultural attractions within walking distance.', searchQuery: 'South Bank London hotels' },
+      ],
+      transportationTips: [
+        { mode: 'London Underground', detail: 'Take the District Line to Southfields station (15 min walk to venue) or the Northern Line to Wimbledon station (25 min walk or shuttle bus). The Tube runs frequent service throughout the day but gets very busy during tournament hours.' },
+        { mode: 'Train Connections', detail: 'South Western Railway from London Waterloo to Wimbledon station takes about 17 minutes. This is the fastest option from central London. Wimbledon station connects to the District Line, mainline trains, and dedicated shuttle buses to the grounds.' },
+        { mode: 'Airport Transportation', detail: 'Heathrow is the closest major airport, about 40 minutes by Tube (Piccadilly Line to Earl\'s Court, then District Line to Southfields). Gatwick connects via Thameslink to London Bridge with a change to the Tube. Both provide convenient access for international visitors.' },
+      ],
+      ticketTips: [
+        { type: 'Wimbledon Ballot System', detail: 'The famous Wimbledon ballot (public lottery) opens in September for the following year. Apply online through the official Wimbledon website. Successful applicants are notified in early spring. This is the only way to get Centre Court or No.1 Court tickets at face value.' },
+        { type: 'Ground Pass Options', detail: 'Ground Passes grant access to outside courts (courts 3-18) and the show courts on a first-come basis via the Queue. Prices start from £27. This is the most affordable and authentic Wimbledon experience, offering access to early-round matches and the famous Strawberries & Cream.' },
+        { type: 'Planning Ahead', detail: 'Accommodation prices in Wimbledon spike dramatically during the tournament. Book at least 6 months ahead for the best rates. The Queue for day-of tickets starts forming the night before — arrive early with camping gear for the full Wimbledon experience.' },
+      ],
+    },
   },
 
   'champions-league-final': {
@@ -238,6 +323,23 @@ export const eventsData = {
       resaleTickets: [
         { provider: 'stubhub', slug: 'champions-league-final-2026', enabled: false },
         { provider: 'viagogo', slug: 'champions-league-final-2026', enabled: false },
+      ],
+    },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'City Center', description: 'Budapest\'s historic city center (Belváros) offers the best access to the Puskas Arena, about 15-20 minutes by metro. Packed with restaurants, ruin bars, and cultural attractions. Most hotels are within walking distance of Deák Ferenc tér transport hub.', searchQuery: 'Budapest city center hotels' },
+        { name: 'Stadium Area', description: 'Hotels near the Puskas Arena in Zugló district offer the ultimate match-day convenience, a 5-10 minute walk to the stadium. Quieter residential area with fewer dining options but excellent metro connections to the city center.', searchQuery: 'Zugló Budapest hotels' },
+        { name: 'Nearby Districts', description: 'Terézváros and Erzsébetváros (Districts 6 & 7) balance proximity (20 min by metro) with vibrant nightlife and Budapest\'s famous ruin bar scene. More affordable than the immediate city center with excellent character.', searchQuery: 'Terézváros Budapest hotels' },
+      ],
+      transportationTips: [
+        { mode: 'Airport Connections', detail: 'Budapest Ferenc Liszt International Airport (BUD) is 20 km southeast of the city center. Airport shuttle bus 100E runs direct to Deák Ferenc tér every 10 minutes. Taxi to the stadium area costs €25-35 and takes 30-40 minutes.' },
+        { mode: 'Public Transportation', detail: 'Budapest\'s metro system is efficient and affordable. Take M2 (red line) to Puskás Ferenc Stadion station, a 5-minute walk from the Puskas Arena. Single tickets cost €1.20. A 24-hour travel card (€8) covers unlimited metro, tram, and bus.' },
+        { mode: 'Match Day Travel', detail: 'The city runs enhanced shuttle services on match day from Deák Ferenc tér to the stadium. Expect metro wait times of 2-3 minutes after the match with crowds of 50,000+. Consider walking 20 minutes to Keleti station for a quieter return.' },
+      ],
+      ticketTips: [
+        { type: 'Official Ticket Information', detail: 'UEFA allocates Champions League Final tickets primarily to the two finalist clubs and their fan bases. General public tickets are released through UEFA\'s official ticketing portal. Registration opens 4-6 weeks before the final.' },
+        { type: 'Travel Planning', detail: 'The host city is announced 2+ years in advance but the competing teams are only known 3-4 weeks before the final. Don\'t book flights early unless they have free cancellation — prices rise 200-300% in the week after the finalists are confirmed.' },
+        { type: 'Budget Considerations', detail: 'Official UEFA tickets range from €70 (Category 4) to €600+ (Category 1). Resale market tickets start at €500 and can reach €3,000+ for a prime seat. A complete weekend trip including flights, 2 nights hotel, and a mid-range ticket costs $1,500-3,000.' },
       ],
     },
   },
@@ -329,6 +431,23 @@ export const eventsData = {
         { provider: 'viagogo', slug: 'nba-finals-2026', enabled: false },
       ],
     },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Downtown / Arena Area', description: 'The NBA Finals rotate between conference champions\' home cities. Downtown areas near the arena offer prime access to games, pre-game entertainment, and the best dining. Book early as hotels fill up fast when the Finals matchup is confirmed.', searchQuery: 'downtown arena area hotels' },
+        { name: 'Nearby Neighborhoods', description: 'Consider staying in adjacent neighborhoods within 15-20 minutes of the arena. These offer more character, better value, and local restaurant scenes compared to the premium-priced immediate arena vicinity.', searchQuery: 'NBA Finals host city neighborhoods' },
+        { name: 'Airport Area', description: 'Airport hotels provide the most affordable option with easy access to public transit or rideshare to the arena. Best for budget-conscious travelers attending multiple games over the series.', searchQuery: 'airport hotels near NBA Finals' },
+      ],
+      transportationTips: [
+        { mode: 'Airport Transportation', detail: 'The NBA Finals host city varies each year by conference champion. Major airports (LAX, JFK, Logan, O\'Hare, etc.) serve each potential host. Plan for 30-60 minute transit from airport to downtown depending on the host city.' },
+        { mode: 'Public Transit', detail: 'Every NBA Finals host city has public transit to the arena — NYC subway to MSG, LA Metro to Crypto.com Arena, Boston T to TD Garden, Chicago L to United Center. Use transit to avoid game-day traffic and expensive parking.' },
+        { mode: 'Game Night Transportation', detail: 'Streets around the arena close 2-3 hours before tip-off. Rideshare drop-off zones are typically 2-3 blocks from entrances. Public transit runs extended hours after games but expect significant crowds leaving the arena.' },
+      ],
+      ticketTips: [
+        { type: 'Ticket Planning', detail: 'NBA Finals tickets are released after the Conference Finals determine the matchup. Single-game tickets go on sale through Ticketmaster. Resale prices typically start at $200+ for upper-level and $1,000+ for lower-level seats.' },
+        { type: 'Official Sources', detail: 'The NBA Ticket Exchange on Ticketmaster is the only authorized resale platform. Be wary of third-party sellers — counterfeit tickets are common for high-demand Finals games. NBA League Office hospitality packages include premium seating and pre-game access.' },
+        { type: 'Budget Planning', detail: 'A full NBA Finals trip (2-3 games, flights, hotel, meals) ranges from $2,000-5,000+ per person. Prices vary significantly by host city — New York and Boston are pricier than smaller markets. Travel + ticket package deals can save 15-20%.' },
+      ],
+    },
   },
 
   'f1-singapore-grand-prix': {
@@ -416,6 +535,23 @@ export const eventsData = {
       resaleTickets: [
         { provider: 'stubhub', slug: 'masters-golf-2026', enabled: false },
         { provider: 'viagogo', slug: 'masters-golf-2026', enabled: false },
+      ],
+    },
+    travelGuide: {
+      accommodationAreas: [
+        { name: 'Augusta Area', description: 'Hotels within 10 minutes of Augusta National are extremely limited and book up a year in advance for Masters week. Expect high minimum night stays (3-5 nights) and premium pricing. Some private homes rent out rooms during tournament week.', searchQuery: 'Augusta Georgia hotels' },
+        { name: 'Downtown Augusta', description: 'Broad Street and the Riverwalk area offer a handful of boutique hotels and B&Bs within 15 minutes of the course. Higher availability than the immediate Augusta National vicinity but still books early. Walkable to local restaurants and bars.', searchQuery: 'Downtown Augusta hotels' },
+        { name: 'Nearby Cities', description: 'Atlanta (2.5 hours west) and Savannah (2 hours south) offer significantly more hotel options at standard rates. Many visitors stay in Atlanta, rent a car, and drive to Augusta on tournament days. Columbia, SC (1 hour east) is another alternative.', searchQuery: 'Atlanta Georgia hotels near Masters' },
+      ],
+      transportationTips: [
+        { mode: 'Airport Options', detail: 'Augusta Regional Airport (AGS) has limited direct flights — mostly from Atlanta, Charlotte, and Dallas. Most visitors fly into Hartsfield-Jackson Atlanta (ATL) and drive 2.5 hours east to Augusta. Savannah (SAV) and Columbia (CAE) are closer alternatives within 1-2 hours.' },
+        { mode: 'Rental Car', detail: 'A car is strongly recommended for the Masters. Augusta is a car-dependent city with limited rideshare coverage. Rental cars at ATL are cheapest; AGS rentals book up months in advance. Book parking passes in advance — Augusta National parking lots require pre-purchased permits.' },
+        { mode: 'Event Transportation', detail: 'Augusta National runs an extensive off-site parking and shuttle system from satellite lots around Augusta. Free shuttles run continuously from designated lots from 6 AM to 8 PM on tournament days. The main shuttle lot is at the corner of Washington and Wheeler Roads.' },
+      ],
+      ticketTips: [
+        { type: 'Practice Round Tickets', detail: 'Practice round tickets (Monday-Wednesday) are more accessible through the Masters ticket lottery. Apply online at masters.com during the summer for the following year. Practice days are more relaxed — cameras are allowed, players are more accessible.' },
+        { type: 'Tournament Tickets', detail: 'Thursday-Sunday tournament badges are the most exclusive tickets in sports. The Masters ticket waitlist is decades long and currently closed. Secondary market badges cost $1,000-2,000+ per day. Hospitality packages offer guaranteed access for $2,000-5,000+.' },
+        { type: 'Planning Ahead', detail: 'Augusta is remote — hotels within 30 miles sell out within hours of the Masters dates announcement. Book accommodation 12+ months in advance or prepare to stay in Atlanta and commute. Dining reservations near Augusta National also fill up 6+ months ahead.' },
       ],
     },
   },
