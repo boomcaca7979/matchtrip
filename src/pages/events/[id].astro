@@ -242,6 +242,14 @@ const faqItems = [
   },
 ];
 
+// Append editorial FAQs from travelGuide.faq (real search-intent Q&A, longer answers).
+const editorialFaqs = (event.travelGuide?.faq || []).map(f => ({ q: f.question, a: f.answer }));
+for (const f of editorialFaqs) {
+  if (!faqItems.some(existing => existing.q.toLowerCase() === f.q.toLowerCase())) {
+    faqItems.push(f);
+  }
+}
+
 // FAQPage structured data: answers use the exact same text as the page.
 const faqSchema = {
   "@context": "https://schema.org",
@@ -366,6 +374,16 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
           )}
         </div>
       </div>
+      {event.travelGuide?.budgetBreakdown?.length > 0 && (
+        <div class="budget-detail-grid">
+          {event.travelGuide.budgetBreakdown.map(item => (
+            <div class="budget-detail-card">
+              <h3>{item.category}</h3>
+              <p>{item.detail}</p>
+            </div>
+          ))}
+        </div>
+      )}
       <AffiliateDisclosure />
     </div>
   </section>
@@ -824,6 +842,32 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+  }
+
+  .budget-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 28px;
+  }
+
+  .budget-detail-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .budget-detail-card h3 {
+    font-size: 1.05rem;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+  }
+
+  .budget-detail-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #4b5563;
   }
 
   .budget-card {
@@ -1633,6 +1677,7 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     .event-meta-bar { flex-direction: column; gap: 4px; align-items: flex-start; }
     .meta-dot { display: none; }
     .budget-grid { grid-template-columns: 1fr; }
+    .budget-detail-grid { grid-template-columns: 1fr; }
     .venues-grid { grid-template-columns: 1fr; }
     .related-grid { grid-template-columns: 1fr; }
     .cta-buttons { flex-direction: column; align-items: center; }

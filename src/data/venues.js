@@ -142,6 +142,8 @@ export const venuesData = {
           'El Segundo and the LAX corridor put you within 10 minutes of the stadium; Culver City offers a stylish mid-point; Manhattan Beach adds a coastal stay. Downtown LA and Santa Monica are 30-45 minutes away on event days. Book months ahead — rates triple around Super Bowl and World Cup dates.',
       },
     ],
+    matchDayExperience:
+      'A match day at SoFi begins well before kickoff at the 6,000-seat YouTube Theater and the surrounding American Airlines Plaza, where food stands, bars, and live pre-game shows turn the lakefront district into a festival. The walk toward the bowl delivers the venue\'s signature moment: the 70,000-square-foot halo-shaped Oculus board floating above the field, wrapping replays and stats around the entire stadium in a double-sided ring. Fans arrive early just to watch it glow against the translucent canopy, and linger after the final whistle at the lakefront while post-game traffic clears. Cashless throughout, the district keeps restaurants and music going deep into the evening.',
   },
 
   'las-vegas-strip-circuit': {
@@ -262,6 +264,8 @@ export const venuesData = {
           'Any mid-Strip hotel works — Flamingo, Harrah\'s, and the LINQ sit within minutes of multiple grandstands, while the Venetian is closest to the Sphere and paddock end. The Bellagio offers trackside fountain views at a premium. Book at least six months ahead; race weekend rates triple and sell out early.',
       },
     ],
+    matchDayExperience:
+      'The race-day experience starts blocks away, as the Strip\'s resorts empty toward the circuit and the Sphere looms over the fences glowing with race graphics. Opposite it, the T-Mobile Zone at Sphere is the weekend\'s party heart — a general-admission festival of giant screens, DJ sets, bars, and viewing platforms where fans without grandstand seats get front-row energy. From there, the circuit bends past Caesars Palace and the Bellagio fountains, cars howling down Las Vegas Boulevard at 200 mph under full neon. Saturday night\'s race ends close to 10 PM, and the after-parties simply spill back into the casinos, which never close.',
   },
 
   'metropolitano': {
@@ -382,6 +386,8 @@ export const venuesData = {
           'The stadium hosts all Atlético de Madrid home matches in La Liga and Europe, plus Spain internationals, rugby union, the World Rugby Sevens Series Grand Final, and boxing. Global stars such as Bruce Springsteen, AC/DC, Ed Sheeran, and Bad Bunny have all played here, and it is shortlisted as a 2030 FIFA World Cup venue.',
       },
     ],
+    matchDayExperience:
+      'Match day at the Metropolitano blends Madrid\'s tapas ritual with football pilgrimage. Fans gather over cañas and croquetas in the city center hours before kickoff, then ride Metro Line 7 northeast as red-and-white shirts flood every carriage toward the wave-shaped roof. Around the ground, the Rosas district\'s family tabernas and the north and south fan zones fill with grills, live music, and matchday flags, building toward the roar inside the 70,692-seat bowl. For Champions League finals, the celebration\'s epicenter shifts to Plaza de Cibeles in central Madrid, where the traditional fan gathering and trophy celebrations fill the square deep into the night.',
   },
 
   'marina-bay-circuit': {
@@ -502,6 +508,8 @@ export const venuesData = {
           'Expect 30°C heat and high humidity even at night — light, breathable clothing and comfortable walking shoes are essential. Bring a refillable water bottle, a light poncho for tropical showers, and ear plugs. Umbrellas, glass, and large bags are prohibited. Reapply sunscreen; the afternoon support sessions and concerts still carry real UV exposure.',
       },
     ],
+    matchDayExperience:
+      'Race night at Marina Bay is a city-wide festival that runs past midnight. Sessions build through the humid tropical evening as cars flash between the downtown towers, and when the checkered flag falls the circuit transforms: stages across the zones launch headline post-race concerts that are free for ticket holders — Zone 1\'s Village Stage keeps crowds dancing beside the paddock while the Padang\'s main stage draws the biggest names in music. Fans drift between live sets, hawker food stalls, and waterfront views of the illuminated skyline, and the MRT runs extra late trains to carry everyone home. Nobody rushes the exits here — the party is the second feature.',
   },
 
   'arthur-ashe-stadium': {
@@ -622,6 +630,8 @@ export const venuesData = {
           'Grounds passes grant access to every court except Arthur Ashe Stadium — including Louis Armstrong Stadium, the Grandstand, and dozens of outer courts where future stars play inches from your seat. Early-round days offer the best value, letting you hop between up to a dozen live matches. Ashe tickets are only needed for marquee centre-court matches.',
       },
     ],
+    matchDayExperience:
+      'US Open night sessions at Arthur Ashe are New York\'s loudest sporting ritual. The gates open at 5 PM and the campus hums all evening — the food village pours Honey Deuces, the tournament\'s signature Grey Goose vodka, lemonade, and honeydew cocktail, as fans graze between courts. Inside the bowl, the atmosphere sharpens after dark: 23,771 seats fill, the retractable roof closes against summer storms, and the lights turn the blue court into a stage where every rally echoes. Matches routinely run past midnight, with crowds cheering aces like touchdowns, and the 7-train ride back to Manhattan becomes a rolling debrief of the night\'s drama.',
   },
 
   'wembley': {
@@ -743,5 +753,7 @@ export const venuesData = {
           'Yes. Wembley offers extensive wheelchair positions across all price bands, step-free access from all entrances, and dedicated changing places facilities. Companion tickets are provided free of charge, and assistance dogs are welcome. Accessible parking must be pre-booked through the venue, and staff at Wembley Park and Wembley Central stations assist with step-free travel on event days.',
       },
     ],
+    matchDayExperience:
+      'Match days at Wembley revolve around the walk. Fans pour off Jubilee and Metropolitan line trains at Wembley Park and join the slow river of supporters flowing down Olympic Way, the pedestrian boulevard lined with food stalls, flag sellers, and pubs in full voice, the 133-metre arch growing larger with every step toward the turnstiles. The crowd noise builds like a tide — scarves raised, songs exchanged between sets of fans — and the final approach under the arch feels like entering a national monument. After full-time the flow reverses toward Boxpark and the station queue systems, but the Olympic Way procession is the memory visitors keep.',
   },
 };

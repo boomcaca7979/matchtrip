@@ -25,6 +25,23 @@ const venueEvents = (venue.eventIds || [])
 const upcomingEvents = venueEvents.filter(e => e.status !== 'ended');
 const pastEvents = venueEvents.filter(e => e.status === 'ended');
 
+// Interlinking: every venue page should link at least 3 event pages. When
+// eventIds alone fall short, top up with the most relevant upcoming events
+// (same city, then same sport, then same continent, then everything else).
+const linkedEventIds = new Set(venueEvents.map(e => e.id));
+const candidateEvents = Object.entries(eventsData)
+  .filter(([id, e]) => !linkedEventIds.has(id) && e.status !== 'ended')
+  .map(([id, e]) => ({ id, ...e }));
+const relevanceRank = e => {
+  if (e.location?.city === venue.cityDisplay) return 0;
+  if (venue.sports.includes(e.category)) return 1;
+  if (e.location?.continent === venue.continent) return 2;
+  return 3;
+};
+const relatedEvents = [...candidateEvents]
+  .sort((a, b) => relevanceRank(a) - relevanceRank(b))
+  .slice(0, Math.max(0, 3 - venueEvents.length));
+
 // City page link — only rendered when a matching city page exists (derived from eventsData).
 const availableCitySlugs = new Set(
   Object.values(eventsData)
@@ -182,6 +199,16 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
     </section>
   )}
 
+  <!-- Match Day Experience -->
+  {venue.matchDayExperience && (
+    <section class="matchday-section">
+      <div class="container narrow">
+        <h2>Match Day Experience</h2>
+        <p>{venue.matchDayExperience}</p>
+      </div>
+    </section>
+  )}
+
   <!-- Food & Drink -->
   {venue.foodOptions?.length > 0 && (
     <section class="food-section">
@@ -303,11 +330,25 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
               </div>
             </>
           )}
+
+          {relatedEvents.length > 0 && (
+            <>
+              <h2 class="related-heading">More Events to Explore</h2>
+              <ul class="related-events-list">
+                {relatedEvents.map(event => (
+                  <li>
+                    <a href={`/events/${event.id}/`}>{event.title}</a>
+                    <span class="related-event-meta">{event.date} · {event.location.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </>
       ) : (
         <div class="events-fallback-card">
           <h2>Events at {venue.name}</h2>
-          <p>Browse upcoming sports events on MatchTrip to find the next big occasion at or near {venue.name}.</p>
+          <p><a href="/events/">Explore all upcoming events on our events calendar</a> to find the next big occasion at or near {venue.name}.</p>
           <a href="/events/" class="btn btn-primary">Explore All Events</a>
         </div>
       )}
@@ -417,6 +458,7 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
   .history-section h2,
   .seating-section h2,
   .parking-section h2,
+  .matchday-section h2,
   .food-section h2 {
     font-size: 1.75rem;
     font-weight: 700;
@@ -435,17 +477,19 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
     text-align: center;
   }
 
-  /* Event History / Seating / Parking / Food */
+  /* Event History / Seating / Parking / Food / Match Day Experience */
   .history-section,
   .seating-section,
   .parking-section,
+  .matchday-section,
   .food-section {
     padding: 0 0 60px;
   }
 
   .history-section p,
   .seating-section p,
-  .parking-section p {
+  .parking-section p,
+  .matchday-section p {
     color: #4b5563;
     font-size: 1.05rem;
     line-height: 1.8;
@@ -640,8 +684,41 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
     padding: 0 0 80px;
   }
 
-  .past-heading {
+  .past-heading,
+  .related-heading {
     margin-top: 48px;
+  }
+
+  .related-events-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .related-events-list li {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px 20px;
+  }
+
+  .related-events-list a {
+    color: #4f46e5;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .related-events-list a:hover {
+    text-decoration: underline;
+  }
+
+  .related-event-meta {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-left: 8px;
   }
 
   .events-grid {
@@ -773,6 +850,11 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
     max-width: 480px;
     margin: 0 auto 24px;
     line-height: 1.6;
+  }
+
+  .events-fallback-card p a {
+    color: #4f46e5;
+    font-weight: 600;
   }
 
   /* City CTA */

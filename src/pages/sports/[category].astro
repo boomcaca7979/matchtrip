@@ -4,9 +4,226 @@ import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
 import { eventsData } from '../../data/events';
+import { venuesData } from '../../data/venues';
 import { buildHotelLink, buildActivityLink } from '../../utils/affiliate-links';
 
 const slugify = (cat) => cat.toLowerCase().replace(/\s+/g, '-');
+
+// City lookup mirroring the /cities/[slug].astro slugs (derived from eventsData)
+const cityMap = new Map();
+Object.values(eventsData).forEach((event) => {
+  const city = event.location?.city;
+  if (!city) return;
+  const slug = city.toLowerCase().replace(/\s+/g, '-');
+  if (!cityMap.has(slug)) {
+    cityMap.set(slug, { slug, name: city, country: event.location.country });
+  }
+});
+
+// Editorial content per category. Destination slugs are validated against
+// cityMap and venue slugs against venuesData at render time (no dead links).
+const categoryContent = {
+  Football: {
+    intro: "Football is the most traveled sport on earth, and its calendar is built for trips. Domestic leagues run from August to May, the Champions League sprinkles midweek European nights across the continent, and international breaks scatter qualifiers and tournaments through almost every month of the year — wherever you land, a match is usually on. The current stretch is a golden one: the World Cup grew to 48 teams across the United States, Canada and Mexico in the summer of 2026, the Champions League final filled Budapest's Puskás Arena that May, and the next edition is already set for Madrid's Metropolitano in June 2027. Between the blockbusters come FA Cup finals at Wembley, Clásico weekends in Spain and derbies in every major league. Match days also change how a city works — metro carriages fill with scarves, squares turn into fan zones, and kick-off sets the rhythm of the day. This guide gathers the football events worth building a trip around, the cities that stage them best, and practical advice on tickets, hotels and getting to the ground.",
+    eventsIntro: "MatchTrip tracks three football trips in the current cycle: a World Cup stretched across three North American nations, a Champions League final at Budapest's Puskás Arena, and the next final, set for Madrid's Metropolitano in June 2027. Each guide covers ticket ballots, host-city neighborhoods, transport to the stadium and what the trip realistically costs.",
+    destinationsIntro: "Great football cities pair the match with somewhere worth spending the rest of the weekend. These five all hosted or stage major football events in the current cycle, and each has a full city guide covering airports, neighborhoods, transport and where to eat between matches.",
+    destinations: [
+      { slug: 'madrid', blurb: "Home of the 2027 Champions League final. The Bernabéu and the Metropolitano anchor a city where football is the local religion, and late tapas nights make post-match celebrations easy." },
+      { slug: 'london', blurb: "Wembley has staged more major football finals than any stadium on earth, and every professional ground in the capital sits on the tube map. Time a visit with a cup final or a derby." },
+      { slug: 'new-york', blurb: "A 2026 World Cup host city whose MetLife Stadium staged the final itself — add a Knicks game at MSG or a Yankees evening and one weekend holds three sports." },
+      { slug: 'budapest', blurb: "The 2026 Champions League final landed at the Puskás Arena. The Danube, thermal baths and ruin bars turn a football final into a full city break." },
+      { slug: 'los-angeles', blurb: "Eight World Cup 2026 matches at SoFi Stadium gave Los Angeles its biggest football summer yet, with beach recovery days built in between fixtures." },
+    ],
+    venuesIntro: "Modern football travel is stadium travel — the ground itself is often the destination. These venue guides get granular on match day: which metro line serves which gate, what parking really costs, where the rideshare zones sit, and which hotels are genuinely walkable.",
+    venues: [
+      { slug: 'metropolitano', blurb: "Atlético Madrid's 70,692-seat fortress stages the 2027 Champions League final — Metro Line 7 stops at the door, and San Blas hotels make walkable match-night bases." },
+      { slug: 'wembley', blurb: "The 90,000-seat home of English football and its showpiece finals, served by two tube stations — the guide covers gates, parking and where to stay in London." },
+      { slug: 'sofi-stadium', blurb: "The NFL's most advanced stadium hosted eight World Cup 2026 matches — 70,240 seats under a sweeping canopy, four miles from LAX." },
+    ],
+    venuesHint: null,
+    tips: {
+      tickets: "Big football matches sell in very different ways, so strategy starts with knowing the system. FIFA released World Cup inventory in phases across more than a year — the pattern repeats for future tournaments, so register early and track each sales window. UEFA runs a public ballot for the Champions League final that opens months ahead; enter as soon as it launches, and expect a second members-only window if your club reaches the final. For league and cup fixtures, buy from club box offices first — membership often unlocks earlier access and better prices — and treat secondary marketplaces as a last resort, comparing their all-in totals against official hospitality, which sometimes wins once fees are counted. Where ballots exist, they reward persistence: enter every year, even for events you assume you will never draw. And for finals, remember the cheapest categories sell out first — decide your budget ceiling before the window opens, not after.",
+      hotels: "Accommodation is the biggest line in any football travel budget, and event weekends bend the market hard. Rooms near major grounds routinely double or triple when a final comes to town, so book refundable rooms the day dates are confirmed, then reprice as the match approaches. The reliable counter-strategy is distance: staying three or four metro stops from the stadium typically halves the rate while adding ten minutes to match day. Tournament travel needs a different approach — pick one host city as a base for group games rather than chasing fixtures across a whole country, and consider apartment rentals for groups staying a week or more. In Madrid, the San Blas district around the Metropolitano trades city-center charm for walkable stadium access at fairer prices; in Budapest, districts on the metro's east side reach the Puskás Arena in twenty minutes. Watch for derby and final weekends, when two-to-three night minimums appear everywhere.",
+      transport: "Football cities reward transit over driving. Almost every major stadium sits on a metro or suburban rail line — the Metropolitano has its own stop on Madrid's Line 7, Wembley Park is served by two tube lines — so buy a rechargeable transit card on day one and skip the rental car entirely. Arrive early: security lines at finals run thirty to sixty minutes, and pre-match fan zones are half the experience. Afterwards, do what locals do — walk fifteen minutes away from the ground before hailing a rideshare, since surge pricing outside stadiums can double fares, and metro platforms clear within the hour. For tournaments spread across a country, think in flight distances: host cities sit hours apart by road, so either anchor a week in one region or fly between venues. Cross-border fixtures mean passport checks and border queues — build buffer time into every transfer, and keep your ticket's digital wallet working offline.",
+    },
+    relatedIntro: "The football collection connects to MatchTrip's wider guide network. Start with the football section of the guides hub for the full sweep of upcoming trips, then go deeper — each event guide pairs its fixture with accommodation areas, transport options and ticket strategy, while the city and venue guides fill in the layers in between: where to sleep, how to reach the gates, and what to do on non-match days.",
+    guidesAnchor: 'guides-football',
+  },
+
+  Motorsport: {
+    intro: "Formula 1 is a travel machine. Twenty-four races now span the season from March to December, crossing Europe, Asia, the Americas, the Middle East and Australia — no other sport turns so many world cities into a week-long festival. Each weekend is its own trip: the glamour of Monte Carlo's harbour in spring, Miami's stadium-campus circuit, the floodlit streets of Singapore, and Formula 1's newest spectacle in Las Vegas, where cars scream down the Strip at night. Beyond F1, American motorsport offers its own pilgrimage — the Indianapolis 500, five hundred miles around the most famous oval on earth, every Memorial Day weekend. Race travel rewards planners: grandstands sell out months ahead, hotels within sight of circuits triple in price, and street tracks close roads for days. But it rewards curiosity even more — fan zones, concerts, driver appearances and track walks turn a Sunday race into a four-day city break. This guide gathers the race weekends worth planning around, the cities that host them best, and the practical strategies for tickets, hotels and getting to the circuit.",
+    eventsIntro: "MatchTrip tracks seven motorsport trips across the current calendar: Monaco on the harbor, Formula 1's night races in Singapore and Las Vegas, Miami's stadium circuit, and the Indianapolis 500. Each guide covers grandstand picks, ticket categories, hotel zones and transport — the four decisions that shape any race weekend.",
+    destinationsIntro: "Race cities are festival cities — each one rewires itself around the circuit for a week. These five hosts span the calendar from spring to winter, and each has a full city guide covering airports, hotel zones, transport and what to do between sessions.",
+    destinations: [
+      { slug: 'monte-carlo', blurb: "The crown jewel of Formula 1. Monaco threads its street circuit past yachts and casinos with the French Riviera a train ride away — book a year ahead or stay in Nice and commute." },
+      { slug: 'singapore', blurb: "The original F1 night race lights up Marina Bay every autumn. Changi Airport, the MRT and hawker food make it the smoothest race weekend in Asia." },
+      { slug: 'las-vegas', blurb: "Formula 1's newest night race sends cars down the Strip at over 300 km/h. The whole city is the circuit's grandstand — book resort views early for November." },
+      { slug: 'miami', blurb: "The Miami Grand Prix wraps a circuit around Hard Rock Stadium, with South Beach, Wynwood and Everglades day trips stacked around race weekend." },
+      { slug: 'indianapolis', blurb: "Home of the Indy 500 and the self-styled Racing Capital of the World — the Speedway, its museum and Midwestern prices make it motorsport's best-value trip." },
+    ],
+    venuesIntro: "Circuit guides are where race trips are won or lost — which grandstand sees which corner, where the gates sit, and how to escape sixty thousand people leaving at once. These circuit guides cover sightlines, transit connections, parking realities and the hotel zones within reach of the fences.",
+    venues: [
+      { slug: 'las-vegas-strip-circuit', blurb: "The 3.8-mile night-race circuit around the Strip — grandstand locations, monorail access and the resorts that put you inside the track." },
+      { slug: 'marina-bay-circuit', blurb: "Singapore's 4.9 km floodlit circuit loops the skyline and gardens, with MRT stations at the gates and rooftop views across the bay." },
+    ],
+    venuesHint: null,
+    tips: {
+      tickets: "Race tickets are a category puzzle as much as a price tag. General admission puts you on grass banking and walkways — the social, mobile choice, and often the best value at Singapore and Monaco. Grandstands are reserved seats: pick them by corner, not price, because a slow hairpin or heavy-braking zone delivers the overtaking, the screens and the pit-lane views. Hospitality packages cover food, drink and prime sightlines, and at street circuits they can undercut resold grandstand seats. Timing matters more than in any other sport: Las Vegas and Monaco sell out within hours of on-sale, so register for pre-sales the moment dates are announced, while Miami and Singapore release inventory in waves across the winter. The Indy 500 is motorsport's great bargain — general admission and even reserved seats cost a fraction of a Formula 1 weekend, with 300,000 people for company.",
+      hotels: "Race weekends distort hotel markets like nothing else, and street circuits distort them most. In Monaco, rooms with a harbor view command the highest premiums in sport, so most fans stay in Nice or Menton and ride the train in — it stops within walking distance of the circuit. Las Vegas is simpler and harsher: Strip resorts sit inside or beside the circuit, but rates soar and resort fees of forty to fifty-five dollars a night appear at checkout, so compare off-Strip properties with monorail access before booking. Singapore's race-zone hotels sell out six months ahead; City Hall and Bugis, one MRT stop away, offer the same weekend for less. For Miami, downtown and Miami Beach both work — the circuit sits at Hard Rock Stadium, half an hour north. Book refundable rates early, reprice later, and expect two-to-three night minimums everywhere on race week.",
+      transport: "Getting to the circuit is half the strategy. Street circuits close roads for days — Las Vegas shuts sections of the Strip for nearly a week, and Singapore's downtown detours begin before practice — so treat driving as a last resort and use the monorail and MRT respectively. Monaco has no circuit parking at all: arrive by train from Nice or walk from any central Monte Carlo hotel. Purpose-built tracks are easier — the Miami Grand Prix runs shuttles from park-and-ride lots, and Indianapolis sells parking across its sprawling infield and surrounding streets. Wherever you go, learn your gate name before race day: big circuits have multiple entrances a kilometer apart, and walking between the wrong ones costs half an hour along the fences. After the race, beat the surge by eating near the track while the crowds clear — the first hour after a grand prix is gridlock everywhere.",
+    },
+    relatedIntro: "Every motorsport guide on MatchTrip links into the same network. The Formula 1 section of the guides hub tracks the races and cities ahead; the event guides below go race by race — grandstands, tickets, hotels; and the city pages handle the rest of the weekend, from airports to fan zones to what to do between sessions.",
+    guidesAnchor: 'guides-formula-1',
+  },
+
+  Tennis: {
+    intro: "Tennis is the only sport whose calendar doubles as a world tour. The four Grand Slams each own a city, a surface and a personality: the Australian Open starts the year on Melbourne's hard courts in January, the French Open slides into Paris on red clay each spring, Wimbledon brings grass, strawberries and all-white tradition to London in early summer, and the US Open closes the season with rowdy night sessions under the lights of New York. Chasing all four has become the sport's defining travel challenge — four world-class cities, four distinct fan cultures, four completely different ticket ecosystems. Slams also run two weeks each, which changes the math of a trip: grounds passes, early rounds and night sessions offer very different experiences at very different prices. Beyond the majors, Masters tournaments in Madrid, Miami and beyond fill the spring calendar, and the Davis Cup and Billie Jean King Cup move team tennis between nations. This guide covers the Slams worth planning around, the cities that host them, and how to build each trip — from ballots and queues to hotels and the last train home.",
+    eventsIntro: "MatchTrip tracks five Slam trips across 2026 and 2027: two Wimbledon fortnights on London's grass, the US Open under the lights of Arthur Ashe Stadium, plus the Australian and French Opens. Each guide covers ticket categories, accommodation areas and how each city's transport handles two weeks of sellout crowds.",
+    destinationsIntro: "The Slam cities are four of the most visitable places on earth, each with its own rhythm in tournament season. These city guides cover the airports, neighborhoods and transport tricks that make a fortnight — or a long weekend — work.",
+    destinations: [
+      { slug: 'melbourne', blurb: "January's Australian Open turns Melbourne Park into a summer festival — a sports-mad city with trams to the gates, world-class coffee and Great Ocean Road extensions." },
+      { slug: 'paris', blurb: "Roland Garros plays out on red clay at the edge of the 16th arrondissement, with the rest of Paris on the Metro — pair day sessions with long Parisian evenings." },
+      { slug: 'london', blurb: "Wimbledon owns late June and early July in southwest London. Queue culture, Pimm's on the hill and the District line to Southfields define the English summer." },
+      { slug: 'new-york', blurb: "The US Open takes over Flushing Meadows each late summer — grounds passes are the best value in tennis, and the 7 train runs straight to the gates." },
+    ],
+    venuesIntro: "Tennis venues are intimate by stadium standards, which makes seat choice matter more than in any big sport. These venue guides cover which sections catch shade, how transit serves the gates, and the hotel zones that make a two-week tournament easy.",
+    venues: [
+      { slug: 'arthur-ashe-stadium', blurb: "The 23,771-seat centerpiece of the US Open and the largest tennis stadium in the world — seat-by-seat views, subway lines and Flushing hotel zones." },
+    ],
+    venuesHint: null,
+    tips: {
+      tickets: "Every Slam sells differently, and none of them are simple. Wimbledon still runs its famous Queue for a share of daily tickets — arrive the night before for show courts, early morning for grounds passes — while its public ballot closes most of a year ahead. The US Open sells grounds passes that include every outer court plus Louis Armstrong Stadium, the best value in the sport, with Arthur Ashe sessions priced separately. The Australian and French Opens release tickets in phases, and early rounds cost a fraction of finals weekend while offering far more tennis per dollar. Universal rules: buy from official tournament channels only, check the transfer and resale rules before you commit, and pick sessions strategically — a quarter-final often delivers peak tennis at semi-final-minus prices. For late deals at Wimbledon, the on-site resale kiosks sell show-court tickets from mid-afternoon each day, with proceeds going to charity.",
+      hotels: "Two-week tournaments flip hotel strategy: you are not booking a weekend, you are choosing a temporary neighborhood. At Wimbledon, stay near Southfields or Earls Court on the District line and commute in — rooms near the village vanish months ahead. For the US Open, Long Island City sits twenty minutes from the gates without Manhattan rates, while Midtown works if a Knicks or Rangers game shares your itinerary. Paris rewards the 16th arrondissement for walkable Roland Garros access, though any hotel on the Metro's east-west lines does the job just as well. Melbourne's free tram zone connects the CBD to Melbourne Park, so anywhere downtown is effectively at the gates. Book refundable rates when dates are announced, reprice after the draw, and consider apartments for fortnight stays — a kitchen and laundry matter more than a lobby when you are living on match schedules.",
+      transport: "Grand Slam transport is refreshingly urban: every Slam sits on its city's transit network. The 7 train drops you at the US Open's doorstep; London's District line reaches Wimbledon via Southfields in twenty-five minutes from the center; Melbourne's free tram zone covers the CBD-to-park run; Paris runs Metro and shuttle connections toward Roland Garros. Buy a rechargeable or contactless transit card on arrival — OMNY in New York, contactless in London and Paris, Myki in Melbourne — and skip rental cars entirely, since parking near any Slam is scarce and expensive. Sessions end late, especially Ashe night sessions, so check last-train times before committing to an evening ticket. The universal tennis move: walk a few blocks from the gates before hailing a rideshare, because the post-session queue outside every Slam is the single worst transport moment of the tournament.",
+    },
+    relatedIntro: "Tennis guides interlock across the calendar. The tennis section of the guides hub covers all four Slams in one place; the event guides below go deep on tickets and accommodation fortnight by fortnight; and the city pages handle everything around the tennis — where to eat between sessions, how to reach the grounds, and what to do on rest days.",
+    guidesAnchor: 'guides-tennis',
+  },
+
+  Golf: {
+    intro: "Golf travel is pilgrimage. The sport's majors each own a different landscape: the Masters plays out every April among the azaleas and pine corridors of Augusta National, the PGA Championship moves between America's grandest courses, the U.S. Open tests the country's sternest layouts, and The Open Championship takes links golf to the British seaside — in 2027, to St Andrews, the home of the game itself. Add the Ryder Cup, golf's loudest week, which brings team golf to Ireland's Adare Manor in September 2027, and the next two seasons form one of the best stretches of golf travel ever scheduled. Golf trips also run on a different rhythm from other sports: tournaments stretch from Monday practice rounds to Sunday's final putt, and host towns are small — Augusta effectively doubles in population for Masters week. That means lotteries instead of box offices, badges passed down like heirlooms, and hotel rates that leap tenfold within walking distance of the gates. This guide covers the events ahead, the towns that host them and the strategy that gets you through the gates.",
+    eventsIntro: "MatchTrip tracks four golf trips: two Masters weeks at Augusta National, the 2027 Ryder Cup at Adare Manor, and The Open's return to St Andrews. Each guide covers ticket lotteries, where to stay in small host towns, and how to build a full week around tournament days.",
+    destinationsIntro: "Golf's host towns are small and seasonal — they change character completely when a major arrives. These city guides cover tournament-week reality: where to stay, how traffic works, and what to do between rounds.",
+    destinations: [
+      { slug: 'augusta', blurb: "Golf's most hallowed ground. Augusta swells each April for the Masters — Washington Road hotels, Southern cooking and the sport's strictest no-phone rule define the week." },
+      { slug: 'st-andrews', blurb: "The home of golf and host of The Open in 2027. Enter the Old Course ballot to play it yourself, then watch the world's best walk the same fairways in July." },
+      { slug: 'limerick', blurb: "The base for the 2027 Ryder Cup at Adare Manor — a gateway to Irish golf, castles and the Wild Atlantic Way, with Shannon Airport under an hour away." },
+    ],
+    venuesIntro: "Golf's cathedrals — Augusta National, the Old Course, Adare Manor — are private or ancient grounds that resist the standard venue-guide treatment, so dedicated venue pages are still on the roadmap. Until they land, the event guides cover everything from Masters lotteries to Open Championship logistics, and the Augusta city guide handles tournament week in detail.",
+    venues: [],
+    venuesHint: "Golf's cathedrals — Augusta National, the Old Course, Adare Manor — are private or ancient grounds that resist the standard venue-guide treatment, so dedicated venue pages are still on the roadmap. Until they land, the event guides above cover everything from Masters lotteries to Open Championship logistics, and the Augusta city guide handles tournament week in detail — hotels, traffic and where to eat between rounds.",
+    tips: {
+      tickets: "Golf tickets work unlike any other sport's. The Masters distributes practice-round tickets by lottery — enter on masters.com by the June deadline, nearly a year ahead — while tournament badges circulate mostly through clubs, brokers and inheritance. Secondary markets are legal for the Masters, unlike most majors, but carry four-figure prices for tournament days. The Open and the Ryder Cup both run ballots through their official channels: enter the moment registration opens, and compare weekly tickets against daily ones, because full-week badges often win once per-round costs are counted. Practice rounds are the smart buy everywhere — Monday to Wednesday at Augusta means thinner crowds and the Par 3 Contest, and at The Open you can walk the links with a fraction of the weekend crowd. One more universal rule: check the bag and phone policies before you pack. Augusta National bans phones outright, and most majors restrict cameras to practice days.",
+      hotels: "Tournament towns are small, and that shapes everything. Augusta's hotel rates leap tenfold for Masters week and sell out a year in advance; the fallback ladder runs from Washington Road chains to private homes rented for the week — book by early autumn, or plan to drive in from Atlanta or Columbia, both about two and a half hours away. For the 2027 Open at St Andrews, the town itself books out first, so widen the search to Edinburgh, an hour away by rail or bus, or to the fishing villages of the East Neuk. Ryder Cup weeks concentrate demand even harder: Limerick and Adare will sell out early, so look toward Shannon, Ennis and even Galway. Wherever you go, book refundable rates immediately after dates are confirmed, reprice later, and expect multi-night minimums — golf tournaments reward staying the full week more than any other sport.",
+      transport: "Golf's host towns assume you have a car. Augusta is easy to navigate year-round, but Masters week turns Washington Road into a slow-moving parking lot and closes Berckmans Road entirely — build in sixty to ninety minutes for what is normally a fifteen-minute drive, or park at the mall lots along I-20 and walk in with the crowds. St Andrews is compact and walkable, with park-and-ride buses serving The Open from surrounding towns and Edinburgh's trains and coaches covering the approach. The Ryder Cup will run dedicated shuttles from Limerick, Shannon and parkway lots — use them, because Adare's country roads cannot absorb event traffic. Allow a buffer day if you fly out the morning after a final round; small towns clear slowly. And if you plan to play a round yourself while you are there — the real golf-travel flex — book tee times months out, because tournament visitors fill the region's courses.",
+    },
+    relatedIntro: "Golf trips reward research, and the guide network does the heavy lifting. The golf section of the guides hub tracks the majors and the Ryder Cup; the event guides below cover lotteries, badges and host towns in detail; and the city pages — Augusta especially — handle tournament week itself, from traffic patterns to where to eat between rounds.",
+    guidesAnchor: 'guides-golf',
+  },
+
+  Basketball: {
+    intro: "Basketball runs the densest travel calendar in sport. The NBA alone plays more than 1,200 games a season — 82 per team from October to April, spread across thirty cities — before the playoffs and Finals stretch the drama deep into June. That density is a traveler's asset: you never plan a trip around a fixture, because a fixture is always happening somewhere, and the pairings work beautifully — Los Angeles stages the Lakers and Clippers in the same downtown building, New York stacks Knicks nights with everything else the city does best, and arena districts across the league sit downtown, steps from hotels and nightlife. The calendar's crown is the NBA Finals each June, a best-of-seven series whose venues are not known until the conference finals conclude — spontaneous, expensive and unforgettable. Around the NBA, college basketball's March Madness takes over entire American cities for three weeks, the EuroLeague Final Four crowns a European champion each spring, and Las Vegas has become the sport's summer capital with NBA Summer League every July. This guide covers how to turn all of that into trips: which events to target, which cities do basketball best, and the practical playbook for tickets, hotels and arena logistics.",
+    eventsIntro: "MatchTrip's basketball coverage centers on the biggest event in the sport: the NBA Finals. The guide covers how the series works, when host cities are decided, and the playbook for committing fast once the matchup is set — ticket channels, flight strategy and hotel zones. As each postseason takes shape, game-by-game guides join the calendar.",
+    destinationsIntro: "Basketball cities are big-city trips by definition — downtown arenas, walkable districts, late nights. These three cities do basketball best, and each has a full guide covering airports, neighborhoods, transit and where to eat before tip-off.",
+    destinations: [
+      { slug: 'los-angeles', blurb: "Lakers nights at Crypto.com Arena are an LA institution, and the city's density — two NBA teams plus the Dodgers and Kings — makes multi-sport weekends effortless." },
+      { slug: 'new-york', blurb: "The Knicks have turned Madison Square Garden back into the loudest building in the league, and the world's most famous arena sits directly above Penn Station." },
+      { slug: 'las-vegas', blurb: "Basketball's summer capital — NBA Summer League brings every franchise's rookies to one city each July, with sportsbooks and pools filling the gaps between sessions." },
+    ],
+    venuesIntro: "The venue layer of MatchTrip is growing, and basketball buildings are next in line — Crypto.com Arena, Madison Square Garden and the arenas that host the Finals. Until those dedicated guides land, the NBA Finals event guide and the city pages below cover the essentials: where to stay relative to each arena, how transit serves the gates, and what tickets realistically cost.",
+    venues: [],
+    venuesHint: "The venue layer of MatchTrip is growing, and basketball buildings are next in line — Crypto.com Arena, Madison Square Garden and the arenas that host the Finals. Until those dedicated guides land, the NBA Finals event guide and the city pages below cover the essentials: where to stay relative to each arena, how transit serves the gates, and what tickets realistically cost.",
+    tips: {
+      tickets: "NBA ticketing rewards patience and punishes hesitation in equal measure. Regular-season seats are plentiful — buy through the team's official platform, where prices fall as tip-off approaches and unsold inventory turns cheap; weeknight games against small-market opponents are the bargains. The playoffs are a different machine: most inventory goes to season-ticket holders first, with public on-sales small and fast, so register with the box office the moment a playoff berth looks likely, because presale access is everything. The Finals themselves are the steepest ticket in American sport — inventory splits between the two franchises, the league and hospitality partners, and secondary-market prices routinely run four figures. The smart alternatives: target early-round playoff games, where the atmosphere is nearly identical, or build your trip around a marquee regular-season matchup instead. For Vegas Summer League, single-day and full-session passes go on sale in spring and stay affordable.",
+      hotels: "NBA arenas sit downtown almost everywhere, which makes hotel strategy refreshingly simple: stay central, near transit, and skip the car. In Los Angeles, downtown puts you minutes from Crypto.com Arena — the same base works for Dodger Stadium and SoFi; in New York, Midtown West hotels put Madison Square Garden and Penn Station at your feet. For the Finals, the calculus changes: once the matchup is set, rates in both host cities spike for game windows only, so book refundable rooms in each likely city before the conference finals end, then cancel the one you do not need. Playoff runs move fast, so favor flexible rates over prepaid bargains. One basketball-specific note: arenas host forty-plus home dates a season, so downtown hotel rates rise on game nights — check the home schedule before you book, and you can sometimes dodge the spike entirely.",
+      transport: "Arena logistics are the easiest in sports travel: NBA buildings are downtown, transit-served and walkable. New York's B, D, F, M and 1 trains stop at or beside Madison Square Garden; Los Angeles's Metro rail reaches Crypto.com Arena via the Pico and 7th Street stations. Rideshares work well after games — crowds of eighteen thousand clear far faster than football's seventy thousand — but surge pricing still bites for the first twenty minutes after the final buzzer, so walk a few blocks or linger over dinner. If you are chasing a multi-game trip, the schedule does the routing for you: road trips cluster teams in the same region on consecutive nights, and pairings like Los Angeles–Las Vegas or New York–Philadelphia turn two games into one easy weekend. For the Finals, book refundable flights and be ready to commit within forty-eight hours of the matchup being set.",
+    },
+    relatedIntro: "Basketball's guide network grows with the calendar. The guides hub gathers every sport's trips in one place; the NBA Finals guide below is the basketball centerpiece; and the city pages for Los Angeles, New York and Las Vegas cover arena districts, transit and where to stay on game nights.",
+    guidesAnchor: null,
+  },
+
+  'American Football': {
+    intro: "American football builds toward a single Sunday. The NFL regular season runs eighteen weeks from September into January, the playoffs whittle twelve teams down to two, and the whole machine lands on the Super Bowl each February — the biggest single-day sporting event on earth and, for travel purposes, the most demanding ticket in America. The current cycle delivers a coast-to-coast double: Super Bowl LX filled Levi's Stadium in the San Francisco Bay Area in February 2026, and Super Bowl LXI comes to Los Angeles and SoFi Stadium on Valentine's Day Sunday, February 14, 2027. Around the game itself, Super Bowl week has become a destination event in its own right — fan festivals, media-day chaos and concerts fill the days before kickoff. The sport also travels beyond the big game: NFL regular-season fixtures now play in London, Mexico City, São Paulo and Madrid, while college football's bowl season gives warm-weather American cities a December festival of their own. This guide covers the Super Bowl trips in the cycle, the cities and stadiums that define them, and the practical playbook for tickets, hotels and game-day logistics.",
+    eventsIntro: "MatchTrip covers both ends of the current Super Bowl cycle: LX at Levi's Stadium in Santa Clara, and LXI at SoFi Stadium in Los Angeles on Valentine's Day Sunday, February 14, 2027. Each guide covers ticket channels, host-city hotel zones, airport strategy and how to build the full week around game day.",
+    destinationsIntro: "Super Bowl cities become week-long festivals, and the host region matters as much as the game. These guides cover the host metros of the current cycle — where to stay, how to move around, and what the week offers beyond kickoff.",
+    destinations: [
+      { slug: 'santa-clara', blurb: "Super Bowl LX host city — Levi's Stadium sits in the South Bay, with San Jose and the peninsula as practical bases and San Francisco 45 minutes north." },
+      { slug: 'los-angeles', blurb: "Super Bowl LXI lands at SoFi Stadium in Inglewood — 70,000 seats under a canopy, four miles from LAX, with the beach cities close by for recovery." },
+      { slug: 'las-vegas', blurb: "The template for the modern Super Bowl after LVIII — a city that treats every NFL weekend like a title fight, from the sportsbooks to the Strip." },
+    ],
+    venuesIntro: "From the league's most futuristic stadium to its most famous export venue, these ground-level guides cover seating tiers, transit lines and hotel zones — the three decisions that define any football road trip.",
+    venues: [
+      { slug: 'sofi-stadium', blurb: "Super Bowl LXI's host venue — the $5.5 billion indoor-outdoor home of the Rams and Chargers, with the Oculus board suspended over 70,240 seats." },
+      { slug: 'wembley', blurb: "London's national stadium hosts NFL International Series games every autumn — American football's European home, served by three rail and tube stations." },
+    ],
+    venuesHint: null,
+    tips: {
+      tickets: "Super Bowl tickets are the most constrained inventory in sport: roughly a third go to the two participating teams, most of the rest to league partners, sponsors and hospitality, and the public allocation is small — lotteries and presales, where they exist, open months ahead. That means most travelers buy hospitality packages or verified secondary-market seats, and the strategy is comparing them honestly: a hospitality seat with food, drink and indoor access often lands close to a bare resold ticket once fees and game-day costs are counted. Timing the market matters too — prices typically peak when the matchup is set, ease midweek, then firm up as the weekend approaches. Book your travel before your ticket, not after: flights and hotels sell out faster and climb higher than seats do. And watch the league's official fan-experience packages, which bundle verified tickets with pre-game parties and transport.",
+      hotels: "Super Bowl hotel economics are the steepest in American sport: rates within twenty miles of the stadium routinely triple, resort fees stack on top, and three-night minimums are standard — book the week the host city is announced, not the week the teams are. For Super Bowl LXI, Inglewood and the South Bay put you closest to SoFi Stadium, while downtown LA and Santa Monica offer better atmosphere and Metro connections to the ground. For Santa Clara and Super Bowl LX, San Jose and the peninsula were the practical bases, with San Francisco an hour north for the full city experience. Super Bowl week is about more than Sunday — fan festivals and parties run Wednesday to game day — so a hotel near the festival zone often beats proximity to a stadium you will visit once. Wherever you book, expect event-week cleaning surcharges and hold deposits on top of the headline rate.",
+      transport: "Super Bowl Sunday is a logistics operation, and the league runs it accordingly. Both recent host stadiums are transit-served: SoFi Stadium connects via LA Metro's C Line with event-day shuttles, while Levi's Stadium sits beside VTA light rail with park-and-ride lots across the South Bay. Use them — on-site parking is pre-sold, expensive and slow to clear. On game day, arrive early: security perimeters around a Super Bowl open hours before kickoff, and surrounding streets close to traffic entirely. Rideshares get designated zones a long walk from the gates, with waits that stretch past an hour after the final whistle, so plan a post-game dinner reservation near the stadium while the lots drain. Flying in, both host regions give you options — LAX for Los Angeles, plus San Jose and San Francisco for the Bay Area — and if you can, fly out Tuesday rather than Monday, when the whole airport is one long hangover.",
+    },
+    relatedIntro: "The guide network around American football starts with the Super Bowls. The guides hub gathers every sport's trips in one place; the Super Bowl guides below cover tickets, hotels and host cities in full; and the venue pages for SoFi Stadium and Wembley handle seating, transit and parking at the ground level.",
+    guidesAnchor: null,
+  },
+
+  'Horse Racing': {
+    intro: "Horse racing is sport as theatre — two minutes of thunder decided by a year of breeding, training and hope. America's version peaks on the first Saturday of every May, when the Kentucky Derby turns Churchill Downs in Louisville into the most famous race meeting on earth: a crowd of 160,000, outrageous hats, mint juleps, and twenty three-year-olds charging a mile and a quarter for the roses. The Derby opens the Triple Crown, which runs on through the Preakness in Baltimore and the Belmont in New York, and across the Atlantic the same sport keeps different hours — Royal Ascot's pageantry each June, the Prix de l'Arc de Triomphe in Paris each October, and the Melbourne Cup that stops a nation every November. Racing trips suit travelers who like their sport with history attached: the grandstands, the betting windows, the town-wide party that builds all week. This guide centers on the Derby ahead — tickets, hotels, transport and the full Louisville experience — plus the destinations and planning strategy that make any racing trip run smoothly.",
+    eventsIntro: "MatchTrip currently tracks one race meeting — the one that defines the sport in America. The 2027 Kentucky Derby falls on the first Saturday in May, and the guide covers ticket tiers from the infield to Millionaires Row, where to stay in a city that doubles in size, and how to build Derby week from dawn training to the final furlong.",
+    destinationsIntro: "Racing towns build their whole year around the big meeting. Louisville's Derby week is the template — a city that doubles in size and throws a two-week party around two minutes of racing.",
+    destinations: [
+      { slug: 'louisville', blurb: "The Derby's home and a city built for the party — Churchill Downs sits minutes from downtown, bourbon distilleries line Whiskey Row, and Derby week doubles the city's size." },
+    ],
+    venuesIntro: "Churchill Downs, Ascot and Longchamp — racing's great amphitheaters each deserve a dedicated venue guide, and they are on the MatchTrip roadmap. Until they land, the Kentucky Derby event guide covers Churchill Downs in full: gate layouts, infield versus grandstand strategy, and which entrances move fastest on Derby day.",
+    venues: [],
+    venuesHint: "Churchill Downs, Ascot and Longchamp — racing's great amphitheaters each deserve a dedicated venue guide, and they are on the MatchTrip roadmap. Until they land, the Kentucky Derby event guide above covers Churchill Downs in full: gate layouts, infield versus grandstand strategy, and which entrances move fastest on Derby day.",
+    tips: {
+      tickets: "Kentucky Derby tickets span an enormous range, and picking your tier is really picking your Derby. General admission — the infield — is the party: little view of the track itself, but tens of thousands of people, live music and the rowdiest scene in American sport at the lowest price. Reserved grandstand seats deliver the racing; Millionaires Row and the suites deliver the Derby of seersucker and showstopping hats, with dining and track views, at the top of the market. Buy through Churchill Downs' official channels or verified partners only — the Derby's popularity makes it a counterfeiting target, and secondary-market protection matters here as much as anywhere outside the Super Bowl. Book a year ahead for reserved seating: inventory for the next Derby opens in the weeks after the current one, and prices climb from there. For the full experience, add Oaks day — the Friday card — when Louisville owns the crowd and the tickets come easier.",
+      hotels: "Louisville doubles in size for Derby week, and the hotel market behaves accordingly: rates triple and more, minimum stays stretch to three or four nights, and downtown rooms near Fourth Street Live sell out a year ahead. Book the moment you commit to going — twelve months out is not too early — and favor refundable rates so you can reprice or shift neighborhoods later. The practical ladder runs: downtown Louisville first, then the airport corridor and East Louisville about fifteen minutes out, then across the Ohio River to Jeffersonville and New Albany, Indiana, which often keeps big-event rates lower. House rentals dominate Derby week, with entire neighborhoods near the track renting out at prices to match. If you want the bourbon-country extension, Bardstown and the distillery trail sit forty-five minutes away — but those small towns book out just as fast, so treat them as part of the same booking deadline.",
+      transport: "Churchill Downs sits four miles south of downtown Louisville — a fifteen-minute drive on a normal day and an hour on Derby day. There is no rail link, so the options are shuttles, rideshares and feet: official and hotel-run shuttles loop between downtown and the track all day, and they beat driving, because parking near the gates is limited, expensive and slow to escape when 160,000 people leave at once. If you drive anyway, pre-book a lot a mile out and treat the walk as part of the day — the streets around the track become a street party from mid-morning. Rideshares get designated zones with long waits after the last race, so linger: the backside empties slowly, and the walk back toward downtown is an hour of pure Derby theater. Whatever you choose, wear shoes you can walk miles in — everyone does, hats and all.",
+    },
+    relatedIntro: "The racing collection starts here and grows. The guides hub gathers every sport's trips in one place; the Kentucky Derby guide below is the racing centerpiece; and the Louisville city page handles the rest — bourbon country, the food scene, and how the city runs on Derby week.",
+    guidesAnchor: null,
+  },
+
+  'Multi-Sport': {
+    intro: "Multi-sport events are the summit of sports travel. The Olympic and Paralympic Games compress dozens of world championships into one city and a few weeks — athletics, swimming, gymnastics, basketball, football and more, all within a single transit map. The next edition needs no introduction: Los Angeles 2028 brings the Games back to a city that staged them in 1932 and 1984, spreading competition across Southern California's existing landmarks — the LA Memorial Coliseum for a third Olympic Games, SoFi Stadium for the ceremonies, and venues from Santa Monica's beaches to the San Gabriel Valley. Olympic travel is its own discipline: tickets sell by session across more than thirty sports, so the planning challenge is curating your own Games — clustering sessions by venue, leaving gaps for the city, and booking accommodation early, because the whole region prices for a month of global demand. Done well, an Olympic trip is several journeys in one: a track final, a basketball knockout, beach volleyball at sunset, and a host city at maximum celebration. This guide covers the LA28 essentials — venues, tickets, hotels and transport.",
+    eventsIntro: "MatchTrip tracks the 2028 Olympic Games in Los Angeles — three weeks of competition, dozens of venues, and one enormous planning puzzle. The guide covers session ticketing, venue clustering by neighborhood, where to stay for multi-sport access, and how to build days that mix finals with the city itself.",
+    destinationsIntro: "One city hosts everything — which makes choosing your base the biggest decision of an Olympic trip. The host city guide covers neighborhoods, venue clusters, transit and how to plan days across a month of sport.",
+    destinations: [
+      { slug: 'los-angeles', blurb: "The 2028 host city and a genuine sports metropolis — pro franchises across every league, the Coliseum's Olympic history and SoFi Stadium, stitched together by an expanding Metro rail network." },
+    ],
+    venuesIntro: "An Olympics spans dozens of venues, but a handful anchor the biggest moments. These venue guides get granular — which transit line serves which gate, where to sit, and how to move between sessions when the whole city is on the move.",
+    venues: [
+      { slug: 'sofi-stadium', blurb: "The stage for the LA28 Opening Ceremony — 70,240 seats, a cashless campus and event-day Metro shuttles from Hawthorne/Lennox, four miles from LAX." },
+    ],
+    venuesHint: null,
+    tips: {
+      tickets: "Olympic ticketing has settled into a predictable model: a sales platform run with the organizing committee, initial lotteries or first-come phases for high-demand sessions, and inventory released in waves through the two years before the Games. Register early, then work the calendar — athletics finals, swimming, basketball knockout rounds and the ceremonies sell out first, while team-sport preliminaries and less-heralded sports stay available and affordable, often delivering the Games' best atmosphere. Sessions sell individually, so budget by day: a morning of track and field plus an evening basketball game is a classic double-header. Expect dynamic pricing on marquee sessions, and resist buying everything at once — availability returns in phases as venue configurations finalize. Buy only through official channels; the Olympics are a counterfeiting magnet precisely because demand is global, and a rejected ticket at the gate is the most expensive souvenir in sport.",
+      hotels: "An Olympics books out a region, and Los Angeles is a region: LA28 spreads from Downtown to the Valley, the Westside, Long Beach and beyond, with venues an hour apart in traffic. Location strategy beats proximity strategy — no hotel sits near everything, so pick a base with rail access and plan each day around a single venue cluster. Downtown serves the Coliseum corridor and Crypto.com Arena; Long Beach pairs waterfront hotels with aquatic venues; Pasadena covers cycling and the Rose Bowl's track history. Book as early as the platforms allow — the Games will lift rates across the whole metro for a month-long window — and expect minimum-stay requirements during the peak fortnight. Short-term rentals become the release valve in a Games city, though their prices float upward daily. The regional fallback: base in Anaheim or Irvine and ride the rail network north, trading convenience for meaningfully lower rates.",
+      transport: "LA28 will lean on everything Los Angeles has learned about mega-event movement — expanded Metro rail service, priority lanes on the freeways, and shuttle networks between venue clusters. The Metro rail map is the traveler's key: the B and D lines run through downtown, the E line connects Santa Monica to Downtown via Exposition Park, and the K Line serves the SoFi area — a TAP card covers all of it, with event-day service extending late. Renting a car only makes sense for regional exploration before or after the Games; during them, driving between venues means traffic, lane restrictions and forty-to-eighty-dollar event parking. Build buffer time into every session — Olympic security perimeters run stricter than regular events — and plan for the post-session exodus, when tens of thousands leaving one venue overwhelm rideshare zones for an hour. Walking to the nearest rail station beats every alternative.",
+    },
+    relatedIntro: "The guide network around LA28 is built in layers. The Olympics section of the guides hub frames the whole Games; the LA28 event guide below covers sessions, hotels and transport in full; and the Los Angeles city page, plus the SoFi Stadium venue guide, handle neighborhoods, transit and the venue itself.",
+    guidesAnchor: 'guides-olympics',
+  },
+};
+
+// Fallback for categories added to eventsData without editorial content yet
+const buildDefaultContent = (cat) => ({
+  intro: `${cat} travel pairs world-class competition with world-class destinations, and MatchTrip's ${cat.toLowerCase()} guides cover tickets, hotels, transport and host cities for every tracked event.`,
+  eventsIntro: `Every ${cat.toLowerCase()} event tracked by MatchTrip appears below with dates, locations, estimated budgets and a full trip guide.`,
+  destinationsIntro: 'These city guides cover the airports, neighborhoods and transport options for the host cities below.',
+  destinations: [],
+  venuesIntro: 'Venue guides cover seating, transport and hotels for the stadiums and arenas below.',
+  venues: [],
+  venuesHint: 'Dedicated venue guides for this sport are on the roadmap. Until they land, the event guides above cover tickets, hotels and transport in full.',
+  tips: {
+    tickets: 'Buy through official channels first — ballots, memberships and phased sales reward early registration. Compare secondary-market all-in prices against official hospitality before committing, and set calendar reminders for every on-sale date.',
+    hotels: 'Book refundable rooms as soon as dates are confirmed, then reprice closer to the event. Staying a few transit stops from the venue typically halves the rate while adding minutes, not hours, to your day.',
+    transport: 'Use the transit locals use — most major venues sit on metro or rail lines — and walk ten minutes away from the ground before hailing a rideshare to dodge surge pricing.',
+  },
+  relatedIntro: 'Explore the full guide hub for every sport MatchTrip covers, or start with the events below.',
+  guidesAnchor: null,
+});
 
 export function getStaticPaths() {
   const categories = [...new Set(Object.values(eventsData).map(e => e.category))];
@@ -18,24 +235,50 @@ export function getStaticPaths() {
 
 const { category } = Astro.props;
 const slug = Astro.params.category;
+const content = categoryContent[category] || buildDefaultContent(category);
 
+// Upcoming events first (chronological), then past events (most recent first)
 const entries = Object.entries(eventsData)
   .filter(([, e]) => e.category === category)
-  .sort((a, b) => (b[1].year || 0) - (a[1].year || 0));
+  .sort((a, b) => {
+    const aEnded = a[1].status === 'ended';
+    const bEnded = b[1].status === 'ended';
+    if (aEnded !== bEnded) return aEnded ? 1 : -1;
+    const aDate = a[1].startDate || '';
+    const bDate = b[1].startDate || '';
+    return aEnded ? bDate.localeCompare(aDate) : aDate.localeCompare(bDate);
+  });
 
 const categoryEvents = entries.map(([id, data]) => ({ id, ...data }));
 const eventCount = categoryEvents.length;
 
-const title = `${category} Sports Travel Guide | MatchTrip`;
-const description = `Plan your ${category.toLowerCase()} sports trip with event schedules, hotels, flights, tickets and travel guides.`;
-const seoDescription = description.length > 159 ? description.substring(0, 156) + '...' : description;
+// Destinations: validated against cityMap (slugs derived from eventsData)
+const destinations = (content.destinations || [])
+  .map((d) => {
+    const city = cityMap.get(d.slug);
+    return city ? { ...city, blurb: d.blurb } : null;
+  })
+  .filter(Boolean);
+
+// Venues: validated against venuesData
+const venues = (content.venues || [])
+  .map((v) => {
+    const venue = venuesData[v.slug];
+    return venue ? { slug: v.slug, name: venue.name, cityDisplay: venue.cityDisplay, country: venue.country, capacity: venue.capacity, blurb: v.blurb } : null;
+  })
+  .filter(Boolean);
+
+const relatedEvents = categoryEvents.slice(0, 3);
+
+const title = content.seoTitle || `${category} Travel Guide: Events, Destinations & Tickets`;
+const seoDescription = content.metaDescription || `Plan your ${category.toLowerCase()} sports trip with event schedules, hotels, flights, tickets and travel guides.`;
 
 // Schema.org CollectionPage + ItemList
 const pageUrl = new URL('/sports/' + slug + '/', Astro.site).href;
-const schema = {
+const collectionSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: `${category} Sports Events`,
+  name: `${category} Travel Guide`,
   description: seoDescription,
   url: pageUrl,
   mainEntity: {
@@ -48,7 +291,21 @@ const schema = {
     })),
   },
 };
-const schemaHtml = `<script type="application/ld+json">${JSON.stringify(schema, null, '\t')}</script>`;
+
+// Schema.org BreadcrumbList: Home > Sports > {Sport}
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Sports', item: new URL('/events/', Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: `${category} Travel Guide`, item: pageUrl },
+  ],
+};
+
+const schemaHtml = [collectionSchema, breadcrumbSchema]
+  .map(schema => `<script type="application/ld+json">${JSON.stringify(schema, null, '\t')}</script>`)
+  .join('\n');
 
 // Count how many events have partnerRefs for CTA display
 const hasActivityEvents = categoryEvents.some(e => e.partnerRefs?.activityQuery);
@@ -67,24 +324,32 @@ const activityUrl = activityEvent
   <!-- Hero -->
   <section class="sport-hero">
     <div class="container">
-      <a href="/events/" class="back-link">&larr; All Events</a>
-      <h1>{category}</h1>
-      <p class="hero-count">{eventCount} event{eventCount !== 1 ? 's' : ''}</p>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">/</span>
+        <a href="/events/">Sports</a>
+        <span class="sep">/</span>
+        <span class="current" aria-current="page">{category}</span>
+      </nav>
+      <h1>{category} Travel Guide</h1>
+      <p class="hero-count">{eventCount} event{eventCount !== 1 ? 's' : ''} tracked</p>
       <p class="hero-sub">{seoDescription}</p>
     </div>
   </section>
 
-  <!-- Sport Introduction -->
+  <!-- Section 1: Introduction -->
   <section class="sport-intro">
     <div class="container narrow">
-      <p>From {category === 'Motorsport' ? 'the roar of F1 engines at iconic circuits to the precision of endurance racing' : category === 'Football' ? 'the passion of the Champions League final to the global unity of the World Cup' : category === 'Tennis' ? 'grass-court tradition at Wimbledon to the hard-hitting night sessions of the US Open' : category === 'Basketball' ? 'the fast-paced drama of the NBA Finals to international tournaments' : category === 'American Football' ? 'the spectacle of the Super Bowl to the energy of college football' : category === 'Golf' ? 'the pristine fairways of Augusta National to major championships worldwide' : category === 'Horse Racing' ? 'the thunder of the Kentucky Derby to international racing events' : category === 'Multi-Sport' ? 'the grandeur of the Olympic Games to world championship events' : category === 'Baseball' ? 'the timeless tradition of the World Series' : 'major competitions across the globe'}, our {category.toLowerCase()} travel guides give you everything you need to plan the ultimate sports trip — from where to stay and how to get there to ticket strategies and local tips.</p>
+      <h2>Why {category} Is Made for Travel</h2>
+      <p>{content.intro}</p>
     </div>
   </section>
 
-  <!-- Events List -->
+  <!-- Section 2: Major Events -->
   <section class="sport-events">
     <div class="container">
-      <h2>{category} Events</h2>
+      <h2>Major {category} Events</h2>
+      <p class="section-intro">{content.eventsIntro}</p>
       <div class="events-grid">
         {categoryEvents.map(event => (
           <article class="event-card">
@@ -108,6 +373,96 @@ const activityUrl = activityEvent
               </div>
             </div>
           </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Best Destinations -->
+  {destinations.length > 0 && (
+    <section class="sport-destinations">
+      <div class="container">
+        <h2>Best {category} Destinations</h2>
+        <p class="section-intro">{content.destinationsIntro}</p>
+        <div class="dest-grid">
+          {destinations.map(dest => (
+            <a class="dest-card" href={`/cities/${dest.slug}/`}>
+              <h3>{dest.name}</h3>
+              <p class="dest-meta">{dest.country}</p>
+              <p class="dest-blurb">{dest.blurb}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Section 4: Best Venues -->
+  <section class="sport-venues">
+    <div class="container">
+      <h2>Best {category} Venues</h2>
+      <p class="section-intro">{content.venuesIntro}</p>
+      {venues.length > 0 ? (
+        <div class="venue-grid">
+          {venues.map(venue => (
+            <a class="venue-card" href={`/venues/${venue.slug}/`}>
+              <h3>{venue.name}</h3>
+              <p class="venue-meta">{venue.cityDisplay}, {venue.country} · {venue.capacity}</p>
+              <p class="venue-blurb">{venue.blurb}</p>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="venues-hint">{content.venuesHint}</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Section 5: Planning Tips -->
+  <section class="sport-tips">
+    <div class="container">
+      <h2>{category} Trip Planning Tips</h2>
+      <p class="section-intro">The three decisions that shape every {category.toLowerCase()} trip — how you get in, where you sleep, and how you move.</p>
+      <div class="tips-grid">
+        <article class="tip-card">
+          <h3>Tickets</h3>
+          <p>{content.tips.tickets}</p>
+        </article>
+        <article class="tip-card">
+          <h3>Hotels</h3>
+          <p>{content.tips.hotels}</p>
+        </article>
+        <article class="tip-card">
+          <h3>Transport</h3>
+          <p>{content.tips.transport}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Related Guides -->
+  <section class="related-section">
+    <div class="container">
+      <h2>Related {category} Guides</h2>
+      <p class="section-intro">{content.relatedIntro}</p>
+      <div class="related-grid">
+        <a class="related-card" href="/guides/">
+          <h3>Sports Travel Guides</h3>
+          <p class="related-meta">The full MatchTrip guide hub</p>
+          <p>Every sport, every event — tickets, hotels and transport advice across the whole calendar.</p>
+        </a>
+        {content.guidesAnchor && (
+          <a class="related-card" href={`/guides/#${content.guidesAnchor}`}>
+            <h3>{category} Travel Guides</h3>
+            <p class="related-meta">MatchTrip Guides · {category}</p>
+            <p>The {category.toLowerCase()} section of the hub — events, venues and host cities in one place.</p>
+          </a>
+        )}
+        {relatedEvents.map(event => (
+          <a class="related-card" href={`/events/${event.id}/`}>
+            <h3>{event.title}</h3>
+            <p class="related-meta">{event.date} · {event.location?.label || event.location}</p>
+          </a>
         ))}
       </div>
     </div>
@@ -173,16 +528,30 @@ const activityUrl = activityEvent
     background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
   }
 
-  .back-link {
-    display: inline-block;
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    margin-bottom: 24px;
+  }
+
+  .breadcrumb a {
     color: #6366f1;
     text-decoration: none;
-    font-size: 0.875rem;
     font-weight: 600;
-    margin-bottom: 24px;
     transition: color 0.2s;
   }
-  .back-link:hover { color: #4f46e5; }
+
+  .breadcrumb a:hover { color: #4f46e5; }
+
+  .breadcrumb .sep { color: #9ca3af; }
+
+  .breadcrumb .current {
+    color: #374151;
+    font-weight: 600;
+  }
 
   .sport-hero h1 {
     font-size: 3rem;
@@ -214,20 +583,35 @@ const activityUrl = activityEvent
   }
 
   .sport-intro {
-    padding: 0 0 40px;
+    padding: 0 0 48px;
+  }
+
+  .sport-intro h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -0.2px;
+    margin-bottom: 14px;
   }
 
   .sport-intro p {
-    color: #4b5563;
-    font-size: 1.05rem;
-    line-height: 1.8;
-    text-align: center;
+    color: #374151;
+    font-size: 1.02rem;
+    line-height: 1.85;
   }
 
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
+  }
+
+  .section-intro {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 760px;
+    margin: -4px 0 28px;
   }
 
   .sport-events {
@@ -238,7 +622,8 @@ const activityUrl = activityEvent
     font-size: 1.5rem;
     font-weight: 700;
     color: #111;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
+    letter-spacing: -0.2px;
   }
 
   .events-grid {
@@ -375,6 +760,159 @@ const activityUrl = activityEvent
     transform: translateY(-1px);
   }
 
+  .sport-destinations,
+  .sport-venues,
+  .sport-tips,
+  .related-section {
+    padding: 56px 0;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .sport-destinations h2,
+  .sport-venues h2,
+  .sport-tips h2,
+  .related-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 12px;
+    letter-spacing: -0.2px;
+  }
+
+  .dest-grid,
+  .venue-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .dest-card,
+  .venue-card {
+    display: block;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 24px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .dest-card:hover,
+  .venue-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.08);
+    border-color: #c7d2fe;
+  }
+
+  .dest-card h3,
+  .venue-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 4px;
+  }
+
+  .dest-card:hover h3,
+  .venue-card:hover h3 {
+    color: #6366f1;
+  }
+
+  .dest-meta,
+  .venue-meta {
+    font-size: 0.78rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .dest-blurb,
+  .venue-blurb {
+    color: #4b5563;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .venues-hint {
+    color: #6b7280;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    padding: 16px 20px;
+    background: #f8fafc;
+    border: 1px dashed #d1d5db;
+    border-radius: 12px;
+    max-width: 760px;
+  }
+
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .tip-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 28px;
+  }
+
+  .tip-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 12px;
+  }
+
+  .tip-card p {
+    color: #4b5563;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .related-card:hover {
+    border-color: #6366f1;
+    background: #f5f3ff;
+  }
+
+  .related-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.4;
+  }
+
+  .related-card:hover h3 { color: #6366f1; }
+
+  .related-meta {
+    font-size: 0.78rem;
+    color: #6b7280;
+  }
+
+  .related-card p:not(.related-meta) {
+    color: #4b5563;
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
   .travel-cta-section {
     padding: 0 0 60px;
     background: #fafafa;
@@ -483,7 +1021,16 @@ const activityUrl = activityEvent
 
   @media (max-width: 768px) {
     .sport-hero h1 { font-size: 2rem; }
+    .breadcrumb { font-size: 0.78rem; flex-wrap: wrap; }
     .events-grid { grid-template-columns: 1fr; }
+    .dest-grid { grid-template-columns: 1fr; }
+    .venue-grid { grid-template-columns: 1fr; }
+    .tips-grid { grid-template-columns: 1fr; }
+    .related-grid { grid-template-columns: 1fr; }
     .cta-grid { grid-template-columns: 1fr; }
+    .sport-destinations,
+    .sport-venues,
+    .sport-tips,
+    .related-section { padding: 40px 0; }
   }
 </style>

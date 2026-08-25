@@ -446,4 +446,659 @@ export const citiesContent = {
       { day: 'Day 3', title: 'La Latina Tapas Night', description: 'Devote the day to Madrid\'s tapas culture: churros con chocolate at San Ginés in the morning, the Rastro flea market on Sundays, and a progressive dinner crawl through La Latina and Lavapiés — croquetas, patatas bravas, and rioja by the glass. If Real or Atlético are home, finish inside a bar with ultras; the roars tell you when to look up.' },
     ],
   },
+
+  'london': {
+    slug: 'london',
+    city: 'London',
+    intro: 'London is the world\'s most complete sports city — a capital where Wembley\'s arch rises over football finals, Wimbledon\'s grass courts host tennis each summer, and Premier League weekends pack a dozen world-famous stadiums into one Tube map. From Champions League nights to the ATP Finals at the O2, the marathon over Tower Bridge to rugby at Twickenham, no city hosts more bucket-list events in a single year. Getting around is effortless, English is spoken everywhere, and every neighborhood doubles as a base. This guide covers the events calendar, transport, and hotel zones for an unbeatable London sports trip.',
+    sportsCulture: 'London\'s sporting depth is unmatched anywhere on earth. Wembley Stadium, the 90,000-seat home of English football, has staged every major final imaginable — FA Cup, Champions League, and Euro 2020 among them — while Wimbledon\'s All England Club has served tennis tradition every June since 1877. The city supports more than a dozen professional football clubs, from Arsenal\'s Emirates and Chelsea\'s Stamford Bridge to West Ham\'s London Stadium, meaning Premier League football is a weekly guarantee. Twickenham hosts rugby union\'s biggest autumn internationals, the O2 has welcomed the ATP Finals, and Lord\'s — the home of cricket — sits in St John\'s Wood. For traveling fans, the density is a gift: one long weekend can pair a Premier League derby with a Wimbledon afternoon and a night fight at the Royal Albert Hall.',
+    majorVenues: [
+      { name: 'Wembley Stadium', venueSlug: 'wembley' },
+      { name: 'All England Lawn Tennis Club', venueSlug: null },
+      { name: 'Emirates Stadium', venueSlug: null },
+      { name: 'Twickenham Stadium', venueSlug: null },
+    ],
+    eventCalendarNote: 'London\'s calendar is a year-round procession: FA Cup and Carabao Cup finals at Wembley each spring, Wimbledon across two weeks each summer, Premier League football from August to May, autumn rugby internationals at Twickenham, and the NFL\'s International Series each October. Book early for Wembley finals and Wimbledon — both draw global demand.',
+    airports: [
+      {
+        name: 'Heathrow Airport',
+        code: 'LHR',
+        detail: 'Heathrow is Europe\'s busiest airport, 15 miles west of central London. The Elizabeth Line reaches Bond Street in about 30 minutes, the Piccadilly Line serves the whole West End for the price of a Tube fare, and the Heathrow Express runs to Paddington in 15. Allow an hour door-to-door for most central hotels.',
+      },
+      {
+        name: 'Gatwick Airport',
+        code: 'LGW',
+        detail: 'Gatwick sits 30 miles south of the city, connected by the Gatwick Express to Victoria in 30 minutes and Thameslink trains to St Pancras, Farringdon, and Blackfriars. Often cheaper than Heathrow for the same dates, and a sensible pick when your hotel sits south of the river or near the Brighton line.',
+      },
+    ],
+    transportation: [
+      {
+        mode: 'The Tube & Rail',
+        detail: 'London Underground is the fastest way across the city — Wembley Park (Metropolitan/Jubilee) serves the stadium, Southfields (District Line) is the Wimbledon stop, and Arsenal (Piccadilly) drops you at the Emirates. Use contactless payment; the daily fare cap automatically limits your spend.',
+      },
+      {
+        mode: 'Black Cabs & Rideshare',
+        detail: 'Black cabs can be hailed anywhere and use bus lanes — genuinely faster in gridlock. Uber and Bolt are plentiful but surge hard after Wembley finals; a 10-minute walk to a quieter Tube station first usually saves both time and money.',
+      },
+      {
+        mode: 'Event-Day Crowds',
+        detail: 'Wembley hosts 90,000 — arrive two hours early or the station queues swallow your first half. Twickenham relies on the overground and a long walk from the station; follow the crowd flow and pre-plan a meeting point.',
+      },
+    ],
+    accommodationZones: [
+      {
+        name: 'Central (Zone 1)',
+        description: 'Covent Garden, South Bank, and Bloomsbury put every venue within an hour\'s reach and put theaters, museums, and restaurants at your door. Rates are the city\'s highest, but for a first visit mixing events with sightseeing, the walkability pays for itself.',
+        searchQuery: 'central London hotels',
+      },
+      {
+        name: 'Wembley & Northwest London',
+        description: 'Hotels around Wembley Park and along the Jubilee Line put you minutes from the stadium at a fraction of Zone 1 prices. The trade-off is a longer trek to Wimbledon or Twickenham — best for fans whose trip revolves around a Wembley final.',
+        searchQuery: 'Wembley London hotels',
+      },
+      {
+        name: 'South Kensington & Earls Court',
+        description: 'A smart middle ground — leafy, safe, and directly connected to Wimbledon via the District Line from Earls Court. Museum-quarter charm, family-run hotels, and easy Heathrow access round out a comfortable base for a two-week tennis fortnight.',
+        searchQuery: 'Earls Court London hotels',
+      },
+    ],
+    travelTips: [
+      'Tap the same card or phone on every Tube, bus, and train — the daily cap means you\'ll never overpay, and paper single tickets cost more.',
+      'Wembley\'s station queues after finals can take an hour; linger over a drink at the adjacent outlet mall and let the crowds clear first.',
+      'Wimbledon\'s Queue is a beloved tradition — arrive by 5am for a grounds pass, or enter the public ballot months ahead for show-court seats.',
+      'Book Premier League tickets through clubs\' official resale or hospitality channels; third-party sites carry heavy markups and cancellation risk.',
+      'London pubs are the second venue for any match — pick one near your stadium and arrive an hour before kickoff for the full atmosphere.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'Wembley & North London', description: 'Start at Wembley Stadium — take the tour that walks the players\' tunnel and up to the Royal Box, then photograph the arch from Olympic Way. Follow with a stroll through nearby Victorian Wembley streets and an evening curry on Tooting Broadway, one of the city\'s great food streets.' },
+      { day: 'Day 2', title: 'Wimbledon & the River', description: 'Ride the District Line to Southfields and walk Church Road past the All England Club\'s gates, tennis\'s most famous address. Continue to the river for a South Bank afternoon — the London Eye, street performers, and a sunset drink overlooking Parliament before dinner in Borough Market\'s orbit.' },
+      { day: 'Day 3', title: 'Matchday', description: 'Whatever the calendar holds — a Premier League derby at the Emirates, a cup final at Wembley, or six hours on Henman Hill — make it the centerpiece. Arrive early, eat near the ground (pie and a pint is canonical), and let the stadium roar close out your London sports weekend.' },
+    ],
+  },
+
+  'paris': {
+    slug: 'paris',
+    city: 'Paris',
+    intro: 'Paris pairs the world\'s most romantic city with a sports calendar that now includes an Olympic legacy. Roland Garros serves clay-court tennis each spring, the Stade de France hosts football and rugby finals, and PSG\'s Parc des Princes welcomes football royalty year-round. Since the 2024 Games, the city\'s venues — from the Champ de Mars to Versailles — carry Olympic history. Add the French Open\'s two-week festival, the finale of the Tour de France on the Champs-Élysées each July, and a metro that connects it all, and Paris belongs on every sports traveler\'s list.',
+    sportsCulture: 'Paris sport is inseparable from its landmarks. Roland Garros, home of the French Open since 1891, stages tennis\'s great clay-court test each May beneath the Trocadéro\'s view of the Eiffel Tower — which itself shimmered over beach volleyball during the 2024 Olympics. The Stade de France in Saint-Denis, an 80,000-seat national stadium, has hosted World Cup finals (1998\'s France-Brazil among them), Champions League finals, and the 2024 athletics program. PSG\'s Parc des Princes on the Boulogne side draws football royalty following the Messi-Neymar-Mbappé era into a new Qatari-built chapter. Each July, the Tour de France finishes on the Champs-Élysées in one of sport\'s great free spectacles. For travelers, the compact city means a Roland Garros morning, a Parc des Princes evening, and a Seine-side dinner can all share one perfect day.',
+    majorVenues: [
+      { name: 'Stade Roland Garros', venueSlug: null },
+      { name: 'Stade de France', venueSlug: null },
+      { name: 'Parc des Princes', venueSlug: null },
+      { name: 'Accor Arena (Bercy)', venueSlug: null },
+    ],
+    eventCalendarNote: 'The French Open anchors late May and early June, the Ligue 1 season runs August to May with PSG the headliner, and the Stade de France welcomes autumn rugby internationals and football qualifiers. Each July, the Tour de France\'s final stage finishes on the Champs-Élysées — arrive early for a front-row barrier spot.',
+    airports: [
+      {
+        name: 'Paris Charles de Gaulle',
+        code: 'CDG',
+        detail: 'CDG sits 16 miles northeast of central Paris. The RER B train reaches Châtelet in about 35 minutes, buses and taxis take 45-75 minutes depending on traffic, and flat-fare taxis charge fixed rates to the Right and Left Banks. It\'s the main gateway for most international arrivals.',
+      },
+      {
+        name: 'Paris Orly',
+        code: 'ORY',
+        detail: 'Orly sits 9 miles south of the city — closer than CDG for Roland Garros and the Parc des Princes side of town. The Orlyval shuttle connects to the Antony RER station, new metro Line 14 runs to the center in about 25 minutes, and taxis take 30-45 minutes. Many European flights land here.',
+      },
+    ],
+    transportation: [
+      {
+        mode: 'Metro & RER',
+        detail: 'The Paris Métro reaches every venue: Porte d\'Auteuil for Roland Garros, Porte de Saint-Cloud for the Parc des Princes, and the RER D to Stade de France–Saint-Denis. A carnet of tickets or a Navigo Easy card cuts costs; trains run until about 1am, later on weekends.',
+      },
+      {
+        mode: 'Match-Day Closures',
+        detail: 'Stadium areas lock down vehicle access 90 minutes before big matches — police fencing surrounds the Stade de France in particular. Walk the final stretch from the metro, and follow the signed exit routes afterward rather than retracing your entry.',
+      },
+      {
+        mode: 'Taxis & Rideshare',
+        detail: 'Official taxis queue at airports and major stations with fixed fares to the center. Uber and G7 both work well in Paris, though pickup near stadiums after finals is heavily restricted — walk 10 minutes away from the ground before requesting a car.',
+      },
+    ],
+    accommodationZones: [
+      {
+        name: 'Central (1st–7th arrondissements)',
+        description: 'Staying near the Louvre, the Marais, or the Eiffel Tower area puts Paris itself at your feet and every venue within a 30-40 minute metro ride. Expect smaller rooms and higher rates, but for first-timers combining tennis, football, and tourism, the location is unbeatable.',
+        searchQuery: 'central Paris hotels',
+      },
+      {
+        name: 'Boulogne / Porte d\'Auteuil',
+        description: 'The quiet western edge of the 16th sits between Roland Garros and the Parc des Princes — both walkable on match days. Mid-range chains and aparthotels here cost far less than the center, with metro lines 9 and 10 covering the rest of the city quickly.',
+        searchQuery: 'Boulogne Paris hotels',
+      },
+      {
+        name: 'Saint-Denis / Stade de France',
+        description: 'Modern hotels cluster around the Stade de France for football and rugby finals, at the city\'s most affordable rates. The area is business-oriented and quiet outside event nights; the RER B and D whisk you to the center in 15-20 minutes.',
+        searchQuery: 'Saint-Denis hotels',
+      },
+    ],
+    travelTips: [
+      'Buy a Navigo Easy card at any station and load carnet tickets — Métro rides to Roland Garros and the Parc des Princes cost a fraction of taxi fares.',
+      'Roland Garros grounds passes go on sale to the public in March — set an alarm, and check the official resale platform closer to the tournament.',
+      'The Stade de France sits in Saint-Denis: arrive via RER, avoid the massive post-match taxi crush, and keep bags small for the security perimeter.',
+      'PSG big-match tickets sell through the club\'s official channels only; plan hospitality or a sports bar in Saint-Germain as a lively backup.',
+      'Dinner reservations after night sessions are safe after 9:30pm — Paris kitchens stay open late, especially in the 11th and Oberkampf.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'Roland Garros & the West', description: 'Start at Porte d\'Auteuil and walk the Roland Garros grounds — even outside the tournament, the public tennis center beside it lets you hit on clay just steps from the stadium. Continue through the Bois de Boulogne to the Fondation Louis Vuitton\'s glass sails, then dinner in Passy\'s village streets.' },
+      { day: 'Day 2', title: 'Icons & the Seine', description: 'Give the morning to the classics — the Eiffel Tower at opening or a Louvre sprint — then walk the Seine\'s left bank past bouquinistes. Cross to the Île de la Cité for Notre-Dame\'s reopened towers before an evening apéritif in Saint-Germain-des-Prés.' },
+      { day: 'Day 3', title: 'Matchday & Montmartre', description: 'Whether it\'s a Parc des Princes ultras night or the Stade de France under lights, make the match the centerpiece. Afterward, climb Montmartre to Sacré-Coeur for the floodlit city panorama, and end with an onion soup at a late-night brasserie.' },
+    ],
+  },
+
+  'budapest': {
+    slug: 'budapest',
+    city: 'Budapest',
+    intro: 'Budapest is Central Europe\'s great sports discovery — a Danube capital that hosted the 2026 Champions League Final at the Puskás Aréna and stages the Hungarian Grand Prix each summer on the hills above the city. Thermal baths recover your legs, ruin bars celebrate your victories, and grand 19th-century avenues connect it all at prices Western Europe forgot. Formula 1 at the Hungaroring, a raucous football culture, and a summer calendar of world events make Budapest the smart pick for a sports weekend that feels like a discovery.',
+    sportsCulture: 'Budapest punches far above its size in sport. The Puskás Aréna — named for the legendary Magyar striker — hosted the 2026 Champions League Final and the Euro 2020 round-of-16, and the Hungarian national team\'s travels through it have rekindled the country\'s 1950s Golden Team romance. Each July or August the Hungarian Grand Prix fills the twisty Hungaroring circuit 12 miles outside the city, one of F1\'s longest-standing races. The city has also staged World Athletics Championships, the World Judo Championships, and World Aquatics Championships in recent years, thanks to world-class facilities built along the Danube. Hungarian fans are famously loud — water polo matches against old rivals draw decibels football grounds would envy — and ticket prices remain among Europe\'s kindest.',
+    majorVenues: [
+      { name: 'Puskás Aréna', venueSlug: null },
+      { name: 'Hungaroring (Mogyoród)', venueSlug: null },
+      { name: 'Duna Aréna', venueSlug: null },
+      { name: 'Groupama Aréna', venueSlug: null },
+    ],
+    eventCalendarNote: 'The Hungarian Grand Prix lands each summer at the Hungaroring, the national football team plays qualifiers at the Puskás Aréna, and the city\'s aquatics heritage brings world swimming events to the Duna Aréna. Big-club friendlies pass through each July as Europe\'s giants pre-season in Austria and Hungary.',
+    airports: [
+      {
+        name: 'Budapest Ferenc Liszt International Airport',
+        code: 'BUD',
+        detail: 'BUD is 10 miles southeast of the center. The 100E airport express bus runs to Deák Ferenc tér in about 40 minutes, taxis on a fixed zone fare reach most hotels in 30-40 minutes, and the new metro extension continues to improve rail links. Low-cost carriers dominate, making Budapest one of Europe\'s cheapest sports-trip gateways.',
+      },
+    ],
+    transportation: [
+      {
+        mode: 'Metro, Trams & Buses',
+        detail: 'Budapest\'s pre-war metro — continental Europe\'s oldest — plus trams 4 and 6 and riverboats cover the city cheaply. A 72-hour travel card costs less than two taxi rides and includes the 100E airport bus. Validate tickets in the machines aboard trams and buses.',
+      },
+      {
+        mode: 'To the Hungaroring',
+        detail: 'Formula 1 weekend runs free shuttle trains from Nyugati station to Mogyoród beside the circuit — the classic fan route. Taxis take 40 minutes but gridlock near the track on race day makes the train, then a 20-minute walk, the smart call.',
+      },
+      {
+        mode: 'Match-Day Notes',
+        detail: 'Puskás Aréna sits at the end of the M3 metro at Stadionok / Puskás Ferenc Stadion station — a 10-minute walk through a park. Post-match, walk one stop toward the city before hailing; the station itself becomes a crush.',
+      },
+    ],
+    accommodationZones: [
+      {
+        name: 'Pest Inner City (District V–VII)',
+        description: 'The flat heart of Pest puts the Danube, ruin bars, and the Great Market Hall within a walk, and every venue within a 20-minute transit ride. Hotel rates remain gentle by Western standards; the Jewish Quarter\'s design hotels are the pick for atmosphere.',
+        searchQuery: 'Budapest city center hotels',
+      },
+      {
+        name: 'Around Puskás Aréna (District XIV)',
+        description: 'Modern hotels near the stadium and the City Park lake cost noticeably less than the center and put football nights a 10-minute walk away. The M1 and trolleybus network keeps you connected in minutes.',
+        searchQuery: 'Zuglo Budapest hotels',
+      },
+      {
+        name: 'Buda Side',
+        description: 'Across the river beneath the Castle, Buda is calmer and leafier — thermal baths at the Gellért and Rudas are on your doorstep for post-match recovery. Commuting to Pest venues takes 20-30 minutes but the sunsets over the Danube repay it.',
+        searchQuery: 'Buda side Budapest hotels',
+      },
+    ],
+    travelTips: [
+      'A 72-hour travel card covers every metro, tram, bus, and the airport express for less than two taxi rides — buy it at the airport machine.',
+      'Hungaroring race-day trains from Nyugati are free with your F1 ticket — queue early for the return; 100,000 fans leave within an hour of the podium.',
+      'Spend a recovery morning at Széchenyi or Gellért baths — the thermal water tradition is the perfect between-events ritual.',
+      'Hungarian forints confuse: a 10,000 note is roughly €25. Pay in forints, not euros, and let the card\'s exchange rate handle it.',
+      'Puskás Aréna\'s walk-up food is genuinely good — lángos and sausages beat any stadium pizza, so arrive hungry.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'Pest & the Ruin Bars', description: 'Walk Andrássy Avenue from the Opera to Heroes\' Square, detouring into the House of Terror museum en route. See the Puskás Aréna beside the City Park, then spend the evening hopping the Jewish Quarter\'s ruin bars — Szimpla Kert\'s garden of oddities is the classic start.' },
+      { day: 'Day 2', title: 'Buda & the Baths', description: 'Cross the Chain Bridge to the Castle District\'s ramparts and Fisherman\'s Bastion views. Descend for a two-hour soak at the Rudas or Gellért baths, and take the funicular back up for sunset over the Danube before a riverbank dinner.' },
+      { day: 'Day 3', title: 'Matchday or Hungaroring', description: 'Football at the Puskás or the Hungarian Grand Prix an hour out — either way, the Hungarian roar is the point. Return for a final night stroll across the Chain Bridge and one last goulash with a view of the Parliament lit gold.' },
+    ],
+  },
+
+  'melbourne': {
+    slug: 'melbourne',
+    city: 'Melbourne',
+    intro: 'Melbourne calls itself Australia\'s sports capital and has the receipts to prove it: the Australian Open opens the tennis year each January, the Melbourne Cup stops the nation each November, the MCG holds 100,000 for cricket and Aussie Rules, and the Albert Park circuit opens the F1 season each March. Sport is stitched into the city\'s identity — cafes fuel the mornings, laneways hide the bars, and every tram seems to run toward one stadium or another. For a sports traveler, no city offers a richer calendar in such a compact, livable frame.',
+    sportsCulture: 'Melbourne\'s obsession with sport is civic religion. The Melbourne Cricket Ground — the 100,000-seat cathedral at the heart of the sports precinct — hosts the Boxing Day Test each December, the AFL Grand Final each September, and has staged Olympic athletics and World Cup football. The Australian Open, the tennis season\'s Grand Slam opener, takes over Melbourne Park each January, its night sessions famously running past midnight in the summer heat. The Melbourne Cup, the race that literally stops the nation each November, fills Flemington with 100,000 in hats and suits. And since 1996, the Albert Park lake circuit has opened the Formula 1 season each March. A city that invented its own code of football (Australian Rules) naturally built a calendar where every month offers a world event — and a fan culture, coffee culture, and live-music scene that turn every sports trip into a full Melbourne experience.',
+    majorVenues: [
+      { name: 'Melbourne Cricket Ground', venueSlug: null },
+      { name: 'Melbourne Park (Australian Open)', venueSlug: null },
+      { name: 'Albert Park Circuit', venueSlug: null },
+      { name: 'Flemington Racecourse', venueSlug: null },
+    ],
+    eventCalendarNote: 'January brings the Australian Open\'s two weeks, March the F1 season-opener at Albert Park, September the AFL Grand Final at the MCG, November the Melbourne Cup carnival, and December the Boxing Day Test. Book 9-12 months ahead for Grand Final and Boxing Day — the city fills.',
+    airports: [
+      {
+        name: 'Melbourne Airport (Tullamarine)',
+        code: 'MEL',
+        detail: 'Tullamarine is 14 miles northwest of the city with no train link — the SkyBus runs to Southern Cross station every 10 minutes, 24 hours, in about 30-40 minutes. Taxis and rideshares cost more but deliver door-to-door in 25-45 minutes depending on traffic. For morning sessions at the Open, the SkyBus plus a short tram ride is the easy answer.',
+      },
+    ],
+    transportation: [
+      {
+        mode: 'Free Tram Zone & Myki',
+        detail: 'Melbourne\'s CBD tram zone is free — and Melbourne Park, the MCG, and Marvel Stadium all sit on its edge or within a short walk. Buy a Myki card for anything further (Albert Park, Flemington) and top up as you go.',
+      },
+      {
+        mode: 'Walking the Sports Precinct',
+        detail: 'The MCG, Melbourne Park, and AAMI Park cluster across the Yarra from the CBD — a 15-20 minute walk from Flinders Street station over the footbridge. On big days the riverside walk itself is part of the event.',
+      },
+      {
+        mode: 'F1 & Race Days',
+        detail: 'Albert Park is a 15-minute tram ride on routes 96 or 12; F1 weekend closes roads around the lake, so trams and the St Kilda Road footpaths carry everyone. Flemington has its own racecourse station on the Craigieburn line — trains run every few minutes on Cup day.',
+      },
+    ],
+    accommodationZones: [
+      {
+        name: 'CBD (Collins & Flinders Streets)',
+        description: 'The heart of the city puts the free tram zone, laneway espresso bars, and a 15-minute walk to the MCG and Melbourne Park all around you. Grand Final and Australian Open fortnights push rates up steeply, but nothing beats the convenience.',
+        searchQuery: 'Melbourne CBD hotels',
+      },
+      {
+        name: 'Southbank & South Wharf',
+        description: 'Across the Yarra from the CBD, Southbank\'s towers sit between the arts precinct and the sports precinct — the MCG and Rod Laver Arena are each a 12-15 minute walk. River-view rooms, the Crown complex\'s restaurants, and slightly gentler rates than Collins Street.',
+        searchQuery: 'Southbank Melbourne hotels',
+      },
+      {
+        name: 'St Kilda',
+        description: 'The seaside suburb, a 25-minute tram ride down Fitzroy Street, pairs beach mornings with match afternoons at a distinctly lower price. Albert Park\'s F1 gates are a short ride away, and Acland Street\'s cake shops and bars handle the evenings.',
+        searchQuery: 'St Kilda hotels',
+      },
+    ],
+    travelTips: [
+      'Use the Free Tram Zone for everything in the CBD and to reach the MCG and Melbourne Park — no Myki needed until you head to Albert Park or St Kilda.',
+      'Australian Open night sessions start late — book a 9pm dinner nearby rather than before; Rod Laver Arena keeps serving past midnight.',
+      'January is high summer: sunburn is real at the Open, so take a hat, sunscreen, and a refillable bottle for the water stations.',
+      'Grand Final week and the two weeks of the Open fill the CBD — book rooms months ahead or stay in St Kilda and ride the 96 tram.',
+      'Order a piccolo or flat white, not a \'latte\' — Melbourne coffee culture is serious, and the laneway roasters are the best on earth.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'CBD Laneways & MCG', description: 'Explore the laneways off Flinders Lane — espresso at Degraves, street art in AC/DC Lane — then cross the footbridge to the MCG for a guided tour through the Long Room and onto the hallowed turf. Evening drinks on a rooftop overlooking the sports precinct.' },
+      { day: 'Day 2', title: 'Australian Open or St Kilda', description: 'A Grand Slam day at Melbourne Park — ground passes let you roam every outside court and the giant screens, with evening sessions on Rod Laver to close. Out of season, take tram 96 to St Kilda for the beach, the pier penguins at dusk, and cake shops on Acland Street.' },
+      { day: 'Day 3', title: 'Albert Park & Southbank', description: 'Walk the Albert Park lake circuit the drivers race each March, with the city skyline across the water, then return via Southbank\'s riverside bars and the NGV gallery. A final steak on the river and a walk over Princes Bridge close the weekend.' },
+    ],
+  },
+
+  'miami': {
+    slug: 'miami',
+    city: 'Miami',
+    intro: 'Miami has become America\'s sports-meets-beach capital — home to the Formula 1 Miami Grand Prix at Hard Rock Stadium, the Miami Open tennis on Key Biscayne\'s shores, Inter Miami\'s Messi era, and the Miami Heat\'s downtown fortress. Add F1\'s paddock-club glamour, Art Deco mornings on Ocean Drive, and a Latin food scene that runs late, and the city works as both world-class sports host and tropical holiday. This guide covers the calendar, the stadium shuttle logistics, and the neighborhoods that make a Miami sports weekend effortless.',
+    sportsCulture: 'Miami\'s sports transformation has been dramatic. Hard Rock Stadium in Miami Gardens — home of the Dolphins and the Miami Open\'s new tennis home — built a purpose campus around the Formula 1 Miami Grand Prix, which since 2022 has run each May through the parking lots\' custom circuit with a beach-club infield and Formula 1\'s biggest American crowds. Downtown, the Miami Heat\'s Kaseya Center holds three championship banners from the Wade-LeBron era, and Inter Miami\'s arrival of Lionel Messi in 2023 made Chase Stadium in Fort Lauderdale the hottest ticket in MLS — with global fans flying in weekly. The city also hosts the Orange Bowl college classic each December and has staged Super Bowls a record-tying eleven times. For travelers, the draw is simple: world events with a beach holiday attached.',
+    majorVenues: [
+      { name: 'Hard Rock Stadium', venueSlug: null },
+      { name: 'Kaseya Center', venueSlug: null },
+      { name: 'Chase Stadium (Fort Lauderdale)', venueSlug: null },
+      { name: 'Miami International Autodrome', venueSlug: null },
+    ],
+    eventCalendarNote: 'The F1 Miami Grand Prix lands each early May, the Miami Open tennis precedes it each spring, Inter Miami\'s MLS season runs February to October, the Heat play October to April, and the Orange Bowl closes the college football year each December. Winter is the sweet spot: perfect weather, full calendar.',
+    airports: [
+      {
+        name: 'Miami International Airport',
+        code: 'MIA',
+        detail: 'MIA sits just 7 miles west of downtown — among the closest major airports to any American city center. The MIA Mover connects to the Metrorail Orange Line (20 minutes to downtown), taxis and rideshares cost a flat zone fare, and the ride to South Beach runs 25-40 minutes depending on the causeway. F1 weekend adds special event shuttles from MIA and downtown.',
+      },
+    ],
+    transportation: [
+      {
+        mode: 'Metrorail & Brightline',
+        detail: 'The Orange Line links MIA to downtown, where the free Metromover loops the arena district. Brightline\'s express trains connect Miami to Fort Lauderdale and West Palm Beach in 30 and 60 minutes — the smart move for Inter Miami matches at Chase Stadium.',
+      },
+      {
+        mode: 'F1 Miami Shuttle System',
+        detail: 'Hard Rock Stadium sits 15 miles north of downtown in Miami Gardens; F1 weekend bans general parking without a pass. The race runs park-and-ride shuttles from downtown, the beach, and MIA — book them with your ticket and skip driving entirely.',
+      },
+      {
+        mode: 'Rideshare Reality',
+        detail: 'Surge pricing after events is fierce: a post-race rideshare from Hard Rock can triple. Walk to the designated pickup zones, wait out the first 20-minute crush, or pre-book a private transfer for the must-leave-now moments.',
+      },
+    ],
+    accommodationZones: [
+      {
+        name: 'South Beach',
+        description: 'The Art Deco district puts the beach, Ocean Drive\'s cafes, and the quintessential Miami mornings at your door — with the arena 20 minutes away downtown and event shuttles stopping nearby. Rates spike on race and Heat playoff weekends; book early or stay a few blocks west.',
+        searchQuery: 'South Beach Miami hotels',
+      },
+      {
+        name: 'Brickell / Downtown',
+        description: 'The financial district\'s towers pair business-class hotels with the Kaseya Center a 10-minute walk away — the pick for Heat games and F1 weekend shuttles to Hard Rock. rooftop bars and the Metromover make a car unnecessary.',
+        searchQuery: 'Brickell Miami hotels',
+      },
+      {
+        name: 'Fort Lauderdale',
+        description: 'For Inter Miami matches at Chase Stadium, staying near Fort Lauderdale puts you 10 minutes from the ground — and Brightline trains cover the Miami run in 30 minutes when the calendar calls you south. Airport-hotel rates here undercut Miami Beach meaningfully.',
+        searchQuery: 'Fort Lauderdale hotels',
+      },
+    ],
+    travelTips: [
+      'F1 Miami has no general parking — book the official shuttles from downtown or the beach with your tickets, and leave the rental at the hotel.',
+      'Inter Miami tickets sell out for Messi-era matches: buy through the club\'s official resale the moment your dates firm up.',
+      'Miami Beach parking runs $40-60 a night even at hotels; the South Beach stays, Metromover downtown, and rideshare the gaps.',
+      'May race weekends and March tennis mean 88°F humidity — sunscreen, water, and an early arrival for the paddock walkabout.',
+      'The Heat\'s Kaseya Center sits across from Bayside Marketplace — combine a game with the waterfront marketplace\'s open-air bars.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'South Beach & Ocean Drive', description: 'Start with an Art Deco walking tour along Ocean Drive, then the beach itself — swim, people-watch, and rent a bike for the boardwalk to South Pointe. Watch sunset over the downtown skyline from South Pointe Park, then dinner in the Española Way\'s outdoor cafes.' },
+      { day: 'Day 2', title: 'Event Day at Hard Rock', description: 'Whether it\'s F1\'s Miami Grand Prix or a Dolphins game, take the shuttle north to the Hard Rock campus — arrive early for the infield beach club or tailgate, and stay for the post-event concerts. Return to the beach for a late ceviche dinner.' },
+      { day: 'Day 3', title: 'Little Havana & Wynwood', description: 'Spend the morning in Little Havana — cafecitos on Calle Ocho, dominoes at Máximo Gómez Park — then the Wynwood Walls\' street-art sprawl and brewery afternoons. A final stone crab dinner at a classic seafood hall closes it out.' },
+    ],
+  },
+
+  'monte-carlo': {
+    slug: 'monte-carlo',
+    city: 'Monte Carlo',
+    intro: 'Monte Carlo is Formula 1\'s crown jewel — the harbor, the hairpin, the yachts, and a principality that has run the Monaco Grand Prix since 1929, making it the oldest race on the calendar. Beyond the circuit, Monaco stages the Monte-Carlo Rolex Masters tennis each spring, the Herculis athletics meet, and a lifestyle — casinos, opera, cliffside museums — that turns any sports weekend into a Riviera occasion. Compact to the point of absurdity, everything walks to everything, and Nice\'s airport is 30 minutes along the corniche.',
+    sportsCulture: 'The Monaco Grand Prix is the race every driver grew up dreaming of — 78 laps of the tightest street circuit in Formula 1, where the barriers line the Mediterranean and the harbor below fills with superyachts for race week. The Automobile Club de Monaco has run it since 1929, and the event\'s heritage — Senna\'s six wins, the Loews hairpin\'s chaos, the tunnel\'s glare — gives it a gravity no newer race matches. Each April the Monte-Carlo Country Club hosts the Rolex Masters on clay, one of tennis\'s most scenic stops at the edge of the sea, while the principality\'s Stade Louis II hosts AS Monaco football, the 2004 Champions League finalists. The Herculis, one of athletics\' historic meets, fills the same stadium each summer. For travelers, Monaco is small enough that a morning swim, an afternoon at the track, and a black-tie casino night can all share one day.',
+    majorVenues: [
+      { name: 'Circuit de Monaco', venueSlug: null },
+      { name: 'Monte-Carlo Country Club', venueSlug: null },
+      { name: 'Stade Louis II', venueSlug: null },
+      { name: 'Grimaldi Forum', venueSlug: null },
+    ],
+    eventCalendarNote: 'The Monaco Grand Prix lands each late May or early June, the Rolex Masters tennis each April, AS Monaco\'s Ligue 1 season runs August to May, and the Herculis athletics meet each July. Book race weekend a year ahead — the principality triples in size.',
+    airports: [
+      {
+        name: 'Nice Côte d\'Azur Airport',
+        code: 'NCE',
+        detail: 'Nice (NCE) sits 14 miles southwest of Monaco in France — the only practical airport. Helicopter transfers run every few minutes in 7 minutes to Monaco\'s heliport (from €150), the 110/100 buses take about 75-90 minutes, and the Ligne d\'Azur 100 along the corniche costs just a couple of euros. Trains from Nice run twice an hour to Monte Carlo in 20 scenic minutes.',
+      },
+    ],
+    transportation: [
+      {
+        mode: 'On Foot',
+        detail: 'Monaco is 500 acres — everything central walks to everything else, including most grandstands. Public elevators and escalators connect the tiers of the principality, so trust the signage\'s lifts rather than the maps\' streets.',
+      },
+      {
+        mode: 'Trains from France',
+        detail: 'The train line from Nice and Menton runs right through the rock beneath Monaco — the station exits directly onto the port and the circuit\'s heart. Race weekend trains run late and often; the walk from the platform to most grandstands is under 15 minutes.',
+      },
+      {
+        mode: 'Race-Weekend Closures',
+        detail: 'Grand Prix week closes the circuit roads from Tuesday before Sunday\'s race, and the entire route becomes pedestrian-only. Cross the track only via the signed bridges and tunnels — and expect the harbor front\'s security queues on race morning.',
+      },
+    ],
+    accommodationZones: [
+      {
+        name: 'Monaco (Monte Carlo & Port)',
+        description: 'The principality\'s hotels — the Hermitage, the Métropole, the Fairmont at the hairpin — run princely for race week, but put you inside the circuit. For the Grand Prix experience itself, staying on the route means walking from bed to grandstand and skipping the cross-border crush entirely.',
+        searchQuery: 'Monte Carlo hotels',
+      },
+      {
+        name: 'Nice & Villefranche',
+        description: 'France\'s nearby city offers a quarter of Monaco\'s hotel prices and a 20-minute train along the corniche to the circuit. Villefranche-sur-Mer\'s waterfront is the romantic middle ground — the train stops there too.',
+        searchQuery: 'Nice France hotels',
+      },
+      {
+        name: 'Menton & the Italian Border',
+        description: 'East along the coast toward Italy, Menton\'s lemon-colored town offers the region\'s best value and a 15-minute train ride into Monaco. A quieter base that suits travelers pairing the Grand Prix with Riviera slow-mornings.',
+        searchQuery: 'Menton hotels',
+      },
+    ],
+    travelTips: [
+      'Grand Prix grandstands sell out nearly a year ahead — book via the Automobile Club de Monaco or the official agents the week after the race for the following year.',
+      'Skip the helicopter if budget-minded: the €2 bus along the corniche from Nice is one of travel\'s great scenic bargains.',
+      'The casino requires passport and jacket after 2pm — sightsee by day, and note the gambling rooms themselves open only in the evening.',
+      'Race Sunday, cross the track only at the signed bridges — the tunnel under the Fairmont hairpin saves 20 minutes of detour.',
+      'Monaco\'s elevators are the transit secret: from the port up to the Casino square, the free public lifts beat any taxi.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'The Circuit & the Casino', description: 'Walk the Grand Prix circuit at human speed — the start line, Ste Devote, up the Beau Rivage to the Casino square, then the Mirabeau descent to the Fairmont hairpin. Evening brings the Casino square\'s lights and dinner at the Café de Paris\'s terrace.' },
+      { day: 'Day 2', title: 'The Rock & the Palace', description: 'Climb (or elevator) to the old town — the Prince\'s Palace changing of the guard at 11:55am, the Cathedral where Grace Kelly lies, and the Oceanographic Museum\'s cliffside aquariums. Descend to the port for sunset among the superyachts.' },
+      { day: 'Day 3', title: 'Race Day or Riviera', description: 'On Grand Prix Sunday, take your grandstand seat early and let 78 laps of history decide your day\'s rhythm. Off-season, ride the train to Villefranche for a beach afternoon and return for opera at the Grimaldi Forum or baccarat at the Casino.' },
+    ],
+  },
+
+  'indianapolis': {
+    slug: 'indianapolis',
+    city: 'Indianapolis',
+    intro: 'Indianapolis is the Racing Capital of the World — home of the Indianapolis 500, the largest single-day sporting event on earth, held each Memorial Day weekend at the 2.5-mile oval that has run since 1909. Beyond the Speedway, Indy hosts the NBA\'s Pacers and WNBA\'s Fever at Gainbridge Fieldhouse (where Caitlin Clark now sells out every night), the Colts downtown, and a walkable, affordable downtown built around Monument Circle. For racing fans, May in Indianapolis — Rookie Orientation, qualifications, Carb Day, the 500 itself — is a month-long pilgrimage.',
+    sportsCulture: 'The Indianapolis Motor Speedway is the reason the city exists on the sports map: 257 acres holding the world\'s largest sporting facility, where the Indianapolis 500 has run 109 editions each May since 1911 and the Yard Bricks\' kissing tradition follows every victory. The Speedway also hosts the NASCAR Brickyard 400 each summer and ran Formula 1\'s United States Grand Prix on its infield road course from 2000 to 2007. Downtown, the Pacers\' Gainbridge Fieldhouse is regarded as one of the NBA\'s best arenas — and with Caitlin Clark\'s arrival, the WNBA\'s Fever have made it women\'s basketball\'s hottest ticket. The Colts\' Lucas Oil Stadium, with its retractable roof and moving window wall, hosted the Super Bowl in 2012. Indy also stages the largest single-day half marathon and the NFL Scouting Combine each winter, making it a year-round sports city where the cost of attending remains strikingly reasonable.',
+    majorVenues: [
+      { name: 'Indianapolis Motor Speedway', venueSlug: null },
+      { name: 'Gainbridge Fieldhouse', venueSlug: null },
+      { name: 'Lucas Oil Stadium', venueSlug: null },
+      { name: 'Hinkle Fieldhouse', venueSlug: null },
+    ],
+    eventCalendarNote: 'May belongs to the 500 — Rookie Orientation, Fast Friday, Pole Day, Carb Day, and the race on Memorial Day weekend. The NBA and WNBA run October to June (the Fever draw sellouts), the Colts August to January, and the NASCAR Brickyard 400 lands mid-summer.',
+    airports: [
+      {
+        name: 'Indianapolis International Airport',
+        code: 'IND',
+        detail: 'IND is 7 miles southwest of downtown — a clean, modern airport with an 8-10 minute drive to most downtown hotels once you\'re moving. The IndyGo bus 8 runs downtown for a couple of dollars, taxis and rideshares cost $25-35, and race-day shuttle buses run to the Speedway from the airport and downtown hotels.',
+      },
+    ],
+    transportation: [
+      {
+        mode: 'Downtown on Foot',
+        detail: 'Indy\'s downtown is genuinely walkable — Monument Circle, Gainbridge Fieldhouse, and Lucas Oil all sit within 15 minutes of each other. The Cultural Trail\'s bike-and-pedestrian path loops the whole center; use the Pacers bikeshare to cover it faster.',
+      },
+      {
+        mode: 'Race Day to the Speedway',
+        detail: 'The Speedway sits 5 miles west of downtown; race-day traffic on 16th Street starts hours before gates. The Speedway and IndyGo run shuttle buses from downtown and the airport, and walking from nearby neighborhoods is a tradition — the whole town becomes a pedestrian zone on 500 morning.',
+      },
+      {
+        mode: 'Rideshare & Parking',
+        detail: 'Downtown event parking runs $20-40 and fills an hour before tipoff. Race morning, expect rideshare surge to multiply and drivers to refuse Speedway drop-offs entirely — the shuttles and an early arrival are the sane strategy.',
+      },
+    ],
+    accommodationZones: [
+      {
+        name: 'Downtown / Monument Circle',
+        description: 'The downtown core puts the Fieldhouse, Lucas Oil, and the Cultural Trail within a 10-minute walk, with race shuttles departing from surrounding hotels. May 500-weekend rates triple, but the walkability makes it worth every dollar.',
+        searchQuery: 'downtown Indianapolis hotels',
+      },
+      {
+        name: 'Speedway / West Side',
+        description: 'Staying near the track itself — 10 minutes west of downtown — puts you walking distance from Turn 1 or the museum, with locals renting driveways as grandstands. It\'s the true race-fan move for 500 weekend.',
+        searchQuery: 'Speedway Indiana hotels',
+      },
+      {
+        name: 'Broad Ripple',
+        description: 'The city\'s nightlife district, 15 minutes north, pairs bars and live music with Monon Trail jogs and cheaper boutique hotels. A young, lively base for race weekend groups.',
+        searchQuery: 'Broad Ripple hotels',
+      },
+    ],
+    travelTips: [
+      'Buy 500 tickets directly from the Speedway\'s official site — the cheapest seats in Turn 3 still deliver the full spectacle for under $100.',
+      'Gate 1 parking and neighborhood driveways sell out race morning by 6am; take the shuttle or plan a two-mile walk with 300,000 new friends.',
+      'May weather swings from 50°F mornings to 85°F afternoons — pack layers for the 500\'s long day.',
+      'The Speedway Museum deserves two hours on any non-race day; the Marmon Wasp that won in 1911 is the holy grail.',
+      'Fever tickets sell out fast post-Caitlin Clark — book Gainbridge nights the moment your Indy dates firm up.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'Downtown & the Fieldhouse', description: 'Walk Monument Circle and the War Memorial\'s soaring shrine, then catch a Pacers or Fever game at Gainbridge Fieldhouse — the loudest building in the league on big nights. Dinner follows in the Mass Ave arts district\'s restaurants and breweries.' },
+      { day: 'Day 2', title: 'The Speedway', description: 'Spend the day at the Indianapolis Motor Speedway — the museum, the Hall of Fame, and a lap of the oval on the grounds tour that lets you kiss the Yard of Bricks. In May, time it for qualifications\' Fast Friday electricity instead.' },
+      { day: 'Day 3', title: 'Race Day or Museums', description: 'On Memorial Day weekend, join the 300,000 for the 500 — the singing of \'Back Home Again in Indiana\' at the start is worth the ticket alone. Otherwise, the Children\'s Museum (the world\'s largest) and Newfields\' art gardens close the weekend gently.' },
+    ],
+  },
+
+  'louisville': {
+    slug: 'louisville',
+    city: 'Louisville',
+    intro: 'Louisville is the home of the Kentucky Derby — 151 years of the Fastest Two Minutes in Sports at Churchill Downs each first Saturday in May, when 150,000 in hats and seersucker arrive and the city becomes the center of the sporting world for a weekend. The Derby is the anchor, but Louisville also pours bourbon on the Urban Bourbon Trail, swings bats at the Louisville Slugger Museum, and stages the world\'s largest fireworks show each spring. An affordable, walkable, genuinely friendly city — Derby weekend excepted — it is the perfect sports-trip blend of spectacle and Southern hospitality.',
+    sportsCulture: 'Churchill Downs has run the Kentucky Derby since 1875 — the longest continuously held major sporting event in America — and the twin spires above the grandstand have watched Secretariat, Seattle Slew, American Pharoah, and every legend of the Triple Crown\'s first leg. Derby weekend is a civic institution: Thurby and Oaks Day fill the week before, the balloon race and the largest annual fireworks show light the skies, and 150,000 people pack the infield and stands on Saturday. But Louisville is more than one race. The Louisville Cardinals anchor college sports, the Bat Cats draw college baseball crowds, and the city\'s boxing heritage — birthplace of Muhammad Ali — is enshrined in a namesake museum downtown. The Bourbon Trail\'s distilleries and the Urban Bourbon Trail\'s bars turn any race weekend into a proper Kentucky experience, with mint juleps at the track and barrel-aged pours after.',
+    majorVenues: [
+      { name: 'Churchill Downs', venueSlug: null },
+      { name: 'KFC Yum! Center', venueSlug: null },
+      { name: 'L&N Federal Credit Union Stadium', venueSlug: null },
+      { name: 'Muhammad Ali Center', venueSlug: null },
+    ],
+    eventCalendarNote: 'The Derby runs the first Saturday each May, with Churchill\'s spring meet filling late April and the Fall Weekend of Racing (including the Breeders\' Cup in some years) closing the season. The Cardinals\' football and basketball seasons run September to March.',
+    airports: [
+      {
+        name: 'Louisville Muhammad Ali International Airport',
+        code: 'SDF',
+        detail: 'SDF is just 6 miles from downtown — one of America\'s closest major airports to a city center, with UPS Worldport making it a major cargo hub too. Taxis and rideshares reach downtown hotels in 12-15 minutes for about $20-25, and Derby weekend adds special shuttle routes to Churchill Downs from downtown and the airport.',
+      },
+    ],
+    transportation: [
+      {
+        mode: 'Downtown to Churchill Downs',
+        detail: 'Churchill Downs sits 3 miles south of downtown — a 12-minute drive, a $12-15 rideshare, or a 30-minute walk through Old Louisville\'s Victorian mansions that\'s a Derby tradition itself. Derby day closes Central Avenue, so walk or take the shuttle.',
+      },
+      {
+        mode: 'Trolleys & Buses',
+        detail: 'The Louisville Loop\'s riverfront trail and the downtown trolley connect the Slugger Museum, the Ali Center, and Whiskey Row — the core sights cluster tightly. Rent a bikeshare for the Ohio riverfront\'s parks.',
+      },
+      {
+        mode: 'Derby-Day Chaos',
+        detail: 'Derby Saturday moves 150,000 people: rideshare surge hits 4-5x and the roads around the track gridlock by mid-morning. The traditional answer is walking — thousands stream down Fourth Street from downtown in their hats — and the shuttle buses from the fairgrounds.',
+      },
+    ],
+    accommodationZones: [
+      {
+        name: 'Downtown / Whiskey Row',
+        description: 'Riverfront hotels near the Slugger Museum and Fourth Street Live put the bars, the museums, and the walks to Churchill within easy reach. Derby weekend books out a year ahead; every other weekend, the same rooms run pleasantly cheap.',
+        searchQuery: 'downtown Louisville hotels',
+      },
+      {
+        name: 'Old Louisville',
+        description: 'The Victorian mansion district between downtown and Churchill Downs is the Derby connoisseur\'s stay — historic B&Bs in restored homes, a 25-minute walk to the track, and the prettiest streets in the city for your morning coffee.',
+        searchQuery: 'Old Louisville bed and breakfast',
+      },
+      {
+        name: 'Airport / Hurstbourne',
+        description: 'The east-side corridor near I-64 offers dependable chain hotels at gentle rates and a 15-20 minute drive to everything. Best for race weekends when downtown is booked — book early even here.',
+        searchQuery: 'Louisville Kentucky hotels',
+      },
+    ],
+    travelTips: [
+      'Book Derby weekend 9-12 months out — downtown hotels sell out and then reprice dramatically; Old Louisville\'s B&Bs often have waiting lists.',
+      'General admission to the Derby infield runs remarkably cheap — the party is chaotic, glamorous, and utterly unique; grandstand seats cost far more.',
+      'Oaks Day (Friday) is Louisville\'s own day at the track — better hats, fewer visitors, and the same thoroughbreds.',
+      'Make Bourbon Trail distillery reservations well ahead for Derby week — Buffalo Trace and Angel\'s Envy book out first.',
+      'The walk from downtown to Churchill Downs through Old Louisville is the classic pre-Derby move: a hat parade past gingerbread mansions.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'Bourbon & the Slugger', description: 'Start at the Louisville Slugger Museum\'s 120-foot bat, then walk Whiskey Row\'s distilleries — Angel\'s Envy\'s copper stills and the Evan Williams Bourbon Experience. Evening: live music on Fourth Street Live and a Hot Brown, the city\'s signature open-faced turkey masterpiece.' },
+      { day: 'Day 2', title: 'Churchill Downs', description: 'Spend the day at the track — the Kentucky Derby Museum\'s walking tour takes you to the paddock and the finish line, and on live racing days the Millionaires Row seats serve lunch over the winner\'s circle. Sunset mining-juleps on the museum\'s porch is the city\'s most pleasant hour.' },
+      { day: 'Day 3', title: 'Derby or the Riverfront', description: 'On the first Saturday of May, join 150,000 for the Run for the Roses — hats, bugles, and two minutes that justify the whole trip. Otherwise, the Muhammad Ali Center and a bourbon-barrel-aged afternoon on the Urban Bourbon Trail close your Louisville weekend.' },
+    ],
+  },
+
+  'limerick': {
+    slug: 'limerick',
+    city: 'Limerick',
+    intro: 'Limerick is Ireland\'s sporting soul — the rugby city that thunders at Thomond Park, and now the host region for the 2027 Ryder Cup at Adare Manor, when golf\'s greatest team event comes to County Limerick for the first time in Irish history. The city sits on the Shannon with King John\'s Castle, a medieval quarter, and the food scene of a town ten times richer. With Dublin two hours east and Shannon Airport twenty minutes west, Limerick is the natural base for the 2027 Ryder Cup and the friendliest sports-mad city in Europe.',
+    sportsCulture: 'Limerick\'s identity is rugby. Munster Rugby\'s Thomond Park — a 26,000-seat fortress on the north side — is the spiritual home of Irish rugby, where Munster famously beat the All Blacks in 1978 and silence before kickoffs is a sacred tradition. The city\'s schools and clubs produce internationals with startling regularity, and match nights at Thomond shake the suburbs. Golf is the other pillar: Adare Manor, the Robert Trent Jones Sr.-designed parkland masterpiece rebuilt at vast expense, hosts the 2027 Ryder Cup — Europe vs the United States, September 2027, the first Ryder Cup on Irish soil outside Dublin. Limerick also fields hurling and Gaelic football powers in the GAA — the county hurlers won five All-Irelands in six years through 2023 — filling the Gaelic Grounds with 45,000 for championship Sundays. Horse racing at Limerick Racecourse and a growing food-and-craft scene round out a city that treats sport as its civic religion.',
+    majorVenues: [
+      { name: 'Thomond Park', venueSlug: null },
+      { name: 'Adare Manor (Ryder Cup 2027)', venueSlug: null },
+      { name: 'Limerick GAA Grounds', venueSlug: null },
+      { name: 'Limerick Racecourse', venueSlug: null },
+    ],
+    eventCalendarNote: 'Munster Rugby\'s URC and Champions Cup fixtures run September to May at Thomond Park, the GAA hurling championship fills the Gaelic Grounds each summer, and the city counts down to the 2027 Ryder Cup at Adare Manor each September. Adare village\'s golf season builds through 2026.',
+    airports: [
+      {
+        name: 'Shannon Airport',
+        code: 'SNN',
+        detail: 'Shannon sits 15 miles west of Limerick — 25 minutes by car, with direct US preclearance flights from New York, Boston, and Chicago. Buses run to Limerick\'s city center hourly, taxis cost about €45, and rental cars cover the region. It\'s the natural golf-trip gateway, with Adare 40 minutes south.',
+      },
+      {
+        name: 'Dublin Airport',
+        code: 'DUB',
+        detail: 'Dublin, 2 hours east by motorway, offers far more transatlantic routes and often cheaper fares. Direct buses and trains connect to Limerick every hour, and the drive through the midlands is straightforward. For Ryder Cup 2027, expect heavy demand and shuttle schemes from both airports.',
+      },
+    ],
+    transportation: [
+      {
+        mode: 'Walking the City',
+        detail: 'Limerick\'s core — King John\'s Castle, the medieval quarter, the Milk Market, O\'Connell Street — walks comfortably in an hour. Thomond Park sits 20 minutes north on foot from the center; match nights close the approach roads to traffic.',
+      },
+      {
+        mode: 'To Adare Manor',
+        detail: 'Adare village is 25 minutes southwest on the N21 — buses run a few times daily, taxis cost about €35, and Ryder Cup 2027 will run park-and-ride shuttles from Limerick city and Shannon. Book accommodation in Limerick city over Adare itself for choice.',
+      },
+      {
+        mode: 'Buses & Trains',
+        detail: 'Bus Éireannon\'s city network and the Dublin-Limerick coaches cover the region cheaply. The Colbert station hub connects trains to Dublin (2 hours) and Cork (1.5 hours) — a simple base for pairing Munster rugby with weekend travel.',
+      },
+    ],
+    accommodationZones: [
+      {
+        name: 'City Center (O\'Connell Street)',
+        description: 'Riverside hotels and guesthouses near King John\'s Castle put the Milk Market, the medieval quarter, and the pubs of Catherine Street in a five-minute walk, with Thomond Park 20 minutes on foot. The practical base for rugby weekends and Ryder Cup shuttle departures.',
+        searchQuery: 'Limerick city centre hotels',
+      },
+      {
+        name: 'Adare Village',
+        description: 'Ireland\'s prettiest village — thatched cottages, the Adare Manor estate, and two golf courses — sits 25 minutes from the city. Book very early for Ryder Cup 2027; every room in the village is long committed, but cancellations reappear.',
+        searchQuery: 'Adare Ireland hotels',
+      },
+      {
+        name: 'Shannon / Ennis Road',
+        description: 'Hotels along the N18 corridor toward Shannon Airport price gently and put the airport 20 minutes away — a sensible final-night base for early departures. Chain hotels and manor-house properties mix here.',
+        searchQuery: 'Shannon Ireland hotels',
+      },
+    ],
+    travelTips: [
+      'Ryder Cup 2027 tickets run via the official ballot — register early with the PGA of America and Ryder Cup Europe; Irish demand will be historic.',
+      'Thomond Park\'s silence during kicks is legendary — respect the tradition and you\'ll be welcomed like family; sing along the rest of the match.',
+      'Book Adare and Limerick accommodation for 2027 the moment your ballot lands; the region will sell out for the Ryder Cup fortnight.',
+      'The Milk Market\'s Saturday food stalls are the best breakfast in the city — brown bread, Clonakilty pudding, and proper coffee.',
+      'Rent a car for the golf courses of the Shannon region — Ballybunion and Lahinch are each within 90 minutes\' spectacular drive.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'Medieval Quarter & Thomond', description: 'Start at King John\'s Castle\'s ramparts and the medieval quarter\'s lanes, then the Milk Market\'s producers. Evening: a Munster match at Thomond Park if the calendar cooperates — 26,000 singing \'Fields of Athenry\' is Irish sport distilled.' },
+      { day: 'Day 2', title: 'Adare Manor & Village', description: 'Drive or bus to Adare: the village\'s thatched main street, then the Adare Manor estate — walk the grounds, book afternoon tea, and imagine the Ryder Cup\'s 2027 first tee. Continue to the Cliffs of Moher an hour west for the Atlantic finale.' },
+      { day: 'Day 3', title: 'Shannon River & Pubs', description: 'A riverboat cruise under Limerick\'s bridges or a salmon-fishing morning on the Shannon, then a farewell pub crawl — the Locke Bar\'s trad sessions and Nancy Blake\'s — with the county\'s hurlers on the TV and a pint of the black stuff.' },
+    ],
+  },
+
+  'st-andrews': {
+    slug: 'st-andrews',
+    city: 'St Andrews',
+    intro: 'St Andrews is the home of golf — the Old Course has been played since the 15th century, the R&A writes the rules from beside the 1st tee, and The Open returns each July every five years or so, with 2027\'s championship bringing the world back to the game\'s birthplace. Beyond the links, the town is a Scottish university jewel: ruins of a cathedral, beaches where Chariots of Fire ran, and fish-and-chip shops that have fed champions for a century. Edinburgh is an hour away, and every golf pilgrimage on earth eventually leads here.',
+    sportsCulture: 'Golf has been played at St Andrews for six centuries — the Old Course\'s shared fairways and double greens, the Swilcan Bridge every golfer photographs, and the Road Hole\'s cursed 17th make it the sport\'s Vatican. The R&A clubhouse, the game\'s governing body, overlooks the 1st tee, and The Open Championship, golf\'s oldest major, has been staged here more times than anywhere — 30 and counting, with the 2027 Open bringing the championship home again. But the town breathes sport beyond the links: the University of St Andrews, Scotland\'s oldest, fields teams in everything from shinty to rugby, the West Sands\' two miles of beach host runners and kite-surfers, and the East Sands\' swimming club takes the North Sea year-round in the Scottish tradition. For travelers, the miracle of St Andrews is the Old Course\'s public status: with a ballot and patience, anyone can play it — a rarity among the world\'s great courses.',
+    majorVenues: [
+      { name: 'The Old Course', venueSlug: null },
+      { name: 'St Andrews Links (Jubilee/New)', venueSlug: null },
+      { name: 'R&A World Golf Museum', venueSlug: null },
+      { name: 'West Sands Beach', venueSlug: null },
+    ],
+    eventCalendarNote: 'The Open Championship returns to the Old Course in July 2027 — the town triples in size and books out years ahead. The Alfred Dunhill Links Championship each autumn brings the European Tour, and the university\'s sports calendar fills the spring and autumn terms.',
+    airports: [
+      {
+        name: 'Edinburgh Airport',
+        code: 'EDI',
+        detail: 'Edinburgh is the nearest major airport, 50 miles south — about 1 hour 15 minutes by car, or the frequent buses and trains to Leuchars station (10 minutes from St Andrews) via Edinburgh. Rental cars, taxis, and Open Championship shuttles cover the route; during the 2027 Open, book parking and transfers months ahead.',
+      },
+    ],
+    transportation: [
+      {
+        mode: 'On Foot',
+        detail: 'St Andrews is a mile across — the Old Course, the town center, the ruins, and both beaches all walk from any hotel. The pilgrim\'s approach, walking the Links to the 1st tee at dawn, is the essential first experience.',
+      },
+      {
+        mode: 'Trains & Buses',
+        detail: 'Leuchars station, 4 miles away, connects to Edinburgh (1 hour) and Dundee (10 minutes) — a connecting bus or taxi covers the final leg. The Open runs special shuttle buses from Leuchars and park-and-rides for championship week.',
+      },
+      {
+        mode: 'The Golf Ballot',
+        detail: 'The Old Course\'s daily ballot for public tee times closes 48 hours ahead — apply through the Links Trust\'s official site, and have the New and Jubilee courses as backups. Championship week obviously suspends play.',
+      },
+    ],
+    accommodationZones: [
+      {
+        name: 'Town Center (North Street/South Street)',
+        description: 'Guesthouses and small hotels in the medieval core put the Old Course\'s 1st tee, the R&A clubhouse, and the fish-and-chip institution of the town all within a five-minute walk. Book 12+ months out for Open Championship years.',
+        searchQuery: 'St Andrews town centre hotels',
+      },
+      {
+        name: 'Old Course Hotel Side',
+        description: 'The famous roadside hotel — and the neighboring Hamilton Grand — sit directly over the 17th Road Hole. Pricey at any time, priceless in championship years, and within earshot of every historic roar.',
+        searchQuery: 'Old Course Hotel St Andrews',
+      },
+      {
+        name: 'Edinburgh Commuter Base',
+        description: 'St Andrews books out entirely for The Open — the classic move is an Edinburgh hotel and the 1-hour train/shuttle each morning. The city\'s restaurants and festivals give the evenings extra range.',
+        searchQuery: 'Edinburgh hotels',
+      },
+    ],
+    travelTips: [
+      'The Old Course ballot closes 48 hours ahead — apply online the moment your dates are set, and list alternate courses to guarantee links golf.',
+      'The Open 2027 at St Andrews will book every bed in Fife — reserve Edinburgh accommodation and shuttle tickets as your fallback now.',
+      'Walk the Old Course Sunday morning when play is permitted-free — the entire links becomes a public park, one of golf\'s great privileges.',
+      'The R&A World Golf Museum beside the 1st tee is essential on a rain afternoon — 500 years of the game in one hour.',
+      'Book dinner reservations in town for championship week; the local restaurants, from The Seafood Ristorante to the Dunvegan pub by the 16th, fill completely.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'The Old Course Pilgrimage', description: 'Walk the entire Old Course as spectators do — out along the 1st and 2nd, over the Swilcan Bridge, up the 18th\'s history. Photograph the Road Hole\'s hotel-over-the-wall, then the R&A museum and a pint at the Dunvegan, the golfer\'s pub by the 16th green.' },
+      { day: 'Day 2', title: 'Play or the Links Loop', description: 'Tee time or ballot on the New, Jubilee, or Castle courses — all public, all true links. Non-golfers walk the West Sands where Chariots of Fire ran, then the cathedral\'s ruined towers and St Rule\'s Tower\'s view over the whole town.' },
+      { day: 'Day 3', title: 'Fife Coast', description: 'Drive or bus the Fife coast: the fishing villages of the East Neuk — Crail, Anstruther (and its famous fish bar), Pittenweem — then back for a final stroll of the links and a farewell dinner on North Street.' },
+    ],
+  },
 };
