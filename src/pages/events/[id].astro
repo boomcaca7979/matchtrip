@@ -311,6 +311,21 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     </div>
   </section>
 
+  <!-- Next Event (defensive: only ended events that define a next edition) -->
+  {event.status === 'ended' && event.nextEvent && (
+    <section class="next-event-section">
+      <div class="container">
+        <div class="next-event-card">
+          <div class="next-event-text">
+            <p class="next-event-note">This event has finished — plan ahead:</p>
+            <h2 class="next-event-title">{event.nextEvent.label}</h2>
+          </div>
+          <a href={event.nextEvent.slug ? `/events/${event.nextEvent.slug}/` : '/events/'} class="btn btn-primary next-event-btn">Plan Your Next Trip &rarr;</a>
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- Budget Breakdown -->
   <section class="budget-section">
     <div class="container">
@@ -735,6 +750,36 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     line-height: 1.6;
     max-width: 700px;
   }
+
+  /* Next Event (ended events) */
+  .next-event-section { padding: 0; }
+
+  .next-event-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border: 1px solid #fcd34d;
+    border-radius: 16px;
+    padding: 32px 36px;
+  }
+
+  .next-event-note {
+    color: #92400e;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .next-event-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #111;
+  }
+
+  .next-event-btn { flex-shrink: 0; }
 
   /* Budget */
   .budget-section { padding: 80px 0 60px; }
@@ -1603,6 +1648,7 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     .itinerary-node { display: none; }
     .venue-featured { flex-direction: column; align-items: flex-start; }
     .venue-guide-btn { margin-left: 0; }
+    .next-event-card { flex-direction: column; align-items: flex-start; }
     .overview-card { padding: 24px 20px; }
     .faq-question { padding: 16px 20px; }
     .faq-answer { padding: 0 20px 16px; }

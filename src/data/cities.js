@@ -77,6 +77,11 @@ export const citiesContent = {
       'Rent a car if your weekend spans venues — SoFi, Dodger Stadium, and Anaheim sit far apart, and transit between them can take two hours. Skip the rental if you\'re staying downtown for one arena only.',
       'The Dodger Stadium Express bus runs from Union Station on game days and is free with a game ticket — it skips the worst of the stadium traffic.',
     ],
+    tripPlan: [
+      { day: 'Day 1', title: 'SoFi Stadium & Inglewood', description: 'Start at SoFi Stadium in Inglewood, where a guided tour takes you onto the sideline of the NFL\'s most technologically advanced arena, past the colossal videoboard and into luxury suites. Afterward, grab lunch at the adjacent YouTube Theater complex, then spend the evening exploring downtown LA\'s Arts District, where converted warehouses now house some of the city\'s best craft breweries and taco spots.' },
+      { day: 'Day 2', title: 'Santa Monica & the Coast', description: 'Ride the Expo Line west to Santa Monica for a morning walk along the pier and palm-lined beach, watching volleyball games bounce under the California sun. Rent a bike and cruise the Marvin Braude trail toward Venice Beach\'s boardwalk, skate park, and canals. Sunset dinners on the sand close a perfect recovery day between event tickets.' },
+      { day: 'Day 3', title: 'Dodger Stadium Gameday', description: 'Take the free Dodger Stadium Express from Union Station and arrive early to explore the ballpark\'s retired-number displays and Dodger dogs behind the outfield pavilions. Soak in San Gabriel Mountain views from the reserved level, then cheer through nine innings of the franchise\'s famous October atmosphere. Cap the night with cocktails in Los Feliz or Silver Lake before heading back.' },
+    ],
   },
 
   'las-vegas': {
@@ -147,6 +152,11 @@ export const citiesContent = {
       'Rely on the monorail and your own two feet on fight nights — buy a multi-day monorail pass online for savings, and remember Strip distances run longer than they look from street level.',
       'Save mobile tickets to your phone wallet before heading to Allegiant or T-Mobile — connectivity slows with 60,000-strong crowds and the gate scanners keep moving.',
     ],
+    tripPlan: [
+      { day: 'Day 1', title: 'Strip Circuit Walk', description: 'Begin where the F1 cars attack the Strip each November. Walk the Las Vegas Grand Prix circuit from the Bellagio fountains along the Koval corridor, past Sphere and the pit building, picturing cars braking from 200 mph into these same corners. Evening brings a Cirque du Soleil show — book O or Mystère months ahead — and a late dinner reservation on the Strip.' },
+      { day: 'Day 2', title: 'Sphere & Resort Hopping', description: 'Immerse yourself at Sphere, the futuristic dome whose 160,000-square-foot interior screen wraps audiences into concert films and immersive experiences. Spend the afternoon resort-hopping: gondolas at the Venetian, the Conservatory\'s seasonal display at Bellagio, and the High Roller observation wheel at dusk. Finish with a steakhouse dinner, then test your luck in a classic casino sportsbook.' },
+      { day: 'Day 3', title: 'Downtown & Fremont', description: 'Ride north to Fremont Street, where vintage casinos glow under the world\'s largest video canopy and the SlotZilla zipline races overhead. Explore the Neon Museum\'s restored signs for a dose of Vegas history, then catch a Golden Knights or Aces game if the calendar cooperates. End with craft cocktails on East Fremont before an easy monorail-and-walk return.' },
+    ],
   },
 
   'singapore': {
@@ -211,6 +221,11 @@ export const citiesContent = {
       'Rooftop bars along Marina Bay and the Esplanade host ticketless race-viewing parties all weekend — reserve a table early if you skipped grandstand seats for Sunday.',
       'Check your ticket\'s gate number before the Grand Prix — the Marina Bay circuit has multiple entry gates across its zones, and walking between the wrong ones can add twenty minutes along the fences.',
       'Buy a Singapore Tourist Pass only if you\'ll make more than six or seven trips a day — pay-per-ride EZ-Link or contactless works out cheaper for most sports weekends.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'Marina Bay Circuit', description: 'Trace the Marina Bay Street Circuit on foot, starting at the Padang grandstand and looping past the floating platform, Anderson Bridge, and the floodlights that turned Formula 1\'s first night race into legend. Cross the Helix Bridge toward the ArtScience Museum, then watch the skyline ignite from the Marina Bay Sands rooftop as evening falls over the gardens.' },
+      { day: 'Day 2', title: 'Gardens by the Bay', description: 'Spend the morning at Gardens by the Bay, walking beneath the Supertree Grove and through the Cloud Forest\'s indoor waterfall. Afternoon calls for hawker culture: queue at Maxwell or Lau Pa Sat for Hainanese chicken rice, satay, and chili crab at prices that shame every stadium concession. Close with the free Garden Rhapsody light show beneath the supertrees at dusk.' },
+      { day: 'Day 3', title: 'Kampong Glam & Stadium', description: 'Explore Kampong Glam\'s Sultan Mosque and Haji Lane\'s murals and boutiques in the morning, then hop the Circle Line to Stadium station for a look at the 55,000-seat National Stadium on its waterfront promenade. Evening options range from a football friendly or concert inside to riverside drinks at the adjacent Singapore Sports Hub complex.' },
     ],
   },
 
@@ -288,6 +303,11 @@ export const citiesContent = {
       'Leave the rental car at home — garage parking near the arenas runs $50-80 a night, alternate-side rules confuse visitors, and the 24/7 subway plus Citi Bike covers every sports venue in the five boroughs.',
       'Night sessions at the US Open cool off fast — Arthur Ashe Stadium\'s upper deck turns breezy after sunset, so pack a light layer even in August heat.',
     ],
+    tripPlan: [
+      { day: 'Day 1', title: 'Madison Square Garden', description: 'Start at Madison Square Garden, joining the all-access tour that opens the Knicks\' locker room, the Rangers\' ice, and the chase bridges above the arena floor. Spend the afternoon in Midtown — Bryant Park, the New York Public Library, and the Top of the Rock at sunset — then catch a Knicks or Rangers game under the Garden\'s famous ceiling lights.' },
+      { day: 'Day 2', title: 'Yankee Stadium & the Bronx', description: 'Ride the 4 train to 161st Street and walk into Yankee Stadium two hours early for Monument Park and the Yankees Museum, where World Series rings tell a century of baseball history. After the final out, head to Arthur Avenue in the Bronx\'s Little Italy for Italy\'s best cannoli outside Italy — or catch a NYCFC match if the soccer calendar lines up instead.' },
+      { day: 'Day 3', title: 'Brooklyn Bridge & Downtown', description: 'Walk the Brooklyn Bridge at sunrise before the crowds, landing in DUMBO for coffee with the Manhattan Bridge framed overhead. Loop back through Lower Manhattan — the 9/11 Memorial, Wall Street, and the Staten Island Ferry\'s free harbor ride — then cross to Barclays Center for a Nets game or big-fight night, ending with pizza in Carroll Gardens.' },
+    ],
   },
 
   'augusta': {
@@ -354,6 +374,11 @@ export const citiesContent = {
       'Don\'t count on scooters or rideshares during Masters week — shared mobility services pull out of the area around the course, so rent a car early or plan on walking from Washington Road hotels.',
       'Book tee times in Aiken or Evans months out if you want to play during Masters week — the region\'s public courses fill fast and raise rates for tournament visitors.',
     ],
+    tripPlan: [
+      { day: 'Day 1', title: 'Riverwalk & Downtown', description: 'Ease into Augusta with a morning along the Savannah Riverwalk, where gardens, public art, and river views line the water below Broad Street. Explore downtown\'s murals and the Morris Museum of Art, then dive into James Brown\'s legacy at the Godfather of Soul\'s memorial statue. Dinner means Southern classics — fried chicken, pimento cheese, and peach cobbler.' },
+      { day: 'Day 2', title: 'Augusta National\'s Gates', description: 'Masters week or not, golf pilgrims make the drive down Washington Road to photograph Augusta National\'s famed gates on Berckmans Road, breathing the same azalea-scented air as champions. Visit the Augusta Golf & Gardens exhibits, play a public round in nearby Aiken or Evans, and browse golf memorabilia shops where Masters badges and artifacts carry stories from every April since 1934.' },
+      { day: 'Day 3', title: 'SRP Park & Riverbank', description: 'Cross the river to North Augusta for an afternoon at SRP Park, where the GreenJackets play minor-league baseball with Savannah River sunsets behind the outfield wall — arrive early for the riverwalk path along the stadium\'s edge. Alternatively, kayak the canal, bike the North Augusta Greeneway, or simply cap your trip with sunset drinks above the Savannah rapids.' },
+    ],
   },
 
   'madrid': {
@@ -414,6 +439,11 @@ export const citiesContent = {
       'Tapas bars around Sol and La Latina fill up before kickoff — claim standing room an hour early for derby nights.',
       'Madrid\'s Metro runs from around 6am to 1:30am — late kickoffs still leave time to catch a train, but pre-book a taxi or Uber if extra time pushes toward the last departures.',
       'The Mutua Madrid Open plays well into the evening — night sessions at the Caja Mágica turn cool after sunset, so pack a layer for the open-air show courts.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'Bernabéu Tour & Sol', description: 'Begin at the Santiago Bernabéu, where the stadium tour delivers the presidential box, twelve European Cups glittering in the trophy room, and a pitchside view from the dugout. Wander down the Paseo de la Castellana afterward, then spend the evening around Puerta del Sol and Plaza Mayor, sampling jamón ibérico and vermouth in bars older than football itself.' },
+      { day: 'Day 2', title: 'Retiro & the Prado', description: 'Slow the pace with a morning in El Retiro Park — rowboats on the lake, the Crystal Palace, and runners circling under the plane trees — before the Prado\'s Velázquez and Goya masterpieces next door. Late lunch is a proper menú del día near the museum mile. Come evening, take in a match or tour at the Metropolitano on Metro Line 7\'s short ride east.' },
+      { day: 'Day 3', title: 'La Latina Tapas Night', description: 'Devote the day to Madrid\'s tapas culture: churros con chocolate at San Ginés in the morning, the Rastro flea market on Sundays, and a progressive dinner crawl through La Latina and Lavapiés — croquetas, patatas bravas, and rioja by the glass. If Real or Atlético are home, finish inside a bar with ultras; the roars tell you when to look up.' },
     ],
   },
 };

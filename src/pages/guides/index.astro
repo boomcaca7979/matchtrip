@@ -3,6 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import { eventsData } from '../../data/events';
+import { venuesData } from '../../data/venues';
+import { citiesContent } from '../../data/cities';
 
 const guides = Object.entries(eventsData)
   .filter(([, data]) => data.travelGuide)
@@ -22,29 +24,345 @@ const guides = Object.entries(eventsData)
     hasTickets: !!data.travelGuide.ticketTips?.length,
   }));
 
-const categories = [...new Set(guides.map(g => g.category))];
+// Compact event card data for the category sections
+const eventCard = (id) => {
+  const data = eventsData[id];
+  if (!data) return null;
+  return {
+    id,
+    title: data.title,
+    date: data.date,
+    location: data.location?.label || data.location,
+    emoji: data.emoji,
+    startDate: data.startDate || '',
+  };
+};
+
+const pickEvents = (ids) => ids.map(eventCard).filter(Boolean);
+
+// All motorsport events (Formula 1 + Indy 500), sorted chronologically
+const motorsportEvents = Object.entries(eventsData)
+  .filter(([, data]) => data.category === 'Motorsport')
+  .map(([id]) => eventCard(id))
+  .filter(Boolean)
+  .sort((a, b) => a.startDate.localeCompare(b.startDate));
+
+// Compact venue card data
+const pickVenues = (slugs) =>
+  slugs
+    .map((slug) => {
+      const venue = venuesData[slug];
+      if (!venue) return null;
+      return {
+        slug,
+        name: venue.name,
+        cityDisplay: venue.cityDisplay,
+        country: venue.country,
+        capacity: venue.capacity,
+        emoji: venue.emoji,
+      };
+    })
+    .filter(Boolean);
+
+// City lookup mirroring the /cities/[slug].astro slugs (derived from eventsData)
+const cityMap = new Map();
+Object.values(eventsData).forEach((event) => {
+  const city = event.location?.city;
+  if (!city) return;
+  const slug = city.toLowerCase().replace(/\s+/g, '-');
+  if (!cityMap.has(slug)) {
+    cityMap.set(slug, {
+      slug,
+      name: citiesContent[slug]?.city || city,
+      country: event.location.country,
+      eventCount: 0,
+    });
+  }
+  cityMap.get(slug).eventCount += 1;
+});
+
+const pickCities = (slugs) => slugs.map((slug) => cityMap.get(slug) || null).filter(Boolean);
+
+const categorySections = [
+  {
+    id: 'football',
+    title: 'Football Travel Guides',
+    eventsLabel: 'Football Events',
+    intro:
+      "Football is the most traveled sport on earth, and the coming years deliver two trips of a lifetime: a World Cup spread across North America and a Champions League final in Madrid. These guides cover host city strategy, ballot entry, and where to sleep when the event sells the city out.",
+    events: pickEvents(['world-cup-2026', 'champions-league-final-2027']),
+    venues: pickVenues(['metropolitano', 'wembley']),
+    cities: pickCities(['madrid', 'london']),
+  },
+  {
+    id: 'formula-1',
+    title: 'Formula 1 Travel Guides',
+    eventsLabel: 'Formula 1 Races',
+    intro:
+      "Formula 1 is a travel machine: more than twenty races a year, each turning its host city into a week-long festival. From Monaco's harbor to the Las Vegas Strip and Singapore's night race, these guides track the circuits, the grandstand picks, and the hotel zones that make race weekends work.",
+    events: motorsportEvents,
+    venues: pickVenues(['las-vegas-strip-circuit', 'marina-bay-circuit']),
+    cities: pickCities(['las-vegas', 'singapore']),
+  },
+  {
+    id: 'tennis',
+    title: 'Tennis Travel Guides',
+    eventsLabel: 'Tennis Events',
+    intro:
+      "The Grand Slam calendar is a traveler's dream — Melbourne in January, Paris on clay in spring, London on grass, New York to close the summer. Each Slam runs its own ticket ecosystem and city rhythm, and these guides break down grounds passes, night sessions, and the best neighborhoods to base yourself.",
+    events: pickEvents(['wimbledon-2027', 'us-open-tennis', 'australian-open-2027', 'french-open-2027']),
+    venues: pickVenues(['arthur-ashe-stadium']),
+    cities: pickCities(['new-york', 'london']),
+  },
+  {
+    id: 'golf',
+    title: 'Golf Travel Guides',
+    eventsLabel: 'Golf Events',
+    intro:
+      "Golf travel is pilgrimage: the azaleas of Augusta, a Ryder Cup on Irish soil, the home of golf at St Andrews. Tickets work differently here — lotteries, week-long badges, secondary markets — and small host towns book out a year ahead. These guides map the whole week, from practice rounds to Sunday.",
+    events: pickEvents(['masters-golf-2027', 'ryder-cup-2027', 'the-open-2027']),
+    venues: [],
+    cities: pickCities(['augusta']),
+  },
+  {
+    id: 'olympics',
+    title: 'Olympics & Multi-Sport Travel Guides',
+    eventsLabel: 'Olympic & Multi-Sport Events',
+    intro:
+      "The Olympics compress dozens of world championships into one city and three weeks. LA28 spreads across Southern California's existing venues, from the Coliseum to SoFi Stadium, so planning becomes the sport itself: cluster your sessions, book accommodation early, and leave room for the city between medal rounds.",
+    events: pickEvents(['olympics-2028']),
+    venues: pickVenues(['sofi-stadium']),
+    cities: pickCities(['los-angeles']),
+  },
+];
+
+const pageUrl = new URL('/guides/', Astro.site).href;
+
+// CollectionPage structured data for SEO
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Sports Travel Guides",
+  "description": "Sports travel guides for football, Formula 1, tennis, golf and Olympic events — covering tickets, accommodation, transportation and host city planning.",
+  "url": pageUrl,
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": guides.map((guide, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": new URL(`/events/${guide.id}/`, Astro.site).href,
+      "name": guide.title,
+    })),
+  },
+};
+
+// Breadcrumb structured data: Home > Guides
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": new URL('/', Astro.site).href },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": pageUrl },
+  ],
+};
+
+const schemaHtml = [collectionPageSchema, breadcrumbSchema]
+  .map(schema => `<script type="application/ld+json">${JSON.stringify(schema, null, '\t')}</script>`)
+  .join('\n');
 ---
 
 <Layout
-  title="Travel Guides – MatchTrip"
-  description="Expert travel guides for major sporting events worldwide. Plan your trip with accommodation tips, transportation advice, and ticket information."
+  title="Sports Travel Guides – MatchTrip"
+  description="Sports travel guides for the world's biggest events — football, Formula 1, tennis, golf and the Olympics. Plan trips with ticket strategy, hotel zones, transport and host city advice."
 >
   <Navbar />
 
   <section class="guides-hero">
     <div class="container">
-      <h1>Travel Guides</h1>
+      <h1>Sports Travel Guides</h1>
       <p class="subtitle">
-        Help sports travelers plan their event trips — including accommodation,
-        transportation, tickets, and local experiences.
+        MatchTrip turns the world's biggest sporting events into practical trip plans. These sports
+        travel guides cover where to stay, how to reach the venue, what tickets really cost, and how
+        to enjoy the host city between sessions.
       </p>
     </div>
   </section>
 
+  <article class="guides-intro">
+    <div class="container">
+      <h2>Why Follow Sport Around the World</h2>
+      <p>
+        There is a difference between watching a final on television and being inside the stadium
+        when it happens. The roar of 90,000 people at Wembley, an F1 car screaming past the Bellagio
+        fountains at midnight, the silence that falls over 40,000 golf fans as a putt starts to
+        break at Augusta — these are the moments sports travelers plan entire years around. The
+        event gives your trip its shape; everything you do around it becomes part of the story you
+        retell.
+      </p>
+      <p>
+        Sports travel also shows you cities at their best. When a city hosts something big, it rolls
+        out fan zones, extended transit hours, free concerts, and street festivals that simply do
+        not exist on an ordinary week. A Champions League final turns Madrid into a week-long party;
+        the Masters doubles the population of quiet Augusta every April. You are not just visiting a
+        destination — you are seeing it at maximum volume.
+      </p>
+      <p>
+        And the calendar gives you a reason to go almost anywhere: tennis in Melbourne every
+        January, the Masters each April, Grand Prix weekends from Monaco to Singapore, a World Cup
+        spanning three nations, and a homecoming Olympics in Los Angeles in 2028. If you ever need
+        an excuse to book a flight, sport has been supplying them for a century.
+      </p>
+
+      <h2>How to Use These Guides</h2>
+      <p>
+        Every guide on MatchTrip follows the same structure, built around the three decisions that
+        shape any sports trip: where to sleep, how to reach the venue, and how to get in the door.
+        Start with the event guide for the fixture you are targeting. Each one includes recommended
+        accommodation areas with honest trade-offs, transportation tips broken down by mode —
+        airports, metro lines, driving, rideshare — and ticket strategy specific to how that event
+        actually sells.
+      </p>
+      <p>
+        Then pair the event guide with its venue and city pages. Venue guides get granular: which
+        transit stops serve which gates, what parking really costs, where the rideshare pickup zones
+        sit, and which hotels are genuinely walkable. City guides zoom out to airports,
+        neighborhoods, local transport, and what to do on non-match days. The category sections
+        below link all three layers together for every major sport.
+      </p>
+      <p>
+        Timing matters as much as destination. Register for ballots and lotteries the day they open
+        — Masters practice-round entries close in June, nearly a year before tournament week. Book
+        refundable hotel rates as soon as dates are confirmed, then reprice as the event approaches.
+        And if headline sessions are out of budget, qualifying days, practice rounds, and
+        early-round tickets deliver the same atmosphere for a fraction of the price.
+      </p>
+
+      <h2>Tickets and Accommodation Strategy</h2>
+      <p>
+        Every event sells differently. UEFA runs public ballots for the Champions League final; FIFA
+        releases World Cup inventory in phases over more than a year; tennis Slams mix advance
+        sales, on-site resale, and grounds passes; the Masters distributes practice-round tickets by
+        lottery and tournament badges largely through inheritance. The common rules: register early
+        with the official channel, set calendar reminders for every on-sale date, and treat
+        secondary markets as a last resort — compare their all-in prices against official
+        hospitality, which sometimes wins once fees are counted.
+      </p>
+      <p>
+        Accommodation is the biggest lever on your budget. Hotels near major venues routinely double
+        or triple on event weekends, and tournament towns behave differently — rates within walking
+        distance of Augusta National leap tenfold during Masters week, while Las Vegas adds resort
+        fees that only appear at checkout. The counter-strategies work everywhere: book refundable
+        rates early and reprice later, stay a few metro stops out rather than next to the stadium,
+        use alternate airports and neighboring cities when the host city sells out, and consider
+        apartment rentals for groups staying a week or more.
+      </p>
+      <p>
+        Flights respond to the same demand curve. Flying midweek around a weekend event is often
+        hundreds cheaper than peak days, and arriving a day early buys you fan festivals, open
+        practice sessions, and a city that is still navigable before the crowds peak.
+      </p>
+
+      <h2>Getting There and Getting Around</h2>
+      <p>
+        Mega-events strain the infrastructure locals take for granted. Street circuits in Las Vegas
+        and Singapore close roads for days; post-event rideshare surge can double fares; metro
+        platforms near stadiums become a crush for an hour after full-time. The guides here cover
+        the specifics for each venue — which metro line serves which gate, where to park, and when
+        walking beats hailing a car.
+      </p>
+      <p>
+        Two universal rules: use the transit the locals use, and walk ten minutes away from the
+        venue before you call a car. Skip the rental car entirely in transit-rich cities like New
+        York, London, and Singapore — garage parking near arenas costs more than the taxi home.
+      </p>
+      <p>
+        A final note that pays off: arrive at the venue earlier than you think you need to —
+        security lines at mega-events run 30-60 minutes at peak — and check the bag policy before
+        you leave the hotel, because stadium rules (no phones at Augusta National, small bags only
+        at most arenas) are enforced without exceptions.
+      </p>
+
+      <h2>Browse Sports Travel Guides by Sport</h2>
+      <p>
+        The fastest way into all of this is the sport you already love. Football fans have a
+        once-a-generation run of World Cups and finals ahead; F1 travelers can chain race weekends
+        across continents; tennis and golf follow calendars that map neatly onto the world's most
+        visitable cities. Below, each sport's section gathers the key upcoming events, the venues
+        worth a dedicated guide, and the cities where the whole trip comes together. Pick your
+        sport, then start linking.
+      </p>
+    </div>
+  </article>
+
+  {categorySections.map((section) => (
+    <section class="category-section" id={`guides-${section.id}`}>
+      <div class="container">
+        <h2>{section.title}</h2>
+        <p class="cat-intro">{section.intro}</p>
+
+        <div class="cat-group">
+          <h3>{section.eventsLabel}</h3>
+          <div class="mini-grid">
+            {section.events.map((event) => (
+              <a class="mini-card" href={`/events/${event.id}/`}>
+                <span class="mini-emoji">{event.emoji}</span>
+                <span class="mini-body">
+                  <span class="mini-title">{event.title}</span>
+                  <span class="mini-meta">{event.date} · {event.location}</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div class="cat-group">
+          <h3>Featured Venues</h3>
+          {section.venues.length > 0 ? (
+            <div class="mini-grid">
+              {section.venues.map((venue) => (
+                <a class="mini-card" href={`/venues/${venue.slug}/`}>
+                  <span class="mini-emoji">{venue.emoji}</span>
+                  <span class="mini-body">
+                    <span class="mini-title">{venue.name}</span>
+                    <span class="mini-meta">{venue.cityDisplay}, {venue.country} · {venue.capacity}</span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p class="cat-hint">
+              Dedicated venue guides for golf's cathedrals are still on the roadmap. Until they
+              land, the event guides above cover everything from Masters lotteries to Open
+              Championship logistics, and the Augusta city guide handles tournament week — hotels,
+              traffic, and where to eat between rounds.
+            </p>
+          )}
+        </div>
+
+        <div class="cat-group">
+          <h3>Explore the Cities</h3>
+          <div class="mini-grid">
+            {section.cities.map((city) => (
+              <a class="mini-card" href={`/cities/${city.slug}/`}>
+                <span class="mini-emoji">📍</span>
+                <span class="mini-body">
+                  <span class="mini-title">{city.name}</span>
+                  <span class="mini-meta">
+                    {city.country} · {city.eventCount} {city.eventCount === 1 ? 'event' : 'events'}
+                  </span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
   <section class="guides-section">
     <div class="container">
       <div class="guides-header">
-        <h2>All Guides</h2>
+        <h2>All Sports Travel Guides</h2>
         <p class="guides-count">{guides.length} guides</p>
       </div>
 
@@ -83,6 +401,7 @@ const categories = [...new Set(guides.map(g => g.category))];
     </div>
   </section>
 
+  <Fragment set:html={schemaHtml} />
   <Footer />
 </Layout>
 
@@ -109,8 +428,141 @@ const categories = [...new Set(guides.map(g => g.category))];
     line-height: 1.7;
   }
 
+  /* ---- Intro article ---- */
+  .guides-intro {
+    padding: 56px 0 32px;
+  }
+
+  .guides-intro .container {
+    max-width: 780px;
+  }
+
+  .guides-intro h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -0.3px;
+    margin: 44px 0 16px;
+  }
+
+  .guides-intro h2:first-child {
+    margin-top: 0;
+  }
+
+  .guides-intro p {
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 18px;
+  }
+
+  /* ---- Category sections ---- */
+  .category-section {
+    padding: 56px 0;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .category-section h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -0.3px;
+    margin-bottom: 12px;
+  }
+
+  .cat-intro {
+    color: #6b7280;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 760px;
+    margin-bottom: 28px;
+  }
+
+  .cat-group {
+    margin-bottom: 28px;
+  }
+
+  .cat-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .cat-group h3 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+
+  .mini-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+  }
+
+  .mini-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: white;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .mini-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.08);
+    border-color: #c7d2fe;
+  }
+
+  .mini-emoji {
+    font-size: 1.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .mini-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .mini-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #111;
+    line-height: 1.35;
+  }
+
+  .mini-card:hover .mini-title {
+    color: #6366f1;
+  }
+
+  .mini-meta {
+    font-size: 0.78rem;
+    color: #6b7280;
+    line-height: 1.45;
+  }
+
+  .cat-hint {
+    color: #6b7280;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    padding: 14px 18px;
+    background: #f8fafc;
+    border: 1px dashed #d1d5db;
+    border-radius: 12px;
+    max-width: 760px;
+  }
+
   .guides-section {
     padding: 48px 0 80px;
+    border-top: 1px solid #e5e7eb;
   }
 
   .container {
@@ -310,6 +762,11 @@ const categories = [...new Set(guides.map(g => g.category))];
     .guides-hero h1 { font-size: 2.25rem; }
     .guides-grid { grid-template-columns: 1fr; }
     .guide-image { height: 140px; }
+    .guides-intro { padding: 40px 0 24px; }
+    .guides-intro h2 { font-size: 1.35rem; margin: 32px 0 14px; }
+    .category-section { padding: 40px 0; }
+    .category-section h2 { font-size: 1.35rem; }
+    .mini-grid { grid-template-columns: 1fr; }
   }
 
   @media (min-width: 769px) and (max-width: 1024px) {
