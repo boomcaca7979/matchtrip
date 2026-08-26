@@ -92,6 +92,12 @@ const categoryToCluster = {
   'Tennis': { url: '/events/tennis/', label: 'Tennis Tournaments 2026' },
 };
 const clusterLink = categoryToCluster[event.category as keyof typeof categoryToCluster] || { url: '/events/', label: 'All Events' };
+// Previous edition (reverse link: upcoming events referencing an earlier edition).
+// Only valid when the slug actually resolves to an entry in eventsData.
+const previousEventData = event.previousEvent
+  ? eventsData[event.previousEvent as keyof typeof eventsData]
+  : null;
+
 // Event structured data for SEO (JSON-LD)
 const eventUrl = new URL('/events/' + id + '/', Astro.site).href;
 const imageUrl = new URL('/favicon.svg', Astro.site).href;
@@ -143,6 +149,12 @@ const eventSchema = {
     "url": "https://matchtrip-blue.vercel.app"
   }
 };
+
+// keywords: only when the event carries searchKeywords (joined as a single string).
+// previousEvent/nextEvent are intentionally NOT added: no standard Event property for them.
+if (event.searchKeywords?.length) {
+  eventSchema.keywords = event.searchKeywords.join(', ');
+}
 
 const eventSchemaHtml = `<script type="application/ld+json">${JSON.stringify(eventSchema, null, '\t')}</script>`;
 
@@ -329,6 +341,21 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
             <h2 class="next-event-title">{event.nextEvent.label}</h2>
           </div>
           <a href={event.nextEvent.slug ? `/events/${event.nextEvent.slug}/` : '/events/'} class="btn btn-primary next-event-btn">Plan Your Next Trip &rarr;</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Previous Event (reverse link: upcoming events whose previousEvent slug resolves in eventsData) -->
+  {previousEventData && (
+    <section class="next-event-section">
+      <div class="container">
+        <div class="next-event-card previous-event">
+          <div class="next-event-text">
+            <p class="next-event-note">Previous edition:</p>
+            <h2 class="next-event-title">{previousEventData.title}</h2>
+          </div>
+          <a href={`/events/${event.previousEvent}/`} class="btn btn-primary next-event-btn">View Previous Edition &rarr;</a>
         </div>
       </div>
     </section>
@@ -798,6 +825,16 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
   }
 
   .next-event-btn { flex-shrink: 0; }
+
+  /* Previous Event variant: neutral slate-blue instead of the amber "next" look */
+  .next-event-card.previous-event {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-color: #94a3b8;
+  }
+
+  .next-event-card.previous-event .next-event-note {
+    color: #475569;
+  }
 
   /* Budget */
   .budget-section { padding: 80px 0 60px; }

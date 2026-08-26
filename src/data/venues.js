@@ -8,7 +8,7 @@
  * Fields:
  *   - slug / name / cityDisplay / citySlug / country / continent
  *     citySlug must match the city page slugs derived from events.js.
- *   - capacity       → display string ("70,240" or "3.8-mile street circuit")
+ *   - capacity       → display string ("70,240" or "night race with multiple grandstand zones")
  *   - sports         → sport tags rendered in the hero
  *   - eventIds       → keys in events.js used for venue ↔ event interlinking;
  *                      ids not yet present in eventsData are skipped at
@@ -16,6 +16,8 @@
  *   - colorFrom / colorTo / emoji → card theming (same convention as events)
  *   - seoTitle / description / image → SEO fields: optional title override,
  *     meta description (150-160 chars), reserved OG image path
+ *   - openingYear / architect / constructionNote → structured facts that
+ *     back the overview (opening year, design firm, construction background)
  *   - overview / locationDetail / transportation / nearbyHotels /
  *     matchDayTips / faq → editorial content for the venue detail page
  *   - eventHistory / seating / parking / foodOptions → additional
@@ -39,6 +41,10 @@ export const venuesData = {
     emoji: '🏟️',
     description: 'SoFi Stadium guide: Super Bowl LXI host venue in Los Angeles. Seating tips, transport options, parking and the best hotels near Inglewood for event travel.',
     image: '/images/og/venues/sofi-stadium.png',
+    openingYear: 2020,
+    architect: 'HKS',
+    constructionNote:
+      'Constructed for roughly $5.5 billion, the most expensive stadium ever built, its sweeping canopy uses translucent ETFE panels that filter sunlight over the open-air bowl, while the 70,000-square-foot double-sided Oculus video board curves above the field as the venue\'s engineering signature.',
     overview:
       'SoFi Stadium is the crown jewel of American sports venues, a $5.5 billion indoor-outdoor stadium at Hollywood Park in Inglewood, California. Home to the NFL\'s Los Angeles Rams and Los Angeles Chargers, it opened in 2020 as the most expensive stadium ever built and the first indoor-outdoor venue of its kind. The stadium hosted Super Bowl LVI in 2022 and is set to stage Super Bowl LXI in February 2027, eight FIFA World Cup 2026 matches, and the LA 2028 Olympic Opening Ceremony. With its sweeping canopy, double-sided Oculus video board, and lakefront setting, SoFi delivers one of the most technologically advanced fan experiences in world sport. For sports travelers, few venues sit at the center of as many mega-events over a single four-year stretch.',
     locationDetail:
@@ -153,7 +159,7 @@ export const venuesData = {
     citySlug: 'las-vegas',
     country: 'USA',
     continent: 'North America',
-    capacity: '3.8-mile street circuit',
+    capacity: '~90,000 across multiple grandstand zones',
     sports: ['Motorsport', 'Formula 1'],
     eventIds: ['f1-las-vegas-grand-prix-2026', 'f1-las-vegas-grand-prix-2027'],
     colorFrom: '#111827',
@@ -161,6 +167,10 @@ export const venuesData = {
     emoji: '🏎️',
     description: 'Las Vegas Strip Circuit guide: home of the F1 Las Vegas Grand Prix night race. Grandstand tips, monorail transport and the best Strip hotels for race weekend.',
     image: '/images/og/venues/las-vegas-strip-circuit.png',
+    openingYear: 2023,
+    architect: 'Tilke',
+    constructionNote:
+      'Assembled from existing public roads rather than purpose-built asphalt, the 3.8-mile, 17-turn layout sweeps past the Sphere, Caesars Palace and the Bellagio fountains, anchored by a $500 million permanent paddock and pit building that keeps the circuit race-ready year-round.',
     overview:
       'The Las Vegas Strip Circuit is Formula 1\'s most spectacular street track, a 3.8-mile, 17-turn layout that sends cars racing down the famous Las Vegas Boulevard at speeds over 200 mph. The Grand Prix runs at night under the neon glow of the Sphere, Caesars Palace, and the Bellagio fountains, with sessions starting in the evening and the race at 6 PM local time. Since its debut in 2023, the event has drawn around 300,000 fans across the weekend, transforming the Strip into the biggest spectacle on the F1 calendar. Grandstands, hospitality suites, and trackside viewing zones line the circuit from the paddock near Koval Lane to the neon-soaked stretch past the fountains.',
     locationDetail:
@@ -283,6 +293,10 @@ export const venuesData = {
     emoji: '⚽',
     description: 'Riyadh Air Metropolitano guide: 2027 Champions League final venue in Madrid. Metro transport, parking, seating tips and the best hotels near the stadium.',
     image: '/images/og/venues/metropolitano.png',
+    openingYear: 2017,
+    architect: 'Cruz y Ortiz',
+    constructionNote:
+      'Rather than a new build, the arena rose from the shell of La Peineta, the 1994 athletics stadium, rebuilt for Atlético\'s move from the Vicente Calderón and wrapped in a spectacular wave-shaped roof that has become the club\'s architectural signature.',
     overview:
       'Riyadh Air Metropolitano is the home of Atlético de Madrid and one of Europe\'s most modern arenas, opened in September 2017 in the northeast of the Spanish capital. With a capacity of 70,692, it is the first stadium in the world with 100% LED lighting and features a 360-degree "Sky Ribbon" video screen around the bowl. The venue hosted the 2019 Champions League final, when Liverpool beat Tottenham, and will stage the final again on 5 June 2027 — the second time in under a decade. Built as part of Atlético\'s Ciudad del Deporte project — a 265,000-square-metre leisure, entertainment, and sports district — the stadium is also shortlisted as a venue for the 2030 FIFA World Cup.',
     locationDetail:
@@ -397,7 +411,7 @@ export const venuesData = {
     citySlug: 'singapore',
     country: 'Singapore',
     continent: 'Asia',
-    capacity: '4.9 km street circuit',
+    capacity: 'night race with multiple grandstand zones',
     sports: ['Motorsport', 'Formula 1'],
     eventIds: ['f1-singapore-grand-prix'],
     colorFrom: '#0c4a6e',
@@ -405,6 +419,10 @@ export const venuesData = {
     emoji: '🌃',
     description: 'Marina Bay Street Circuit guide: home of the F1 Singapore Grand Prix night race. Grandstand tips, MRT transport options and the best hotels near Marina Bay.',
     image: '/images/og/venues/marina-bay-circuit.png',
+    openingYear: 2008,
+    architect: 'Hermann Tilke',
+    constructionNote:
+      'Laid out anti-clockwise on public roads around the bay, the circuit demanded permanent floodlighting, temporary grandstands and months of road closures, with Tilke\'s design threading heritage bridges and skyscraper canyons into Formula 1\'s first night race backdrop.',
     overview:
       'The Marina Bay Street Circuit is the home of the Formula 1 Singapore Grand Prix, the original night race that lit up the sport when it debuted in 2008. The 4.9 km, 19-turn layout threads between downtown skyscrapers, heritage bridges, and the glittering Marina Bay waterfront, with cars racing beneath floodlights from 8 PM local time. Combining heat, humidity, walls that punish the smallest mistake, and a backdrop of the city skyline and Gardens by the Bay, it is widely called one of the most physically demanding races on the F1 calendar. More than 250,000 fans pass through the gates across the race weekend, making it Southeast Asia\'s biggest party in motorsport.',
     locationDetail:
@@ -527,6 +545,10 @@ export const venuesData = {
     emoji: '🎾',
     description: 'Arthur Ashe Stadium guide: US Open tennis host venue in New York. Seating tips, subway transport, parking and the best hotels near Flushing for match trips.',
     image: '/images/og/venues/arthur-ashe-stadium.png',
+    openingYear: 1997,
+    architect: 'Rossetti',
+    constructionNote:
+      'The centerpiece of the USTA\'s expansion of the National Tennis Center, it was purpose-built as the largest tennis-specific stadium in the world, its steep Rossetti-designed bowl later crowned by a retractable roof added in 2016 to guarantee play through summer storms.',
     overview:
       'Arthur Ashe Stadium is the cathedral of American tennis and the largest tennis stadium in the world, seating 23,771 fans at the heart of the USTA Billie Jean King National Tennis Center in Flushing Meadows–Corona Park, Queens. Named after the 1968 US Open champion, it has hosted the tournament\'s biggest matches since 1997. Its retractable roof, completed in 2016, guarantees play through New York\'s summer storms and creates the electric, roof-closed night sessions famous for their decibel levels. For two weeks every late August and September, the world\'s best players fight for titles on the stadium\'s blue hard courts while New York throws its loudest party in sport, complete with live music, food vendors, and celebrity-studded stands.',
     locationDetail:
@@ -650,6 +672,10 @@ export const venuesData = {
     seoTitle: 'Wembley Stadium Guide: Seating, Hotels, Transport & Matchday Tips',
     description: 'Wembley Stadium guide: home of English football and FA Cup final venue in London. Seating tips, tube transport, parking and the best hotels near Wembley.',
     image: '/images/og/venues/wembley.png',
+    openingYear: 2007,
+    architect: 'Populous / World Stadium Team',
+    constructionNote:
+      'Rebuilt on the site of the 1923 twin-towered original at a cost of around £798 million, its signature 133-metre arch replaced the towers as a London landmark and supports the partially retractable roof, leaving the 90,000 seats free of view-blocking columns.',
     overview:
       'Wembley Stadium is the home of English football and the largest stadium in the United Kingdom, with 90,000 seats beneath its iconic 133-metre arch that lights the London skyline. Opened in 2007 on the site of the old twin-towered ground, it hosts England internationals, the FA Cup final, the EFL play-off finals, and regular-season NFL games from London. No venue has staged more Champions League finals — recent editions include 2011, 2013, 2023, and 2024 — and the stadium also hosted the finals of Euro 2020 and women\'s Euro 2022. From FA Cup ghosts to Olympic football and record-breaking concerts, Wembley remains the stage England reserves for its biggest occasions.',
     locationDetail:

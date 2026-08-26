@@ -291,6 +291,18 @@ const schemaHtml = [collectionPageSchema, breadcrumbSchema]
         worth a dedicated guide, and the cities where the whole trip comes together. Pick your
         sport, then start linking.
       </p>
+
+      <h2>Start Here: MatchTrip's Core Planning Guides</h2>
+      <p>
+        New to sports travel or building your first big trip? These three deep guides cover the
+        fundamentals — how to plan the whole journey, which cities do it best, and what it
+        genuinely costs.
+      </p>
+      <div class="hub-links">
+        <a href="/guides/sports-travel-planning/">Sports Travel Planning: The Complete Guide &rarr;</a>
+        <a href="/guides/best-sports-cities/">The Best Sports Cities in the World &rarr;</a>
+        <a href="/guides/sports-travel-budget/">Sports Travel Budget: What Trips Really Cost &rarr;</a>
+      </div>
     </div>
   </article>
 
@@ -454,6 +466,31 @@ const schemaHtml = [collectionPageSchema, breadcrumbSchema]
     font-size: 1rem;
     line-height: 1.75;
     margin-bottom: 18px;
+  }
+
+  .hub-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 24px 0 8px;
+  }
+
+  .hub-links a {
+    display: block;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-left: 4px solid #4f46e5;
+    border-radius: 10px;
+    padding: 16px 20px;
+    color: #1e3a8a;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .hub-links a:hover {
+    border-left-color: #f97316;
+    box-shadow: 0 4px 14px rgba(30, 58, 138, 0.1);
   }
 
   /* ---- Category sections ---- */

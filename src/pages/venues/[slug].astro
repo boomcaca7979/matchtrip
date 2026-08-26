@@ -125,6 +125,7 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
     <div class="container narrow">
       <h2>Venue Overview</h2>
       <p>{venue.overview}</p>
+      {venue.constructionNote && <p>{venue.constructionNote}</p>}
     </div>
   </section>
 
@@ -145,6 +146,18 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
           <span class="fact-label">Country</span>
           <span class="fact-value">{venue.country}</span>
         </div>
+        {venue.openingYear && (
+          <div class="fact-card">
+            <span class="fact-label">Opened</span>
+            <span class="fact-value">{venue.openingYear}</span>
+          </div>
+        )}
+        {venue.architect && (
+          <div class="fact-card">
+            <span class="fact-label">Architect</span>
+            <span class="fact-value">{venue.architect}</span>
+          </div>
+        )}
         <div class="fact-card">
           <span class="fact-label">Sports</span>
           <span class="fact-value">{venue.sports.join(', ')}</span>
