@@ -1,0 +1,259 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import Footer from '../../../components/Footer.astro';
+import lastmodMap from '../../../data/lastmod-map.json';
+
+const pageUrl = new URL('/guides/sports-event-travel/', Astro.site).href;
+
+// Freshness signal: real last-reviewed date from git history.
+const routeLastmod = (lastmodMap as Record<string, string>)['/guides/sports-event-travel/'];
+const lastReviewed = routeLastmod
+  ? new Date(routeLastmod).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+  : null;
+
+// Article structured data for SEO
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Sports Event Travel Guide: F1, Golf Majors, NFL & Tennis Trips",
+  "description": "How to plan trips around the world's biggest sporting events: Formula 1 weekends, golf's majors and Ryder Cup, NFL Super Bowls, and tennis Grand Slams — tickets, hotels, transport and itineraries.",
+  "url": pageUrl,
+  "mainEntityOfPage": { "@type": "WebPage", "@id": pageUrl },
+  "author": { "@type": "Organization", "name": "MatchTrip" },
+  "publisher": { "@type": "Organization", "name": "MatchTrip" },
+  "datePublished": "2026-08-26",
+  "dateModified": routeLastmod ? routeLastmod.slice(0, 10) : "2026-08-26",
+  "about": [
+    { "@type": "Thing", "name": "Sports travel" },
+    { "@type": "Thing", "name": "Sports tourism" },
+    { "@type": "Thing", "name": "Event travel" },
+  ],
+};
+
+// Breadcrumb structured data: Home > Guides > Sports Event Travel
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": new URL('/', Astro.site).href },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": new URL('/guides/', Astro.site).href },
+    { "@type": "ListItem", "position": 3, "name": "Sports Event Travel", "item": pageUrl },
+  ],
+};
+
+const schemaHtml = [articleSchema, breadcrumbSchema]
+  .map(schema => `<script type="application/ld+json">${JSON.stringify(schema, null, '\t')}</script>`)
+  .join('\n');
+---
+
+<Layout
+  title="Sports Event Travel Guide: F1, Golf Majors, NFL & Tennis Trips"
+  description="Plan trips around the world's biggest sporting events: F1 weekends, the Ryder Cup and The Open, Super Bowls, Grand Slam tennis — tickets, hotels, transport and day-by-day itineraries."
+>
+  <Navbar />
+
+  <section class="guide-hero">
+    <div class="container">
+      <h1>The Sports Event Travel Guide</h1>
+      <p class="subtitle">
+        Every major sport now runs on a travel calendar — street circuits, rotation venues and
+        championship weekends that turn one city into a festival. This is how to plan trips
+        around them: tickets, hotels, transport and what the event is actually like.
+      </p>
+      <p class="last-reviewed">Last reviewed: {lastReviewed || 'August 2026'} · Event logistics and venue lineups verified for the 2026-2027 season.</p>
+    </div>
+  </section>
+
+  <article class="guide-body">
+    <div class="container">
+      <p class="lead">
+        Sports event travel has its own logic. Hotels price to the event, not the season;
+        public transport runs special schedules; and the difference between a good trip and a
+        great one is usually timing — arriving early enough to enjoy the host city, leaving
+        after the crush, and knowing which neighborhoods put you near the action without
+        paying stadium-door prices. This guide breaks down how the five biggest categories
+        of event travel work, with links to the full MatchTrip guides for each.
+      </p>
+
+      <h2>Formula 1 Trips</h2>
+      <p>
+        F1 is the most travel-intensive sport on earth: 24 races a year, each turning its host
+        city into a week-long festival. The three American rounds show the range — the
+        <a href="/events/f1-miami-grand-prix-2027/">Miami Grand Prix</a> wraps a circuit around
+        the Hard Rock Stadium campus with beach-club energy, while
+        <a href="/events/f1-las-vegas-grand-prix-2027/">Las Vegas</a> runs down the Strip at
+        night and Austin's Circuit of the Americas delivers the biggest party in the sport.
+        Race weekends run Thursday-to-Sunday, and the smart
+        play is always the same: grandstand over general admission for your first race,
+        Metrorail or event shuttles over driving, and book dinners weeks out — the whole city
+        fills.
+      </p>
+      <p>
+        City guides worth pairing: <a href="/cities/miami/">Miami sports events</a> covers the
+        Hard Rock campus and Wynwood evenings, while
+        <a href="/cities/singapore/">Singapore</a> and
+        <a href="/cities/las-vegas/">Las Vegas</a> cover the two night races.
+      </p>
+
+      <h2>Golf Championship Trips</h2>
+      <p>
+        Golf travel runs on rotations and ballots. The 2027 calendar delivers two of the best
+        trips in the sport: the <a href="/events/ryder-cup-2027/">Ryder Cup at Adare Manor</a>
+        near Limerick — golf's loudest week, with first-tee grandstands that behave like
+        football terraces — and <a href="/events/the-open-2027/">The Open returning to St
+        Andrews</a>, the home of golf. The Masters at
+        <a href="/cities/augusta/">Augusta</a> is the toughest ticket in the sport; The Open's
+        ballot is far more accessible, and practice days midweek are the value play.
+        <a href="/cities/limerick/">Limerick sports travel</a> and
+        <a href="/cities/st-andrews/">sports travel in St Andrews</a> cover the two host
+        regions in depth.
+      </p>
+      <p>
+        Golf weeks reward longer stays than most sports: practice rounds, pro-ams and
+        opening ceremonies build atmosphere that the weekend matches cash in. Plan 4-5 days
+        minimum, and expect to walk ten-plus miles a day following a course.
+      </p>
+
+      <h2>NFL &amp; Super Bowl Weekends</h2>
+      <p>
+        The Super Bowl is America's biggest single-event trip, and
+        <a href="/events/super-bowl-2026/">Super Bowl LX at Levi's Stadium</a> showed the
+        modern playbook: fan festivals all week in the host downtown, stadium-day light rail
+        or Caltrain rather than roads, and post-game patience. At
+        <a href="/cities/santa-clara/">Santa Clara sports travel</a> we cover the Tasman Drive
+        hotels that walk to the gates and San Jose Airport ten minutes away. The next edition
+        — <a href="/events/super-bowl-2027/">Super Bowl LXI in Los Angeles</a> — puts the
+        league's biggest week at the home of the 2028 Olympics. Regular-season NFL weekends
+        abroad (London, Munich, Madrid) run the same logic at a third of the price.
+      </p>
+
+      <h2>Motorsport Beyond F1</h2>
+      <p>
+        The best-value marquee weekend in motorsport is the
+        <a href="/events/indy-500-2027/">Indianapolis 500</a>: 300,000 people, three-abreast
+        starts, and grandstand seats that cost a fraction of a Formula 1 weekend.
+        <a href="/cities/indianapolis/">Indianapolis sports travel</a> covers the downtown
+        base and free race-day shuttles to the Speedway. For two-wheel fans, MotoGP rounds
+        deliver F1-caliber atmosphere at half the cost, and the
+        <a href="/cities/monte-carlo/">Monaco Grand Prix</a> remains the classic bucket-list
+        race for both series' histories.
+      </p>
+
+      <h2>Tennis Grand Slam Trips</h2>
+      <p>
+        Grand Slams are the friendliest big-event trips in sport: two weeks of play, grounds
+        passes that cost less than a dinner, and city-center venues. The
+        <a href="/events/australian-open-2027/">Australian Open in Melbourne</a> opens the
+        year in summer festival mode, Roland Garros and Wimbledon anchor the European summer,
+        and the <a href="/cities/new-york/">US Open in New York</a> runs night sessions under
+        the city skyline. <a href="/cities/melbourne/">Melbourne</a> and
+        <a href="/cities/london/">London</a> carry the two deepest guides.
+      </p>
+
+      <h2>How to Plan Any Event Trip</h2>
+      <p>
+        Whatever the sport, the mechanics repeat. Book tickets first and only through official
+        channels — ballots, official resale, or verified hospitality — because barcode scams
+        peak around every sellout. Pick the neighborhood that matches your pace: walking
+        distance for the full festival atmosphere, one transit stop out for sleep and value.
+        Learn the event's transit pattern before arrival (most venues run special shuttles
+        that beat driving). And build the trip around the event, not just the final: practice
+        days, fan zones and the host city between sessions are where the best memories land.
+        Our <a href="/guides/sports-travel-planning/">sports travel planning guide</a> and
+        <a href="/guides/sports-travel-budget/">sports travel budget guide</a> cover both
+        mechanics in depth.
+      </p>
+    </div>
+  </article>
+
+  <Footer />
+</Layout>
+
+<style>
+  .guide-hero {
+    padding: 100px 0 48px;
+    text-align: center;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  }
+
+  .guide-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    color: #111;
+  }
+
+  .subtitle {
+    font-size: 1.0625rem;
+    color: #6b7280;
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .last-reviewed {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-top: 12px;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .guide-body {
+    padding: 56px 0 80px;
+  }
+
+  .lead {
+    font-size: 1.0625rem;
+    color: #374151;
+    line-height: 1.75;
+    margin-bottom: 18px;
+  }
+
+  .guide-body h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -0.3px;
+    margin: 44px 0 16px;
+  }
+
+  .guide-body p {
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 18px;
+  }
+
+  .guide-body a {
+    color: #4f46e5;
+    text-decoration: underline;
+    text-decoration-color: #c7d2fe;
+    text-underline-offset: 3px;
+  }
+
+  .guide-body a:hover {
+    color: #6366f1;
+    text-decoration-color: #6366f1;
+  }
+
+  @media (max-width: 768px) {
+    .guide-hero {
+      padding: 72px 0 36px;
+    }
+
+    .guide-hero h1 {
+      font-size: 2.25rem;
+    }
+
+    .guide-body {
+      padding: 40px 0 56px;
+    }
+  }
+</style>

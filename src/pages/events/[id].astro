@@ -51,9 +51,20 @@ const availableCitySlugs = new Set(
 const citySlugOf = (cityName: string) => cityName.toLowerCase().replace(/\s+/g, '-');
 
 // Related city pages: every event page links at least two city guides.
-// Same-continent cities come first; the event's own host cities are excluded.
-const ownCitySlugs = new Set((event.hostCities || []).map(c => citySlugOf(c)));
+// Ranked by relevance: cities that host same-category events first, then
+// same-continent, with a priority boost for under-linked authority cities
+// (the event's own host cities are excluded — they already appear above).
+const ownCitySlugs = new Set([
+  ...(event.hostCities || []),
+  ...(event.location?.city ? [event.location.city] : []),
+].map(c => citySlugOf(c)));
 const cityPageMap = new Map();
+const categoryCitySlugs = new Set(
+  Object.values(eventsData)
+    .filter(e => e.category === event.category && e.location?.city)
+    .map(e => citySlugOf(e.location.city))
+);
+const PRIORITY_CITY_SLUGS = new Set(['santa-clara', 'indianapolis', 'limerick', 'miami', 'st-andrews']);
 Object.values(eventsData).forEach(e => {
   const c = e.location?.city;
   if (!c) return;
@@ -62,13 +73,17 @@ Object.values(eventsData).forEach(e => {
     cityPageMap.set(s, { slug: s, city: c, continent: e.location?.continent });
   }
 });
+const cityRelevanceScore = (c) => {
+  let score = 0;
+  if (categoryCitySlugs.has(c.slug)) score += 2; // event-category relevance
+  if (PRIORITY_CITY_SLUGS.has(c.slug)) score += 1; // authority-city exposure
+  if (c.continent === event.location?.continent) score += 1; // geographic closeness
+  return score;
+};
 const relatedCityLinks = Array.from(cityPageMap.values())
   .filter(c => !ownCitySlugs.has(c.slug))
-  .sort((a, b) =>
-    (a.continent === event.location?.continent ? 0 : 1) -
-    (b.continent === event.location?.continent ? 0 : 1)
-  )
-  .slice(0, 3);
+  .sort((a, b) => cityRelevanceScore(b) - cityRelevanceScore(a))
+  .slice(0, 4);
 
 // Venue guide fallback: when no venue lists this event in eventIds, link a
 // venue guide from the same city (e.g. Wimbledon → Wembley), or the venue hub
@@ -241,6 +256,18 @@ if (event.travelGuide) {
   }
   if (event.travelGuide.transportationTips?.length) {
     articleBodyParts.push('Transportation: ' + event.travelGuide.transportationTips.map(t => `${t.mode} — ${t.detail}`).join(' | '));
+  }
+  if (event.travelGuide.localExperience) {
+    const le = event.travelGuide.localExperience;
+    articleBodyParts.push(`Event Experience: ${le.eventDay}`);
+    articleBodyParts.push(`Food & Drink: ${le.foodDrink}`);
+    if (le.nearbyAttractions?.length) {
+      articleBodyParts.push('Nearby Attractions: ' + le.nearbyAttractions.map(a => `${a.name}. ${a.text}`).join(' | '));
+    }
+    articleBodyParts.push(`Trip Duration: ${le.tripDuration}. ${le.tripDurationText}`);
+    if (le.localTips?.length) {
+      articleBodyParts.push('Local Tips: ' + le.localTips.join(' | '));
+    }
   }
   const articleSchema = {
     "@context": "https://schema.org",
@@ -716,7 +743,7 @@ const imageSchemaHtml = `<script type="application/ld+json">${JSON.stringify(ima
         <div class="venues-card">
           <h3>Host Cities</h3>
           <div class="city-tags">
-            {event.hostCities.map(city => (
+            {[...event.hostCities, ...(event.location?.city && !event.hostCities.includes(event.location.city) ? [event.location.city] : [])].map(city => (
               availableCitySlugs.has(citySlugOf(city))
                 ? <a href={`/cities/${citySlugOf(city)}/`} class="city-tag">{city}</a>
                 : <span class="city-tag">{city}</span>
@@ -880,6 +907,62 @@ const imageSchemaHtml = `<script type="application/ld+json">${JSON.stringify(ima
           <a href={activityUrl} class="btn btn-green" data-affiliate="viator" data-campaign={campaign} data-destination="viator" target="_blank" rel="noopener noreferrer sponsored">Book Experiences</a>
         </div>
         <AffiliateDisclosure />
+      </div>
+    </section>
+  )}
+
+  <!-- Event Experience (conditional: only for events with localExperience data) -->
+  {event.travelGuide?.localExperience && (
+    <section class="guide-section experience-guide">
+      <div class="container">
+        <h2>Event Experience</h2>
+        <p class="section-sub">How to make the most of your {event.title} trip — inside the gates and beyond</p>
+
+        {/* Event day narrative */}
+        <div class="experience-block">
+          <h3>{event.travelGuide.localExperience.eventDayTitle}</h3>
+          <p>{event.travelGuide.localExperience.eventDay}</p>
+        </div>
+
+        {/* Food & drink */}
+        <div class="experience-block">
+          <h3>Food &amp; Drink</h3>
+          <p>{event.travelGuide.localExperience.foodDrink}</p>
+        </div>
+
+        {/* Nearby attractions */}
+        {event.travelGuide.localExperience.nearbyAttractions?.length > 0 && (
+          <div class="experience-block">
+            <h3>Nearby Attractions</h3>
+            <div class="guide-grid">
+              {event.travelGuide.localExperience.nearbyAttractions.map(attraction => (
+                <div class="guide-card">
+                  <h3>{attraction.name}</h3>
+                  <p>{attraction.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Trip duration */}
+        <div class="experience-block">
+          <h3>Trip Duration Recommendation</h3>
+          <p><span class="trip-duration-badge">{event.travelGuide.localExperience.tripDuration}</span></p>
+          <p>{event.travelGuide.localExperience.tripDurationText}</p>
+        </div>
+
+        {/* Local tips */}
+        {event.travelGuide.localExperience.localTips?.length > 0 && (
+          <div class="experience-block">
+            <h3>Local Tips</h3>
+            <ul class="experience-tips">
+              {event.travelGuide.localExperience.localTips.map(tip => (
+                <li>{tip}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </section>
   )}
@@ -1591,6 +1674,60 @@ const imageSchemaHtml = `<script type="application/ld+json">${JSON.stringify(ima
   .transport-guide { background: #fafafa; }
   .best-areas-guide { background: #ffffff; }
   .getting-there-guide { background: #ffffff; }
+  .experience-guide { background: #fafafa; }
+
+  .experience-block {
+    margin-top: 32px;
+  }
+
+  .experience-block h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 12px;
+  }
+
+  .experience-block > p {
+    color: #4b5563;
+    line-height: 1.75;
+    font-size: 0.95rem;
+    max-width: 75ch;
+  }
+
+  .experience-tips {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 12px;
+  }
+
+  .experience-tips li {
+    color: #4b5563;
+    line-height: 1.65;
+    font-size: 0.95rem;
+    padding-left: 26px;
+    position: relative;
+    max-width: 75ch;
+  }
+
+  .experience-tips li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #16a34a;
+    font-weight: 700;
+  }
+
+  .trip-duration-badge {
+    display: inline-block;
+    background: #eef2ff;
+    color: #4f46e5;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
 
   .guide-section h2 {
     font-size: 1.75rem;

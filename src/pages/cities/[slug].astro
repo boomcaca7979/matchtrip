@@ -85,18 +85,20 @@ const relatedCities = Array.from(allCities.values())
 const planEventCards = (upcomingEvents.length > 0 ? upcomingEvents : events).slice(0, 3);
 
 // A city with a single event links only two event URLs (hub + event); top up
-// with upcoming events elsewhere (same continent first) so every city page
-// links at least three event pages.
+// with upcoming events elsewhere — same category as the city's own event
+// first, then same continent — so every city page links at least five event pages.
 const ownEventIds = new Set(events.map(e => e.id));
+const ownCategories = new Set(events.map(e => e.category));
 const moreEvents = events.length < 2
   ? Object.entries(eventsData)
       .filter(([id, e]) => !ownEventIds.has(id) && e.status !== 'ended')
       .map(([id, e]) => ({ id, ...e }))
-      .sort((a, b) =>
-        (a.location?.continent === continent ? 0 : 1) -
-        (b.location?.continent === continent ? 0 : 1)
-      )
-      .slice(0, 2)
+      .sort((a, b) => {
+        const catScore = (e) => (ownCategories.has(e.category) ? 0 : 1);
+        const contScore = (e) => (e.location?.continent === continent ? 0 : 1);
+        return (catScore(a) - catScore(b)) || (contScore(a) - contScore(b));
+      })
+      .slice(0, 4)
   : [];
 
 // Venue guide cards: venues in this city first, then same continent, then the
