@@ -35,8 +35,24 @@ const groupedEvents = categories.map(cat => ({
 const upcomingEvents = events.filter(e => e.status !== 'ended');
 const pastEvents = events.filter(e => e.status === 'ended');
 
-const title = `${year} Sports Events Travel Guide: ${categories[0] || 'All Sports'}`;
-const description = `The ${year} sports calendar: ${categories.slice(0, 3).join(', ')} events with dates, tickets, hotels and travel guides for every major ${year} trip.`;
+// Per-year SEO title/description (search-intent phrasing), with template fallback
+const YEAR_META = {
+  2026: {
+    title: '2026 Sports Events Calendar: World Cup, Super Bowl & F1',
+    description: 'The 2026 sports calendar — World Cup across North America, Super Bowl LX and the Budapest Champions League final — with dates, tickets, hotels and trip guides.',
+  },
+  2027: {
+    title: '2027 Sports Events Calendar: Super Bowl, CL Final & Masters',
+    description: 'The 2027 sports calendar — Super Bowl LXI at SoFi Stadium, the Masters, Monaco GP and the Madrid Champions League final — dates, tickets, hotels and guides.',
+  },
+  2028: {
+    title: '2028 Sports Events: LA Olympics Travel Guide & Tickets',
+    description: 'The 2028 sports calendar — the LA28 Olympics across Southern California venues — with session tickets, hotel clusters, Metro transport and trip planning guides.',
+  },
+};
+const meta = YEAR_META[year] || {};
+const title = meta.title || `${year} Sports Events Travel Guide: ${categories[0] || 'All Sports'}`;
+const description = meta.description || `The ${year} sports calendar: ${categories.slice(0, 3).join(', ')} events with dates, tickets, hotels and travel guides for every major ${year} trip.`;
 
 // Year-specific editorial content: intro, events lead-in, travel planning, related guides.
 const YEAR_NARRATIVE = {
@@ -139,8 +155,8 @@ const narrative = YEAR_NARRATIVE[year] || null;
 const collectionPageSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": `${year} Sports Events`,
-  "description": `${year} sports calendar with ${events.length} major events across ${categories.length} sports categories.`,
+  "name": title,
+  "description": description,
   "url": pageUrl,
   "mainEntity": {
     "@type": "ItemList",

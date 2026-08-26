@@ -24,3 +24,8 @@ Layout.astro 新增 `image` prop：venue/city 模板传入 `/images/content/{slu
 ## 未生成占位图（遵循指令）
 
 7 个无内容图城市 + guides + 3 个 OG 分类图不足的页面保持现有分类/default 图——图片不存在的一律记录不补占位。
+
+## 复检（最终 build 后）
+
+- 20 页抽检（10 Event / 5 Venue / 5 Guide）：og:title、og:description 与 head 元数据 20/20 一致
+- og:image URL 均指向站内存在文件（/images/content/ 或 /images/og/）

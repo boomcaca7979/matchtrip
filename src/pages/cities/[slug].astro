@@ -113,12 +113,17 @@ const planVenueCards = Object.values(venuesData)
 // Venue guide links for the More on MatchTrip section (only cities with editorial content)
 const linkedVenues = (content?.majorVenues || []).filter(v => v && v.venueSlug);
 
+// Per-city SEO title/description from citiesContent, falling back to the
+// generic template when a city has no editorial entry
+const pageTitle = content?.seoTitle || `${city} Sports Travel Guide | MatchTrip`;
+const pageDescription = content?.metaDescription || `Plan your ${city} sports trip with event guides, hotels, flights, tickets and things to do.`;
+
 // Schema
 const collectionPageSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": `${city} Sports Events`,
-  "description": `Sports events in ${city}, ${country}. Find schedules, travel guides, hotels, and tickets for sporting events in ${city}.`,
+  "name": pageTitle,
+  "description": pageDescription,
   "url": pageUrl,
   "mainEntity": {
     "@type": "ItemList",
@@ -172,11 +177,6 @@ const schemaHtml = [collectionPageSchema, citySchema, imageSchema, breadcrumbSch
   .filter(Boolean)
   .map(schema => `<script type="application/ld+json">${JSON.stringify(schema, null, '\t')}</script>`)
   .join('\n');
-
-// Per-city SEO title/description from citiesContent, falling back to the
-// generic template when a city has no editorial entry
-const pageTitle = content?.seoTitle || `${city} Sports Travel Guide | MatchTrip`;
-const pageDescription = content?.metaDescription || `Plan your ${city} sports trip with event guides, hotels, flights, tickets and things to do.`;
 ---
 
 <Layout title={pageTitle} description={pageDescription} image={hasCityImage ? `/images/content/${slug}.jpg` : undefined}>

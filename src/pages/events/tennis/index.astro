@@ -13,8 +13,8 @@ const categoryUrl = new URL('/events/tennis/', Astro.site).href;
 const collectionPageSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "Tennis Tournaments 2026 – Wimbledon & US Open",
-  "description": "View tennis Grand Slam tournaments in 2026 including Wimbledon and the US Open. Get schedules, dates, and ticket information.",
+  "name": "Grand Slam Tennis Travel Guide 2026: Tickets & Hotels",
+  "description": "View tennis Grand Slam tournaments in 2026 and 2027 — Wimbledon, the US Open, Roland Garros and Melbourne — with schedules, tickets, hotels and travel guides.",
   "url": categoryUrl,
   "mainEntity": {
     "@type": "ItemList",
@@ -31,7 +31,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
 ---
 
 <Layout
-  title="Tennis Tournaments 2026 – Wimbledon & US Open | MatchTrip"
+  title="Grand Slam Tennis Travel Guide 2026: Tickets & Hotels"
   description="View tennis Grand Slam tournaments in 2026 and 2027 — Wimbledon, the US Open, Roland Garros and Melbourne — with schedules, tickets, hotels and travel guides."
 >
   <Navbar />

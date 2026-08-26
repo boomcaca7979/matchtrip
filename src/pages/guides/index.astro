@@ -235,8 +235,8 @@ const pageUrl = new URL('/guides/', Astro.site).href;
 const collectionPageSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "Sports Travel Guides",
-  "description": "Sports travel guides for football, Formula 1, tennis, golf and Olympic events — covering tickets, accommodation, transportation and host city planning.",
+  "name": "Sports Travel Guides: Tickets, Hotels & Trip Planning",
+  "description": "Sports travel guides for football, Formula 1, tennis, golf and the Olympics — ticket strategy, hotel zones, transport and real host-city advice.",
   "url": pageUrl,
   "mainEntity": {
     "@type": "ItemList",
@@ -266,7 +266,7 @@ const schemaHtml = [collectionPageSchema, breadcrumbSchema]
 
 <Layout
   title="Sports Travel Guides: Tickets, Hotels & Trip Planning"
-  description="Sports travel guides for football, Formula 1, tennis, golf and the Olympics — ticket strategy, hotel zones, transport and host-city advice."
+  description="Sports travel guides for football, Formula 1, tennis, golf and the Olympics — ticket strategy, hotel zones, transport and real host-city advice."
 >
   <Navbar />
 

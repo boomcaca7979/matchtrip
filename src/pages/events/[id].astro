@@ -230,7 +230,7 @@ if (event.travelGuide) {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": `${event.title} Travel Guide`,
+    "headline": event.title,
     "author": {
       "@type": "Organization",
       "name": "MatchTrip",

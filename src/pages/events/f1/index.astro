@@ -13,8 +13,8 @@ const categoryUrl = new URL('/events/f1/', Astro.site).href;
 const collectionPageSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "F1 2026 Schedule – Monaco & Singapore Grand Prix",
-  "description": "View the 2026 Formula 1 schedule including Monaco Grand Prix and Singapore Grand Prix. Find race dates, circuit info, and travel guides.",
+  "name": "F1 2026 Travel Guide: Monaco & Singapore Tickets, Hotels",
+  "description": "Plan F1 trips across the 2026 season — Monaco and Singapore Grand Prix race dates, ticket options, circuit hotels and transport for each weekend.",
   "url": categoryUrl,
   "mainEntity": {
     "@type": "ItemList",
@@ -31,8 +31,8 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
 ---
 
 <Layout
-  title="F1 2026 Schedule – Monaco & Singapore Grand Prix | MatchTrip"
-  description="View the 2026 Formula 1 schedule including Monaco Grand Prix and Singapore Grand Prix. Find race dates, circuit information, and travel guides."
+  title="F1 2026 Travel Guide: Monaco & Singapore Tickets, Hotels"
+  description="Plan F1 trips across the 2026 season — Monaco and Singapore Grand Prix race dates, ticket options, circuit hotels and transport for each weekend."
 >
   <Navbar />
 
