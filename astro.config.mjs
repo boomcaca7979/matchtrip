@@ -2,12 +2,13 @@
 import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
+import lastmodMap from './src/data/lastmod-map.json';
 
 // @ts-check
 const SITE_URL = 'https://matchtrip-blue.vercel.app';
 
-// Sitemap priorities: upcoming events rank highest (0.9), guides 0.8,
-// venues/cities 0.7, ended events drop to 0.5, utility pages 0.3.
+// Sitemap priorities: upcoming events 0.9/weekly, event+guide hubs 0.8,
+// venues/cities/sports 0.7, ended events 0.4, utility pages 0.3.
 // Upcoming event slugs mirror src/data/events.js (status === 'upcoming').
 const UPCOMING_EVENTS = [
   'super-bowl-2027',
@@ -29,6 +30,10 @@ const UPCOMING_EVENTS = [
   'f1-miami-grand-prix-2027',
 ];
 
+// Route-level lastmod dates from real git history (scripts/gen-sitemap-lastmod.mjs).
+// Falls back to null — Astro omits <lastmod> rather than faking a date.
+const gitLastmod = (path) => lastmodMap[path] || null;
+
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
@@ -39,26 +44,35 @@ export default defineConfig({
     sitemap({
       changefreq: 'weekly',
       priority: 0.7,
-      lastmod: new Date(),
       serialize(item) {
-        const path = item.url.replace(SITE_URL, '');
-        // Ended event detail pages: lower priority, monthly refresh.
-        const isEvent = path.startsWith('/events/') && path.split('/').filter(Boolean).length === 2;
-        const isEndedEvent = isEvent && !UPCOMING_EVENTS.includes(path.split('/')[2]);
-        if (isEvent) {
+        const path = item.url.replace(SITE_URL, '') || '/';
+        const lastmod = gitLastmod(path);
+        const withMod = lastmod ? { ...item, lastmod: new Date(lastmod) } : item;
+
+        // Event detail pages
+        const segments = path.split('/').filter(Boolean);
+        const isEventDetail =
+          segments[0] === 'events' && segments.length === 2 && !['2026', '2027', '2028'].includes(segments[1]);
+        if (isEventDetail) {
+          const isEnded = !UPCOMING_EVENTS.includes(segments[1]);
           return {
-            ...item,
-            priority: isEndedEvent ? 0.5 : 0.9,
-            changefreq: isEndedEvent ? 'monthly' : 'weekly',
-            lastmod: new Date(),
+            ...withMod,
+            priority: isEnded ? 0.4 : 0.9,
+            changefreq: isEnded ? 'monthly' : 'weekly',
           };
         }
-        if (path.startsWith('/guides/')) return { ...item, priority: 0.8, changefreq: 'weekly', lastmod: new Date() };
-        if (path.startsWith('/venues/')) return { ...item, priority: 0.7, changefreq: 'monthly', lastmod: new Date() };
-        if (path.startsWith('/cities/')) return { ...item, priority: 0.7, changefreq: 'monthly', lastmod: new Date() };
-        if (path === '/' || path === '') return { ...item, priority: 1.0, changefreq: 'weekly', lastmod: new Date() };
-        if (path.startsWith('/about/') || path === '/about') return { ...item, priority: 0.6, changefreq: 'monthly', lastmod: new Date() };
-        return { ...item, priority: 0.3, changefreq: 'yearly', lastmod: new Date() };
+
+        // Event hubs: /events/, category and year pages
+        if (segments[0] === 'events') return { ...withMod, priority: 0.8, changefreq: 'weekly' };
+
+        if (segments[0] === 'guides') return { ...withMod, priority: 0.8, changefreq: 'weekly' };
+        if (segments[0] === 'venues') return { ...withMod, priority: 0.7, changefreq: 'monthly' };
+        if (segments[0] === 'cities') return { ...withMod, priority: 0.7, changefreq: 'monthly' };
+        if (segments[0] === 'sports') return { ...withMod, priority: 0.7, changefreq: 'weekly' };
+        if (path === '/') return { ...withMod, priority: 1.0, changefreq: 'weekly' };
+        if (segments[0] === 'about' || segments[0] === 'editorial-policy')
+          return { ...withMod, priority: 0.6, changefreq: 'monthly' };
+        return { ...withMod, priority: 0.3, changefreq: 'yearly' };
       },
     }),
   ],

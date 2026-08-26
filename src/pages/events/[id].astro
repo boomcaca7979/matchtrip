@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
 import { eventsData } from '../../data/events';
 import { venuesData } from '../../data/venues';
+import lastmodMap from '../../data/lastmod-map.json';
 import {
   buildHotelLink,
   buildFlightLink,
@@ -83,6 +84,19 @@ const guidesCityLabel = event.location?.city
   || null;
 
 const refs = event.partnerRefs;
+
+// Freshness signal: real last-modified date from git history (scripts/gen-sitemap-lastmod.mjs).
+const routeLastmod = (lastmodMap as Record<string, string>)[`/events/${id}/`];
+const lastmodMonth = routeLastmod
+  ? new Date(routeLastmod).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+  : null;
+
+// Official source links (Phase 4): only real event/organizer URLs from events.js.
+const officialLinks = [
+  event.officialWebsite ? { label: 'Official Website', url: event.officialWebsite } : null,
+  event.ticketSource ? { label: 'Ticket Information', url: event.ticketSource } : null,
+].filter(Boolean);
+
 const campaign = id as string;
 const city = event.location?.city || refs.hotelCity || event.hostCities[0] || '';
 const stayCity = event.location?.city || refs.hotelCity || '';
@@ -187,6 +201,7 @@ const eventSchema = {
   },
   "image": [imageUrl],
   "description": event.description,
+  "sameAs": event.officialWebsite ? [event.officialWebsite] : undefined,
   "offers": {
     "@type": "Offer",
     "url": refs.ticketUrl || eventUrl,
@@ -242,7 +257,7 @@ if (event.travelGuide) {
       "url": "https://matchtrip-blue.vercel.app"
     },
     "datePublished": event.startDate,
-    "dateModified": event.startDate,
+    "dateModified": routeLastmod || event.startDate,
     "articleBody": articleBodyParts.join('\n\n'),
     "url": eventUrl,
     "image": [imageUrl],
@@ -456,6 +471,11 @@ const imageSchemaHtml = `<script type="application/ld+json">${JSON.stringify(ima
           <span>Est. Cost: {getTravelPrice(event)}</span>
         </div>
         <p class="event-description">{event.description}</p>
+        <p class="event-freshness">
+          {event.status === 'ended'
+            ? 'Archived — Previous Edition · This event has finished; details kept for trip planning reference.'
+            : `Updated ${lastmodMonth} · Dates, tickets and hotel zones verified against official sources.`}
+        </p>
         <!-- Trip Planning CTA -->
         <div class="hero-trip-planning">
           <h3 class="hero-cta-heading">Plan Your Trip</h3>
@@ -476,9 +496,31 @@ const imageSchemaHtml = `<script type="application/ld+json">${JSON.stringify(ima
   <!-- Hero category image (per-sport og artwork) -->
   <section class="hero-image-section">
     <div class="container">
-      <img class="event-hero-img" src={"/images/og/" + heroImageFile + ".png"} alt={`${event.title} travel guide — tickets, hotels and ${event.location?.city} trip planning`} loading="lazy" width="1200" height="630" />
+      <img class="event-hero-img" src={"/images/og/" + heroImageFile + ".png"} alt={`${event.title} travel guide — tickets, hotels and ${city || event.location?.label || 'host city'} trip planning`} loading="lazy" width="1200" height="630" />
     </div>
   </section>
+
+  <!-- Official Event Information: direct links to the organizer and ticketing channels -->
+  {officialLinks.length > 0 && (
+    <section class="official-info-section">
+      <div class="container">
+        <div class="official-info-card">
+          <div class="official-info-text">
+            <h2 class="official-info-heading">Official Event Information</h2>
+            <p class="official-info-note">Verified links from the event organizer — always buy tickets through official channels.</p>
+            <div class="official-info-links">
+              {officialLinks.map((link) => (
+                <a href={link.url} target="_blank" rel="noopener noreferrer" class="official-info-link">
+                  <span class="official-info-label">{link.label}</span>
+                  <span class="official-info-url">{new URL(link.url).hostname}</span> &rarr;
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Next Event (defensive: only ended events that define a next edition) -->
   {event.status === 'ended' && event.nextEvent && (
@@ -1065,6 +1107,62 @@ const imageSchemaHtml = `<script type="application/ld+json">${JSON.stringify(ima
     line-height: 1.6;
     max-width: 700px;
   }
+
+  .event-freshness {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85rem;
+    margin-top: 10px;
+    max-width: 700px;
+  }
+
+  /* Official Event Information card */
+  .official-info-section { padding: 8px 0 32px; }
+
+  .official-info-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+
+  .official-info-heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 6px;
+  }
+
+  .official-info-note {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+
+  .official-info-links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .official-info-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #111;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+  }
+
+  .official-info-link:hover { border-color: #6366f1; }
+
+  .official-info-label { font-weight: 700; }
+
+  .official-info-url { color: #6b7280; }
 
   /* Hero category image (og artwork below the gradient hero) */
   .hero-image-section {

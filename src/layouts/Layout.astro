@@ -50,6 +50,16 @@ const jsonld = {
     "query-input": "required name=search_term_string"
   }
 };
+
+// Organization entity: only verifiable fields — name, url, logo. No invented
+// founder/employee/award data.
+const organizationJsonld = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "MatchTrip",
+  "url": siteOrigin,
+  "logo": new URL('/favicon.svg', site).href,
+};
 ---
 
 <!doctype html>
@@ -87,6 +97,8 @@ const jsonld = {
 
 		<!-- JSON-LD Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(jsonld, null, '\t')}>
+		</script>
+		<script type="application/ld+json" set:html={JSON.stringify(organizationJsonld, null, '\t')}>
 		</script>
 
 		<!-- Google AdSense -->

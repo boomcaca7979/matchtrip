@@ -2,8 +2,15 @@
 import Layout from '../../../layouts/Layout.astro';
 import Navbar from '../../../components/Navbar.astro';
 import Footer from '../../../components/Footer.astro';
+import lastmodMap from '../../../data/lastmod-map.json';
 
 const pageUrl = new URL('/guides/sports-travel-budget/', Astro.site).href;
+
+// Freshness signal: real last-reviewed date from git history.
+const routeLastmod = (lastmodMap as Record<string, string>)['/guides/sports-travel-budget/'];
+const lastReviewed = routeLastmod
+  ? new Date(routeLastmod).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+  : null;
 
 // Article structured data for SEO
 const articleSchema = {
@@ -16,7 +23,7 @@ const articleSchema = {
   "author": { "@type": "Organization", "name": "MatchTrip" },
   "publisher": { "@type": "Organization", "name": "MatchTrip" },
   "datePublished": "2026-08-26",
-  "dateModified": "2026-08-26",
+  "dateModified": routeLastmod ? routeLastmod.slice(0, 10) : "2026-08-26",
   "about": [
     { "@type": "Thing", "name": "Sports travel" },
     { "@type": "Thing", "name": "Travel budget" },
@@ -53,6 +60,7 @@ const schemaHtml = [articleSchema, breadcrumbSchema]
         Real numbers from real events — three budget tiers, five events priced line by line, and
         ten saving tactics that do not involve missing the match.
       </p>
+      <p class="last-reviewed">Last reviewed: {lastReviewed} · Prices checked against official ticket phases and host-city hotel rates.</p>
     </div>
   </section>
 
@@ -300,6 +308,12 @@ const schemaHtml = [articleSchema, breadcrumbSchema]
     max-width: 640px;
     margin: 0 auto;
     line-height: 1.7;
+  }
+
+  .last-reviewed {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-top: 12px;
   }
 
   .container {

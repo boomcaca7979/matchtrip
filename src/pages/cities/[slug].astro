@@ -167,6 +167,7 @@ const breadcrumbSchema = {
 const imageSchema = hasCityImage ? {
   "@context": "https://schema.org",
   "@type": "ImageObject",
+  "url": `https://matchtrip-blue.vercel.app/images/content/${slug}.jpg`,
   "contentUrl": `https://matchtrip-blue.vercel.app/images/content/${slug}.jpg`,
   "name": `${city} travel guide image`,
   "caption": `${city} sports travel guide — stadiums, events and where to stay in ${city}`,
