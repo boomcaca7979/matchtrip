@@ -173,11 +173,13 @@ const schemaHtml = [collectionPageSchema, citySchema, imageSchema, breadcrumbSch
   .map(schema => `<script type="application/ld+json">${JSON.stringify(schema, null, '\t')}</script>`)
   .join('\n');
 
-const pageTitle = `${city} Sports Travel Guide | MatchTrip`;
-const pageDescription = `Plan your ${city} sports trip with event guides, hotels, flights, tickets and things to do.`;
+// Per-city SEO title/description from citiesContent, falling back to the
+// generic template when a city has no editorial entry
+const pageTitle = content?.seoTitle || `${city} Sports Travel Guide | MatchTrip`;
+const pageDescription = content?.metaDescription || `Plan your ${city} sports trip with event guides, hotels, flights, tickets and things to do.`;
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription} image={hasCityImage ? `/images/content/${slug}.jpg` : undefined}>
   <Navbar />
 
   <!-- Hero -->

@@ -4,6 +4,7 @@ interface Props {
   description?: string;
   category?: string;
   canonical?: string;
+  image?: string;
 }
 
 const {
@@ -11,6 +12,7 @@ const {
   description = 'Discover major sporting events worldwide and get complete travel plans with budget estimates. Follow the game, plan the journey.',
   category = 'default',
   canonical,
+  image,
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://matchtrip-blue.vercel.app');
@@ -26,7 +28,8 @@ const OG_IMAGE_BY_CATEGORY: Record<string, string> = {
 };
 const categoryKey = String(category).trim().toLowerCase().replace(/[\s-]+/g, '-');
 const ogImageFile = OG_IMAGE_BY_CATEGORY[categoryKey] || 'default';
-const ogImageURL = new URL(`/images/og/${ogImageFile}.png`, site);
+// An explicit image prop (e.g. a content photo) overrides the category fallback
+const ogImageURL = image ? new URL(image, site) : new URL(`/images/og/${ogImageFile}.png`, site);
 
 // GA4 Measurement ID — 通过 Vercel 环境变量注入，不硬编码
 const GA_MEASUREMENT_ID = import.meta.env.GA_MEASUREMENT_ID || '';

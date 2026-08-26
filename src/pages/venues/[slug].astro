@@ -149,7 +149,7 @@ const compactTitle = `${venue.name} Guide: Seating, Hotels & Transport`;
 const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : defaultTitle);
 ---
 
-<Layout title={pageTitle} description={venue.description}>
+<Layout title={pageTitle} description={venue.description} image={`/images/content/${venue.slug}.jpg`}>
   <Navbar />
 
   <!-- Hero -->
