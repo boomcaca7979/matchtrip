@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import { eventsData } from '../data/events';
+import { venuesData } from '../data/venues';
 
 const allEvents = Object.entries(eventsData).map(([id, data]) => ({
   id,
@@ -22,6 +23,13 @@ const stats = [
   { number: '15+', label: 'Host Cities' },
   { number: '100%', label: 'Free to Use' },
 ];
+
+// Featured venue guides: highest-capacity authority venues (SEO interlink
+// signal from the homepage to the venue layer).
+const featuredVenues = Object.values(venuesData)
+  .filter(v => typeof v.capacity === 'number')
+  .sort((a, b) => b.capacity - a.capacity)
+  .slice(0, 4);
 ---
 
 <Layout>
@@ -175,6 +183,34 @@ const stats = [
           <h3>No Signup Required</h3>
           <p>Browse events and build travel plans without creating an account. No spam, no tracking — just sports travel.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Venue Guides (SEO interlink: homepage -> venue layer) -->
+  <section class="venues-home" id="venues">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Venue Guides</span>
+        <h2 class="section-title">Stadium, Circuit & Course Guides</h2>
+        <p class="section-subtitle">Seating, parking, transport and match-day tips for the world's great sports venues.</p>
+      </div>
+      <div class="events-grid">
+        {featuredVenues.map(v => (
+          <a href={`/venues/${v.slug}/`} class="event-card">
+            <div class="event-visual" style={`background: linear-gradient(135deg, ${v.colorFrom} 0%, ${v.colorTo} 100%)`}>
+              <span class="event-visual-emoji">{v.emoji}</span>
+            </div>
+            <div class="event-info">
+              <span class="event-badge">{v.cityDisplay}</span>
+              <h3>{v.name}</h3>
+              <span class="event-link">Venue Guide &rarr;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="events-cta">
+        <a href="/venues/" class="btn btn-primary btn-lg">All Venue Guides</a>
       </div>
     </div>
   </section>

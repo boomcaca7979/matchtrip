@@ -56,7 +56,7 @@ for (const slug of citySlugs) {
 
 // Guides
 map['/guides/'] = latest(['src/pages/guides/index.astro', 'src/data/events.js']);
-for (const g of ['best-sports-cities', 'sports-travel-budget', 'sports-travel-planning']) {
+for (const g of ['best-sports-cities', 'sports-event-travel', 'sports-travel-budget', 'sports-travel-planning']) {
   map[`/guides/${g}/`] = latest([`src/pages/guides/${g}/index.astro`]);
 }
 
