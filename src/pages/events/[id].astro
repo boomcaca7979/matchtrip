@@ -433,8 +433,8 @@ const imageSchemaHtml = `<script type="application/ld+json">${JSON.stringify(ima
 ---
 
 <Layout
-  title={`${event.title} - Travel Guide | MatchTrip`}
-  description={`${event.title} travel guide. Plan your trip with hotels, flights, tickets, budget estimates and things to do in ${city}.`}
+  title={event.title}
+  description={event.description}
   category={event.category}
 >
   <Navbar />
