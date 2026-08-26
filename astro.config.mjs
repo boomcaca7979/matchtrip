@@ -49,10 +49,12 @@ export default defineConfig({
         const lastmod = gitLastmod(path);
         const withMod = lastmod ? { ...item, lastmod: new Date(lastmod) } : item;
 
-        // Event detail pages
+        // Event detail pages (hubs — category and year pages — are excluded)
         const segments = path.split('/').filter(Boolean);
         const isEventDetail =
-          segments[0] === 'events' && segments.length === 2 && !['2026', '2027', '2028'].includes(segments[1]);
+          segments[0] === 'events' &&
+          segments.length === 2 &&
+          !['2026', '2027', '2028', 'football', 'f1', 'nba', 'tennis'].includes(segments[1]);
         if (isEventDetail) {
           const isEnded = !UPCOMING_EVENTS.includes(segments[1]);
           return {
