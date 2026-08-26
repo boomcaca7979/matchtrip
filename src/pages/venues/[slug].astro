@@ -16,12 +16,13 @@ export function getStaticPaths() {
 const { slug, venue } = Astro.props;
 
 const pageUrl = new URL(`/venues/${slug}/`, Astro.site).href;
-const capacityLabel = venue.capacity.toLowerCase().includes('circuit') ? 'Circuit' : 'Capacity';
+const capacityStr = String(venue.capacity ?? '');
+const capacityLabel = capacityStr.toLowerCase().includes('circuit') ? 'Circuit' : 'Capacity';
 
 // Numeric capacity for the maximumAttendeeCapacity JSON-LD field: pure-number
 // strings ("70,240") parse to a number; descriptive capacities (circuits
 // without a fixed seat count) stay null and omit the field.
-const capacityDigits = venue.capacity.replace(/,/g, '');
+const capacityDigits = capacityStr.replace(/,/g, '');
 const capacityNumber = /^\d+$/.test(capacityDigits) ? Number(capacityDigits) : null;
 
 // Interlinking: only render event ids that exist in eventsData (no dead links).
@@ -83,11 +84,20 @@ const seatingCards = venue.seatingGuide
   : [];
 
 // ── Structured data ──────────────────────────────────
+// Venue type specialization: Place + SportsActivityLocation base chain,
+// StadiumOrArena for stadium/motorsport venues, GolfCourse for golf links.
+const venueIsGolf = Array.isArray(venue.sports) && venue.sports.some((s: string) => /golf/i.test(s));
+const venueIsStadium = Array.isArray(venue.sports) && venue.sports.some((s: string) =>
+  /football|stadium|american|soccer|tennis|motorsport|indy|nascar|formula|f1|racing|rugby/i.test(s));
+const venueTypes: string[] = ["Place", "SportsActivityLocation"];
+if (venueIsStadium) venueTypes.push("StadiumOrArena");
+if (venueIsGolf) venueTypes.push("GolfCourse");
 const placeSchema = {
   "@context": "https://schema.org",
-  "@type": "Place",
+  "@type": venueTypes,
   "name": venue.name,
   "url": pageUrl,
+  "publicAccess": "True",
   "description": `${venue.overview} ${capacityLabel}: ${venue.capacity}.`,
   "address": {
     "@type": "PostalAddress",
@@ -101,6 +111,17 @@ const placeSchema = {
       "latitude": venue.coordinates.lat,
       "longitude": venue.coordinates.lng,
     },
+  } : {}),
+  ...(venue.openingYear ? { "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "name": `Opened ${venue.openingYear}`,
+  } } : {}),
+  ...(venueIsGolf ? {
+    "containsPlace": (venue.foodOptions || []).map(opt => ({
+      "@type": "Restaurant",
+      "name": opt.name,
+      "servesCuisine": "Golf Clubhouse Dining",
+    }))
   } : {}),
   ...(capacityNumber ? { "maximumAttendeeCapacity": capacityNumber } : {}),
   ...(venue.image ? { image: [new URL(venue.image, Astro.site).href] } : {}),

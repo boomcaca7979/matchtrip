@@ -33,8 +33,28 @@ if (!event) {
   return Astro.redirect('/events/');
 }
 
-// Related venue guide: the venue whose eventIds include this event.
-const relatedVenue = Object.values(venuesData).find(v => v.eventIds?.includes(id as string));
+// Related venue guide: explicit event.venueSlug first, then venue.eventIds[]
+// backward scan, then fuzzy name match against event.venues[] strings, and finally
+// a same-city fallback (every event page keeps at least one venue link).
+const normalizeVenueName = (s: string) => String(s).toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '')
+  .replace(/the-|stadium-|-stadium|-circuit-|-raceway-|-motor-|-speedway-/g, '-')
+  .replace(/^-+|-+$/g, '');
+const explicitSlugMatch = (event as any).venueSlug
+  ? venuesData[(event as any).venueSlug] || null
+  : null;
+const eventIdsMatch = Object.values(venuesData).find(v => v.eventIds?.includes(id as string));
+const fuzzyNameMatch = (!explicitSlugMatch && !eventIdsMatch && event.venues?.length)
+  ? Object.values(venuesData).find(v => {
+      const slugKey = normalizeVenueName(v.slug);
+      return (event.venues as string[]).some(name => {
+        const nKey = normalizeVenueName(name);
+        return nKey === slugKey || slugKey.includes(nKey) || nKey.includes(slugKey);
+      });
+    }) || null
+  : null;
+const relatedVenue = explicitSlugMatch || eventIdsMatch || fuzzyNameMatch;
 const relatedVenueCapacity = relatedVenue && relatedVenue.capacity != null
   ? (typeof relatedVenue.capacity === 'number'
       ? relatedVenue.capacity.toLocaleString('en-US')

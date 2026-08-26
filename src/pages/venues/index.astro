@@ -63,7 +63,7 @@ const pageDescription = "Stadium and circuit travel guides — SoFi, Wembley and
             <div class="venue-content">
               <div class="venue-meta">
                 <span class="venue-city">{venue.cityDisplay}</span>
-                <span class="venue-capacity">{venue.capacity.toLowerCase().includes('circuit') ? 'Circuit' : 'Capacity'}: {venue.capacity}</span>
+                <span class="venue-capacity">{String(venue.capacity ?? '').toLowerCase().includes('circuit') ? 'Circuit' : 'Capacity'}: {venue.capacity}</span>
               </div>
               <a href={`/venues/${venue.slug}/`} class="venue-title-link"><h3>{venue.name}</h3></a>
               <p>{venue.overview.split('. ')[0]}.</p>

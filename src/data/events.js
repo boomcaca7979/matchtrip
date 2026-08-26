@@ -279,6 +279,7 @@ export const eventsData = {
 
   'super-bowl-2026': {
     id: 'super-bowl-2026',
+    venueSlug: 'levis-stadium',
     seriesId: 'super-bowl',
     year: 2026,
     status: 'ended',
@@ -970,6 +971,7 @@ export const eventsData = {
 
   'indy-500-2027': {
     id: 'indy-500-2027',
+    venueSlug: 'indianapolis-motor-speedway',
     seriesId: 'indy-500',
     year: 2027,
     status: 'upcoming',
@@ -1242,6 +1244,7 @@ export const eventsData = {
 
   'f1-miami-grand-prix-2027': {
     id: 'f1-miami-grand-prix-2027',
+    venueSlug: 'hard-rock-stadium',
     seriesId: 'f1-miami',
     year: 2027,
     status: 'upcoming',
@@ -1804,6 +1807,7 @@ export const eventsData = {
 
   'ryder-cup-2027': {
     id: 'ryder-cup-2027',
+    venueSlug: 'adare-manor',
     seriesId: 'ryder-cup',
     year: 2027,
     status: 'upcoming',
@@ -2071,6 +2075,7 @@ export const eventsData = {
 
   'the-open-2027': {
     id: 'the-open-2027',
+    venueSlug: 'old-course-st-andrews',
     seriesId: 'the-open',
     year: 2027,
     status: 'upcoming',
