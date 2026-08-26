@@ -35,7 +35,7 @@ const groupedEvents = categories.map(cat => ({
 const upcomingEvents = events.filter(e => e.status !== 'ended');
 const pastEvents = events.filter(e => e.status === 'ended');
 
-const title = `${year} Sports Events & Travel Guide: ${categories.slice(0, 2).join(', ')}`;
+const title = `${year} Sports Events Travel Guide: ${categories[0] || 'All Sports'}`;
 const description = `View the ${year} sports calendar including ${categories.slice(0, 4).join(', ')} events. Find schedules, dates, travel guides, and booking information for major sporting events in ${year}.`;
 
 // Year-specific editorial content: intro, events lead-in, travel planning, related guides.
