@@ -45,6 +45,16 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
     </div>
   </section>
 
+  <!-- Introduction -->
+  <section class="intro-section">
+    <div class="container">
+      <h2 class="section-heading">Why the NBA Finals Are Worth Traveling For</h2>
+      <p>The NBA Finals are the only championship in major American sport decided by a series rather than a single game — a best-of-seven showdown each June in which the two surviving teams trade home courts until one of them lifts the Larry O'Brien Trophy. That structure makes Finals travel unlike anything else on the calendar: instead of one destination, you are choosing between two cities, with games alternating between their arenas under the 2-2-1-1-1 format. The 2026 edition ran from June 4 to June 22, and a series that length is a gift to travelers — long enough to build a proper trip around, short enough that one well-timed long weekend can catch a pivotal game.</p>
+      <p>The uncertainty is the strategy. Host cities are only confirmed once the Conference Finals conclude in late May, so experienced Finals travelers book refundable flights and hotels in both candidate cities and cancel the one they do not need. Do that early enough and you lock pre-surge rates in the city that ends up hosting Games 1 and 2. A sweep can end a trip after four games; a seven-game classic stretches the drama — and your travel window — across nearly three weeks.</p>
+      <p>What you get in return is basketball at its loudest and most concentrated: 20,000 fans inside a downtown arena, celebrity rows along the sideline, and the sport's biggest stars producing forty-point performances under championship pressure. June is also prime season for North American cities — long evenings, rooftop watch parties for the road games, and arena districts that stay electric deep into the night after a home win.</p>
+    </div>
+  </section>
+
   <!-- Topic Cluster -->
   <section class="topic-cluster">
     <div class="container">
@@ -80,6 +90,8 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
         <p class="events-count">{categoryEvents.length} event(s)</p>
       </div>
 
+      <p class="events-intro">The Finals rotate between the home cities of the two conference champions, so the venue is revealed only when the matchup is set. MatchTrip tracks the full championship series — dates, cities, and the travel estimates for each guide below — with the <a href="/events/nba-finals/">NBA Finals 2026 guide</a> covering series structure, ticket windows, and game-night logistics in detail.</p>
+
       <div class="events-grid">
         {categoryEvents.map(event => (
           <article class="event-card">
@@ -94,6 +106,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
               </div>
               <a href={`/events/${event.id}/`} class="event-card-title-link"><h3>{event.title} Schedule</h3></a>
               <p>{event.description}</p>
+              <p class="event-travel-intel">A best-of-seven series across the finalists' home arenas — budget flights {event.avgFlightPrice}, hotels from {event.avgHotelPrice}, and tickets {event.matchTickets} once the matchup is set. The championship window runs mid-June, with games every two to three days.</p>
               <div class="event-footer">
                 <div class="event-price">
                   <span class="price-label">Est. Travel Cost</span>
@@ -105,6 +118,40 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
           </article>
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- How Finals Travel Works -->
+  <section class="content-section">
+    <div class="container">
+      <h2 class="section-heading">How NBA Finals Travel Actually Works</h2>
+      <p>Every decision in Finals travel flows from the series format. Games 1, 2, 5, and 7 are played in the higher seed's arena; games 3, 4, and 6 belong to the other finalist. In practice, most travelers pick one city and target either the opening two games or a potential close-out — games 3, 4, and 6 in the lower seed's building are usually easier on the wallet simply because demand concentrates on the higher seed's city. Because the teams are only known three to four weeks before game 1, flights booked in that window are the most expensive of the NBA year; the professionals hold refundable reservations from the conference finals onward and pull the trigger the night the matchup is confirmed.</p>
+      <p>Costs scale with the market. A full Finals trip — two or three games, flights, hotel, and meals — realistically runs $2,000 to $5,000 per person, and New York or Boston as a host city pushes the ceiling higher than smaller markets. Ticket-plus-travel packages can trim 15 to 20 percent off the combined price, which is worth comparing before you book flights and seats separately. Budget travelers should watch for game 3 and game 4 inventory, which softens when a series stands at 2-0.</p>
+      <p>Between games, the host city does the rest of the work. Finals weeks turn the arena district into a festival — official watch parties for road games, giant screens in plaza areas, and bars layered in team colors for miles. Structure your days around the every-other-night rhythm: a morning walk through the host city's signature neighborhood, an afternoon at a museum or on the waterfront, then into the arena district three hours before tip-off to let the buildup build. Travelers flying in for a single game should treat it as a two-night trip — arriving the morning of the game means risking a delay with no buffer, and the morning-after calm of a championship city, win or lose, is half the story. If you can stretch to two games, target games 3 and 4 in the lower seed's city: same series, gentler prices, and a crowd that knows exactly what is at stake.</p>
+    </div>
+  </section>
+
+  <!-- Travel Planning -->
+  <section class="content-section">
+    <div class="container">
+      <h2 class="section-heading">NBA Finals Travel Planning</h2>
+
+      <h3 class="sub-heading">Tickets: When and Where to Buy</h3>
+      <p>Single-game Finals tickets are released through Ticketmaster once the Conference Finals determine the matchup, and that initial on-sale is your best shot at fair prices. After that, the NBA Ticket Exchange — the league's official resale platform on Ticketmaster — is the only authorized secondary market; counterfeit tickets are common for high-demand Finals games, so treat social-media sellers and unverifiable brokers as a hard no. Resale prices typically start at $200 and up for upper-level seats and $1,000 and up for lower level, with deciding games and Game 7s commanding the steepest premiums. NBA hospitality packages add premium seating and pre-game access for travelers who want certainty. Set a budget ceiling before the on-sale, not after — the cheapest categories sell out first.</p>
+
+      <h3 class="sub-heading">Hotels: Where to Stay in the Host City</h3>
+      <p>Finals arenas sit in the heart of their host cities, so the classic strategy applies: stay downtown near the arena for walkable access to the game and the surrounding bar scene, and expect those rooms to fill within hours of the matchup being confirmed. The value play is the next ring out — adjacent neighborhoods fifteen to twenty minutes from the arena offer more character, better restaurants, and meaningfully lower rates. Airport-area hotels are the budget fallback for travelers attending multiple games across a series. Because the host city is unknown until late May, book refundable rates in both candidate cities as soon as the conference finals begin, then cancel the loser the moment the matchup is set. New York and Boston host years run noticeably pricier than smaller markets.</p>
+
+      <h3 class="sub-heading">Getting to the Arena on Game Night</h3>
+      <p>Every NBA Finals host city has rail transit to its arena — the New York subway to Madison Square Garden, LA Metro to Crypto.com Arena, the Boston T to TD Garden, the Chicago L to United Center — and game night is the night to use it. Streets around the arena close two to three hours before tip-off, parking is expensive and scarce, and rideshare drop-off zones sit two to three blocks from the entrances anyway. Public transit runs extended hours after Finals games, though platforms are packed when 20,000 people leave at once; walking fifteen minutes away from the arena before hailing a ride beats waiting in the designated-zone queue. Arrive early to soak up the pre-game atmosphere outside the arena — at Finals prices, the whole evening is part of what you paid for.</p>
+    </div>
+  </section>
+
+  <!-- Related Guides -->
+  <section class="content-section related-section">
+    <div class="container">
+      <h2 class="section-heading">Related Guides</h2>
+      <p>Build out the rest of your trip with MatchTrip's planning network. Start with the <a href="/guides/sports-travel-planning/">sports travel planning guide</a> for booking timelines and refundable-rate strategy, then keep costs in line with the <a href="/guides/sports-travel-budget/">sports travel budget guide</a>. The <a href="/guides/">guides hub</a> collects every destination and event guide on the site, while the <a href="/sports/basketball/">basketball sports page</a> expands on Finals travel with city and venue coverage. For the wider 2026 calendar around the June Finals window, browse the <a href="/events/2026/">2026 events schedule</a> or compare against other championship trips — the <a href="/events/football/">football events</a>, <a href="/events/f1/">Formula 1 schedule</a>, and <a href="/events/tennis/">tennis tournaments</a> collections all pair well with an early-summer itinerary.</p>
     </div>
   </section>
 
@@ -124,6 +171,13 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .category-hero h1 { font-size: 2.75rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 16px; color: #111; }
   .subtitle { font-size: 1.0625rem; color: #6b7280; max-width: 620px; margin: 0 auto; line-height: 1.7; }
   .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .intro-section { padding: 24px 0 48px; }
+  .section-heading { font-size: 1.5rem; font-weight: 700; color: #111; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid #f3f4f6; }
+  .intro-section p, .content-section p { color: #4b5563; font-size: 1rem; line-height: 1.75; margin: 0 0 16px; }
+  .content-section { padding: 0 0 56px; }
+  .content-section p a, .events-intro a { color: #6366f1; font-weight: 600; text-decoration: none; }
+  .content-section p a:hover, .events-intro a:hover { color: #4f46e5; text-decoration: underline; }
+  .sub-heading { font-size: 1.15rem; font-weight: 700; color: #111; margin: 28px 0 12px; }
   .topic-cluster { padding: 0 0 48px; background: #ffffff; }
   .cluster-heading { font-size: 1.25rem; font-weight: 700; color: #111; margin-bottom: 20px; text-align: center; }
   .cluster-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 800px; margin: 0 auto; }
@@ -132,10 +186,11 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .cluster-card-hub { background: #111827; border-color: #111827; color: white; }
   .cluster-card-hub:hover { background: #374151; border-color: #374151; color: white; }
   .cluster-icon { font-size: 1.125rem; }
-  .events-section { padding: 0 0 80px; }
-  .events-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; }
+  .events-section { padding: 0 0 56px; }
+  .events-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
   .events-header h2 { font-size: 1.5rem; font-weight: 700; color: #111; }
   .events-count { color: #6b7280; font-size: 0.95rem; }
+  .events-intro { color: #4b5563; font-size: 1rem; line-height: 1.75; margin-bottom: 28px; max-width: 860px; }
   .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px; }
   .event-card { background: white; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
   .event-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1); }
@@ -147,7 +202,8 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .event-card-title-link { text-decoration: none; color: inherit; display: block; transition: color 0.2s ease; }
   .event-card-title-link:hover { color: #6366f1; }
   .event-card-title-link h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; color: #111; }
-  .event-content p { color: #4b5563; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .event-content p { color: #4b5563; font-size: 0.95rem; line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .event-travel-intel { color: #6b7280; font-size: 0.85rem; line-height: 1.6; margin-bottom: 20px; display: block; }
   .event-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid #f3f4f6; }
   .event-price { display: flex; flex-direction: column; }
   .price-label { font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -155,6 +211,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .btn { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; font-weight: 600; transition: all 0.2s; cursor: pointer; }
   .btn-primary { background: #111; color: white; padding: 10px 20px; border-radius: 10px; border: none; font-size: 0.9rem; }
   .btn-primary:hover { background: #374151; transform: translateY(-1px); }
+  .related-section { padding-bottom: 72px; }
   @media (max-width: 768px) {
     .category-hero h1 { font-size: 2rem; }
     .events-grid { grid-template-columns: 1fr; }

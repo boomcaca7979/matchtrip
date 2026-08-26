@@ -9,6 +9,8 @@
  *   - slug / name / cityDisplay / citySlug / country / continent
  *     citySlug must match the city page slugs derived from events.js.
  *   - capacity       → display string ("70,240" or "night race with multiple grandstand zones")
+ *   - coordinates    → { lat, lng, address } real-world location used for the
+ *     JSON-LD geo / streetAddress fields on the venue detail page
  *   - sports         → sport tags rendered in the hero
  *   - eventIds       → keys in events.js used for venue ↔ event interlinking;
  *                      ids not yet present in eventsData are skipped at
@@ -34,6 +36,7 @@ export const venuesData = {
     country: 'USA',
     continent: 'North America',
     capacity: '70,240',
+    coordinates: { lat: 33.9535, lng: -118.3392, address: '1001 Stadium Dr, Los Angeles, CA 90301' },
     sports: ['American Football', 'Football', 'Multi-Sport'],
     eventIds: ['super-bowl-2027', 'olympics-2028', 'world-cup-2026'],
     colorFrom: '#0f172a',
@@ -150,6 +153,48 @@ export const venuesData = {
     ],
     matchDayExperience:
       'A match day at SoFi begins well before kickoff at the 6,000-seat YouTube Theater and the surrounding American Airlines Plaza, where food stands, bars, and live pre-game shows turn the lakefront district into a festival. The walk toward the bowl delivers the venue\'s signature moment: the 70,000-square-foot halo-shaped Oculus board floating above the field, wrapping replays and stats around the entire stadium in a double-sided ring. Fans arrive early just to watch it glow against the translucent canopy, and linger after the final whistle at the lakefront while post-game traffic clears. Cashless throughout, the district keeps restaurants and music going deep into the evening.',
+    seatingGuide: {
+      premium:
+        'Club-level seats in the 200s and 300s sections at midfield are SoFi\'s premium sweet spot. Holders get wider padded seats, upscale lounges like the Genesis Club, in-seat service, and short concession lines, while midfield placement delivers sideline-to-sideline sightlines of the whole pitch beneath the translucent canopy.',
+      bestViews:
+        'For the signature SoFi view, head to the 500-level midfield stands on the side opposite the 70,000-square-foot double-sided Oculus board — you watch the game and the wraparound replays at once. The steep rake keeps every row clear, and the translucent canopy glows above the halo screen after dark.',
+      cheapest:
+        'The 400s sections in the stadium\'s northwest corner are the value sweet spot — upper-bowl pricing with corner-to-corner views across the field, the lake, and the surrounding Hollywood Park district. Aim for higher rows to see over the Oculus board\'s edge, and use the wide concourses to explore at halftime.',
+    },
+    matchDayTimeline: [
+      {
+        time: '3 hours before',
+        action: 'Park and explore Hollywood Park',
+        detail:
+          'Walk the lakefront park between the stadium and the lake, watch the Oculus board glow above American Airlines Plaza, and grab early food — pre-booked lots fill steadily from mid-afternoon onward.',
+      },
+      {
+        time: '90 minutes before',
+        action: 'Clear security under the canopy',
+        detail:
+          'Enter through the open-air concourses sheltered by the ETFE roof; mobile-ticket scanners and magnetometer lines move fastest at gates away from the main plaza, so note your exit route.',
+      },
+      {
+        time: '30 minutes before',
+        action: 'Claim a front-row view of the Oculus',
+        detail:
+          'Take concourse spots fronting the 70,000-square-foot double-sided video board for warm-ups — the halo screen\'s clarity up close is the stadium\'s signature moment.',
+      },
+      {
+        time: 'Event',
+        action: 'Soak in the bowl',
+        detail:
+          'Track stats and replays on the Oculus ring between plays, sample club-level dining if you upgraded, and enjoy how the canopy keeps the open-air bowl comfortable after dark.',
+      },
+      {
+        time: '1 hour after',
+        action: 'Stagger your exit',
+        detail:
+          'Linger at the lakefront or American Airlines Plaza while 70,000 fans clear the lots, then follow pre-planned routes to Hawthorne/Lennox shuttles or Arbor Vitae rideshare zones.',
+      },
+    ],
+    nearbyArea:
+      'SoFi anchors the 300-acre Hollywood Park district in Inglewood, where the Kia Forum, YouTube Theater, and the lakefront park sit within a short walk. Food trucks and plaza stands ring event days, while Inglewood\'s soul food institutions and taco trucks on Crenshaw lie minutes away by car.',
   },
 
   'las-vegas-strip-circuit': {
@@ -160,6 +205,7 @@ export const venuesData = {
     country: 'USA',
     continent: 'North America',
     capacity: '~90,000 across multiple grandstand zones',
+    coordinates: { lat: 36.1090, lng: -115.1735, address: '3555 S Las Vegas Blvd' },
     sports: ['Motorsport', 'Formula 1'],
     eventIds: ['f1-las-vegas-grand-prix-2026', 'f1-las-vegas-grand-prix-2027'],
     colorFrom: '#111827',
@@ -276,6 +322,48 @@ export const venuesData = {
     ],
     matchDayExperience:
       'The race-day experience starts blocks away, as the Strip\'s resorts empty toward the circuit and the Sphere looms over the fences glowing with race graphics. Opposite it, the T-Mobile Zone at Sphere is the weekend\'s party heart — a general-admission festival of giant screens, DJ sets, bars, and viewing platforms where fans without grandstand seats get front-row energy. From there, the circuit bends past Caesars Palace and the Bellagio fountains, cars howling down Las Vegas Boulevard at 200 mph under full neon. Saturday night\'s race ends close to 10 PM, and the after-parties simply spill back into the casinos, which never close.',
+    seatingGuide: {
+      premium:
+        'Skybox tables and Paddock Club seat pairs above the pit building are Vegas\'s top ticket — trackside hospitality with gourmet catering, pit-lane views, and paddock access. Seat pairs share lounge tables overlooking the start-finish straight, where the grid forms and the podium ceremony unfolds.',
+      bestViews:
+        'The East Grandstand along the main straight faces the Sphere directly: cars launch off the line and scream past at over 200 mph with the glowing orb as your backdrop. You see the start, the pit exit, and the braking into Turn 1 — the race\'s decisive moments.',
+      cheapest:
+        'Standing-room and zone passes around Harmon deliver the budget race experience: roaming views of the main straight plus giant-screen replays in the T-Mobile Zone at Sphere, where DJs and viewing platforms keep the party going between sessions at a fraction of grandstand prices.',
+    },
+    matchDayTimeline: [
+      {
+        time: '3 hours before',
+        action: 'Collect tickets and eat early',
+        detail:
+          'Pick up credentials before queues build, then eat a proper dinner — Strip crossings close during sessions, turning casual walks into 30-minute detours through casino interiors.',
+      },
+      {
+        time: '90 minutes before',
+        action: 'Walk to your zone',
+        detail:
+          'Follow casino interiors and elevated walkways toward your gate, and layer up — November desert nights drop into the 40s Fahrenheit once the sun sets over the Strip.',
+      },
+      {
+        time: '30 minutes before',
+        action: 'Take your seat under the lights',
+        detail:
+          'Find your grandstand row as the floodlights and the Sphere\'s displays switch to race graphics; grab drinks now — concession lines swell right before the formation lap.',
+      },
+      {
+        time: 'Event',
+        action: 'Race under neon at 22:00',
+        detail:
+          'Lights out at 22:00 with cars past 200 mph down Las Vegas Boulevard beneath full neon — the Sphere, Caesars Palace, and the Bellagio fountains glow around every lap.',
+      },
+      {
+        time: '1 hour after',
+        action: 'Spill back into the casinos',
+        detail:
+          'The checkered flag falls near midnight; wait out rideshare surges in a casino bar, then use the east-side pickup lots — late-night dining is easy in a city that never closes.',
+      },
+    ],
+    nearbyArea:
+      'The main straight and pit complex sit directly beside the Sphere, linked by elevated crosswalks and the Strip\'s pedestrian walkways. Harmon Corner\'s shops and the LINQ Promenade — a linear open-air walkway crowned by the High Roller — sit steps from the Harmon grandstands, while Caesars, Bellagio, and the Venetian all lie within a 20-minute walk.',
   },
 
   'metropolitano': {
@@ -286,6 +374,7 @@ export const venuesData = {
     country: 'Spain',
     continent: 'Europe',
     capacity: '70,692',
+    coordinates: { lat: 40.4362, lng: -3.5995, address: 'Av. de Luis Aragonés 4, 28022 Madrid' },
     sports: ['Football'],
     eventIds: ['champions-league-final-2027'],
     colorFrom: '#450a0a',
@@ -402,6 +491,48 @@ export const venuesData = {
     ],
     matchDayExperience:
       'Match day at the Metropolitano blends Madrid\'s tapas ritual with football pilgrimage. Fans gather over cañas and croquetas in the city center hours before kickoff, then ride Metro Line 7 northeast as red-and-white shirts flood every carriage toward the wave-shaped roof. Around the ground, the Rosas district\'s family tabernas and the north and south fan zones fill with grills, live music, and matchday flags, building toward the roar inside the 70,692-seat bowl. For Champions League finals, the celebration\'s epicenter shifts to Plaza de Cibeles in central Madrid, where the traditional fan gathering and trophy celebrations fill the square deep into the night.',
+    seatingGuide: {
+      premium:
+        'For premium atmosphere, take the middle-tier boxes and hospitality seats at Fondo Sur, behind the south goal — you sit with the loudest Atlético support while enjoying padded seats, lounge access, and covered comfort. Champions League nights here combine the roar of the hardcore end with club-level catering.',
+      bestViews:
+        'The Preferencia — the long middle-tier side stand — offers the best view in the house: elevated, central, and close to the pitch, with the Sky Ribbon screen in perfect eyeline and the whole tactical picture visible. Mid-tier rows here feel closer to the action than equivalent seats at older, flatter grounds.',
+      cheapest:
+        'Upper-tier seats in Fondo Norte, behind the north goal, are the cheapest way into the Metropolitano and still deliver a superb experience: steep, close sightlines, the family-friendly non-smoking zone, and full views of the pitch and the Sky Ribbon. Buy early for Champions League nights, when even top rows vanish.',
+    },
+    matchDayTimeline: [
+      {
+        time: '3 hours before',
+        action: 'Tapas in central Madrid',
+        detail:
+          'Start with cañas and croquetas around Sol or the Mercado de San Miguel, then ride Metro Line 7 northeast as red-and-white shirts gradually flood every carriage toward the stadium.',
+      },
+      {
+        time: '90 minutes before',
+        action: 'Explore the fan zones',
+        detail:
+          'The north and south fan zones open with live music, food stalls, and grills; bags larger than A4 are refused at the turnstiles, so arrive hands-free and early.',
+      },
+      {
+        time: '30 minutes before',
+        action: 'Soak up the Sky Ribbon',
+        detail:
+          'Take your seat as the 360-degree LED screen wraps the bowl in club colours — the tifo and chants build fastest at Fondo Sur behind the south goal.',
+      },
+      {
+        time: 'Event',
+        action: 'A wall of noise under the wave roof',
+        detail:
+          'The steep three-tier bowl holds noise like a cauldron; every seat sits beneath the wave-shaped roof, and the Sky Ribbon keeps replays visible from any angle in the ground.',
+      },
+      {
+        time: '1 hour after',
+        action: 'Linger or dash to the metro',
+        detail:
+          'Head straight to Estadio Metropolitano station to beat the crush, or enjoy a slow drink in the Rosas district while platform queues clear — Plaza de Cibeles fills for trophy nights.',
+      },
+    ],
+    nearbyArea:
+      'The stadium sits in Madrid\'s quiet San Blas-Canillejas district, where the Rosas neighbourhood\'s family tabernas and cafés circle the ground. The new Nasas Madrid shopping centre is rising opposite the south parking for the 2027 Champions League final, while IFEMA\'s fairgrounds and Barajas Airport sit minutes away.',
   },
 
   'marina-bay-circuit': {
@@ -412,6 +543,7 @@ export const venuesData = {
     country: 'Singapore',
     continent: 'Asia',
     capacity: 'night race with multiple grandstand zones',
+    coordinates: { lat: 1.2916, lng: 103.8648, address: '5 Stadium Dr, Singapore 397632' },
     sports: ['Motorsport', 'Formula 1'],
     eventIds: ['f1-singapore-grand-prix'],
     colorFrom: '#0c4a6e',
@@ -528,6 +660,48 @@ export const venuesData = {
     ],
     matchDayExperience:
       'Race night at Marina Bay is a city-wide festival that runs past midnight. Sessions build through the humid tropical evening as cars flash between the downtown towers, and when the checkered flag falls the circuit transforms: stages across the zones launch headline post-race concerts that are free for ticket holders — Zone 1\'s Village Stage keeps crowds dancing beside the paddock while the Padang\'s main stage draws the biggest names in music. Fans drift between live sets, hawker food stalls, and waterfront views of the illuminated skyline, and the MRT runs extra late trains to carry everyone home. Nobody rushes the exits here — the party is the second feature.',
+    seatingGuide: {
+      premium:
+        'The Paddock Club suites above the pits are Singapore\'s premium ticket: champagne hospitality, pit-lane walks, and balcony views over the start-finish straight, with the podium celebration unfolding below. Pit Grandstand seats deliver similar positioning for less — right above the garages where teams work all weekend.',
+      bestViews:
+        'The Turn 1 grandstand captures the circuit\'s best racing — cars brake from 290 km/h into the first corner, the likeliest overtaking spot — while the waterfront Bay Grandstand, when on sale, frames Marina Bay Sands across the water. Both deliver floodlit action with the skyline as a backdrop.',
+      cheapest:
+        'Zone 4 walkabout tickets are the value pick: they include the bayside bleachers near the Esplanade and roaming access to Zone 4\'s waterfront platforms, plus the Padang\'s headline concerts after the session. Bring a poncho — tropical showers arrive suddenly — and claim elevated spots early.',
+    },
+    matchDayTimeline: [
+      {
+        time: '3 hours before',
+        action: 'Eat at the hawker stalls',
+        detail:
+          'Dine early at Makansutra Gluttons Bay or the in-circuit hawker stands before the humid evening builds — support sessions fill the afternoon and the main action starts after dark.',
+      },
+      {
+        time: '90 minutes before',
+        action: 'Claim your zone spot',
+        detail:
+          'Gates and track-crossing bridges jam before floodlit sessions, so move between zones now — crossings only open between sessions, and shaded grandstand seats go fast.',
+      },
+      {
+        time: '30 minutes before',
+        action: 'Watch the city light up',
+        detail:
+          'As dusk falls, floodlights and skyline switch on around the bay — the Marina Bay Sands towers glow above the guardrails while the grid forms below.',
+      },
+      {
+        time: 'Event',
+        action: 'Floodlit racing from 20:00',
+        detail:
+          'The race starts at 8 PM sharp under full floodlights — for two hours the cars flash between the downtown towers in F1\'s most physically demanding race.',
+      },
+      {
+        time: '1 hour after',
+        action: 'Stay for the concerts',
+        detail:
+          'Nobody rushes the exits — headline acts play the Padang main stage and Zone 1\'s Village Stage after the flag, free for ticket holders, while extra late-night MRT trains run.',
+      },
+    ],
+    nearbyArea:
+      'The circuit sits inside downtown Singapore\'s most walkable quarter: Marina Bay Sands, its promenade, and Gardens by the Bay sit across the water, while the Esplanade theatres, bayfront hotels, and rooftop bars ring the track itself — every gate opens onto postcard views of the skyline.',
   },
 
   'arthur-ashe-stadium': {
@@ -538,6 +712,7 @@ export const venuesData = {
     country: 'USA',
     continent: 'North America',
     capacity: '23,771',
+    coordinates: { lat: 40.7497, lng: -73.8460, address: '1 Flushing Meadows Corona Park Rd, Queens, NY 11368' },
     sports: ['Tennis'],
     eventIds: ['us-open-tennis'],
     colorFrom: '#1e3a8a',
@@ -654,6 +829,48 @@ export const venuesData = {
     ],
     matchDayExperience:
       'US Open night sessions at Arthur Ashe are New York\'s loudest sporting ritual. The gates open at 5 PM and the campus hums all evening — the food village pours Honey Deuces, the tournament\'s signature Grey Goose vodka, lemonade, and honeydew cocktail, as fans graze between courts. Inside the bowl, the atmosphere sharpens after dark: 23,771 seats fill, the retractable roof closes against summer storms, and the lights turn the blue court into a stage where every rally echoes. Matches routinely run past midnight, with crowds cheering aces like touchdowns, and the 7-train ride back to Manhattan becomes a rolling debrief of the night\'s drama.',
+    seatingGuide: {
+      premium:
+        'Courtside and club-level seats ringing the Arthur Ashe floor are the premium play — close enough to hear players argue line calls and coaches whisper between changeovers. Many come with lounge and restaurant access; shade and seat-back service matter in New York\'s late-summer heat, especially at day sessions.',
+      bestViews:
+        'The best views come from elevated rows in line with mid-court — back rows of the promenade or the front of the upper bowl. From there you read serve placement and the full geometry of rallies, watch both players\' positioning, and still catch the Manhattan skyline beyond the open roof.',
+      cheapest:
+        'Upper-bowl seats in the end sections are Ashe\'s cheapest reserved tickets — steep but unobstructed views high above the baseline. Better value still: early-round grounds passes, which trade Ashe entry for all-day hopping between Louis Armstrong Stadium, the Grandstand, and the outer courts where future stars play.',
+    },
+    matchDayTimeline: [
+      {
+        time: '3 hours before',
+        action: 'Ride the 7 train out',
+        detail:
+          'Take the 7 train or LIRR to Mets–Willets Point around 4 PM for night sessions — walk the grounds, watch pros practice on the outer courts, and eat early.',
+      },
+      {
+        time: '90 minutes before',
+        action: 'Graze the Food Village',
+        detail:
+          'Work through the Food Village — lobster roll, Honey Deuce cocktail, Fuku chicken sandwich — while lines are short; between 6 and 8 PM every stand queues.',
+      },
+      {
+        time: '30 minutes before',
+        action: 'Find your seat at dusk',
+        detail:
+          'Ashe gates open at 5 PM for 7 PM night sessions — settle in as the evening sky darkens over the open roof and the court lights take over.',
+      },
+      {
+        time: 'Event',
+        action: 'Night session under the lights',
+        detail:
+          'New York\'s loudest sporting ritual: 23,771 fans, celebrity rows courtside, and aces cheered like touchdowns — matches under the closed roof routinely run past midnight.',
+      },
+      {
+        time: '1 hour after',
+        action: 'Beat the crush home',
+        detail:
+          'Skip the 7-train scrum and take the LIRR from the adjacent station — it skips local stops — or digest the night over soup dumplings in downtown Flushing.',
+      },
+    ],
+    nearbyArea:
+      'Arthur Ashe sits inside Flushing Meadows–Corona Park, Queens\' great green heart — the Unisphere, the Queens Museum, and the Queens Zoo sit minutes from the gates. During the Open the grounds fill with the Food Village and market stalls, while downtown Flushing\'s dining scene waits two subway stops away.',
   },
 
   'wembley': {
@@ -664,6 +881,7 @@ export const venuesData = {
     country: 'UK',
     continent: 'Europe',
     capacity: '90,000',
+    coordinates: { lat: 51.5561, lng: -0.2795, address: 'London HA9 0WS, Wembley' },
     sports: ['Football', 'American Football'],
     eventIds: [],
     colorFrom: '#172554',
@@ -781,5 +999,47 @@ export const venuesData = {
     ],
     matchDayExperience:
       'Match days at Wembley revolve around the walk. Fans pour off Jubilee and Metropolitan line trains at Wembley Park and join the slow river of supporters flowing down Olympic Way, the pedestrian boulevard lined with food stalls, flag sellers, and pubs in full voice, the 133-metre arch growing larger with every step toward the turnstiles. The crowd noise builds like a tide — scarves raised, songs exchanged between sets of fans — and the final approach under the arch feels like entering a national monument. After full-time the flow reverses toward Boxpark and the station queue systems, but the Olympic Way procession is the memory visitors keep.',
+    seatingGuide: {
+      premium:
+        'Level 1 midfield seats flanking the halfway line are Wembley\'s premium ticket — low rows put you level with the touchline action and close enough to hear every tackle, while club hospitality packages around these blocks add restaurant dining, champagne bars, and lounge access.',
+      bestViews:
+        'For watching goals go in at both ends, aim for the middle tier at the halfway line — the club-tier blocks rising above Level 1 give an elevated, perfectly balanced view of both penalty areas, and the steep rake means even back rows stay close to the pitch.',
+      cheapest:
+        'Upper-tier corner blocks in the 500s offer the cheapest entry into a 90,000-seat occasion without giving up the view — the rake keeps sightlines clear over the crowd, and the full arch-and-bowl spectacle comes free. Book early for finals, when corner seats sell first.',
+    },
+    matchDayTimeline: [
+      {
+        time: '3 hours before',
+        action: 'Drink on Olympic Way',
+        detail:
+          'Join the river of fans flowing down from Wembley Park station — food stalls, flag sellers, and pubs line the boulevard while the 133-metre arch grows larger with every step.',
+      },
+      {
+        time: '90 minutes before',
+        action: 'Soak up the fan zones',
+        detail:
+          'NFL games bring tailgate zones, marching bands, and pre-game shows around the stadium; for football, grab a Boxpark table before the two-hour-ahead queues form.',
+      },
+      {
+        time: '30 minutes before',
+        action: 'The arch at sunset',
+        detail:
+          'Time your entry for golden hour on evening kick-offs — the low sun backlights the iconic arch above the bowl, the signature Wembley photograph from the upper-tier concourse.',
+      },
+      {
+        time: 'Event',
+        action: 'The bowl in full voice',
+        detail:
+          'With no pillars anywhere, all 90,000 share one unbroken sightline — cup finals raise the noise until the arch itself seems to hum above the singing crowd.',
+      },
+      {
+        time: '1 hour after',
+        action: 'Outlast the station queues',
+        detail:
+          'Post-match drinks at Boxpark or the London Designer Outlet beat the 45-minute Wembley Park queue systems; pre-booked Chiltern trains leave within 90 minutes of full-time.',
+      },
+    ],
+    nearbyArea:
+      'Wembley Park wraps the stadium in a walkable entertainment district — the London Designer Outlet\'s shops and restaurants sit five minutes from the arch, Boxpark\'s shipping-container food hall anchors the station approach, and the OVO Arena\'s concert calendar rounds out the scene.',
   },
 };

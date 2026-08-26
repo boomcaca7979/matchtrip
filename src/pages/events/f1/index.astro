@@ -45,6 +45,15 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
     </div>
   </section>
 
+  <!-- Introduction -->
+  <section class="intro-section">
+    <div class="container">
+      <h2 class="section-heading">Why Formula 1 Is Built for Travelers</h2>
+      <p>Formula 1 is the only sport that turns a rotating cast of world cities into week-long festivals. A modern race weekend is not a Sunday event — it is a three-to-four-day takeover in which practice sessions, qualifying, support races, fan zones, concerts, and driver appearances stack on top of each other, and the host city rewires its streets around the circuit. MatchTrip tracks seven of those weekends across the current calendar: the crown-jewel Monaco Grand Prix on the harbor, Formula 1's original night race in Singapore around Marina Bay, the Las Vegas Strip spectacular where cars pass the Sphere at 340 km/h on a Saturday night, Miami's stadium-campus circuit, and the Indianapolis 500 — five hundred miles around the most famous oval on earth, every Memorial Day weekend.</p>
+      <p>Each race has a completely different personality, and that is precisely what makes an F1 trip worth planning months ahead. Monaco is glamour distilled — yachts in Port Hercule, rooftop terraces, and grandstands that sell out within days of going on sale. Singapore is a city festival where you step from a hawker center straight into the circuit gates. Las Vegas is the calendar's lone prime-time Saturday race, with the whole weekend tilted toward evening under the neon. Indianapolis, by contrast, is motorsport's great value play: general admission and reserved seats cost a fraction of a Formula 1 weekend, with three hundred thousand people for company.</p>
+    </div>
+  </section>
+
   <!-- Topic Cluster: Back to Hub + Other Categories -->
   <section class="topic-cluster">
     <div class="container">
@@ -80,6 +89,8 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
         <p class="events-count">{categoryEvents.length} event(s)</p>
       </div>
 
+      <p class="events-intro">The motorsport calendar below spans two seasons: the 2026 run of <a href="/events/f1-monaco-2026/">Monaco</a>, <a href="/events/f1-singapore-grand-prix/">Singapore</a>, and <a href="/events/f1-las-vegas-grand-prix-2026/">Las Vegas</a>, plus the 2027 slate of <a href="/events/f1-miami-grand-prix-2027/">Miami</a>, <a href="/events/indy-500-2027/">the Indianapolis 500</a>, <a href="/events/f1-monaco-grand-prix-2027/">Monaco</a>, and <a href="/events/f1-las-vegas-grand-prix-2027/">Las Vegas</a>. Each guide covers grandstand picks, ticket categories, hotel zones, and transport — the four decisions that shape any race weekend.</p>
+
       <div class="events-grid">
         {categoryEvents.map(event => (
           <article class="event-card">
@@ -94,6 +105,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
               </div>
               <a href={`/events/${event.id}/`} class="event-card-title-link"><h3>{event.title} Schedule</h3></a>
               <p>{event.description}</p>
+              <p class="event-travel-intel">Race weekend at {event.venues?.[0] || 'the circuit'} — budget flights {event.avgFlightPrice}, hotels from {event.avgHotelPrice} per night, and tickets {event.matchTickets} for the weekend. Sessions run Thursday or Friday through Sunday; buy only through official F1 and promoter channels.</p>
               <div class="event-footer">
                 <div class="event-price">
                   <span class="price-label">Est. Travel Cost</span>
@@ -105,6 +117,39 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
           </article>
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- Anatomy of a Race Weekend -->
+  <section class="content-section">
+    <div class="container">
+      <h2 class="section-heading">The Anatomy of a Race Weekend</h2>
+      <p>Most Formula 1 weekends follow the same skeleton, and knowing it doubles the value of your trip. Friday brings two practice sessions while the city around the circuit fills with fan-zone activations; Saturday morning holds final practice before qualifying sets the grid in the afternoon; Sunday is the race, usually mid-afternoon in Europe, evening in Singapore and Las Vegas. Las Vegas flips the template entirely — the weekend runs Thursday to Saturday, with the Grand Prix itself on Saturday night at 8 PM Pacific, which means the whole city's entertainment stack runs alongside the track action rather than after it.</p>
+      <p>The smart play is to arrive a day early and treat the weekend as a city break with a race attached. Thursday practice days have the thinnest crowds and the cheapest single-day tickets; driver appearances and autograph sessions cluster midweek; and street circuits like Monaco, Singapore, and Las Vegas reward walking the full layout on foot before the barriers and crowds make it impossible. Leave Monday morning free — the hour after a grand prix is gridlock everywhere, and the first flights out are the ones everyone is trying to make.</p>
+    </div>
+  </section>
+
+  <!-- Travel Planning -->
+  <section class="content-section">
+    <div class="container">
+      <h2 class="section-heading">Race Weekend Travel Planning</h2>
+
+      <h3 class="sub-heading">Tickets: Categories and Timing</h3>
+      <p>Race tickets are a category puzzle as much as a price tag. General admission puts you on grass banking and walkways — the social, mobile choice, and often the best value at Singapore and Las Vegas. Grandstands are reserved seats: pick them by corner, not price, because a slow hairpin or heavy-braking zone delivers the overtaking, the big screens, and the pit-lane views. Hospitality packages cover food, drink, and prime sightlines, and at street circuits they can undercut resold grandstand seats. Timing matters more than in any other sport — Monaco and Las Vegas sell out within hours of on-sale, so register for pre-sales the moment dates are announced, while Miami and Singapore release inventory in waves across the winter. The Indianapolis 500 is the bargain of the calendar: general admission and reserved seats cost a fraction of a Formula 1 weekend, with the largest single-day crowd in motorsport for company.</p>
+
+      <h3 class="sub-heading">Hotels: Surviving the Race-Week Surge</h3>
+      <p>Race weekends distort hotel markets like nothing else, and street circuits distort them most. In Monaco, rooms with a harbor view command the highest premiums in sport, so most fans stay in Nice or Menton and ride the TER train in — twenty to twenty-five minutes, with Monaco-Monte Carlo station sitting directly above the circuit. Las Vegas is simpler and harsher: Strip resorts sit inside or beside the circuit, but rates jump to $300-800-plus per night with three-night minimums and resort fees of $40-55 at checkout, so compare off-Strip properties along Paradise Road with monorail access before booking — and book nine to twelve months ahead. Singapore's race-zone hotels sell out six months out; City Hall and Bugis, one MRT stop away, offer the same weekend for less. For Miami, downtown and Miami Beach both work, with the circuit at Hard Rock Stadium half an hour north. Book refundable rates early, reprice later, and expect two-to-three night minimums everywhere on race week.</p>
+
+      <h3 class="sub-heading">Getting to the Circuit</h3>
+      <p>Getting to the track is half the strategy, because street circuits close roads for days — Las Vegas shuts sections of the Strip for nearly a week, and Singapore's downtown detours begin before practice. Treat driving as a last resort: use the Las Vegas Monorail's seven stations along the Strip's east side, and Singapore's MRT, where City Hall, Esplanade, Promenade, Bayfront, and Nicoll Highway stations all serve the gates. Monaco has no circuit parking at all — arrive by train from Nice or walk from any central Monte Carlo hotel, and remember the principality is compact but steep. Miami runs shuttles from park-and-ride lots, and Indianapolis sells parking across its sprawling infield and surrounding streets. Wherever you go, learn your gate name before race day — big circuits have multiple entrances a kilometer apart, and walking between the wrong ones costs half an hour along the fences. After the race, beat the surge by eating near the track while the crowds clear.</p>
+    </div>
+  </section>
+
+  <!-- Related Guides -->
+  <section class="content-section related-section">
+    <div class="container">
+      <h2 class="section-heading">Related Guides</h2>
+      <p>Plan the full trip with MatchTrip's guide network. The <a href="/guides/sports-travel-planning/">sports travel planning guide</a> covers booking timelines and refundable-rate strategy for race weeks, and the <a href="/guides/sports-travel-budget/">sports travel budget guide</a> breaks down what a grand prix weekend really costs by category. Browse the <a href="/guides/">guides hub</a> for every destination guide on the site, and see the <a href="/sports/motorsport/">motorsport sports page</a> for the full collection of race cities and circuits. Year hubs pull the calendar together — <a href="/events/2026/">2026 events</a> for Singapore and Las Vegas this season, <a href="/events/2027/">2027 events</a> for Miami, Monaco, Indy, and the next Vegas edition — and if one race trip deserves a second sport on the itinerary, the <a href="/events/football/">football events</a>, <a href="/events/tennis/">tennis tournaments</a>, and <a href="/events/nba/">NBA Finals</a> collections all pair well with race season.</p>
     </div>
   </section>
 
@@ -151,6 +196,13 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
     line-height: 1.7;
   }
   .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .intro-section { padding: 24px 0 48px; }
+  .section-heading { font-size: 1.5rem; font-weight: 700; color: #111; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid #f3f4f6; }
+  .intro-section p, .content-section p { color: #4b5563; font-size: 1rem; line-height: 1.75; margin: 0 0 16px; }
+  .content-section { padding: 0 0 56px; }
+  .content-section p a, .events-intro a { color: #6366f1; font-weight: 600; text-decoration: none; }
+  .content-section p a:hover, .events-intro a:hover { color: #4f46e5; text-decoration: underline; }
+  .sub-heading { font-size: 1.15rem; font-weight: 700; color: #111; margin: 28px 0 12px; }
   .topic-cluster { padding: 0 0 48px; background: #ffffff; }
   .cluster-heading { font-size: 1.25rem; font-weight: 700; color: #111; margin-bottom: 20px; text-align: center; }
   .cluster-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 800px; margin: 0 auto; }
@@ -159,10 +211,11 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .cluster-card-hub { background: #111827; border-color: #111827; color: white; }
   .cluster-card-hub:hover { background: #374151; border-color: #374151; color: white; }
   .cluster-icon { font-size: 1.125rem; }
-  .events-section { padding: 0 0 80px; }
-  .events-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; }
+  .events-section { padding: 0 0 56px; }
+  .events-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
   .events-header h2 { font-size: 1.5rem; font-weight: 700; color: #111; }
   .events-count { color: #6b7280; font-size: 0.95rem; }
+  .events-intro { color: #4b5563; font-size: 1rem; line-height: 1.75; margin-bottom: 28px; max-width: 860px; }
   .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px; }
   .event-card { background: white; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
   .event-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1); }
@@ -174,7 +227,8 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .event-card-title-link { text-decoration: none; color: inherit; display: block; transition: color 0.2s ease; }
   .event-card-title-link:hover { color: #6366f1; }
   .event-card-title-link h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; color: #111; }
-  .event-content p { color: #4b5563; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .event-content p { color: #4b5563; font-size: 0.95rem; line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .event-travel-intel { color: #6b7280; font-size: 0.85rem; line-height: 1.6; margin-bottom: 20px; display: block; }
   .event-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid #f3f4f6; }
   .event-price { display: flex; flex-direction: column; }
   .price-label { font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -182,6 +236,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .btn { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; font-weight: 600; transition: all 0.2s; cursor: pointer; }
   .btn-primary { background: #111; color: white; padding: 10px 20px; border-radius: 10px; border: none; font-size: 0.9rem; }
   .btn-primary:hover { background: #374151; transform: translateY(-1px); }
+  .related-section { padding-bottom: 72px; }
   @media (max-width: 768px) {
     .category-hero h1 { font-size: 2rem; }
     .events-grid { grid-template-columns: 1fr; }

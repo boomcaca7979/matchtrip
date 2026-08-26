@@ -35,12 +35,17 @@ export function getStaticPaths() {
 }
 
 const { city, country, continent, events } = Astro.props;
+const eventSlugs = events.map(e => e.id);
 
 const slug = city.toLowerCase().replace(/\s+/g, '-');
 const pageUrl = new URL(`/cities/${slug}/`, Astro.site).href;
 
 // Editorial city guide content (falls back to the generic layout when absent)
 const content = citiesContent[slug];
+
+// Hero image — only rendered when a photo exists in /images/content/ (no placeholder otherwise)
+const cityImages = ['london', 'new-york', 'los-angeles', 'las-vegas', 'singapore', 'madrid', 'paris', 'melbourne', 'budapest', 'monte-carlo'];
+const hasCityImage = cityImages.includes(slug);
 
 const upcomingEvents = events.filter(e => e.status !== 'ended');
 const pastEvents = events.filter(e => e.status === 'ended');
@@ -96,6 +101,22 @@ const collectionPageSchema = {
   },
 };
 
+// City structured data with real-world coordinates from citiesContent
+// (cities without an editorial entry have no coordinates and skip this schema)
+const citySchema = content?.coordinates
+  ? {
+      "@context": "https://schema.org",
+      "@type": "City",
+      "name": city,
+      "url": pageUrl,
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": content.coordinates.lat,
+        "longitude": content.coordinates.lng,
+      },
+    }
+  : null;
+
 // Breadcrumb structured data: Home > Cities > City
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -107,7 +128,8 @@ const breadcrumbSchema = {
   ],
 };
 
-const schemaHtml = [collectionPageSchema, breadcrumbSchema]
+const schemaHtml = [collectionPageSchema, citySchema, breadcrumbSchema]
+  .filter(Boolean)
   .map(schema => `<script type="application/ld+json">${JSON.stringify(schema, null, '\t')}</script>`)
   .join('\n');
 
@@ -126,6 +148,11 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
       <p class="city-country">{country}</p>
       <p class="city-count">{upcomingCount > 0 ? `${upcomingCount} upcoming event${upcomingCount !== 1 ? 's' : ''}` : `${eventCount} event${eventCount !== 1 ? 's' : ''}`}</p>
       <p class="city-subtitle">Plan your trip to {city} for the biggest sporting events. Find hotels, tickets, and things to do.</p>
+      {hasCityImage && (
+        <div class="city-hero-img">
+          <img src={"/images/content/" + slug + ".jpg"} alt={city + " sports travel guide"} loading="lazy" width="1200" height="630" />
+        </div>
+      )}
     </div>
   </section>
 
@@ -387,6 +414,35 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
     </section>
   )}
 
+  <!-- Plan & Budget guides (all cities) -->
+  <section class="related-section">
+    <div class="container">
+      <h2>Plan Your {city} Sports Trip</h2>
+      <div class="more-links-grid">
+        <a href="/guides/sports-travel-planning/" class="more-link-card">
+          <span class="more-link-tag">Guide</span>
+          <h3>Sports Travel Planning</h3>
+          <p>Tickets, hotels, flights — the complete planning playbook.</p>
+        </a>
+        <a href="/guides/sports-travel-budget/" class="more-link-card">
+          <span class="more-link-tag">Guide</span>
+          <h3>Sports Travel Budget</h3>
+          <p>What sports trips really cost at every budget level.</p>
+        </a>
+        <a href="/guides/best-sports-cities/" class="more-link-card">
+          <span class="more-link-tag">Guide</span>
+          <h3>Best Sports Cities</h3>
+          <p>How {city} compares to the world's great sports cities.</p>
+        </a>
+        <a href={`/events/${eventSlugs[0]}/`} class="more-link-card">
+          <span class="more-link-tag">Event</span>
+          <h3>Next Event in {city}</h3>
+          <p>Travel guide, tickets, and hotels for {events[0]?.title || 'the next event'}.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <Fragment set:html={schemaHtml} />
   <Footer />
 </Layout>
@@ -436,6 +492,18 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
     max-width: 560px;
     margin: 0 auto;
     line-height: 1.7;
+  }
+
+  .city-hero-img {
+    width: 100%;
+    margin-top: 32px;
+  }
+
+  .city-hero-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
   }
 
   .narrow {

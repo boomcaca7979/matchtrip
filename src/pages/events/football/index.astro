@@ -47,6 +47,16 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
     </div>
   </section>
 
+  <!-- Introduction -->
+  <section class="intro-section">
+    <div class="container">
+      <h2 class="section-heading">Why Football Is the Sport Worth Traveling For</h2>
+      <p>No other sport moves travelers like football. The current cycle delivered the two biggest trips in the game: the FIFA World Cup 2026, the first edition expanded to 48 teams and the first ever staged across three nations — the United States, Canada, and Mexico, with the final at MetLife Stadium on July 19, 2026 — and the Champions League Final 2026 at Budapest's Puskás Arena on May 30, the biggest single club match on earth. The 2027 final is already locked in for the Riyadh Air Metropolitano in Madrid on June 5, giving fans a full year to plan a European summer around it.</p>
+      <p>Football rewards the traveling fan in a way no other sport does, because the match day rewrites the city around it. Metro carriages fill with scarves hours before kick-off, central squares become ticketed fan zones with giant screens, and bars set their entire evening to the rhythm of the whistle. A World Cup multiplies that energy across sixteen host cities and a month of matches; a Champions League final compresses it into one weekend where two sets of supporters take over an entire capital.</p>
+      <p>The three trips below span the full range of football travel — a three-nation, sixteen-city World Cup; a one-night final in Budapest; and the next final in Madrid, the city with more European Cups than any other. Each pairs the match with a destination worth a week of your time.</p>
+    </div>
+  </section>
+
   <!-- Topic Cluster: Back to Hub + Other Categories -->
   <section class="topic-cluster">
     <div class="container">
@@ -83,6 +93,8 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
         <p class="events-count">{categoryEvents.length} event(s)</p>
       </div>
 
+      <p class="events-intro">MatchTrip tracks the three football blockbusters of the current cycle: the <a href="/events/world-cup-2026/">FIFA World Cup 2026</a> across North America, the <a href="/events/champions-league-final/">Champions League Final 2026</a> at Budapest's Puskás Arena, and the <a href="/events/champions-league-final-2027/">2027 final</a> at Madrid's Metropolitano. Each guide covers ticket ballots, host-city neighborhoods, transport to the stadium, and what the trip realistically costs.</p>
+
       <div class="events-grid">
         {categoryEvents.map(event => (
           <article class="event-card">
@@ -97,6 +109,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
               </div>
               <a href={`/events/${event.id}/`} class="event-card-title-link"><h3>{event.title} Schedule</h3></a>
               <p>{event.description}</p>
+              <p class="event-travel-intel">Held at {event.venues?.[0] || 'the host stadium'} — plan for flights {event.avgFlightPrice}, hotels from {event.avgHotelPrice} per night, and match tickets {event.matchTickets}. Book refundable rates early; football finals bend hotel markets hardest the week the teams are confirmed.</p>
               <div class="event-footer">
                 <div class="event-price">
                   <span class="price-label">Est. Travel Cost</span>
@@ -108,6 +121,39 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
           </article>
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- Final Culture -->
+  <section class="content-section">
+    <div class="container">
+      <h2 class="section-heading">The Culture of a Football Final</h2>
+      <p>A football final is not a ninety-minute appointment — it is a city-scale ritual with a match at its center. The day begins in fan zones, where both supporter camps set up stages, chants, and beer gardens from mid-morning, and builds through stadium marches that turn entire avenues into a wall of colors. At a Champions League final, half the stadium arrives from abroad: the two finalists each receive a large ticket allocation, so the host city fills with visiting supporters who spend the whole weekend singing, sightseeing, and taking over the central squares. By the time kick-off arrives — 9 PM for most Champions League finals — the stadium has been the loudest room in Europe for an hour.</p>
+      <p>The World Cup scales that culture across a month and three nations. In 2026, sixteen host cities from Vancouver to Mexico City each ran their own fan festivals, and the tournament's 48-team format meant more matches, more minnows with traveling armies, and more days when an entire downtown belonged to one country's fans. Wherever you watch, the post-match matters as much as the pre-match: wins turn city centers into impromptu carnivals, and even defeats end in bars that stay open until the metro restarts. Plan your nights accordingly.</p>
+    </div>
+  </section>
+
+  <!-- Travel Planning -->
+  <section class="content-section">
+    <div class="container">
+      <h2 class="section-heading">Football Travel Planning</h2>
+
+      <h3 class="sub-heading">Tickets: Ballots, Phases, and Official Channels</h3>
+      <p>Big football matches sell in very different ways, so strategy starts with knowing the system. FIFA released World Cup inventory in phases across more than a year — the pattern repeats for future tournaments, so register early and track each sales window. UEFA runs a public ballot for the Champions League final that opens months ahead; enter as soon as it launches, and expect a second members-only window if your club reaches the final, since finalist clubs receive the largest allocations. Official face-value tickets for the final run roughly €70 to €690 by category, while resale listings after the semifinals jump to €600-3,000 and beyond — buy only from marketplaces with authenticity guarantees, and compare their all-in totals against official hospitality, which sometimes wins once fees are counted.</p>
+
+      <h3 class="sub-heading">Hotels: Book Refundable, Then Reprice</h3>
+      <p>Accommodation is the biggest line in any football travel budget, and final weekends bend the market hard: rooms near major grounds routinely double or triple when the match comes to town, and hotel rates in the host city surge 200-300% in the week the finalists are confirmed. Book refundable rooms the day dates are announced, then reprice as the match approaches. The reliable counter-strategy is distance — staying three or four metro stops from the stadium typically halves the rate while adding ten minutes to match day. In Madrid, the San Blas district around the Metropolitano trades city-center charm for walkable stadium access at fairer prices; in Budapest, districts on the metro's east side reach the Puskás Arena in twenty minutes. For tournament-scale travel, pick one host city as a base for group games rather than chasing fixtures across a country, and expect two-to-three night minimums everywhere on final weekend.</p>
+
+      <h3 class="sub-heading">Getting to the Ground</h3>
+      <p>Football cities reward transit over driving. Almost every major stadium sits on a metro or suburban rail line — the Metropolitano has its own stop on Madrid's Line 7, Wembley Park is served by two tube lines, and the Puskás Arena sits above the M2 at Puskás Ferenc Stadion station — so buy a rechargeable transit card on day one and skip the rental car entirely. Arrive early: security lines at finals run thirty to sixty minutes, and the pre-match fan zones are half the experience. Afterwards, do what locals do — walk fifteen minutes away from the ground before hailing a rideshare, since surge pricing outside stadiums can double fares, and metro platforms clear within the hour. Cross-border fixtures and three-nation World Cups mean passport checks and border queues; build buffer time into every transfer and keep your ticket's digital wallet working offline.</p>
+    </div>
+  </section>
+
+  <!-- Related Guides -->
+  <section class="content-section related-section">
+    <div class="container">
+      <h2 class="section-heading">Related Guides</h2>
+      <p>Extend the trip with MatchTrip's wider guide network. The <a href="/guides/sports-travel-planning/">sports travel planning guide</a> walks through booking timelines and refundable-rate strategy for final weekends, while the <a href="/guides/sports-travel-budget/">sports travel budget guide</a> breaks down what football trips actually cost by category. Browse the <a href="/guides/">guides hub</a> for destination coverage, and see the <a href="/sports/football/">football sports page</a> for the full collection of football cities and venues. Year hubs pull the calendar together — <a href="/events/2026/">2026 events</a> for the World Cup summer and <a href="/events/2027/">2027 events</a> for the Madrid final — and if you are stacking sports on one trip, the <a href="/events/f1/">Formula 1 schedule</a>, <a href="/events/tennis/">tennis tournaments</a>, and <a href="/events/nba/">NBA Finals</a> collections all pair well with a European summer.</p>
     </div>
   </section>
 
@@ -163,6 +209,51 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
+  }
+
+  .intro-section {
+    padding: 24px 0 48px;
+  }
+
+  .section-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f3f4f6;
+  }
+
+  .intro-section p,
+  .content-section p {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.75;
+    margin: 0 0 16px;
+  }
+
+  .content-section {
+    padding: 0 0 56px;
+  }
+
+  .content-section p a,
+  .events-intro a {
+    color: #6366f1;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .content-section p a:hover,
+  .events-intro a:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+  }
+
+  .sub-heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111;
+    margin: 28px 0 12px;
   }
 
   .topic-cluster {
@@ -223,14 +314,14 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .cluster-icon { font-size: 1.125rem; }
 
   .events-section {
-    padding: 0 0 80px;
+    padding: 0 0 56px;
   }
 
   .events-header {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
   }
 
   .events-header h2 {
@@ -242,6 +333,14 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .events-count {
     color: #6b7280;
     font-size: 0.95rem;
+  }
+
+  .events-intro {
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 28px;
+    max-width: 860px;
   }
 
   .events-grid {
@@ -320,11 +419,19 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
     color: #4b5563;
     font-size: 0.95rem;
     line-height: 1.5;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  .event-travel-intel {
+    color: #6b7280;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: block;
   }
 
   .event-footer {
@@ -375,6 +482,10 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .btn-primary:hover {
     background: #374151;
     transform: translateY(-1px);
+  }
+
+  .related-section {
+    padding-bottom: 72px;
   }
 
   @media (max-width: 768px) {

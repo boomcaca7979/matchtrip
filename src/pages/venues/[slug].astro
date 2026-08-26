@@ -18,6 +18,12 @@ const { slug, venue } = Astro.props;
 const pageUrl = new URL(`/venues/${slug}/`, Astro.site).href;
 const capacityLabel = venue.capacity.toLowerCase().includes('circuit') ? 'Circuit' : 'Capacity';
 
+// Numeric capacity for the maximumAttendeeCapacity JSON-LD field: pure-number
+// strings ("70,240") parse to a number; descriptive capacities (circuits
+// without a fixed seat count) stay null and omit the field.
+const capacityDigits = venue.capacity.replace(/,/g, '');
+const capacityNumber = /^\d+$/.test(capacityDigits) ? Number(capacityDigits) : null;
+
 // Interlinking: only render event ids that exist in eventsData (no dead links).
 const venueEvents = (venue.eventIds || [])
   .map(id => (eventsData[id] ? { id, ...eventsData[id] } : null))
@@ -55,6 +61,15 @@ const hotelLinks = venue.nearbyHotels.map(hotel =>
   buildHotelLink({ city: hotel.searchQuery, campaign: `venue-${slug}` })
 );
 
+// Seating guide cards — only fields with text render a card.
+const seatingCards = venue.seatingGuide
+  ? [
+      { label: 'Premium Seats', text: venue.seatingGuide.premium },
+      { label: 'Best Views', text: venue.seatingGuide.bestViews },
+      { label: 'Best Value', text: venue.seatingGuide.cheapest },
+    ].filter(card => card.text)
+  : [];
+
 // ── Structured data ──────────────────────────────────
 const placeSchema = {
   "@context": "https://schema.org",
@@ -64,9 +79,18 @@ const placeSchema = {
   "description": `${venue.overview} ${capacityLabel}: ${venue.capacity}.`,
   "address": {
     "@type": "PostalAddress",
+    ...(venue.coordinates?.address ? { "streetAddress": venue.coordinates.address } : {}),
     "addressLocality": venue.cityDisplay,
     "addressCountry": venue.country,
   },
+  ...(venue.coordinates ? {
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": venue.coordinates.lat,
+      "longitude": venue.coordinates.lng,
+    },
+  } : {}),
+  ...(capacityNumber ? { "maximumAttendeeCapacity": capacityNumber } : {}),
   ...(venue.image ? { image: [new URL(venue.image, Astro.site).href] } : {}),
 };
 
@@ -117,6 +141,9 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
         {venue.sports.map(sport => <span class="sport-tag">{sport}</span>)}
       </div>
       <p class="venue-subtitle">Complete venue guide for sports travelers — capacity, transportation, hotels, and match day tips for your trip to {venue.cityDisplay}.</p>
+      <div class="venue-hero-img">
+        <img src={"/images/content/" + venue.slug + ".jpg"} alt={venue.name + " " + venue.cityDisplay + " travel guide"} loading="lazy" width="1200" height="630" />
+      </div>
     </div>
   </section>
 
@@ -177,12 +204,22 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
     </section>
   )}
 
-  <!-- Seating & Views -->
-  {venue.seating && (
+  <!-- Seating Guide -->
+  {(venue.seating || seatingCards.length > 0) && (
     <section class="seating-section">
       <div class="container narrow">
-        <h2>Seating &amp; Views</h2>
-        <p>{venue.seating}</p>
+        <h2>Where to Sit: Seating Guide</h2>
+        {venue.seating && <p>{venue.seating}</p>}
+        {seatingCards.length > 0 && (
+          <div class="seating-guide-list">
+            {seatingCards.map(card => (
+              <article class="seating-card">
+                <span class="seating-card-label">{card.label}</span>
+                <p>{card.text}</p>
+              </article>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )}
@@ -222,6 +259,26 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
     </section>
   )}
 
+  <!-- Match Day Timeline -->
+  {venue.matchDayTimeline?.length > 0 && (
+    <section class="timeline-section">
+      <div class="container narrow">
+        <h2>Match Day Timeline</h2>
+        <ol class="timeline">
+          {venue.matchDayTimeline.map(item => (
+            <li class="timeline-item">
+              <span class="timeline-time">{item.time}</span>
+              <div class="timeline-body">
+                <h3>{item.action}</h3>
+                <p>{item.detail}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
   <!-- Food & Drink -->
   {venue.foodOptions?.length > 0 && (
     <section class="food-section">
@@ -255,6 +312,16 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
       </div>
     </div>
   </section>
+
+  <!-- What's Nearby -->
+  {venue.nearbyArea && (
+    <section class="nearby-section">
+      <div class="container narrow">
+        <h2>What's Nearby</h2>
+        <p>{venue.nearbyArea}</p>
+      </div>
+    </section>
+  )}
 
   <!-- Match Day Tips -->
   <section class="tips-section">
@@ -381,6 +448,21 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
     </section>
   )}
 
+  <!-- Planning guides -->
+  <section class="city-cta-section">
+    <div class="container">
+      <div class="city-cta-card">
+        <h2>Plan the Rest of Your Trip</h2>
+        <p>MatchTrip's planning guides cover tickets, hotels, budgets, and full itineraries.</p>
+        <div class="cta-link-row">
+          <a href="/guides/sports-travel-planning/" class="btn btn-outline">Sports Travel Planning</a>
+          <a href="/guides/sports-travel-budget/" class="btn btn-outline">Trip Budgets</a>
+          <a href="/guides/best-sports-cities/" class="btn btn-outline">Best Sports Cities</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <Fragment set:html={schemaHtml} />
   <Footer />
 </Layout>
@@ -449,6 +531,18 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
     line-height: 1.7;
   }
 
+  .venue-hero-img {
+    width: 100%;
+    margin-top: 32px;
+  }
+
+  .venue-hero-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
   .narrow {
     max-width: 720px;
     margin: 0 auto;
@@ -472,7 +566,9 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
   .seating-section h2,
   .parking-section h2,
   .matchday-section h2,
-  .food-section h2 {
+  .food-section h2,
+  .timeline-section h2,
+  .nearby-section h2 {
     font-size: 1.75rem;
     font-weight: 700;
     color: #111;
@@ -490,22 +586,123 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
     text-align: center;
   }
 
-  /* Event History / Seating / Parking / Food / Match Day Experience */
+  /* Event History / Seating / Parking / Food / Match Day Experience / Timeline / Nearby */
   .history-section,
   .seating-section,
   .parking-section,
   .matchday-section,
-  .food-section {
+  .food-section,
+  .timeline-section,
+  .nearby-section {
     padding: 0 0 60px;
   }
 
   .history-section p,
   .seating-section p,
   .parking-section p,
-  .matchday-section p {
+  .matchday-section p,
+  .nearby-section p {
     color: #4b5563;
     font-size: 1.05rem;
     line-height: 1.8;
+  }
+
+  /* Seating Guide cards */
+  .seating-guide-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .seating-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .seating-card-label {
+    display: inline-block;
+    background: #eef2ff;
+    color: #4f46e5;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .seating-card p {
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Match Day Timeline */
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 151px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: #e5e7eb;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 128px 1fr;
+    gap: 48px;
+    position: relative;
+    padding-bottom: 32px;
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 145px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #6366f1;
+    box-sizing: border-box;
+  }
+
+  .timeline-time {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #4f46e5;
+    text-align: right;
+    padding-top: 2px;
+  }
+
+  .timeline-body h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 6px;
+  }
+
+  .timeline-body p {
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 0;
   }
 
   /* Location & Capacity */
@@ -875,6 +1072,14 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
     padding: 0 0 80px;
   }
 
+  .cta-link-row {
+    display: flex;
+    gap: 14px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   .city-cta-card {
     background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
     border-radius: 24px;
@@ -943,5 +1148,14 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
     .events-grid { grid-template-columns: 1fr; }
     .city-cta-card { padding: 40px 24px; }
     .events-fallback-card { padding: 32px 24px; }
+    .timeline::before { left: 6px; }
+    .timeline-item {
+      grid-template-columns: 1fr;
+      gap: 6px;
+      padding-left: 28px;
+      padding-bottom: 24px;
+    }
+    .timeline-item::after { left: 0; top: 2px; }
+    .timeline-time { text-align: left; padding-top: 0; }
   }
 </style>

@@ -136,6 +136,99 @@ const categorySections = [
   },
 ];
 
+// Featured core planning guides (Topic Hub cards)
+const featuredGuides = [
+  {
+    href: '/guides/sports-travel-planning/',
+    emoji: '🧭',
+    title: 'Sports Travel Planning: The Complete Guide',
+    description:
+      'The full playbook for building a trip around a fixture — choosing the event, setting a budget, timing flights, and beating ticket ballots. Start here if this is your first big sports trip: it covers the mistakes most travelers only make once.',
+  },
+  {
+    href: '/guides/best-sports-cities/',
+    emoji: '🏙️',
+    title: 'The Best Sports Cities in the World',
+    description:
+      'Where sports travel works best all year round — venues, transit, atmosphere and event density, ranked and compared. Use it when the fixture is flexible and the destination itself is the decision.',
+  },
+  {
+    href: '/guides/sports-travel-budget/',
+    emoji: '💰',
+    title: 'Sports Travel Budget: What Trips Really Cost',
+    description:
+      'Real cost ranges across two dozen events, broken into three budget tiers, showing where the money actually goes — tickets, hotels or flights. Read it before you commit to any trip.',
+  },
+];
+
+// Popular events for the Topic Hub, each with a one-line reason to follow it
+const popularEventReasons = {
+  'super-bowl-2027':
+    'The most expensive single day in sport — tickets from $3,000 and a host city that throws a week-long party around kickoff.',
+  'champions-league-final-2027':
+    "The summit of European club football — one night in Madrid decides the continent's biggest prize.",
+  'f1-las-vegas-grand-prix-2026':
+    'F1 under the neon — a Saturday night race past the Sphere, Caesars Palace and the Bellagio fountains.',
+  'us-open-tennis':
+    'Two weeks of night sessions in New York — the loudest, most electric Grand Slam on the calendar.',
+  'f1-singapore-grand-prix':
+    'The original F1 night race — Marina Bay lit up, the city in festival mode, and action you feel trackside.',
+  'olympics-2028':
+    'The Games come home to Los Angeles — dozens of world championships compressed into one city and three weeks.',
+  'wimbledon-2027':
+    'Grass, whites and the famous queue — tennis tradition at its purest, two weeks from late June in London.',
+  'masters-golf-2027':
+    'The hardest ticket in golf — azaleas, lotteries that close a year out, and the Green Jacket at Augusta National.',
+  'ryder-cup-2027':
+    "Golf's loudest team event — Europe against the United States on Irish soil for the first time since 2006.",
+  'the-open-2027':
+    "Golf's oldest championship returns to St Andrews, the home of golf, where the Claret Jug has been decided since 1873.",
+};
+
+const popularEvents = Object.keys(popularEventReasons)
+  .map((id) => {
+    const card = eventCard(id);
+    return card ? { ...card, reason: popularEventReasons[id] } : null;
+  })
+  .filter(Boolean);
+
+// Popular cities for the Topic Hub, each with a one-line positioning
+const popularCityTaglines = {
+  london: "Wimbledon, Wembley and Europe's busiest sports calendar.",
+  'new-york': 'The US Open, the Marathon and Madison Square Garden — a year-round sports capital.',
+  'los-angeles': 'Super Bowl LXI and the LA28 Olympics make LA the epicenter of sport.',
+  'las-vegas': 'F1 on the Strip, blockbuster fights and Super Bowl energy in the desert.',
+  singapore: 'The night race that turns a city-state into an F1 festival each October.',
+  madrid: "Champions League final host and one of Europe's great football capitals.",
+  paris: "Roland Garros on clay and a gateway to Europe's biggest finals.",
+  melbourne: 'The Australian Open kicks off the tennis year every January.',
+  budapest: 'F1 at the Hungaroring and party zones along the Danube.',
+  'monte-carlo': 'The Monaco Grand Prix — the most glamorous weekend on the sporting calendar.',
+};
+
+const popularCities = pickCities([
+  'london',
+  'new-york',
+  'los-angeles',
+  'las-vegas',
+  'singapore',
+  'madrid',
+  'paris',
+  'melbourne',
+  'budapest',
+  'monte-carlo',
+]).map((city) => ({ ...city, tagline: popularCityTaglines[city.slug] }));
+
+// Venue guides highlighted on the Topic Hub
+const hubVenues = pickVenues([
+  'sofi-stadium',
+  'las-vegas-strip-circuit',
+  'metropolitano',
+  'marina-bay-circuit',
+  'arthur-ashe-stadium',
+  'wembley',
+]);
+
 const pageUrl = new URL('/guides/', Astro.site).href;
 
 // CollectionPage structured data for SEO
@@ -262,6 +355,25 @@ const schemaHtml = [collectionPageSchema, breadcrumbSchema]
         practice sessions, and a city that is still navigable before the crowds peak.
       </p>
 
+      <h2>Budgeting for Sports Travel</h2>
+      <p>
+        Sports trips do not have one price — they have three tiers, and knowing which one you
+        are shopping for changes every decision. The value tier works the calendar: qualifying
+        days instead of race day, practice rounds instead of the Masters' Sunday, grounds passes
+        instead of Centre Court. You feel the same city-wide buzz for a third of the cost. The
+        standard tier targets headline sessions with official tickets, a hotel a few metro stops
+        from the venue, and flights booked two to three months out. The premium tier — Super
+        Bowl, Monaco grandstands, courtside finals — is less about face value and more about
+        supply: book through official hospitality early, because secondary prices only climb as
+        the date nears.
+      </p>
+      <p>
+        Whatever tier you choose, budget in the order that actually moves money: tickets,
+        accommodation, flights, then everything else. Our
+        <a href="/guides/sports-travel-budget/">Sports Travel Budget guide</a> breaks down real
+        cost ranges across two dozen events and shows where each tier pays off.
+      </p>
+
       <h2>Getting There and Getting Around</h2>
       <p>
         Mega-events strain the infrastructure locals take for granted. Street circuits in Las Vegas
@@ -292,16 +404,23 @@ const schemaHtml = [collectionPageSchema, breadcrumbSchema]
         sport, then start linking.
       </p>
 
-      <h2>Start Here: MatchTrip's Core Planning Guides</h2>
+      <h2>Featured Guides</h2>
       <p>
         New to sports travel or building your first big trip? These three deep guides cover the
         fundamentals — how to plan the whole journey, which cities do it best, and what it
         genuinely costs.
       </p>
-      <div class="hub-links">
-        <a href="/guides/sports-travel-planning/">Sports Travel Planning: The Complete Guide &rarr;</a>
-        <a href="/guides/best-sports-cities/">The Best Sports Cities in the World &rarr;</a>
-        <a href="/guides/sports-travel-budget/">Sports Travel Budget: What Trips Really Cost &rarr;</a>
+      <div class="feature-grid">
+        {featuredGuides.map((guide) => (
+          <a class="feature-card" href={guide.href}>
+            <span class="feature-emoji">{guide.emoji}</span>
+            <span class="feature-body">
+              <span class="feature-title">{guide.title}</span>
+              <span class="feature-desc">{guide.description}</span>
+              <span class="feature-cta">Read the guide &rarr;</span>
+            </span>
+          </a>
+        ))}
       </div>
     </div>
   </article>
@@ -370,6 +489,87 @@ const schemaHtml = [collectionPageSchema, breadcrumbSchema]
       </div>
     </section>
   ))}
+
+  <section class="hub-section" id="popular-events">
+    <div class="container">
+      <h2>Popular Events</h2>
+      <p class="hub-intro">
+        Not every event deserves a passport stamp, but these ten do. We rank them by the two
+        things that matter to a traveler: atmosphere per dollar, and how far the host city goes
+        for visitors. The Super Bowl is the most expensive single day in sport; the Champions
+        League final is the summit of European club football; Las Vegas and Singapore turn
+        Formula 1 into a week-long street festival. The majors of tennis and golf — Wimbledon,
+        the US Open, the Masters, the Open, the Ryder Cup — each run their own ticket
+        ecosystems worth learning a year in advance. And the LA28 Olympics compress dozens of
+        world championships into one city. Pick your moment, then plan backwards from it.
+      </p>
+      <div class="hub-grid">
+        {popularEvents.map((event) => (
+          <a class="hub-card" href={`/events/${event.id}/`}>
+            <span class="hub-emoji">{event.emoji}</span>
+            <span class="hub-body">
+              <span class="hub-title">{event.title}</span>
+              <span class="hub-meta">{event.date} · {event.location}</span>
+              <span class="hub-desc">{event.reason}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section" id="popular-cities">
+    <div class="container">
+      <h2>Popular Cities</h2>
+      <p class="hub-intro">
+        Some cities are built for sports travel: dense, transit-rich, and hosting something
+        worth flying for almost every month. London closes out Wimbledon and hosts finals at
+        Wembley; New York runs the US Open; Melbourne starts the tennis year; Madrid, Paris and
+        Budapest anchor the European calendar; Las Vegas and Singapore throw street parties for
+        Formula 1; Monte Carlo does glamour like nowhere else. These are the ten cities our
+        readers plan trips around most — each guide covers airports, neighborhoods, local
+        transport, and what to do between sessions.
+      </p>
+      <div class="hub-grid">
+        {popularCities.map((city) => (
+          <a class="hub-card" href={`/cities/${city.slug}/`}>
+            <span class="hub-emoji">📍</span>
+            <span class="hub-body">
+              <span class="hub-title">{city.name}</span>
+              <span class="hub-meta">
+                {city.country} · {city.eventCount} {city.eventCount === 1 ? 'event' : 'events'}
+              </span>
+              <span class="hub-desc">{city.tagline}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section" id="venue-guides">
+    <div class="container">
+      <h2>Venue Guides</h2>
+      <p class="hub-intro">
+        Venues make or break the matchday. Our venue guides go granular: which transit stops
+        serve which gates, what parking really costs, where rideshare pickup zones sit, and
+        which hotels are genuinely walkable. Start with these six — a billion-dollar NFL
+        cathedral in Los Angeles, two F1 street circuits, a football arena in Madrid, tennis's
+        biggest stage, and the home of English football.
+      </p>
+      <div class="hub-grid">
+        {hubVenues.map((venue) => (
+          <a class="hub-card" href={`/venues/${venue.slug}/`}>
+            <span class="hub-emoji">{venue.emoji}</span>
+            <span class="hub-body">
+              <span class="hub-title">{venue.name}</span>
+              <span class="hub-meta">{venue.cityDisplay}, {venue.country} · {venue.capacity}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <section class="guides-section">
     <div class="container">
@@ -468,29 +668,159 @@ const schemaHtml = [collectionPageSchema, breadcrumbSchema]
     margin-bottom: 18px;
   }
 
-  .hub-links {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  .guides-intro p a {
+    color: #4f46e5;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .guides-intro p a:hover {
+    text-decoration: underline;
+  }
+
+  /* ---- Featured guide cards ---- */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
     margin: 24px 0 8px;
   }
 
-  .hub-links a {
-    display: block;
+  .feature-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     background: white;
     border: 1px solid #e5e7eb;
-    border-left: 4px solid #4f46e5;
-    border-radius: 10px;
-    padding: 16px 20px;
-    color: #1e3a8a;
-    font-weight: 600;
+    border-top: 4px solid #4f46e5;
+    border-radius: 12px;
+    padding: 20px;
     text-decoration: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   }
 
-  .hub-links a:hover {
-    border-left-color: #f97316;
-    box-shadow: 0 4px 14px rgba(30, 58, 138, 0.1);
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.08);
+    border-top-color: #f97316;
+  }
+
+  .feature-emoji {
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .feature-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .feature-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.4;
+  }
+
+  .feature-card:hover .feature-title {
+    color: #6366f1;
+  }
+
+  .feature-desc {
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.6;
+  }
+
+  .feature-cta {
+    margin-top: auto;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4f46e5;
+  }
+
+  /* ---- Hub sections (popular events / cities / venues) ---- */
+  .hub-section {
+    padding: 56px 0;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .hub-section h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -0.3px;
+    margin-bottom: 12px;
+  }
+
+  .hub-intro {
+    color: #6b7280;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 760px;
+    margin-bottom: 28px;
+  }
+
+  .hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .hub-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: white;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .hub-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.08);
+    border-color: #c7d2fe;
+  }
+
+  .hub-emoji {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    flex-shrink: 0;
+  }
+
+  .hub-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .hub-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #111;
+    line-height: 1.35;
+  }
+
+  .hub-card:hover .hub-title {
+    color: #6366f1;
+  }
+
+  .hub-meta {
+    font-size: 0.78rem;
+    color: #6b7280;
+    line-height: 1.45;
+  }
+
+  .hub-desc {
+    font-size: 0.82rem;
+    color: #6b7280;
+    line-height: 1.55;
+    margin-top: 4px;
   }
 
   /* ---- Category sections ---- */
@@ -804,9 +1134,14 @@ const schemaHtml = [collectionPageSchema, breadcrumbSchema]
     .category-section { padding: 40px 0; }
     .category-section h2 { font-size: 1.35rem; }
     .mini-grid { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .hub-section { padding: 40px 0; }
+    .hub-section h2 { font-size: 1.35rem; }
+    .hub-grid { grid-template-columns: 1fr; }
   }
 
   @media (min-width: 769px) and (max-width: 1024px) {
     .guides-grid { grid-template-columns: repeat(2, 1fr); }
+    .feature-grid { grid-template-columns: 1fr; }
   }
 </style>

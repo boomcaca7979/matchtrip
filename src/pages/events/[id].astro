@@ -40,6 +40,15 @@ const relatedVenueCapacity = relatedVenue && relatedVenue.capacity != null
       : String(relatedVenue.capacity))
   : null;
 
+// Valid city slugs: city pages are generated from event.location.city — only
+// link host cities that actually have a city page (avoid broken links).
+const availableCitySlugs = new Set(
+  Object.values(eventsData)
+    .map(e => e.location?.city?.toLowerCase().replace(/\s+/g, '-'))
+    .filter(Boolean)
+);
+const citySlugOf = (cityName: string) => cityName.toLowerCase().replace(/\s+/g, '-');
+
 const refs = event.partnerRefs;
 const campaign = id as string;
 const city = event.location?.city || refs.hotelCity || event.hostCities[0] || '';
@@ -92,6 +101,19 @@ const categoryToCluster = {
   'Tennis': { url: '/events/tennis/', label: 'Tennis Tournaments 2026' },
 };
 const clusterLink = categoryToCluster[event.category as keyof typeof categoryToCluster] || { url: '/events/', label: 'All Events' };
+
+// Hero category image — reuses the OG image mapping from Layout.astro
+// (football→football, motorsport/f1→formula1, tennis→tennis, golf→golf, everything else→default).
+const OG_IMAGE_BY_CATEGORY = {
+  football: 'football',
+  motorsport: 'formula1',
+  f1: 'formula1',
+  tennis: 'tennis',
+  golf: 'golf',
+};
+const heroCategoryKey = String(event.category).trim().toLowerCase().replace(/[\s-]+/g, '-');
+const heroImageFile = OG_IMAGE_BY_CATEGORY[heroCategoryKey] || 'default';
+
 // Previous edition (reverse link: upcoming events referencing an earlier edition).
 // Only valid when the slug actually resolves to an entry in eventsData.
 const previousEventData = event.previousEvent
@@ -218,6 +240,58 @@ if (event.travelGuide) {
   travelOverviewText = overviewSentences.join(' ');
 }
 
+// Ticket Guide cards: structured ticket-buying intel from travelGuide.ticketGuide.
+// Empty fields are skipped so the grid never renders blank cards.
+const ticketGuideCards = [];
+if (event.travelGuide?.ticketGuide) {
+  const ticketGuide = event.travelGuide.ticketGuide;
+  const ticketGuideItems = [
+    { title: 'Official Source', detail: ticketGuide.officialSource },
+    { title: 'Release Timing', detail: ticketGuide.releaseTiming },
+    { title: 'Price Range', detail: ticketGuide.priceRange },
+    { title: 'Avoiding Scams', detail: ticketGuide.scamTips },
+  ];
+  for (const item of ticketGuideItems) {
+    if (item.detail) ticketGuideCards.push(item);
+  }
+}
+
+// Getting There cards: airport / public transport / match-day advice.
+const transportGuideCards = [];
+if (event.travelGuide?.transportGuide) {
+  const transportGuide = event.travelGuide.transportGuide;
+  const transportGuideItems = [
+    { label: 'Nearest Airport', detail: transportGuide.airport },
+    { label: 'Public Transport', detail: transportGuide.publicTransport },
+    { label: 'Match Day Tip', detail: transportGuide.matchDayTip },
+  ];
+  for (const item of transportGuideItems) {
+    if (item.detail) transportGuideCards.push(item);
+  }
+}
+
+// Budget tier cards: travelGuide.budgetTiers strings look like
+// "<price> total weekend — <positioning>"; split on the first em-dash.
+const splitBudgetTier = value => {
+  const sep = value.indexOf('—');
+  if (sep === -1) return { price: '', desc: value };
+  return { price: value.slice(0, sep).trim(), desc: value.slice(sep + 1).trim() };
+};
+const budgetTierCards = [];
+if (event.travelGuide?.budgetTiers) {
+  const budgetTiers = event.travelGuide.budgetTiers;
+  const tierDefs = [
+    { label: 'Budget', cls: 'tier-budget', value: budgetTiers.budget },
+    { label: 'Mid-Range', cls: 'tier-mid', value: budgetTiers.midRange },
+    { label: 'Premium', cls: 'tier-premium', value: budgetTiers.premium },
+  ];
+  for (const tier of tierDefs) {
+    if (tier.value) {
+      budgetTierCards.push({ label: tier.label, cls: tier.cls, ...splitBudgetTier(tier.value) });
+    }
+  }
+}
+
 // FAQ: data-driven Q&A assembled from existing event fields (rendered for every event).
 const faqVenueList = (event.venues || []).join(', ');
 const faqHostCityList = (event.hostCities || []).join(', ');
@@ -331,6 +405,13 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     </div>
   </section>
 
+  <!-- Hero category image (per-sport og artwork) -->
+  <section class="hero-image-section">
+    <div class="container">
+      <img class="event-hero-img" src={"/images/og/" + heroImageFile + ".png"} alt={event.title + " travel guide"} loading="lazy" width="1200" height="630" />
+    </div>
+  </section>
+
   <!-- Next Event (defensive: only ended events that define a next edition) -->
   {event.status === 'ended' && event.nextEvent && (
     <section class="next-event-section">
@@ -411,9 +492,42 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
           ))}
         </div>
       )}
+      {budgetTierCards.length > 0 && (
+        <div class="trip-cost">
+          <h2>What Does This Trip Cost?</h2>
+          <p class="section-sub">Typical total spend per person, three ways to do this trip</p>
+          <div class="tier-grid">
+            {budgetTierCards.map(tier => (
+              <div class={`tier-card ${tier.cls}`}>
+                <span class="tier-label">{tier.label}</span>
+                {tier.price && <p class="tier-price">{tier.price}</p>}
+                {tier.desc && <p class="tier-desc">{tier.desc}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       <AffiliateDisclosure />
     </div>
   </section>
+
+  <!-- Ticket Guide (conditional: only for events with travelGuide.ticketGuide data) -->
+  {ticketGuideCards.length > 0 && (
+    <section class="ticket-guide-section">
+      <div class="container">
+        <h2>Ticket Guide</h2>
+        <p class="section-sub">Where to buy, when sales open, what you'll pay, and how to avoid scams</p>
+        <div class="ticket-guide-grid">
+          {ticketGuideCards.map(card => (
+            <div class="ticket-guide-card">
+              <h3>{card.title}</h3>
+              <p>{card.detail}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Travel Overview (only for events with travelGuide data) -->
   {event.travelGuide && travelOverviewText && (
@@ -480,7 +594,9 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
           <h3>Host Cities</h3>
           <div class="city-tags">
             {event.hostCities.map(city => (
-              <a href={`/cities/${city.toLowerCase().replace(/\s+/g, '-')}/`} class="city-tag">{city}</a>
+              availableCitySlugs.has(citySlugOf(city))
+                ? <a href={`/cities/${citySlugOf(city)}/`} class="city-tag">{city}</a>
+                : <span class="city-tag">{city}</span>
             ))}
           </div>
         </div>
@@ -577,6 +693,24 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
               <a href={flightUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer sponsored">Find Flights to {refs.flightTo}</a>
             </div>
             <AffiliateDisclosure />
+          </div>
+        </section>
+      )}
+
+      <!-- Getting There & Match Day Transport (conditional: only for events with transportGuide data) -->
+      {transportGuideCards.length > 0 && (
+        <section class="guide-section getting-there-guide">
+          <div class="container">
+            <h2>Getting There &amp; Match Day Transport</h2>
+            <p class="section-sub">Airport arrivals, transit options, and match-day timing</p>
+            <div class="guide-grid">
+              {transportGuideCards.map(card => (
+                <div class="guide-card">
+                  <span class="transport-mode">{card.label}</span>
+                  <p>{card.detail}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       )}
@@ -796,6 +930,18 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     max-width: 700px;
   }
 
+  /* Hero category image (og artwork below the gradient hero) */
+  .hero-image-section {
+    padding: 40px 0;
+  }
+
+  .event-hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
   /* Next Event (ended events) */
   .next-event-section { padding: 0; }
 
@@ -989,6 +1135,93 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     transform: translateY(-1px);
   }
 
+  /* Trip Budget tiers (What Does This Trip Cost?) */
+  .trip-cost { margin-top: 48px; }
+
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .tier-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .tier-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+  }
+
+  .tier-label {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+  }
+
+  .tier-budget .tier-label { background: #dcfce7; color: #166534; }
+  .tier-mid .tier-label { background: #e0f2fe; color: #075985; }
+  .tier-premium .tier-label { background: #fef3c7; color: #92400e; }
+
+  .tier-price {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 10px;
+  }
+
+  .tier-desc {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* Ticket Guide */
+  .ticket-guide-section { padding: 0 0 60px; }
+
+  .ticket-guide-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #111;
+  }
+
+  .ticket-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .ticket-guide-card {
+    background: white;
+    border: 1px solid #fed7aa;
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .ticket-guide-card h3 {
+    font-size: 1.05rem;
+    color: #9a3412;
+    margin-bottom: 10px;
+  }
+
+  .ticket-guide-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #4b5563;
+  }
+
   /* Venues */
   .venues-section { padding: 0 0 60px; }
 
@@ -1123,6 +1356,7 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
   .stay-guide { background: #ffffff; }
   .transport-guide { background: #fafafa; }
   .best-areas-guide { background: #ffffff; }
+  .getting-there-guide { background: #ffffff; }
 
   .guide-section h2 {
     font-size: 1.75rem;
@@ -1715,6 +1949,8 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     .meta-dot { display: none; }
     .budget-grid { grid-template-columns: 1fr; }
     .budget-detail-grid { grid-template-columns: 1fr; }
+    .tier-grid { grid-template-columns: 1fr; }
+    .ticket-guide-grid { grid-template-columns: 1fr; }
     .venues-grid { grid-template-columns: 1fr; }
     .related-grid { grid-template-columns: 1fr; }
     .cta-buttons { flex-direction: column; align-items: center; }

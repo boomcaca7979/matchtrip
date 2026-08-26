@@ -38,6 +38,104 @@ const pastEvents = events.filter(e => e.status === 'ended');
 const title = `${year} Sports Events Schedule – ${categories.slice(0, 3).join(', ')} | MatchTrip`;
 const description = `View the ${year} sports calendar including ${categories.slice(0, 4).join(', ')} events. Find schedules, dates, travel guides, and booking information for major sporting events in ${year}.`;
 
+// Year-specific editorial content: intro, events lead-in, travel planning, related guides.
+const YEAR_NARRATIVE = {
+  2026: {
+    heroSubtitle: "The 2026 sporting calendar in one place: a 48-team FIFA World Cup across three nations, Super Bowl LX, the Champions League final in Budapest, Wimbledon, the Masters, and an F1 double-header in Singapore and Las Vegas — with travel guides, ticket intel, and budget estimates for every event.",
+    introHeading: 'Why 2026 Redefined Sports Travel',
+    intro: [
+      "Twenty twenty-six staged more must-see sport than any calendar year in memory. The FIFA World Cup grew to 48 teams and 104 matches across 16 cities in the United States, Canada, and Mexico from June 11 to July 19 — the largest edition ever staged and the first shared by three nations. Around it orbited a full year of tentpoles: Super Bowl LX at Levi's Stadium in Santa Clara in February, the Masters at Augusta in April, the Monaco Grand Prix in May, the NBA Finals and the Champions League final in Budapest in June, and Wimbledon's fortnight in London.",
+      "The first half is now history — eight of the ten events on this page have been played. What remains is a stacked run-home: the US Open Tennis Championships at Flushing Meadows starting August 24, Formula 1's original night race through the streets of Singapore in October, and the Las Vegas Grand Prix on November 21, when fifty laps run under the neon past the Sphere and the Bellagio fountains. Every one of them is still bookable, and none of them requires luck to attend.",
+      "Use this page as your 2026 hub. Each event card below carries the numbers that matter — flight ranges, nightly hotel rates, ticket windows — plus a link to a full trip guide with venue-by-venue detail. Cross-link to the 2027 and 2028 calendars to plan ahead while prices are still sane.",
+    ],
+    eventsIntro: `Ten flagship events anchor the 2026 calendar, grouped by sport below. The heavy lifting was done in summer — the <a href="/events/world-cup-2026/">World Cup</a>, <a href="/events/nba-finals/">NBA Finals</a>, and <a href="/events/champions-league-final/">Champions League final in Budapest</a> — while the run-home belongs to <a href="/events/us-open-tennis/">US Open tennis in New York</a>, the <a href="/events/f1-singapore-grand-prix/">Singapore night race</a>, and <a href="/events/f1-las-vegas-grand-prix-2026/">F1 in Las Vegas</a>.`,
+    planningHeading: 'Travel Planning for the 2026 Run-Home',
+    planning: [
+      {
+        heading: 'Tickets: When and Where to Buy',
+        body: "For the events still ahead, timing beats budget. US Open tickets go on sale through the tournament's official marketplace in phases from late spring — grounds passes in the $50-90 range for the first week remain the best value in Grand Slam tennis, while Arthur Ashe night sessions climb past $300 once the draw is set. Formula 1 sells Singapore and Las Vegas directly through its own ticketing platform plus official hospitality partners; Las Vegas general admission historically starts around $300 with grandstand packages from $1,500. Buy at the on-sale, not the resale spike — prices for both races typically rise 40-80 percent once inventory tightens in the final eight weeks. Avoid unverified secondary markets entirely: F1 and the USTA both run official verified resale.",
+      },
+      {
+        heading: 'Hotels: Anchor to Transit, Not the Venue',
+        body: "In New York, stay along the 7 train — Long Island City and Astoria put you twenty minutes from the Mets-Willets Point stop at half of Midtown rates. For Singapore, the Marina Bay and City Hall areas sit on the MRT with direct race-weekend service to the circuit at Promenade and Bayfront; rates during race week run $250-450. Las Vegas is the exception: Strip hotels are the venue itself, so expect $300-800 per night with three-night minimums — downtown's Fremont Street and off-Strip properties near the monorail cut that roughly in half. Book refundable rates now and re-shop eight weeks out; Vegas race-week inventory is released in waves and often dips before it spikes.",
+      },
+      {
+        heading: 'Getting There and Getting Around',
+        body: "New York: fly into JFK or Newark and ride the AirTrain plus the 7 train, leaving Manhattan ninety minutes before a night session. Singapore: Changi to the city in twenty minutes on the MRT, and the whole race circuit is walkable from Promenade station — buy an EZ-Link card on arrival. Las Vegas: Harry Reid International sits minutes from the Strip but gridlocks on race nights, so use the monorail, which runs behind the casinos with a stop near the circuit's east gates, or simply stay put and walk. For all three, book flights the moment your ticket is confirmed; the final eight weeks before each event see the biggest fare jumps.",
+      },
+    ],
+    seasonPreview: null,
+    relatedIntro: `Plan deeper with MatchTrip's guide network. The <a href="/guides/sports-travel-planning/">sports travel planning guide</a> walks through booking timelines and refundable-rate strategy, and the <a href="/guides/sports-travel-budget/">sports travel budget guide</a> breaks down what each trip really costs. Browse the full <a href="/guides/">guides hub</a>, or jump straight to a sport: the <a href="/sports/football/">football</a>, <a href="/sports/tennis/">tennis</a>, <a href="/sports/motorsport/">motorsport</a>, and <a href="/sports/basketball/">basketball</a> pages collect every city and venue. The 2026 season is winding down, so look ahead — <a href="/events/2027/">2027 events</a> and <a href="/events/2028/">2028 events</a> are already open for planning.`,
+  },
+  2027: {
+    heroSubtitle: "Thirteen flagship events across nine sports and four continents: the Australian Open in January, Super Bowl LXI in Los Angeles, the Masters at Augusta, a stacked May of Monaco and Miami Grands Prix, Wimbledon, The Open at St Andrews, and the Ryder Cup in Ireland.",
+    introHeading: "Why 2027 Is the Planner's Year",
+    intro: [
+      "Thirteen events. Nine sports. Four continents. The 2027 calendar is the first full year on MatchTrip where everything is still ahead of you — which makes it the year that rewards planning over luck. It opens with the Australian Open in Melbourne in January, rolls through Super Bowl LXI at SoFi Stadium in Los Angeles in February and the Masters at Augusta in April, then stacks May like no month in sport: the Kentucky Derby on the first Saturday, the Indianapolis 500 on Memorial Day weekend, the Monaco and Miami Grands Prix, and the French Open to close it out.",
+      "Summer belongs to Europe: the Champions League final in Madrid, a Wimbledon fortnight in London, and The Open Championship on the Old Course at St Andrews, golf's most storied links. September delivers the Ryder Cup to Limerick, Ireland — match-play golf at its loudest — and November closes the year with Formula 1's Saturday-night race down the Las Vegas Strip. Every ballot, lottery, and on-sale for these events opens during 2026, which is exactly why the planners win in 2027.",
+      "This page is the master calendar. Each card carries flight ranges, hotel rates, ticket windows, and a link to a full trip guide. Sketch the year in quarters, book the ballot events first, and let the flexible ones fill the gaps.",
+    ],
+    eventsIntro: `All thirteen events for 2027, grouped by sport. Start with January's <a href="/events/australian-open-2027/">Australian Open</a> and February's <a href="/events/super-bowl-2027/">Super Bowl LXI at SoFi Stadium</a>, survive the <a href="/events/f1-monaco-grand-prix-2027/">Monaco</a>–<a href="/events/f1-miami-grand-prix-2027/">Miami</a>–<a href="/events/french-open-2027/">Paris</a> gauntlet of May, then finish with <a href="/events/ryder-cup-2027/">the Ryder Cup in Ireland</a> and <a href="/events/f1-las-vegas-grand-prix-2027/">Vegas by night</a>.`,
+    planningHeading: 'Travel Planning for a Thirteen-Event Year',
+    planning: [
+      {
+        heading: 'Tickets: The 2026 Ballot Season Decides 2027',
+        body: "The events with the best atmospheres are the ones you cannot simply buy. The Masters runs a practice-round lottery with applications due the previous June, while daily tournament badges are effectively members-only. Wimbledon's public ballot opens in September 2026, months before the fortnight. The Ryder Cup sells through official allocations on both sides of the Atlantic, and European packages typically bundle tickets with official hotels. Everything else is a straight on-sale: Super Bowl LXI tickets move through NFL On Location and the official marketplace from late 2026, and Grand Slam grounds passes for Melbourne and Paris go on sale months ahead at the gentle end of the price spectrum. Enter every lottery you can in 2026 — they cost nothing but time.",
+      },
+      {
+        heading: 'Hotels: Follow the Event, Then the Transit Line',
+        body: "For the Slams, stay on the venue's transit line: Melbourne's free CBD tram zone, central Paris on Metro 10 toward Porte d'Auteuil, and London's District Line toward Southfields. Monaco race week makes Nice the value base — forty minutes out at a fraction of the price, with direct trains to Monte Carlo. Louisville sells out in waves for Derby week; Old Louisville's B&Bs and the NuLu district are the play. For the Ryder Cup, Limerick city center handles the atmosphere while Adare Village sits closest to the course — book the day allocations are confirmed, because the entire region sells through within hours.",
+      },
+      {
+        heading: 'Getting There and Getting Around',
+        body: "The 2027 map splits into three natural clusters. The American spring — Augusta, Louisville, Indianapolis, Miami — chains together with domestic flights under three hours each. The European summer — Madrid, Paris, London, Monaco — connects entirely by train, with the Paris-London Eurostar in two hours fifteen and direct London-Nice service for Monaco week. The autumn closer pairs Ireland with a long-haul Vegas finale. Buy the multi-city flight into one cluster and home from another; open-jaw routing saves both money and a wasted backtracking day. Inside the cities, every venue on this page sits on a metro, tram, or shuttle — none of them reward a rental car.",
+      },
+    ],
+    seasonPreview: null,
+    relatedIntro: `Build the full year with MatchTrip's guides. The <a href="/guides/sports-travel-planning/">sports travel planning guide</a> covers ballots, lotteries, and booking timelines, and the <a href="/guides/sports-travel-budget/">sports travel budget guide</a> shows what a multi-event year actually costs. Browse the <a href="/guides/">guides hub</a> for destination deep-dives, or go by sport: <a href="/sports/tennis/">tennis</a>, <a href="/sports/motorsport/">motorsport</a>, <a href="/sports/golf/">golf</a>, and <a href="/sports/football/">football</a>. Compare across years with the <a href="/events/2026/">2026 calendar</a> and the <a href="/events/2028/">2028 calendar</a> — the LA Olympics are already on the horizon.`,
+  },
+  2028: {
+    heroSubtitle: "The XXXIV Olympic Games come home to Los Angeles from July 14-30, 2028 — three weeks of sport at SoFi Stadium, the LA Memorial Coliseum, and Crypto.com Arena, with no new construction and every cluster on the Metro map.",
+    introHeading: 'Why LA 2028 Is the Once-a-Generation Trip',
+    intro: [
+      "Los Angeles becomes only the third city — after London and Paris — to stage the Summer Olympics three times, and LA28 does it without building a single new permanent venue. Athletics returns to the Memorial Coliseum, which hosted the Games in 1932 and 1984. Swimming moves into SoFi Stadium, the NFL's most futuristic arena, its floor flooded for temporary pools. Gymnastics lands at Crypto.com Arena in the heart of downtown. Rowing, canoe sprint, and the coastal sports spread across existing venues from Long Beach's Marine Stadium up the coast, with basketball at the brand-new Intuit Dome next door to SoFi in Inglewood.",
+      "For travelers, that venue reuse is the whole story. Every session sits inside a metro area you already want to visit, connected by expanded Metro rail service and event shuttles rather than remote purpose-built parks. Tickets are expected to run from roughly $30 for early-round sessions to $3,000 for marquee finals and the opening ceremony at SoFi Stadium. The Games run July 14-30, 2028 — seventeen days in which the world's biggest sports city doubles as its biggest stage.",
+      "Do not try to see all seventeen days. The visitors who rave about an Olympics plan a five-to-seven-day slice: one marquee final, a week of cheap preliminary sessions, and afternoons built around the fan zones and the beach. This page tracks the full 2028 calendar — today that means one event bigger than everything else — with the 2027 season runway that carries you to the starting line below it.",
+    ],
+    eventsIntro: `The 2028 calendar opens with the largest event in sport: <a href="/events/olympics-2028/">the LA28 Olympic Games</a> across Southern California from July 14-30 — swimming at SoFi Stadium, track and field at the Coliseum, gymnastics at Crypto.com Arena.`,
+    planningHeading: 'LA28 Travel Planning',
+    planning: [
+      {
+        heading: 'Tickets: Register Early, Buy in Phases',
+        body: "LA28 tickets release in phases, with registration on the official LA28 platform opening well before public sales — popular sessions like gymnastics, swimming finals, and the opening ceremony will sell through in hours. Expect roughly $30-3,000 per session depending on sport and round, and plan a multi-session strategy rather than chasing one final: preliminary mornings are cheap, walk-up friendly, and often more dramatic than the medal rounds. Verified resale opens closer to the Games, but the official phases carry the cleanest prices. American travelers get an advantage rare in Olympic history — no passport, no currency risk, a domestic ticketing system — so use it, and keep every booking refundable until your session schedule locks.",
+      },
+      {
+        heading: 'Hotels: Pick Your Cluster',
+        body: "Match the hotel to a venue cluster rather than chasing the cheapest pin on the map. Downtown LA puts you on the A and E Lines beside Crypto.com Arena and the Convention Center. Exposition Park and USC sit walkable to the Coliseum at gentler guesthouse rates. Long Beach anchors the coastal cluster — rowing on the historic Marine Stadium — at prices well below central LA. Sawtelle and West LA ride the E Line direct to both downtown clusters, with ramen instead of lobby marble. City-wide surges are projected to push normal $150-250 rooms to $250-500 per night with three-to-four-night minimums near marquee venues, so book refundable rates twelve months out and re-shop as the schedule firms.",
+      },
+      {
+        heading: 'Getting Around: Metro, Not the Freeway',
+        body: "Skip the rental car entirely. LA's Metro rail connects downtown (A, E, and B Lines), Exposition Park (E Line), Pasadena (A Line), and Long Beach (A Line), with expanded Games-time service and event shuttles promised from key stations. LAX's new automated people mover finally links the airport directly to Metro and the rental-car center — budget thirty to sixty minutes to downtown depending on traffic. Parking near venues will be scarce and expensive, and rideshare surge pricing on session nights will be brutal. Buy a TAP card on day one, load it for the week, and ride like a local.",
+      },
+      {
+        heading: 'Itinerary: A Five-Day LA28 Sampler',
+        body: "Day one, the downtown cluster: morning preliminaries at Crypto.com Arena or the Convention Center, lunch at Grand Central Market, an afternoon among the Coliseum's Olympic history, riding the A and E Lines between them. Day two, Inglewood's marquee double: basketball at Intuit Dome, then across the street to SoFi Stadium for a swimming final. Day three, the coast — rowing on Long Beach's Marine Stadium, beach volleyball on the sand, sunset in Santa Monica. Days four and five, fill from the schedule: a track final at the Coliseum, a gymnastics night session, and one slow morning with no ticket at all.",
+      },
+    ],
+    seasonPreview: {
+      heading: 'The Road to LA28: The 2027 Season',
+      paragraphs: [
+        `The smartest Olympic trip starts a year early. The 2027 season is the last full lap of the sporting calendar before the Games, and its marquee events double as rehearsals at the very venues and cities you will return to in 2028. Watch <a href="/events/super-bowl-2027/">Super Bowl LXI</a> take over SoFi Stadium in February 2027 — the same building that hosts Olympic swimming sixteen months later — and you will understand how Inglewood moves seventy thousand people on a big night. Follow <a href="/events/australian-open-2027/">the Australian Open</a> in January, <a href="/events/french-open-2027/">Roland Garros</a> in May and June, and <a href="/events/wimbledon-2027/">Wimbledon</a> in July to learn each city's Slam-week rhythms.`,
+        `The rest of the runway matters too. <a href="/events/f1-monaco-grand-prix-2027/">Monaco in May</a> and <a href="/events/f1-las-vegas-grand-prix-2027/">Las Vegas in November</a> teach the two extremes of event travel — the intimate harbor circuit and the neon mega-spectacle. <a href="/events/the-open-2027/">The Open at St Andrews</a> and the <a href="/events/ryder-cup-2027/">Ryder Cup in Ireland</a> cover the golf pilgrimages. Treat the full <a href="/events/2027/">2027 calendar</a> as your warm-up lap: same cities, same transit systems, same booking windows — at pre-Olympic prices.`,
+        `The American classics fill the gaps between the tentpoles. The <a href="/events/masters-golf-2027/">Masters at Augusta</a> each April and the <a href="/events/kentucky-derby-2027/">Kentucky Derby at Churchill Downs</a> on the first Saturday in May teach the two ticketing systems — lottery and on-sale — that LA28 will borrow from, and the <a href="/events/indy-500-2027/">Indianapolis 500</a> on Memorial Day weekend is the best crash course anywhere in moving a six-figure crowd through a mid-sized city. Book those 2027 trips with the Olympics in mind: the airline miles, hotel loyalty tiers, and credit-card credits you stack through 2027 are exactly what you will want in the summer of 2028, when every room in Los Angeles is spoken for.`,
+      ],
+    },
+    relatedIntro: `Go deeper before you commit. The <a href="/guides/sports-travel-planning/">sports travel planning guide</a> covers booking timelines and refundable-rate strategy for an event this size, and the <a href="/guides/sports-travel-budget/">sports travel budget guide</a> breaks down what a Games-length stay really costs. Browse the full <a href="/guides/">guides hub</a> for Los Angeles and every host city on the calendar, and follow the sport pages — <a href="/sports/basketball/">basketball</a> at Crypto.com Arena and Intuit Dome, <a href="/sports/motorsport/">motorsport</a>, <a href="/sports/tennis/">tennis</a> — for the full venue picture. The <a href="/events/2026/">2026</a> and <a href="/events/2027/">2027</a> calendars hold the runway events, and the <a href="/events/olympics-2028/">full LA28 trip guide</a> has the complete venue-by-venue breakdown.`,
+  },
+};
+
+const narrative = YEAR_NARRATIVE[year] || null;
+
 const collectionPageSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -66,15 +164,28 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
       <a href="/events/" class="back-link">&larr; All Events</a>
       <h1>{year} Sports Events</h1>
       <p class="year-count">{events.length} events across {categories.length} sports</p>
-      <p class="year-subtitle">Browse the {year} sporting calendar. Find schedules, travel guides, and booking links for the biggest events in {upcomingEvents.length > 0 ? `${upcomingEvents.length} upcoming` : ''}{upcomingEvents.length > 0 && pastEvents.length > 0 ? ' and ' : ''}{pastEvents.length > 0 ? `${pastEvents.length} past` : ''} events.</p>
+      <p class="year-subtitle">{narrative ? narrative.heroSubtitle : `Browse the ${year} sporting calendar. Find schedules, travel guides, and booking links for the biggest events in ${upcomingEvents.length > 0 ? `${upcomingEvents.length} upcoming` : ''}${upcomingEvents.length > 0 && pastEvents.length > 0 ? ' and ' : ''}${pastEvents.length > 0 ? `${pastEvents.length} past` : ''} events.`}</p>
     </div>
   </section>
 
+  {narrative && (
+    <section class="intro-section">
+      <div class="container">
+        <h2 class="section-heading">{narrative.introHeading}</h2>
+        {narrative.intro.map(paragraph => <p>{paragraph}</p>)}
+      </div>
+    </section>
+  )}
+
   <section class="year-section">
     <div class="container">
+      <h2 class="events-overview-heading">Major Events in {year}</h2>
+
+      {narrative && <p class="events-intro"><Fragment set:html={narrative.eventsIntro} /></p>}
+
       {groupedEvents.map(group => (
         <div class="category-block">
-          <h2 class="category-heading">{group.category} Events in {year}</h2>
+          <h3 class="category-heading">{group.category} Events in {year}</h3>
           <div class="events-grid">
             {group.events.map(event => (
               <article class="event-card">
@@ -87,8 +198,14 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
                     <span class="event-date">{event.date}</span>
                     <span class="event-location">{event.location?.label || event.location}</span>
                   </div>
-                  <a href={`/events/${event.id}/`} class="event-card-title-link"><h3>{event.title}</h3></a>
+                  <a href={`/events/${event.id}/`} class="event-card-title-link"><h4>{event.title}</h4></a>
                   <p>{event.description}</p>
+                  <p class="event-travel-intel">
+                    {event.venues?.length ? `${event.venues.slice(0, 2).join(' & ')} — ` : ''}flights {event.avgFlightPrice}, hotels from {event.avgHotelPrice}, tickets {event.matchTickets}.
+                    {event.status === 'ended'
+                      ? ` The ${year} edition has been played; the guide covers how the week went and how to plan the next one.`
+                      : ` Book flights once tickets are confirmed and hotels at least three months out — event weeks sell host cities out early.`}
+                  </p>
                   <div class="event-footer">
                     <div class="event-price">
                       <span class="price-label">Est. Travel Cost</span>
@@ -105,13 +222,45 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
     </div>
   </section>
 
+  {narrative?.seasonPreview && (
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-heading">{narrative.seasonPreview.heading}</h2>
+        {narrative.seasonPreview.paragraphs.map(paragraph => <p><Fragment set:html={paragraph} /></p>)}
+      </div>
+    </section>
+  )}
+
+  {narrative && (
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-heading">{narrative.planningHeading}</h2>
+        {narrative.planning.map(block => (
+          <div class="planning-block">
+            <h3 class="sub-heading">{block.heading}</h3>
+            <p>{block.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {narrative && (
+    <section class="content-section related-section">
+      <div class="container">
+        <h2 class="section-heading">Related Guides</h2>
+        <p><Fragment set:html={narrative.relatedIntro} /></p>
+      </div>
+    </section>
+  )}
+
   <Fragment set:html={schemaHtml} />
   <Footer />
 </Layout>
 
 <style>
   .year-hero {
-    padding: 100px 0 60px;
+    padding: 80px 0 40px;
     text-align: center;
     background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
   }
@@ -125,10 +274,11 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
     margin-bottom: 24px;
     transition: color 0.2s;
   }
+
   .back-link:hover { color: #4f46e5; }
 
   .year-hero h1 {
-    font-size: 3rem;
+    font-size: 2.75rem;
     font-weight: 800;
     letter-spacing: -1px;
     margin-bottom: 8px;
@@ -145,7 +295,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .year-subtitle {
     font-size: 1.0625rem;
     color: #6b7280;
-    max-width: 600px;
+    max-width: 720px;
     margin: 0 auto;
     line-height: 1.7;
   }
@@ -156,8 +306,31 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
     padding: 0 24px;
   }
 
+  .intro-section { padding: 24px 0 48px; }
+  .section-heading { font-size: 1.5rem; font-weight: 700; color: #111; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid #f3f4f6; }
+  .intro-section p, .content-section p, .events-intro { color: #4b5563; font-size: 1rem; line-height: 1.75; margin: 0 0 16px; }
+  .content-section { padding: 0 0 56px; }
+  .content-section p a, .events-intro a { color: #6366f1; font-weight: 600; text-decoration: none; }
+  .content-section p a:hover, .events-intro a:hover { color: #4f46e5; text-decoration: underline; }
+  .sub-heading { font-size: 1.15rem; font-weight: 700; color: #111; margin: 28px 0 12px; }
+  .related-section { padding-bottom: 72px; }
+
   .year-section {
-    padding: 40px 0 80px;
+    padding: 0 0 56px;
+  }
+
+  .events-overview-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f3f4f6;
+  }
+
+  .events-intro {
+    margin-bottom: 28px;
+    max-width: 900px;
   }
 
   .category-block {
@@ -169,7 +342,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   }
 
   .category-heading {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #111;
     margin-bottom: 24px;
@@ -243,7 +416,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
 
   .event-card-title-link:hover { color: #6366f1; }
 
-  .event-card-title-link h3 {
+  .event-card-title-link h4 {
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 8px;
@@ -254,11 +427,21 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
     color: #4b5563;
     font-size: 0.95rem;
     line-height: 1.5;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  .event-content .event-travel-intel {
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+    color: #6b7280;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
   }
 
   .event-footer {

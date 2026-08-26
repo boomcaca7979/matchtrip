@@ -45,6 +45,16 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
     </div>
   </section>
 
+  <!-- Introduction -->
+  <section class="intro-section">
+    <div class="container">
+      <h2 class="section-heading">Why the Grand Slams Are the Best Trip in Sports</h2>
+      <p>Tennis is the only sport whose calendar doubles as a world tour. The four Grand Slams each own a city, a surface, and a personality: the Australian Open starts the year on Melbourne's hard courts in January sunshine, the French Open slides into Paris on red clay each spring, Wimbledon brings grass, whites, and strawberries to London in early summer, and the US Open closes the season with rowdy night sessions under the lights of New York. MatchTrip tracks five of them across the current cycle — Wimbledon 2026, the US Open 2026 starting August 24, and the Australian Open, French Open, and Wimbledon editions of 2027.</p>
+      <p>What makes a Slam a superior travel object is its two-week format. Unlike a final or a race, a Slam rewards staying: week one serves up dozens of matches a day across twenty-plus courts at grounds-pass prices, while quarterfinals onward concentrate the stakes — and the ticket prices — into stadium nights. Arthur Ashe Stadium, at 23,771 seats the largest arena in the sport, shakes when the roof closes and a night session runs past midnight; Melbourne Park runs like a summer festival with live bands between matches; Roland Garros remains the most affordable of the four, with the most intimate grounds in Grand Slam tennis.</p>
+      <p>Chasing all four majors has become the sport's defining travel challenge — four world-class cities, four distinct fan cultures, and four completely different ticket ecosystems. Below is each trip, with the planning details that actually matter.</p>
+    </div>
+  </section>
+
   <!-- Topic Cluster -->
   <section class="topic-cluster">
     <div class="container">
@@ -80,6 +90,8 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
         <p class="events-count">{categoryEvents.length} event(s)</p>
       </div>
 
+      <p class="events-intro">Five Slam trips anchor the tennis calendar: <a href="/events/wimbledon/">Wimbledon 2026</a> on London's grass, <a href="/events/us-open-tennis/">US Open 2026</a> in New York, and the 2027 sweep of <a href="/events/australian-open-2027/">Melbourne</a>, <a href="/events/french-open-2027/">Paris</a>, and <a href="/events/wimbledon-2027/">Wimbledon</a>. Each guide covers ballots and queues, grounds-pass strategy, hotel zones near the venue, and the transit line that gets you to the gates.</p>
+
       <div class="events-grid">
         {categoryEvents.map(event => (
           <article class="event-card">
@@ -94,6 +106,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
               </div>
               <a href={`/events/${event.id}/`} class="event-card-title-link"><h3>{event.title} Schedule</h3></a>
               <p>{event.description}</p>
+              <p class="event-travel-intel">Two weeks at {event.venues?.[0] || 'the venue'} — budget flights {event.avgFlightPrice}, hotels from {event.avgHotelPrice} per night, and tickets {event.matchTickets} from grounds passes to stadium finals. Book accommodation at least three months ahead; Slam fortnights are peak season in every host city.</p>
               <div class="event-footer">
                 <div class="event-price">
                   <span class="price-label">Est. Travel Cost</span>
@@ -105,6 +118,39 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
           </article>
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- Grand Slam Itinerary -->
+  <section class="content-section">
+    <div class="container">
+      <h2 class="section-heading">Planning a Grand Slam Itinerary</h2>
+      <p>The first decision is which week. Week one is the connoisseur's play: grounds passes put you within feet of future stars on the outer courts, you can bounce between a dozen matches a day, and the atmosphere is festival-casual. The second week is the spectacle — quarterfinals, semifinals, and finals in the main stadiums, with prices to match. Budget-minded travelers split the difference: grounds passes Monday through Wednesday, then one marquee stadium ticket for a night session or a semifinal. Night sessions are the signature experience at the US Open and the Australian Open, where play runs past midnight and the crowd energy shifts accordingly.</p>
+      <p>The second decision is how much city to wrap around the tennis. Slams sit inside destination cities, so the math of a five-day trip differs completely from a fortnight. Short trips should stay near the venue's transit line; longer stays can trade proximity for neighborhood character — Melbourne's laneways, Paris's Marais, Brooklyn's rooftops — and ride transit in each morning. Pairing two Slams in one year is the classic grand tour: January in Melbourne then June in London, or Paris in late May flowing straight into Wimbledon's fortnight, is a European summer with a thread of tennis running through it.</p>
+    </div>
+  </section>
+
+  <!-- Travel Planning -->
+  <section class="content-section">
+    <div class="container">
+      <h2 class="section-heading">Grand Slam Travel Planning</h2>
+
+      <h3 class="sub-heading">Tickets: Four Slams, Four Systems</h3>
+      <p>Every Slam sells differently, so learn the local system before you plan. Wimbledon runs a public ballot that opens the previous September — one application per household, results in spring — plus the famous Queue, which sells a few thousand ground passes daily from around £30 and rewards those who arrive by early morning or camp overnight. The US Open sells grounds passes from $50-90 in early rounds, Arthur Ashe Stadium seats from $100 to $500-plus by session, and a verified official resale that unlocks as plans change. The Australian Open's ground passes start around $50-80 with Rod Laver Arena night sessions above that, and Roland Garros remains the value Slam, with annexe passes from $50-100 and Philippe-Chatrier seats from $200-800. Buy through official tournament channels first everywhere — each Slam's site or its verified marketplace — and let early-round grounds passes carry the budget while you spend up for one marquee session.</p>
+
+      <h3 class="sub-heading">Hotels: Stay on the Venue's Transit Line</h3>
+      <p>Location strategy is transit strategy at a Slam, because you will make the same commute every day for a week or more. In New York, that means Astoria or Long Island City on the 7 train, which runs straight to Mets-Willets Point, or Murray Hill near Grand Central where the 7 originates. In London, Wimbledon Village beside the gates is the dream but scarce; South Bank and central London reach Southfields on the District Line in 25-35 minutes. Melbourne's free CBD tram zone makes the city center the obvious base, with Southbank walkable to Rod Laver Arena and Fitzroy two tram hops north. In Paris, the 16th arrondissement puts you walking distance from Roland Garros, while the 15th on Metro 10 and Porte de Saint-Cloud offer gentler rates on the same line as the stadium. Tournament weeks push rates up everywhere — book three or more months ahead, and remember two-week stays multiply fast, so most visitors book four to six nights and target one week of the fortnight.</p>
+
+      <h3 class="sub-heading">Getting to the Grounds</h3>
+      <p>Every Slam venue was built around public transit, so use it. New York: the 7 train to Mets-Willets Point drops you next to the USTA National Tennis Center, or take the LIRR from Penn Station or Grand Central Madison for a faster ride in ~20 minutes. London: the District Line to Southfields, then a fifteen-minute walk, or South Western Railway from Waterloo to Wimbledon in seventeen minutes with shuttle buses covering the last stretch. Melbourne: trams 70, 75, and 48 stop at Melbourne Park, and the free CBD tram zone covers the city center entirely. Paris: Metro lines 9 and 10 stop at Michel-Ange-Molitor, Michel-Ange-Auteuil, and Porte d'Auteuil, all within minutes of the gates. Arrive at gates-opening on grounds-pass days — practice courts offer player sightings that stadium ticket-holders never get — and check the last train home before booking night-session seats, because finishes past midnight are part of the deal in New York and Melbourne.</p>
+    </div>
+  </section>
+
+  <!-- Related Guides -->
+  <section class="content-section related-section">
+    <div class="container">
+      <h2 class="section-heading">Related Guides</h2>
+      <p>Round out the trip with MatchTrip's guide network. The <a href="/guides/sports-travel-planning/">sports travel planning guide</a> covers booking timelines, ballots, and refundable-rate strategy, while the <a href="/guides/sports-travel-budget/">sports travel budget guide</a> breaks down what a Slam fortnight actually costs by category. Browse the <a href="/guides/">guides hub</a> for every destination on the site, and see the <a href="/sports/tennis/">tennis sports page</a> for the full collection of Slam cities and venues. Year hubs pull the calendar together — <a href="/events/2026/">2026 events</a> for Wimbledon and the US Open, <a href="/events/2027/">2027 events</a> for Melbourne, Paris, and London — and if you are building a multi-sport year, the <a href="/events/football/">football events</a>, <a href="/events/f1/">Formula 1 schedule</a>, and <a href="/events/nba/">NBA Finals</a> collections slot neatly between the Slams.</p>
     </div>
   </section>
 
@@ -124,6 +170,13 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .category-hero h1 { font-size: 2.75rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 16px; color: #111; }
   .subtitle { font-size: 1.0625rem; color: #6b7280; max-width: 620px; margin: 0 auto; line-height: 1.7; }
   .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .intro-section { padding: 24px 0 48px; }
+  .section-heading { font-size: 1.5rem; font-weight: 700; color: #111; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid #f3f4f6; }
+  .intro-section p, .content-section p { color: #4b5563; font-size: 1rem; line-height: 1.75; margin: 0 0 16px; }
+  .content-section { padding: 0 0 56px; }
+  .content-section p a, .events-intro a { color: #6366f1; font-weight: 600; text-decoration: none; }
+  .content-section p a:hover, .events-intro a:hover { color: #4f46e5; text-decoration: underline; }
+  .sub-heading { font-size: 1.15rem; font-weight: 700; color: #111; margin: 28px 0 12px; }
   .topic-cluster { padding: 0 0 48px; background: #ffffff; }
   .cluster-heading { font-size: 1.25rem; font-weight: 700; color: #111; margin-bottom: 20px; text-align: center; }
   .cluster-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 800px; margin: 0 auto; }
@@ -132,10 +185,11 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .cluster-card-hub { background: #111827; border-color: #111827; color: white; }
   .cluster-card-hub:hover { background: #374151; border-color: #374151; color: white; }
   .cluster-icon { font-size: 1.125rem; }
-  .events-section { padding: 0 0 80px; }
-  .events-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; }
+  .events-section { padding: 0 0 56px; }
+  .events-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
   .events-header h2 { font-size: 1.5rem; font-weight: 700; color: #111; }
   .events-count { color: #6b7280; font-size: 0.95rem; }
+  .events-intro { color: #4b5563; font-size: 1rem; line-height: 1.75; margin-bottom: 28px; max-width: 860px; }
   .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px; }
   .event-card { background: white; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
   .event-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1); }
@@ -147,7 +201,8 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .event-card-title-link { text-decoration: none; color: inherit; display: block; transition: color 0.2s ease; }
   .event-card-title-link:hover { color: #6366f1; }
   .event-card-title-link h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; color: #111; }
-  .event-content p { color: #4b5563; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .event-content p { color: #4b5563; font-size: 0.95rem; line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .event-travel-intel { color: #6b7280; font-size: 0.85rem; line-height: 1.6; margin-bottom: 20px; display: block; }
   .event-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid #f3f4f6; }
   .event-price { display: flex; flex-direction: column; }
   .price-label { font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -155,6 +210,7 @@ const schemaHtml = `<script type="application/ld+json">${JSON.stringify(collecti
   .btn { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; font-weight: 600; transition: all 0.2s; cursor: pointer; }
   .btn-primary { background: #111; color: white; padding: 10px 20px; border-radius: 10px; border: none; font-size: 0.9rem; }
   .btn-primary:hover { background: #374151; transform: translateY(-1px); }
+  .related-section { padding-bottom: 72px; }
   @media (max-width: 768px) {
     .category-hero h1 { font-size: 2rem; }
     .events-grid { grid-template-columns: 1fr; }

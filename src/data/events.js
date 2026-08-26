@@ -64,6 +64,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'FIFA.com/tickets is the only official channel — all sales phases, draws, and last-minute releases run through FIFA\'s portal; hospitality exclusively via FIFA\'s official partners.',
+        releaseTiming: 'Sales run in phases: a random selection draw after the December 2025 group draw, followed by first-come-first-served phases and last-minute releases continuing right through the tournament.',
+        priceRange: 'Group-stage matches from about $80; knockout rounds climb steeply toward $1,000+, with MetLife Stadium final tickets the most expensive of the tournament.',
+        scamTips: 'Buy only through FIFA.com or authorized hospitality partners — touts and social-media sellers routinely move cancelled or duplicated barcodes. Never pay individuals by bank transfer or payment apps, and treat "face value plus a small fee" offers on social platforms as scams.',
+      },
+      transportGuide: {
+        airport: 'Depends on your matches: New York (JFK/EWR), Los Angeles (LAX), Dallas (DFW), Mexico City (MEX), Toronto (YYZ), and Vancouver (YVR) are the primary gateways.',
+        publicTransport: 'Every host city runs rail toward its stadium — NJ Transit/Amtrak to MetLife via Secaucus, LA Metro toward SoFi, Mexico City Metro to Azteca — with tournament-expanded service and fan shuttles on match days.',
+        matchDayTip: 'Arrive at least three hours early — security is airport-grade and 80,000-strong crowds overwhelm transit. Post-match station queues can take an hour, so walk a stop or two before boarding.',
+      },
+      budgetTiers: {
+        budget: '$1,500-2,500 total weekend — group-stage match in Mexico City or Atlanta, shared hotel, flights booked early',
+        midRange: '$3,000-5,000 total weekend — knockout match in a US host city, downtown hotel, direct flights',
+        premium: '$8,000+ total weekend — MetLife final or semifinal, hospitality tickets, premium hotel and flights',
+      },
       accommodationAreas: [
         { name: 'Host Cities', description: 'The 2026 World Cup spans 16 cities across the USA, Canada, and Mexico. Major hubs include New York (MetLife Stadium), Los Angeles (SoFi Stadium), Dallas (AT&T Stadium), Mexico City (Azteca Stadium), Toronto, and Vancouver. Each city offers vastly different experiences and price points.', searchQuery: 'World Cup 2026 host city hotels' },
         { name: 'Major Downtown Areas', description: 'Downtown areas in host cities provide the best access to fan zones, public transportation, and entertainment districts. New York (Midtown Manhattan), Los Angeles (DTLA), and Mexico City (Centro Histórico) offer premium stays but at significantly higher prices during tournament time.', searchQuery: 'downtown host city hotels World Cup 2026' },
@@ -120,6 +136,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'LA28.org and the official LA28 ticketing platform for all phases; verified resale opens later through official channels only.',
+        releaseTiming: 'Phased releases begin roughly 12-18 months before the Games — register at la28.org for priority access. Gymnastics, swimming, and opening ceremony sessions sell out within hours of going live.',
+        priceRange: 'Sessions from about $30 for early rounds to $2,000+ for premium finals and the opening ceremony at SoFi Stadium.',
+        scamTips: 'Buy only through the official LA28 platform and its verified resale — counterfeit Olympic tickets flood every Games. Avoid social-media sellers and wire transfers entirely, and remember barcodes are tied to the original purchaser; if a marquee-final price looks too good, it is.',
+      },
+      transportGuide: {
+        airport: 'Los Angeles International (LAX) is the primary gateway, with the new people mover improving Metro connections; Hollywood Burbank (BUR) and Long Beach (LGB) are quieter alternatives.',
+        publicTransport: 'LA28 plans a car-free Games built on Metro rail: the A and E Lines serve the downtown and Exposition Park clusters, the K Line reaches Inglewood, with expanded service and event shuttles promised for the Games.',
+        matchDayTip: 'Arrive 90 minutes to two hours before each session — security mirrors airport levels at marquee venues. Buy a TAP card in advance and skip driving; venue parking will be scarce and expensive.',
+      },
+      budgetTiers: {
+        budget: '$1,500-2,500 total weekend — early-round sessions, Pasadena or Long Beach hotel, mid-Games arrival flights',
+        midRange: '$3,500-5,500 total weekend — multiple marquee sessions, downtown LA hotel, week-long stay',
+        premium: '$9,000+ total weekend — opening ceremony and premium finals, luxury hotel near a venue cluster, hospitality access',
+      },
       whyAttend: 'The Olympics return to Los Angeles for a third time, joining London and Paris as the only cities ever to stage three Summer Games — and LA28 leans on what this city already does best. Instead of new construction, athletes compete in venues you know from highlights reels: track and field at the 1932 and 1984 Coliseum, swimming at SoFi Stadium, gymnastics at Crypto.com Arena, and beach volleyball on proper Southern California sand. The Games spread across one sprawling metro, so every session doubles as a sightseeing tour. Add July sunshine, taco stands between sessions, and metro lines connecting the clusters, and you get the most accessible Olympics ever staged for American travelers.',
       bestAreas: [
         { name: 'Exposition Park & USC', description: 'For session-stacking fans, the blocks around USC put you a short walk from the Coliseum, BMO Stadium, and the convention halls, with the E Line\'s Expo Park/USC station connecting downtown in minutes. Modest hotels and guesthouses sit among campus bars and cheap eats, keeping you close to the medal moments at gentler prices.', searchQuery: 'Exposition Park Los Angeles hotels' },
@@ -202,6 +234,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'Automobile Club de Monaco (acm.mc) and official F1 ticket channels for grandstands; premium hospitality and packages via F1 Experiences.',
+        releaseTiming: 'Official sales open around October for the following May race, and prime grandstands vanish within days. Register with ACM early for priority notifications and early access.',
+        priceRange: 'General grandstands from about €350 with premium positions over €1,000; rooftop and yacht-view hospitality from €2,500+ per person for the weekend.',
+        scamTips: 'Monaco is the most counterfeited race on the calendar — buy only through ACM, F1, or authorized agents and verify grandstand and seat numbers before paying. Never wire money to individual sellers; mobile barcodes are reissued to original buyers, so social-media resale listings are routinely void.',
+      },
+      transportGuide: {
+        airport: 'Nice Côte d\'Azur (NCE), 30-40 minutes from Monaco via the 110/98 express buses — or seven minutes by helicopter from roughly €150 one-way.',
+        publicTransport: 'TER coastal trains run every 15-30 minutes between Nice and Monaco-Monte-Carlo station (20-25 minutes), which sits directly above the circuit; Ligne d\'Azur bus 100 hugs the same coast road into the principality.',
+        matchDayTip: 'Streets close section by section, so walking is the only real transport inside Monaco. Base yourself in Nice or Menton and train in early — services fill completely by mid-morning on race day.',
+      },
+      budgetTiers: {
+        budget: '€1,200-2,000 total weekend — Menton or Nice hotel, general grandstand, TER trains',
+        midRange: '€3,000-5,000 total weekend — Nice seafront hotel, premium grandstand for two days, harbor dinners',
+        premium: '€8,000+ total weekend — Monte Carlo palace hotel, rooftop or yacht hospitality, helicopter transfers',
+      },
       accommodationAreas: [
         { name: 'Monte Carlo', description: 'The ultimate race weekend location, steps from the circuit. Luxury hotels, casinos, and fine dining define the experience. Expect premium prices with minimum 3–5 night stays during race week. Book 12+ months ahead.', searchQuery: 'Monte Carlo Monaco hotels' },
         { name: 'Nice', description: 'A 20–30 minute train ride from Monaco with significantly more affordable options. The charming French Riviera city offers beautiful beaches, a lively old town, and excellent restaurants at a fraction of Monaco prices.', searchQuery: 'Nice France hotels' },
@@ -260,6 +308,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'NFL On Location (the league\'s official hospitality provider) and the NFL Ticket Exchange via Ticketmaster — team ticket allocations remain the primary face-value channel.',
+        releaseTiming: 'Inventory concentrates once the matchup is set on Championship Sunday about two weeks out. Prices spike immediately after, often dip midweek, and rebound in the final days before kickoff.',
+        priceRange: 'Resale from roughly $3,000 for upper-level seats past $10,000 for premium lower-level midfield; On Location packages run $5,000-15,000+ per person.',
+        scamTips: 'The Super Bowl is America\'s most counterfeited ticket event. Use only On Location or the NFL Ticket Exchange — never buy PDFs, screenshots, or paper tickets from touts and social-media sellers, and never wire money or pay by crypto; barcodes are validated at the gates.',
+      },
+      transportGuide: {
+        airport: 'San Jose International (SJC) is 10 minutes from Levi\'s Stadium; San Francisco International (SFO) is 35 minutes north via Caltrain or BART.',
+        publicTransport: 'Caltrain to Great America station or VTA light rail from downtown San Jose — both a short walk from the gates, with significantly expanded service on Super Bowl Sunday.',
+        matchDayTip: 'Arrive three to four hours early for security and the Super Bowl Live fan festival. Post-game Caltrain and rideshare queues stretch past 45 minutes, and surge pricing hits 3-5x.',
+      },
+      budgetTiers: {
+        budget: '$3,500-5,000 total weekend — upper-corner resale seat, airport-area hotel, Thursday-to-Monday flights',
+        midRange: '$8,000-12,000 total weekend — lower-level midfield seat, downtown San Jose hotel, flexible flights',
+        premium: '$15,000+ total weekend — On Location field-level hospitality, luxury hotel, premium flights',
+      },
       accommodationAreas: [
         { name: 'Host City Downtown', description: 'San Francisco and San Jose offer vibrant downtown areas with the widest range of dining, entertainment, and hotel options. Expect premium pricing during Super Bowl weekend with minimum night stays.', searchQuery: 'San Francisco downtown hotels' },
         { name: 'Airport Area', description: 'Hotels near SFO and San Jose International (SJC) provide convenient access and more moderate pricing. Free airport shuttles and proximity to Caltrain/BART make it easy to reach the stadium on game day.', searchQuery: 'SFO airport area hotels' },
@@ -318,6 +382,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'AELTC public ballot via wimbledon.com is the only way to buy show-court seats at face value; debentures through official agents are the only legal resale.',
+        releaseTiming: 'The ballot opens the previous September and runs about two months, with results announced from spring. The Queue sells a few thousand ground passes daily during the fortnight itself.',
+        priceRange: 'Ground passes from around £30; ballot Centre Court and No.1 Court seats roughly £70-300+ by day; debenture resale from several hundred pounds.',
+        scamTips: 'Wimbledon tickets are non-transferable except debentures, so touts\' resale listings are usually void once barcodes are reissued. Apply via the official ballot, queue on the day, or buy debentures through authorized agents — never pay individuals by bank transfer for "e-tickets" sold on social media.',
+      },
+      transportGuide: {
+        airport: 'London Heathrow (LHR) is closest — Piccadilly Line to Earl\'s Court then District Line to Southfields, about an hour; Gatwick connects via Thameslink.',
+        publicTransport: 'District Line to Southfields station (15-minute walk to the gates) or South Western Railway from Waterloo to Wimbledon station (17 minutes) plus shuttle buses to the grounds.',
+        matchDayTip: 'Board the Tube before 9 AM or after noon to dodge peak crush, and check last train times for late Centre Court finishes — or pre-book a taxi home.',
+      },
+      budgetTiers: {
+        budget: '$1,000-1,800 total weekend — ground passes and the Queue, budget-zone hotel, midweek matches',
+        midRange: '£2,500-4,000 total weekend — ballot show-court seat, central London hotel, several days of play',
+        premium: '£6,000+ total weekend — Centre Court debentures or hospitality, luxury hotel, finals weekend',
+      },
       accommodationAreas: [
         { name: 'Wimbledon Village', description: 'The most convenient choice, located right next to the All England Club. Charming village atmosphere with boutique hotels, pubs, and restaurants. A 10-15 minute walk to the grounds, but books up months in advance.', searchQuery: 'Wimbledon Village London hotels' },
         { name: 'Central London', description: 'A 25-40 minute Tube ride from Southfields or Wimbledon station. Offers the widest range of accommodation options across all budgets. Great for combining Wimbledon with London sightseeing.', searchQuery: 'Central London hotels' },
@@ -376,6 +456,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'UEFA.com ticket portal for the public ballot, plus allocations through the two finalist clubs\' fan ballots; hospitality only via UEFA\'s official program.',
+        releaseTiming: 'The general ballot typically opens four to six weeks before the final, with club fan ballots launching two to five days after the semifinals once the finalists are confirmed.',
+        priceRange: 'Face value roughly €70-690 by category; resale from €600 up to €3,000+ once the finalists are known.',
+        scamTips: 'UEFA finals are a counterfeit hotspot — buy only via the UEFA portal, club ballots, or authorized hospitality agents. Digital tickets are app-delivered and ID-checked, so screenshots and social-media listings are typically void; never pay individuals by bank transfer.',
+      },
+      transportGuide: {
+        airport: 'Budapest Ferenc Liszt International (BUD), 20 km southeast — the 100E airport bus runs direct to Deák Ferenc tér in about 35 minutes.',
+        publicTransport: 'Metro M2 to Puskás Ferenc Stadion station, a five-minute walk from the arena, with enhanced shuttle services from Deák Ferenc tér on match day.',
+        matchDayTip: 'Metro queues after the final whistle last 30-60 minutes with 50,000+ leaving — walk 20 minutes to Keleti station for a quieter return, and arrive two hours early for security.',
+      },
+      budgetTiers: {
+        budget: '€1,500-2,500 total weekend — Category 3/4 resale seat, two nights near the center, European flights',
+        midRange: '€3,000-4,500 total weekend — Category 1/2 seat, central Budapest hotel, three nights with dinners',
+        premium: '€6,000+ total weekend — UEFA official hospitality, luxury hotel, flexible refundable flights',
+      },
       accommodationAreas: [
         { name: 'City Center', description: 'Budapest\'s historic city center (Belváros) offers the best access to the Puskas Arena, about 15-20 minutes by metro. Packed with restaurants, ruin bars, and cultural attractions. Most hotels are within walking distance of Deák Ferenc tér transport hub.', searchQuery: 'Budapest city center hotels' },
         { name: 'Stadium Area', description: 'Hotels near the Puskas Arena in Zugló district offer the ultimate match-day convenience, a 5-10 minute walk to the stadium. Quieter residential area with fewer dining options but excellent metro connections to the city center.', searchQuery: 'Zugló Budapest hotels' },
@@ -432,6 +528,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'USOpen.org for official tickets plus the US Open\'s official verified Ticketmaster resale exchange.',
+        releaseTiming: 'Public on-sale opens in early June after membership and presale windows, with resale inventory releasing as plans change — prices often drop for early-week sessions after the draw.',
+        priceRange: 'Grounds passes $50-90 in early rounds; Arthur Ashe Stadium $100-500+ by session; semifinal and finals nights $500-800+ on resale.',
+        scamTips: 'Buy through USOpen.org or its official Ticketmaster resale — mobile-entry barcodes transferred outside official systems are the top scam. Skip street sellers near Mets-Willets Point and anyone requesting wire transfers or payment apps for discounted Ashe tickets.',
+      },
+      transportGuide: {
+        airport: 'LaGuardia (LGA) is closest at 15 minutes; JFK is 20-25 minutes; Newark (EWR) sits 45-60 minutes away in New Jersey.',
+        publicTransport: 'The 7 train to Mets-Willets Point stops right beside the USTA National Tennis Center; the LIRR from Penn Station or Grand Central Madison is the faster alternative at peak times.',
+        matchDayTip: 'For 7 PM night sessions arrive by 5 PM to catch outer-court practice and eat before the gates jam; day sessions start around 11 AM — arrive at opening for the shortest security lines.',
+      },
+      budgetTiers: {
+        budget: '$800-1,500 total weekend — grounds passes plus one Ashe night session, Astoria hotel, off-peak flights',
+        midRange: '$2,500-4,000 total weekend — Ashe reserved seats for multiple sessions, Midtown hotel, five days',
+        premium: '$6,000+ total weekend — finals weekend premium seats, luxury hotel, extended stay',
+      },
       whyAttend: 'Nothing in tennis feels like a night session in Arthur Ashe Stadium. Twenty-three thousand seven hundred and seventy-one seats — the largest arena in the sport — shake when the roof closes and a US Open crowd gets behind a three-setter past midnight. This is the Slam with stadium-sized attitude: buzzing crowd, celebrity rows, food from NYC\'s top chefs, and two full weeks of matches across twenty-plus courts at Flushing Meadows. August in New York wraps the tournament in summer energy — rooftop sessions before, bar crawls in LIC after. Grounds passes let you hop between showcourts all day for modest money, while the subway ride out on the 7 train is a rolling party of accents from every tennis nation on earth.',
       bestAreas: [
         { name: 'Astoria (Queens)', description: 'Right across the river in Queens, Astoria pairs real neighborhood New York — Greek tavernas, beer gardens, bustling cafés — with hotel rates well below Manhattan. The N or W train reaches Queensboro Plaza in minutes, where a one-stop transfer onto the 7 drops you at Mets-Willets Point in under thirty minutes door-to-gate.', searchQuery: 'Astoria New York hotels' },
@@ -513,6 +625,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'NBA Ticket Exchange on Ticketmaster — the league\'s only authorized resale platform — plus team box offices for face-value inventory.',
+        releaseTiming: 'Tickets release once the matchup is set after the Conference Finals, typically two to three days before Game 1; potential series-continuation games go on sale only as they become necessary.',
+        priceRange: 'Resale from roughly $200+ for upper-level and $1,000+ for lower-level seats, with Finals-clinching games commanding the steepest premiums.',
+        scamTips: 'Counterfeit tickets are common for high-demand Finals games. Use only the NBA Ticket Exchange or the arena box office — never buy screenshots or printouts from touts outside the arena, and avoid social-media sellers requesting Zelle, Venmo, or wire transfers.',
+      },
+      transportGuide: {
+        airport: 'Varies by host city: LAX for Crypto.com Arena, JFK/LGA for Madison Square Garden, Boston Logan for TD Garden, O\'Hare for United Center.',
+        publicTransport: 'Every Finals host city runs transit to its arena — NYC subway to MSG, LA Metro to Crypto.com, Boston T to TD Garden, Chicago L to United Center.',
+        matchDayTip: 'Streets around the arena close two to three hours before tip-off. Arrive 90 minutes early for security, and expect extended-hours transit to be swamped after the final buzzer.',
+      },
+      budgetTiers: {
+        budget: '$1,000-1,800 total weekend — upper-level Game 3 or 4 seat, airport-area hotel, flexible flights',
+        midRange: '$3,000-5,000 total weekend — lower-level seat, downtown hotel near the arena, two games',
+        premium: '$8,000+ total weekend — floor-adjacent or clinching-game seats, luxury hotel, hospitality access',
+      },
       accommodationAreas: [
         { name: 'Downtown / Arena Area', description: 'The NBA Finals rotate between conference champions\' home cities. Downtown areas near the arena offer prime access to games, pre-game entertainment, and the best dining. Book early as hotels fill up fast when the Finals matchup is confirmed.', searchQuery: 'downtown arena area hotels' },
         { name: 'Nearby Neighborhoods', description: 'Consider staying in adjacent neighborhoods within 15-20 minutes of the arena. These offer more character, better value, and local restaurant scenes compared to the premium-priced immediate arena vicinity.', searchQuery: 'NBA Finals host city neighborhoods' },
@@ -569,6 +697,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'The official Singapore GP website (singaporegp.sg) is the only legitimate source, selling walkabout, grandstand, and hospitality tickets in phases.',
+        releaseTiming: 'Phase-one sales launch months ahead — typically late in the preceding year — with the best pricing; later phases step up in price as zones sell out through race week.',
+        priceRange: 'Single-zone walkabout from S$128 up to S$1,298 for premier three-day grandstand packages; Bay grandstands sit in the S$400-800 range.',
+        scamTips: 'Barcodes are checked against photo ID at the gates, so unverified resale is a genuine scam risk. Buy only from singaporegp.sg — avoid social-media sellers and bank transfers entirely, and treat cut-price "walkabout upgrades" offered near the gates as fraud.',
+      },
+      transportGuide: {
+        airport: 'Singapore Changi (SIN) — 20-30 minutes by taxi to Marina Bay, or about 45 minutes via the East-West MRT line.',
+        publicTransport: 'The MRT is the lifeline: City Hall, Esplanade, Promenade, Bayfront, and Nicoll Highway stations all serve different circuit gates, with extra late-night trains on race nights; most fans simply walk from downtown hotels.',
+        matchDayTip: 'Arrive by 4-5 PM to claim grandstand seats or GA barrier spots — track-crossing bridges close during sessions, so plan zone moves around the timetable rather than getting stranded.',
+      },
+      budgetTiers: {
+        budget: 'S$1,800-2,800 total weekend — walkabout pass, Kampong Glam or Clarke Quay hotel, hawker meals',
+        midRange: 'S$3,500-5,500 total weekend — Bay grandstand three-day pass, Orchard Road hotel, restaurant dinners',
+        premium: 'S$8,000+ total weekend — Paddock Club or suite hospitality, Marina Bay Sands track-view room',
+      },
       whyAttend: 'Singapore remains Formula 1\'s original night race and still its most demanding test of man and machine. Twenty-odd turns thread past Marina Bay\'s illuminated skyline, the Fullerton Waterboat House, and the Padang, reflecting off the water as cars spark over kerbs in the tropical dark. The circuit wraps around the bay rather than outside town, so you step from your hotel, hawker center, or rooftop bar straight into the gates — no shuttle buses, no out-of-town industrial parks. Add nightly headline concerts at the Padang and Village stages, world-class street food minutes away, and the humidity that makes this the championship\'s toughest physical challenge, and you get a race weekend that doubles as a full-on city festival.',
       bestAreas: [
         { name: 'Clarke Quay', description: 'The riverside quay sits within walking distance of several circuit gates and doubles as the race weekend\'s party central, its converted warehouses packed with bars and restaurants that stay loud long after the final lap. Hotel rates undercut Marina Bay substantially, and the riverside promenade delivers an easy stroll home when the MRT queues stretch past an hour.', searchQuery: 'Clarke Quay Singapore hotels' },
@@ -651,6 +795,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'masters.com — the practice round lottery and club-approved hospitality partners; the series badge waitlist has been closed for years.',
+        releaseTiming: 'Practice round lottery applications run through the summer (typically June onward) for the following April, with winners notified by email in the fall; tournament badges surface only on the secondary market.',
+        priceRange: 'Practice round tickets roughly $75-150 at face value; secondary-market tournament badges $1,000-2,000+ per day; hospitality packages $2,000-5,000+.',
+        scamTips: 'Masters badges are heavily counterfeited — buy only through brokers with guarantees against invalid badges or via official hospitality. Never wire money to individual sellers on social media; the club validates serial numbers at the gates and confiscated badges come with no refund.',
+      },
+      transportGuide: {
+        airport: 'Augusta Regional (AGS) has limited flights via Atlanta, Charlotte, and Dallas; most visitors fly Hartsfield-Jackson Atlanta (ATL) and drive 2.5 hours east on I-20.',
+        publicTransport: 'There is no practical public transit — a rental car is essential, with free shuttles looping from pre-purchased permit lots (the main lot sits at Washington and Wheeler Roads) on tournament days.',
+        matchDayTip: 'Arrive before 7 AM to beat the Washington Road crush — allow an hour for what is normally a 15-minute drive, and pre-book parking permits the moment your badges are confirmed.',
+      },
+      budgetTiers: {
+        budget: '$900-1,500 total weekend — practice round ticket, Atlanta hotel with drive-in, budget flights',
+        midRange: '$2,000-3,500 total weekend — single tournament-day badge, Augusta-area lodging, rental car',
+        premium: '$5,000+ total weekend — Berckmans Place hospitality, multiple round badges, premium lodging',
+      },
       accommodationAreas: [
         { name: 'Augusta Area', description: 'Hotels within 10 minutes of Augusta National are extremely limited and book up a year in advance for Masters week. Expect high minimum night stays (3-5 nights) and premium pricing. Some private homes rent out rooms during tournament week.', searchQuery: 'Augusta Georgia hotels' },
         { name: 'Downtown Augusta', description: 'Broad Street and the Riverwalk area offer a handful of boutique hotels and B&Bs within 15 minutes of the course. Higher availability than the immediate Augusta National vicinity but still books early. Walkable to local restaurants and bars.', searchQuery: 'Downtown Augusta hotels' },
@@ -707,6 +867,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'KentuckyDerby.com — Churchill Downs\' official ticketing is the only authorized source for reserved seats, dining, and Millionaires\' Row packages.',
+        releaseTiming: 'On-sale typically opens the preceding summer with early-bird pricing; premium seating and dining packages sell out by winter, months before the first Saturday in May.',
+        priceRange: 'Infield general admission $60-150; grandstand reserved seats $300-1,000+; Millionaires\' Row and premium hospitality $1,000-5,000+ per person.',
+        scamTips: 'Derby weekend draws waves of counterfeit tickets. Buy only via kentuckyderby.com or verified resale partners — avoid street sellers near the gates and social-media listings requesting payment apps or wire transfers; barcoded digital tickets are validated at entry and duplicated copies fail.',
+      },
+      transportGuide: {
+        airport: 'Louisville Muhammad Ali International (SDF), 10 minutes from Churchill Downs; Indianapolis (IND) two hours north is the main alternative.',
+        publicTransport: 'TARC buses serve the track via Central Avenue but delay heavily on Derby day — many attendees park downtown and walk the final stretch along Central Ave in about 20 minutes.',
+        matchDayTip: 'Arrive by late morning for the undercard races and security screening. Post-race, rideshare queues stretch for hours — walk downtown or pre-book a shuttle and let the surge pricing subside.',
+      },
+      budgetTiers: {
+        budget: '$700-1,200 total weekend — infield GA, downtown hotel, short-haul flights',
+        midRange: '$1,800-3,000 total weekend — grandstand reserved seat, NuLu hotel, Oaks and Derby days',
+        premium: '$4,500+ total weekend — Millionaires\' Row or suite hospitality, luxury hotel, full Derby week',
+      },
       whyAttend: 'The Kentucky Derby is American spectacle distilled into two minutes. On the first Saturday in May, 150,000 people pack Churchill Downs — many in extravagant hats and seersucker — to watch three-year-olds thunder a mile and a quarter for the garland of roses. It is the longest continuously run sporting event in America, and the whole week around it glows: dawn workouts at the backside, balloon glows, steamboat races on the Ohio, and a bourbon scene that runs from Louisville\'s Urban Bourbon Trail to legendary distilleries an hour away. Infield general admission costs less than a decent dinner, Millionaires\' Row costs more than a used car, and both crowds will tell you they had the better day. Everyone goes home hoarse.',
       bestAreas: [
         { name: 'NuLu (East Market District)', description: 'Louisville\'s trendiest strip sits minutes east of downtown and a ten-minute drive from the track\'s gates, pairing boutique hotels with the city\'s best restaurant row on East Market Street. After the races, the distillery tasting rooms, coffee roasters, and galleries keep going — book early, because Derby week sells the neighborhood out first.', searchQuery: 'NuLu Louisville hotels' },
@@ -774,6 +950,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'IMS official website (indianapolismotorspeedway.com) — the only authorized seller for general admission, grandstand, and suite tickets.',
+        releaseTiming: 'Tickets for the following May go on sale right after each year\'s race, with prime seats like Tower Terrace and Start/Finish selling out months ahead of race week.',
+        priceRange: 'GA infield $60-150; grandstand reserved $150-800+ by location; suites and hospitality $1,000-3,000+ per person.',
+        scamTips: 'Buy only from IMS or its verified resale partner — counterfeit printouts appear every race weekend. Avoid parking-lot sellers and social-media listings requesting wire transfers; digital barcodes are scanned at the gate and duplicated passes simply fail to register.',
+      },
+      transportGuide: {
+        airport: 'Indianapolis International (IND) — 15 minutes from downtown and about 20 from the Speedway, with nonstops from most major US hubs.',
+        publicTransport: 'IndyGo\'s Red Line serves the area, but race day belongs to the free event shuttles from downtown hotels and the airport to the IMS gates — allow 60-90 minutes door-to-gate.',
+        matchDayTip: 'Arrive before 9 AM for the noon start — 300,000 fans gridlock 16th Street. After the checkered flag, expect two-plus hours to exit lots, so linger for the post-race celebrations.',
+      },
+      budgetTiers: {
+        budget: '$600-1,000 total weekend — GA infield or inexpensive grandstand, airport-area hotel, short-haul flights',
+        midRange: '$1,500-2,500 total weekend — Start/Finish grandstand, downtown hotel, Carb Day festivities',
+        premium: '$4,000+ total weekend — suite or Pagoda seats, luxury hotel, full race-week program',
+      },
       accommodationAreas: [
         { name: 'Downtown Indianapolis', description: '10-15 min drive to Indianapolis Motor Speedway. Walkable to Lucas Oil Stadium, Canal Walk, and Mass Ave dining. Best for combining race weekend with city exploration.', searchQuery: 'Downtown Indianapolis hotel' },
         { name: 'Speedway / 16th Street', description: 'Closest to IMS, 5 min walk to gates. Limited hotel inventory, mostly budget chains. Book months ahead — rates spike race weekend.', searchQuery: 'Speedway Indiana hotels' },
@@ -831,6 +1023,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'ausopen.com — Tennis Australia\'s official ticketing, with Ticketmaster as the authorized resale channel.',
+        releaseTiming: 'Sales open in phases from September-October the year before, after member presales; Rod Laver finals-week sessions sell out fastest, with resale releasing through the summer as plans change.',
+        priceRange: 'Ground passes A$50-80 in early rounds; Rod Laver Arena sessions A$80-300+; finals weekend packages A$500-2,000+.',
+        scamTips: 'Buy via ausopen.com or Ticketmaster resale only — mobile-entry tickets shared as screenshots are the common scam. Avoid social-media sellers requesting bank transfers, and be wary of cheap finals listings; barcodes are single-scan validated at the Melbourne Park gates.',
+      },
+      transportGuide: {
+        airport: 'Melbourne Tullamarine (MEL), 25 km from the CBD — SkyBus to Southern Cross Station in 30 minutes; Avalon (AVV) only suits budget domestic flights.',
+        publicTransport: 'The free CBD tram zone covers the city center, and tram 70 runs directly to Melbourne Park — trams 75 and 48 stop nearby, with myki cards covering paid zones.',
+        matchDayTip: 'Rod Laver night sessions run past midnight, so check tram timetables home. Arrive at gates opening to watch players warm up on the outer courts and beat the security queues.',
+      },
+      budgetTiers: {
+        budget: 'A$1,500-2,500 total weekend — ground passes early week, CBD budget hotel, off-peak flights',
+        midRange: 'A$3,500-5,500 total weekend — Rod Laver sessions, Southbank hotel, full long weekend',
+        premium: 'A$9,000+ total weekend — finals weekend premium seats, luxury hotel, corporate hospitality',
+      },
       whyAttend: 'Melbourne in January is where the tennis year begins, and nobody does a relaxed Slam better — players literally call it the Happy Slam. Blue courts bake under proper summer sun while Rod Laver Arena night sessions crackle past midnight, and the whole Melbourne Park precinct runs like a festival: live bands on Grand Slam Oval, shaded food lanes serving everything from dumplings to gelato, and free-to-watch practice courts where tomorrow\'s champions grind. The free CBD tram zone drops you at the gates, city lanes filled with street art and espresso sit ten minutes away, and Melbourne\'s famously fickle summer heat can flip from scorcher to thunderstorm mid-afternoon, making every session an adventure. It is sport, festival, and summer holiday in one ticket.',
       bestAreas: [
         { name: 'Fitzroy', description: 'Melbourne\'s indie heart supplies the best post-match atmosphere in town — Brunswick Street cafés, rooftop bars, and vintage stores — at noticeably lower rates than Southbank. The precinct sits two tram hops north of the tennis, the MCG grounds between, and Gertrude Street\'s dining keeps every evening interesting.', searchQuery: 'Fitzroy Melbourne hotels' },
@@ -899,6 +1107,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'rolandgarros.com — the FFT\'s official ticketing portal, with phases for FFT members first, then the general public.',
+        releaseTiming: 'General public sales typically open in March-April for the May-June tournament, after FFT member presales; Philippe-Chatrier sessions for the second week sell out within hours.',
+        priceRange: 'Annexes ground passes €50-100 in early rounds; Philippe-Chatrier €200-800+ by round; Suzanne-Lenglen €100-400+; night sessions carry premiums.',
+        scamTips: 'Buy only via rolandgarros.com or the official app — e-tickets are nominative and ID-checked, so classifieds and social-media resale are frequently void. Never pay individuals by bank transfer; duplicated barcodes fail at the Porte d\'Auteuil gates and leave no recourse.',
+      },
+      transportGuide: {
+        airport: 'Paris Charles de Gaulle (CDG) — 45 minutes to central Paris on RER B; Orly (ORY) is closer via Orlyval and metro line 14.',
+        publicTransport: 'Metro lines 9 and 10 serve the stadium — Michel-Ange-Molitor, Michel-Ange-Auteuil, and Porte d\'Auteuil stations — with a 30-40 minute ride from central Paris.',
+        matchDayTip: 'Enter via Porte d\'Auteuil early to catch warm-ups on the annexes. Evening sessions end late, so check the last metro times or plan on Noctilien night buses back to your hotel.',
+      },
+      budgetTiers: {
+        budget: '€1,000-1,800 total weekend — annexes passes, 15th-arrondissement hotel, budget flights',
+        midRange: '€2,500-4,000 total weekend — Chatrier sessions, central Paris hotel, several days of play',
+        premium: '€6,000+ total weekend — finals weekend premium seats, luxury hotel, hospitality salon access',
+      },
       whyAttend: 'Roland Garros is tennis slowed down and intensified — rallies stretch long on terre battue, points become chess matches, and the red clay stains the champions as much as the sneakers. The tournament owns the most intimate grounds in Grand Slam tennis: Simonne-Mathieu\'s court sits inside a botanical greenhouse garden, and you can stand close enough to hear the ball compress on Chatrier\'s famous court. Paris in late spring wraps around it all — picnics along the Seine between sessions, apéritifs at sidewalk cafés, museum-grade art a metro ride away. Tickets remain the most affordable of the four Slams, the French crowds bring opera-level drama, and annexes passes in week one let you bounce between a dozen courts all day.',
       bestAreas: [
         { name: 'Porte de Saint-Cloud & Boulogne', description: 'Sleep a baseline lob from the gates. The Porte de Saint-Cloud side, just west of the stadium, pairs quiet residential hotels with a ten-minute walk to the Suzanne-Lenglen entrance, skipping the post-match metro scrum entirely. You trade nightlife for match-day serenity, with the Bois de Boulogne\'s lakes as your morning running route.', searchQuery: 'Porte de Saint-Cloud Paris hotels' },
@@ -967,6 +1191,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'The official Miami Grand Prix website and Ticketmaster, plus F1 Experiences for verified packages and hospitality.',
+        releaseTiming: 'Sales launch late in the preceding year with early-bird pricing, and popular grandstands like Turn 1 and South Beach sell out first; resale spikes in the weeks before May.',
+        priceRange: 'Campus passes $200-400 for the weekend; grandstands $500-2,000+ for three days; Paddock Club and hospitality $3,000-8,000+ per person.',
+        scamTips: 'Buy only through the official site, Ticketmaster, or F1 Experiences — counterfeit wristbands and printouts circulate every year. Avoid social-media sellers and payment-app transfers; wristbands are RFID-registered, and duplicated ones are deactivated at the Hard Rock gates.',
+      },
+      transportGuide: {
+        airport: 'Miami International (MIA), 20 minutes from Hard Rock Stadium; Fort Lauderdale (FLL) 30 minutes north and often cheaper for domestic flights.',
+        publicTransport: 'Metrorail with the special Hard Rock event shuttle from Earlington Heights station — circuit parking is pre-sold and driving access on race weekend is limited.',
+        matchDayTip: 'Arrive early afternoon for gates and shade spots — South Florida sun is brutal by midday. Post-race traffic on the Turnpike and I-95 can take 90+ minutes, so linger or ride the shuttle.',
+      },
+      budgetTiers: {
+        budget: '$1,800-2,800 total weekend — campus pass, shared downtown hotel, domestic flights',
+        midRange: '$4,000-6,500 total weekend — Turn 1 or South Beach grandstand, Brickell hotel, three days',
+        premium: '$10,000+ total weekend — Paddock Club, luxury beachfront hotel, full hospitality weekend',
+      },
       accommodationAreas: [
         { name: 'Miami Gardens', description: 'Closest to Hard Rock Stadium, 5-10 min drive. Limited hotel inventory, mostly budget chains. Book early — rates triple during race weekend.', searchQuery: 'Miami Gardens hotel' },
         { name: 'South Beach', description: '30-40 min drive to circuit. Iconic Miami experience with beachfront hotels, nightlife, and restaurants. Premium pricing but unmatched atmosphere.', searchQuery: 'South Beach Miami hotel' },
@@ -1025,6 +1265,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'The official Las Vegas Grand Prix website and Ticketmaster; F1 Experiences for packages; trackside suites via the resorts and F1 Hospitality.',
+        releaseTiming: 'Early-bird sales launch the winter before with phased releases continuing through the year — prices step up as inventory tightens toward the November race weekend.',
+        priceRange: 'GA weekend passes $300-500; grandstands $500-2,000+ for three days; trackside suites at Bellagio, Caesars Palace, and Wynn $3,000-15,000+ per person.',
+        scamTips: 'Counterfeit printouts appear every single year — buy only via the official GP site, Ticketmaster, or F1 Experiences. Never buy from social-media sellers or pay by wire transfer; QR barcodes are validated at the zone entrances and duplicated tickets fail on the spot.',
+      },
+      transportGuide: {
+        airport: 'Harry Reid International (LAS), 10 minutes east of the Strip with direct flights from every major US and international hub.',
+        publicTransport: 'The Las Vegas Monorail links seven stations along the Strip\'s east side and the Deuce bus runs 24/7 — but the circuit wraps the central Strip, so most fans simply walk 15-30 minutes.',
+        matchDayTip: 'Las Vegas Boulevard closes entirely during sessions — use designated pedestrian crossings and enter 60-90 minutes before evening sessions. After the race, walk back to your hotel and let the 4-5x rideshare surge subside.',
+      },
+      budgetTiers: {
+        budget: '$2,500-4,000 total weekend — GA zone, off-Strip hotel, midweek flights',
+        midRange: '$5,000-8,000 total weekend — grandstand three-day pass, mid-Strip resort, dinners and nightlife',
+        premium: '$12,000+ total weekend — trackside suite, Wynn or Bellagio room package, nightclub tables',
+      },
       accommodationAreas: [
         { name: 'Las Vegas Strip', description: 'Circuit runs through the Strip. Trackside hotels (Bellagio, Caesars Palace, Wynn) offer room packages with viewing. Expect $500-3000+ per night during race weekend.', searchQuery: 'Las Vegas Strip hotel' },
         { name: 'Downtown / Fremont Street', description: '15 min from Strip, budget-friendly alternative. Classic Vegas vibe with lower table minimums. Not trackside but easy access via monorail.', searchQuery: 'Downtown Las Vegas hotel' },
@@ -1083,6 +1339,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'NFL On Location — the league\'s official hospitality provider — and the NFL Ticket Exchange via Ticketmaster; team ticket allocations remain the primary face-value channel.',
+        releaseTiming: 'Public inventory concentrates once the matchup is set on Championship Sunday in late January, two weeks out. Prices spike immediately after, often dip midweek, and rebound near kickoff.',
+        priceRange: 'Secondary market from roughly $5,000-6,000 for upper-level corners past $10,000 for lower-level midfield; On Location packages $6,000-15,000+ per person.',
+        scamTips: 'SoFi\'s Super Bowl will be America\'s most counterfeited ticket event of the year. Buy only via On Location or the NFL Ticket Exchange — never purchase PDFs, screenshots, or paper tickets from touts and social-media sellers, and never wire money or pay by crypto.',
+      },
+      transportGuide: {
+        airport: 'Los Angeles International (LAX), 15-20 minutes from Inglewood depending on traffic; Hollywood Burbank (BUR) and Long Beach (LGB) are quieter alternatives.',
+        publicTransport: 'Metro K Line to Downtown Inglewood station with frequent shuttle buses to the gates — the Inglewood Transit Connector people mover adds event-day capacity; the C Line connects via Hawthorne/Lennox shuttles.',
+        matchDayTip: 'SoFi parking is permit-only and extremely limited — take the K Line and allow 60-90 minutes door-to-gate. Gates open two hours before the 3:30 PM PT kickoff, so arrive three to four hours early.',
+      },
+      budgetTiers: {
+        budget: '$3,500-5,000 total weekend — upper-corner resale seat, Koreatown or airport hotel, Thursday-to-Monday flights',
+        midRange: '$8,000-12,000 total weekend — mid-tier lower-level seat, downtown LA hotel, Valentine\'s weekend dining',
+        premium: '$15,000+ total weekend — On Location field-level or club seat, luxury hotel, full hospitality access',
+      },
       whyAttend: 'Super Bowl LXI lands at SoFi Stadium on Valentine\'s Day weekend, and no venue in football frames the spectacle better. SoFi\'s sweeping translucent ETFE canopy bathes the bowl in Southern California sunshine by day while keeping the noise, energy, and pageantry locked inside at night — you get open-air comfort with arena-level acoustics. The halftime show turns midfield into the world\'s biggest stage for twelve minutes, a production that regularly out-rates the game itself, and this edition promises another A-list headliner under the Oculus scoreboard. Beyond kickoff, Los Angeles rolls out a week of Super Bowl Live festivals, celebrity parties, and fan experiences from Inglewood to the coast. Mild February weather, Valentine\'s dining, and beach afternoons complete a trip that plays as vacation and spectacle at once.',
       bestAreas: [
         { name: 'Inglewood & Century Boulevard', description: 'For pure game-day logistics, nothing beats staying within a fifteen-minute drive of SoFi Stadium. Century Boulevard\'s hotel cluster puts you first through the gates and first out after the final whistle, skipping the freeway crush entirely. You\'re also steps from the Intuit Dome and the Forum, so pre-game dinners and post-game celebrations stay within walking or shuttle distance.', searchQuery: 'Century Boulevard Inglewood hotels' },
@@ -1165,6 +1437,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'UEFA.com ticket portal for the worldwide ballot, plus finalist-club member ballots (such as Real Madrid socio channels, including Hong Kong and international supporters\' clubs) after the semifinals; hospitality via UEFA\'s official programme.',
+        releaseTiming: 'Ballot registration opens in spring roughly six to eight weeks before the final; club fan ballots open two to five days after the semifinals, with digital tickets delivered shortly before match day.',
+        priceRange: 'Face value roughly €70-690 by category; resale €600-3,000+ once the finalists are confirmed; official hospitality €1,500-4,000+ per person.',
+        scamTips: 'UEFA finals draw heavy fraud — buy only through the UEFA portal, club ballots, or authorized hospitality. Tickets are app-delivered and ID-checked, so screenshots and social-media listings are typically void; never pay individuals by bank transfer, whatever the story.',
+      },
+      transportGuide: {
+        airport: 'Adolfo Suárez Madrid–Barajas (MAD), 15-20 minutes from the stadium area — Metro Line 8 links Barajas to Nuevos Ministerios in 12 minutes, and the express bus runs 24 hours to Atocha.',
+        publicTransport: 'Metro Line 7 to Estadio Metropolitano station, a short walk from the ground; Cercanías rail serves Fuente de la Mora about 15 minutes away.',
+        matchDayTip: 'Leave central Madrid by 5:30 PM for the 9 PM kickoff — Line 7 crowds build from late afternoon, and post-match metro queues last 30-60 minutes, so consider walking 15 minutes to Las Musas.',
+      },
+      budgetTiers: {
+        budget: '€1,500-2,500 total weekend — Category 3/4 resale seat, San Blas hotel, European flights',
+        midRange: '€3,000-4,500 total weekend — Category 1/2 seat, central Madrid hotel, three nights',
+        premium: '€6,000+ total weekend — UEFA official hospitality, luxury hotel, flexible refundable flights',
+      },
       whyAttend: 'There is no higher summit in club football. The Champions League final decides Europe\'s true champion in a single, merciless night, where one goal can crown legends and break hearts in the same ninety minutes. Madrid — winner of more European Cups than any city on earth — hosts the 2027 edition at the Riyadh Air Metropolitano, and few capitals live football this intensely. Here the pre-match ritual starts over cañas and croquetas in tapas bars from La Latina to Salamanca, fan zones flood the central plazas, and matchday builds like a slow drumbeat toward kickoff at nine. Combine world-class football with June evenings in Retiro Park, late dinners, and a city that stays up as long as you do, and the trip becomes far more than ninety minutes.',
       bestAreas: [
         { name: 'La Latina', description: 'Madrid\'s most atmospheric tapas quarter becomes the unofficial fan capital on final weekend. Cava Baja\'s bars overflow with supporters from both camps, streets close for celebrations, and the noise rolls past two in the morning. Rooms are mostly small boutique hotels and apartments, so book early — you\'re trading square footage for the most electric pre-match ambiance in the city.', searchQuery: 'La Latina Madrid hotels' },
@@ -1248,6 +1536,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'The official Las Vegas Grand Prix website and Ticketmaster, plus F1 Experiences for verified travel and hospitality packages.',
+        releaseTiming: 'Early-bird sales launched the previous winter with phased releases continuing through the year — prices step up as inventory tightens toward the November race weekend.',
+        priceRange: 'GA weekend passes $300-500; grandstands $600-5,000 depending on location; trackside hospitality and suites $3,000-15,000+ per person.',
+        scamTips: 'Counterfeit printouts appear every single year — buy only via the official GP site, Ticketmaster, or F1 Experiences. Avoid social-media sellers entirely, never pay by wire transfer or crypto, and remember duplicated QR barcodes fail at the zone entrances.',
+      },
+      transportGuide: {
+        airport: 'Harry Reid International (LAS), 10 minutes east of the Strip — arrive Wednesday or Thursday morning to dodge Friday road closures for practice.',
+        publicTransport: 'The Las Vegas Monorail runs the Strip\'s east side from MGM Grand to Sahara and the Deuce bus runs 24/7; the circuit wraps the central Strip, so most fans walk 15-30 minutes from their resorts.',
+        matchDayTip: 'Sessions run at night — enter 60-90 minutes early as pedestrian crossings close once track action starts. Post-race, walk home and let the 4-5x rideshare surge subside before ordering.',
+      },
+      budgetTiers: {
+        budget: '$2,500-4,000 total weekend — GA zone, downtown or off-Strip hotel, midweek flights',
+        midRange: '$5,000-8,000 total weekend — grandstand three-day pass, mid-Strip resort, dinners and clubs',
+        premium: '$12,000+ total weekend — trackside suite, Wynn or Bellagio package, nightclub tables',
+      },
       whyAttend: 'Las Vegas is the only Grand Prix that owns its city rather than borrowing it. Formula 1 cars blast down the Strip at 340 km/h, threading past the Sphere, Caesars Palace, and the Bellagio fountains under full desert darkness on a Saturday night — the calendar\'s lone prime-time Saturday race and its most cinematic broadcast. The weekend runs Thursday to Saturday, so track action tilts toward evening under the neon. What separates this race is the entertainment wrapped around it: A-list residencies, headline clubs, celebrity-studded parties, and restaurants you cannot book any other weekend all run alongside the on-track action. Cold November asphalt keeps racing unpredictable, with championship stakes often on the line. It is sport and spectacle fused at the loudest possible volume, and there is nothing else like it.',
       bestAreas: [
         { name: 'East Harmon & the Sphere District', description: 'Staying in the East Harmon corridor puts you inside the circuit\'s buzz without Strip prices, since the Sphere grandstands and Harmon Zone gates sit minutes from your door on foot. You\'ll wake to engines echoing from practice, walk to sessions past the circuit fences, and retreat between track action. Inventory is limited, so lock rooms in early.', searchQuery: 'East Harmon Las Vegas hotels' },
@@ -1330,6 +1634,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'masters.com — the practice rounds lottery is the realistic official route, with hospitality through the club\'s appointed partners like Berckmans Place.',
+        releaseTiming: 'Practice round lottery applications run the summer before (typically June through August) for the following April, with winners notified by email in the fall; tournament badges surface only via the secondary market.',
+        priceRange: 'Practice rounds roughly $75-150 at face value; secondary-market tournament badges $1,400-2,500+ per day; Berckmans Place hospitality from about $2,500-6,000.',
+        scamTips: 'Masters badges are among the most counterfeited tickets in sports — buy only from brokers with authenticity guarantees or official hospitality. Never wire money to individual social-media sellers; the club scans serial numbers at the gates and invalid badges are confiscated without refund.',
+      },
+      transportGuide: {
+        airport: 'Augusta Regional (AGS) has limited flights via Atlanta, Charlotte, and Dallas; most visitors fly into Hartsfield-Jackson Atlanta (ATL) and drive 2.5 hours east on I-20.',
+        publicTransport: 'No practical public transit exists — a rental car is essential. Augusta National has no general public parking, only pre-purchased permit lots with free shuttles looping on tournament days.',
+        matchDayTip: 'Arrive at the gates by 7 AM to beat the Washington Road crush — allow an hour for a normal 15-minute drive, and pre-book parking permits the moment your badges are confirmed.',
+      },
+      budgetTiers: {
+        budget: '$900-1,500 total weekend — practice round ticket, Atlanta drive-in hotel, budget flights',
+        midRange: '$2,000-3,500 total weekend — single tournament-day badge, Augusta lodging, rental car',
+        premium: '$5,000+ total weekend — Berckmans Place hospitality, multiple round badges, premium lodging',
+      },
       accommodationAreas: [
         { name: 'Augusta Area', description: 'Hotels within ten minutes of Augusta National are scarce and famously book out a year ahead for Masters week, with 3-5 night minimums and steep rates. Private homes rent rooms and entire houses at a premium. Washington Road corridor properties put you closest to the main gates and shuttle lots.', searchQuery: 'Augusta Georgia hotels' },
         { name: 'Downtown Augusta', description: 'Broad Street and the Savannah River riverwalk host a handful of boutique hotels and B&Bs about 15 minutes from the course, with early-rising restaurants and bars that welcome golf fans each April. Availability is better than the Washington Road strip, though tournament week still demands booking many months in advance.', searchQuery: 'Downtown Augusta hotels' },
@@ -1392,6 +1712,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'PGA of America and Ryder Cup Europe official ballots via rydercup.com — the European and International ballots ran 2024-2025; official hospitality programmes are now the dependable route in.',
+        releaseTiming: 'General admission sold out long ago through the 2024-2025 ballots; returned inventory appears only sporadically via official channels, while hospitality remains on sale through rydercup.com partners.',
+        priceRange: 'Original general admission roughly €400+; official hospitality packages now run €1,500-4,500 per person depending on days and pavilion.',
+        scamTips: 'Barcoded digital tickets make counterfeit claims harder to detect until the gates — treat third-party marketplace listings with deep skepticism. Buy only via rydercup.com links to avoid resold or invalid inventory, and never pay individuals by bank transfer for "spare" week badges.',
+      },
+      transportGuide: {
+        airport: 'Shannon (SNN), 40 minutes from Adare with direct US flights and immigration preclearance on the return; Dublin (DUB), two hours fifteen away, offers far more routes.',
+        publicTransport: 'There is no general parking at Adare Manor — all spectators use mandatory park-and-ride lots along the N21 and M7, with official shuttle buses running from early morning.',
+        matchDayTip: 'Allow 90 minutes between parking and entering the grounds. On Sunday, arrive before 7 AM for a good spot at the first-tee amphitheater, and book automatic rental cars a year ahead.',
+      },
+      budgetTiers: {
+        budget: '€2,000-3,000 total weekend — practice-day ticket, Limerick or Killarney base, self-catering',
+        midRange: '€4,000-6,000 total weekend — match-day hospitality pavilion, Limerick hotel, flights and rental car',
+        premium: '€9,000+ total weekend — week-long hospitality, Adare or Killarney luxury lodge, chauffeur travel',
+      },
       accommodationAreas: [
         { name: 'Limerick City', description: 'Ireland\'s riverside city sits 25 minutes from Adare Manor and carries the week\'s main fan zones, pubs, and live music. Hotel stock is modest for a Ryder Cup, so expect inflated rates and 4-5 night minimums once match week arrives. Book the moment you secure tickets — cancellations are extremely rare.', searchQuery: 'Limerick Ireland hotels' },
         { name: 'Adare Village', description: 'The thatched-cottage village beside the course is tiny — a few boutique hotels, manor guesthouses, and rental homes that effectively sold out years ago for 2027. If anything opens up here, expect premium pricing with a five-minute shuttle to the gates. Perfect for fans who want to walk to the course gates each morning.', searchQuery: 'Adare Ireland hotels' },
@@ -1454,6 +1790,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'AELTC public ballot via wimbledon.com for face-value show-court seats; debentures via official agents are the only legal resale; hospitality through the club\'s partners.',
+        releaseTiming: 'The ballot for Wimbledon 2027 opens in September 2026 and stays open roughly two months, with results announced from spring 2027; the Queue sells a few thousand ground passes daily during the fortnight.',
+        priceRange: 'Ground passes from around £30; ballot Centre Court and No.1 Court seats roughly £70-300+ by day; debenture resale from several hundred pounds.',
+        scamTips: 'Wimbledon tickets are non-transferable except debentures — resale listings on touts\' sites and social media are usually void once barcodes are reissued. Apply via the official ballot, queue on the day, or buy debentures through authorized agents; never bank-transfer individuals for e-tickets.',
+      },
+      transportGuide: {
+        airport: 'London Heathrow (LHR) — Piccadilly Line to Earl\'s Court, then District Line to Southfields, about an hour from landing; Gatwick links via Thameslink or Victoria.',
+        publicTransport: 'District Line to Southfields (15-minute walk to the gates) or South Western Railway from Waterloo to Wimbledon station in 17 minutes, with shuttle buses covering the final stretch.',
+        matchDayTip: 'Board the Tube before 9 AM or after noon to dodge the crush, and for late Centre Court finishes check the last train times carefully or pre-book a taxi home.',
+      },
+      budgetTiers: {
+        budget: '$1,000-1,800 total weekend — ground passes and the Queue, budget-zone hotel, midweek play',
+        midRange: '£2,500-4,000 total weekend — ballot or debenture show-court seat, central London hotel, several days',
+        premium: '£6,000+ total weekend — Centre Court debentures or hospitality, luxury hotel, finals weekend',
+      },
       accommodationAreas: [
         { name: 'Wimbledon Village', description: 'The village beside the All England Club is the dream base — boutique hotels, gastropubs, and cafés within a 10-15 minute walk of the gates. Rooms are scarce and priced accordingly for the fortnight, selling out six-plus months ahead. The atmosphere on match evenings, when fans spill onto the pavements, is unbeatable.', searchQuery: 'Wimbledon Village London hotels' },
         { name: 'Central London', description: 'The District Line links central London to Southfields in about 25-35 minutes, and the city\'s hotel inventory spans every budget. Staying central lets you pair tennis mornings with West End evenings, museum afternoons, and rooftop dinners. Book refundable rates early — prices often climb steeply once the tournament draw is announced.', searchQuery: 'Central London hotels' },
@@ -1517,6 +1869,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'Automobile Club de Monaco (acm.mc) and official F1 ticket channels for grandstands; hospitality via F1 Experiences and specialist yacht-viewing brokers.',
+        releaseTiming: 'Official grandstand tickets typically open the autumn before — around October — and prime stands vanish within days; register with ACM early for priority alerts and early access.',
+        priceRange: 'Grandstands roughly €300-1,200 per day depending on location; weekend hospitality from about €2,500; yacht-berth viewing packages climb far beyond.',
+        scamTips: 'Monaco is the most counterfeited race on the calendar — buy only through ACM, F1, or authorized agents, and verify grandstand and seat numbers before paying. Never pay individuals by bank transfer; mobile barcodes are reissued to original buyers and duplicated tickets fail at the gates.',
+      },
+      transportGuide: {
+        airport: 'Nice Côte d\'Azur (NCE), 30-40 minutes from Monaco via the 110 express bus — or seven minutes by helicopter from about €160 one-way.',
+        publicTransport: 'TER coastal trains run every 15-30 minutes between Nice and Monaco-Monte-Carlo station (20-25 minutes), which sits directly above the circuit; Ligne d\'Azur buses 100 and 110 link Nice, the airport, and the principality.',
+        matchDayTip: 'Streets close section by section, so walking is the only real transport inside Monaco — the circuit is steep, so wear comfortable shoes and board trains early, as they fill completely by mid-morning on race day.',
+      },
+      budgetTiers: {
+        budget: '€1,200-2,000 total weekend — Menton or Nice hotel, general grandstand or Rocher viewing, TER trains',
+        midRange: '€3,000-5,000 total weekend — Nice seafront hotel, premium grandstand, harbor-view dinners',
+        premium: '€8,000+ total weekend — Monte Carlo palace hotel, rooftop or yacht hospitality, helicopter transfers',
+      },
       accommodationAreas: [
         { name: 'Monte Carlo', description: 'Nothing beats walking from your hotel to the circuit each morning. Monaco\'s palace hotels — Hermitage, de Paris, Métropole — carry race-week premiums and 4-5 night minimums, often requiring booking a full year ahead. Apartments rented by residents offer better value per square meter in a tiny city where space is precious.', searchQuery: 'Monte Carlo Monaco hotels' },
         { name: 'Nice', description: 'The smart money stays in Nice, 20-25 minutes from Monaco by frequent TER trains. France\'s fifth-largest city delivers beautiful beach promenades, old-town charm, and superb restaurants at roughly half of Monaco\'s rates. Aim for hotels near Nice-Ville station or the Promenade des Anglais for the easiest possible race-week commuting.', searchQuery: 'Nice France hotels' },
@@ -1579,6 +1947,22 @@ export const eventsData = {
       ],
     },
     travelGuide: {
+      ticketGuide: {
+        officialSource: 'The One Club / R&A — tickets and returns via theopen.com, with The One\'s free membership getting first word on released inventory.',
+        releaseTiming: 'The ticket ballot closed in July 2026; general sales for residual inventory run through theopen.com, with practice-round days cheapest and The One members notified first about returned tickets.',
+        priceRange: 'Adult day tickets roughly £100-200 depending on the day, practice days cheaper; Ticket Plus and official hospitality from several hundred pounds.',
+        scamTips: 'Buy only through theopen.com or The One Club notifications — Open tickets are digital and ID-checked, so classifieds and social-media listings are frequently void. Never pay individuals by bank transfer for spare badges; duplicated barcodes fail at the turnstiles.',
+      },
+      transportGuide: {
+        airport: 'Edinburgh (EDI), 75-90 minutes from St Andrews by car; Glasgow (GLA) an hour further; tiny Dundee airport has a few London flights.',
+        publicTransport: 'Rail to Leuchars on the Edinburgh-Aberdeen mainline (about an hour from Waverley), then Stagecoach bus 99 or a ten-minute taxi into St Andrews.',
+        matchDayTip: 'St Andrews all but closes to visitor cars during The Open — use the pre-booked park-and-ride on the A91 and allow generous buffers, as shuttle queues build after the final groups clear the 18th.',
+      },
+      budgetTiers: {
+        budget: '£900-1,500 total weekend — practice-day tickets, Dundee hotel or camping village, budget flights',
+        midRange: '£2,000-3,500 total weekend — weekend day tickets, Edinburgh hotel with rail commute',
+        premium: '£5,000+ total weekend — Ticket Plus or hospitality week, St Andrews or luxury Fife lodging',
+      },
       accommodationAreas: [
         { name: 'St Andrews Town', description: 'The medieval seaside town beside the Old Course is small — B&Bs, guesthouses, and university residences that the University now sells as seven-night championship packages. Virtually everything within walking distance of the links sold out more than a year ahead. Remaining inventory carries premium rates with full-week commitments, so book cancellation-friendly options where possible.', searchQuery: 'St Andrews Scotland hotels' },
         { name: 'Edinburgh', description: 'Scotland\'s capital, 80 minutes away by car or train (via Leuchars), offers Scotland\'s deepest hotel pool plus festival-caliber dining and nightlife. Many fans commute daily, pairing championship golf with city evenings. Book early — July is peak season in Edinburgh regardless of The Open, and hotel rates reflect that reality.', searchQuery: 'Edinburgh hotels' },
