@@ -102,7 +102,7 @@ const categorySections = [
       "Formula 1 is a travel machine: more than twenty races a year, each turning its host city into a week-long festival. From Monaco's harbor to the Las Vegas Strip and Singapore's night race, these guides track the circuits, the grandstand picks, and the hotel zones that make race weekends work.",
     events: motorsportEvents,
     venues: pickVenues(['las-vegas-strip-circuit', 'marina-bay-circuit']),
-    cities: pickCities(['las-vegas', 'singapore']),
+    cities: pickCities(['las-vegas', 'singapore', 'miami', 'indianapolis']),
   },
   {
     id: 'tennis',
@@ -122,7 +122,7 @@ const categorySections = [
       "Golf travel is pilgrimage: the azaleas of Augusta, a Ryder Cup on Irish soil, the home of golf at St Andrews. Tickets work differently here — lotteries, week-long badges, secondary markets — and small host towns book out a year ahead. These guides map the whole week, from practice rounds to Sunday.",
     events: pickEvents(['masters-golf-2027', 'ryder-cup-2027', 'the-open-2027']),
     venues: [],
-    cities: pickCities(['augusta']),
+    cities: pickCities(['augusta', 'st-andrews', 'limerick']),
   },
   {
     id: 'olympics',
@@ -204,6 +204,11 @@ const popularCityTaglines = {
   melbourne: 'The Australian Open kicks off the tennis year every January.',
   budapest: 'F1 at the Hungaroring and party zones along the Danube.',
   'monte-carlo': 'The Monaco Grand Prix — the most glamorous weekend on the sporting calendar.',
+  'santa-clara': "Super Bowl LX at Levi's Stadium, with VTA light rail and San Jose Airport ten minutes away.",
+  indianapolis: "The Indy 500 — motorsport's biggest single day and its best-value trip.",
+  limerick: 'Ryder Cup 2027 base at Adare Manor, gateway to Irish golf and the Wild Atlantic Way.',
+  miami: 'The Miami Grand Prix around Hard Rock Stadium, with South Beach and Wynwood on the side.',
+  'st-andrews': 'The home of golf and The Open Championship return in 2027.',
 };
 
 const popularCities = pickCities([
@@ -217,6 +222,11 @@ const popularCities = pickCities([
   'melbourne',
   'budapest',
   'monte-carlo',
+  'santa-clara',
+  'indianapolis',
+  'limerick',
+  'miami',
+  'st-andrews',
 ]).map((city) => ({ ...city, tagline: popularCityTaglines[city.slug] }));
 
 // Venue guides highlighted on the Topic Hub
@@ -526,7 +536,7 @@ const schemaHtml = [collectionPageSchema, breadcrumbSchema]
         worth flying for almost every month. London closes out Wimbledon and hosts finals at
         Wembley; New York runs the US Open; Melbourne starts the tennis year; Madrid, Paris and
         Budapest anchor the European calendar; Las Vegas and Singapore throw street parties for
-        Formula 1; Monte Carlo does glamour like nowhere else. These are the ten cities our
+        Formula 1; Monte Carlo does glamour like nowhere else. These are the fifteen cities our
         readers plan trips around most — each guide covers airports, neighborhoods, local
         transport, and what to do between sessions.
       </p>

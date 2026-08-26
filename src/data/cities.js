@@ -54,21 +54,29 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Downtown LA',
+        bestFor: 'arena events & first-time visitors',
+        distance: 'walkable to Crypto.com Arena; Metro links to SoFi',
         description: 'The most strategic base for Crypto.com Arena and Dodger Stadium, with Metro rail connections to SoFi. Hotel options span budget chains to luxury towers, and the Arts District\'s food scene is a post-game bonus. Rates climb during conventions and playoff runs, so book early and compare against Koreatown prices.',
         searchQuery: 'Downtown Los Angeles hotels',
       },
       {
         name: 'Hollywood & West Hollywood',
+        bestFor: 'nightlife & sightseeing',
+        distance: '20-30 minutes by Metro to the downtown arenas',
         description: 'Central, walkable, and lively — Hollywood puts you between downtown and the Westside with easy metro access to both. Rooftop pools, nightlife, and endless dining make it ideal for fans mixing sport with sightseeing. For World Cup and Olympics trips, mid-range chains here often undercut downtown rates.',
         searchQuery: 'Hollywood Los Angeles hotels',
       },
       {
         name: 'Santa Monica & the Beach Cities',
+        bestFor: 'beach holiday add-ons',
+        distance: 'about 45 minutes by Expo Line to downtown LA',
         description: 'Wake up steps from the Pacific and commute to events via the Expo Line, which runs directly to downtown LA in about 45 minutes. Santa Monica and Venice offer the classic Southern California experience — ocean, boardwalk, sunset bars — best for fans adding a holiday to their sports weekend.',
         searchQuery: 'Santa Monica hotels',
       },
       {
         name: 'Inglewood / SoFi Area',
+        bestFor: 'stadium access on event days',
+        distance: 'walking or short-shuttle distance to SoFi Stadium',
         description: 'A handful of modern hotels sit within walking or shuttle distance of SoFi Stadium, ideal for World Cup match days when traffic chokes the whole Westside. The neighborhood is practical rather than scenic, but you can\'t beat rolling out of bed twenty minutes before kickoff.',
         searchQuery: 'Inglewood Los Angeles hotels',
       },
@@ -132,21 +140,29 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Central Strip',
+        bestFor: 'first-time visitors & race weekends',
+        distance: 'walking distance to the F1 circuit and T-Mobile Arena',
         description: 'MGM Grand, Aria, Bellagio, and their neighbors put you within walking distance of T-Mobile Arena and the heart of the F1 circuit. Expect the highest rates and steep resort fees — but for fight nights and race weekends, the premium buys you hours of saved commuting.',
         searchQuery: 'Las Vegas Strip hotels',
       },
       {
         name: 'South Strip / Allegiant Area',
+        bestFor: 'stadium access & value',
+        distance: 'walkable to Allegiant Stadium via the Hacienda Avenue bridge',
         description: 'Resorts near Mandalay Bay and Luxor sit closest to Allegiant Stadium — some within a 15-20 minute walk across the Hacienda Bridge on Raiders game days. This end of the Strip is quieter and often cheaper, with easy expressway access for day trips to Red Rock Canyon.',
         searchQuery: 'Mandalay Bay Las Vegas hotels',
       },
       {
         name: 'Downtown & Fremont Street',
+        bestFor: 'budget travelers & old-Vegas character',
+        distance: 'about 10 minutes by taxi from the Strip; 25+ minutes to the circuit',
         description: 'Downtown\'s Fremont Street district delivers vintage-Vegas energy at roughly half the Strip\'s price, with live music, classic casinos, and cheap eats under the neon canopy. Express buses and short rideshare hops connect you to the Strip in about 15 minutes — the smart pick for budget-conscious fans.',
         searchQuery: 'Downtown Las Vegas hotels',
       },
       {
         name: 'Off-Strip Resorts',
+        bestFor: 'budget travelers with a car',
+        distance: 'free shuttles or 10-15 minute rideshares to the Strip',
         description: 'Properties along West Flamingo and in the Hughes Center trade Strip views for bigger rooms, lower resort fees, and free parking — often 30-50% cheaper on F1 and Super Bowl weekends. A rental car or short rideshare covers the 10-minute trip to any arena.',
         searchQuery: 'off strip Las Vegas hotels',
       },
@@ -210,16 +226,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Marina Bay',
+        bestFor: 'race-weekend access & luxury',
+        distance: 'walking distance to the Marina Bay Street Circuit gates',
         description: 'The grandstand-side hotels — including the iconic Marina Bay Sands — put you literally inside the F1 circuit zone during race week, with rooftop views of the action. Year-round, this is Singapore\'s most glamorous base: waterfront promenades, gardens, and the best skyline in Asia at your feet.',
         searchQuery: 'Marina Bay Singapore hotels',
       },
       {
         name: 'City Hall & Bugis',
+        bestFor: 'mid-range race weekends',
+        distance: 'one or two MRT stops from the circuit gates',
         description: 'A short walk or one MRT stop from the circuit\'s Turn 1 end, the City Hall and Bugis cluster mixes heritage hotels with reliable international chains at gentler prices than the waterfront. You\'re steps from Raffles Hotel, the National Gallery, and some of the city\'s best hawker food.',
         searchQuery: 'City Hall Singapore hotels',
       },
       {
         name: 'Clarke Quay & the River',
+        bestFor: 'nightlife & riverside dining',
+        distance: 'around 15 minutes on foot to the circuit\'s Padang area',
         description: 'The riverside nightlife district pairs converted shophouse hotels with big-brand towers along the Singapore River. Bars and restaurants spill onto the water all evening, and the F1 circuit\'s Zone 4 gates are a pleasant 15-minute riverside stroll away — ideal if you\'re pairing race weekend with late nights.',
         searchQuery: 'Clarke Quay Singapore hotels',
       },
@@ -289,21 +311,29 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Midtown West',
+        bestFor: 'first-time visitors & arena access',
+        distance: 'walkable to Madison Square Garden; about 30 minutes by subway to the US Open',
         description: 'The strategic choice for MSG events — many hotels sit within a 10-minute walk of the arena, Penn Station, and Times Square. You\'ll pay premium rates for the location and the noise, but nothing beats rolling back to your room minutes after a Knicks overtime thriller.',
         searchQuery: 'Midtown West New York hotels',
       },
       {
         name: 'Long Island City, Queens',
+        bestFor: 'value stays near Manhattan',
+        distance: 'one subway stop from Manhattan; direct 7 train to the US Open',
         description: 'One subway stop from Manhattan, LIC delivers skyline-view hotels at meaningfully lower rates — plus a direct 7 train to the US Open and Citi Field. It\'s the smart base for tennis fans: twenty minutes from the gates and far from Midtown\'s post-match crowds.',
         searchQuery: 'Long Island City hotels',
       },
       {
         name: 'Lower Manhattan',
+        bestFor: 'sightseeing trips',
+        distance: '20-40 minutes by subway to Madison Square Garden or the US Open',
         description: 'Downtown puts the Financial District\'s quieter hotels within easy reach of the Staten Island Ferry, the 9/11 Memorial, and Wall Street, with the A train running straight to Barclays Center in Brooklyn. Prices dip on weekends when the business crowd leaves — great value for fight nights.',
         searchQuery: 'Lower Manhattan New York hotels',
       },
       {
         name: 'Downtown Brooklyn',
+        bestFor: 'families & longer stays',
+        distance: 'one stop into Manhattan; about 30 minutes by subway to the US Open',
         description: 'Staying around Downtown Brooklyn or Williamsburg puts you closest to Barclays Center while trading Manhattan\'s frenzy for better rates, rooftop bars, and Brooklyn\'s food scene. The L and A/C trains make MSG and Yankee Stadium both reachable in about 30 minutes.',
         searchQuery: 'Downtown Brooklyn hotels',
       },
@@ -368,16 +398,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Washington Road',
+        bestFor: 'Masters week access',
+        distance: '10-15 minutes\' drive to Augusta National gates',
         description: 'The classic Masters base — hotels along Washington Road sit within walking distance of Augusta National\'s gates, which is why rates leap tenfold and sell out a year in advance for tournament week. Outside April, it\'s a convenient, affordable corridor of familiar chains and casual Southern eateries.',
         searchQuery: 'Washington Road Augusta hotels',
       },
       {
         name: 'Downtown & the Riverwalk',
+        bestFor: 'sightseeing between sessions',
+        distance: 'about 10 minutes by car to Augusta National',
         description: 'Downtown Augusta pairs the Riverwalk\'s riverfront promenade with arts venues, breweries, and soul-food landmarks in James Brown\'s hometown. It\'s the most atmospheric place to stay year-round, about 15 minutes\' drive from Augusta National, with boutique inns and historic-hotel character throughout the district.',
         searchQuery: 'Downtown Augusta hotels',
       },
       {
         name: 'West Augusta',
+        bestFor: 'budget travelers with a car',
+        distance: '15-20 minutes\' drive to the course, convenient to I-20',
         description: 'The suburban west side clusters most of Augusta\'s mid-range hotels, malls, and restaurants along Washington and Wrightsboro roads — a 20-minute drive to the course and the most realistic availability for late bookers during Masters week, albeit at tournament-inflated prices.',
         searchQuery: 'West Augusta hotels',
       },
@@ -437,16 +473,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'City Center (Sol & Gran Vía)',
+        bestFor: 'first-time visitors & sightseeing',
+        distance: '20-25 minutes by Metro to the Metropolitano',
         description: 'Staying central puts you steps from Puerta del Sol, Plaza Mayor, and the Gran Vía theater district, with the Metropolitano reachable in 25 minutes by metro. Hundreds of hotels span every budget, though final weekend pushes rates up sharply with two-to-three night minimums. Book refundable rates early and reprice closer to the final.',
         searchQuery: 'Madrid city center hotels',
       },
       {
         name: 'Salamanca District',
+        bestFor: 'dining & upscale stays',
+        distance: 'about 25 minutes by Metro to the Metropolitano',
         description: 'Madrid\'s most elegant neighborhood pairs upscale hotels with golden-stone streets, boutique shopping on Calle Serrano, and some of the city\'s best tapas bars. It\'s a quiet, residential-feeling base about 20 minutes from the stadium by taxi or metro — expect polished service and higher prices for a comfortable final weekend.',
         searchQuery: 'Salamanca Madrid hotels',
       },
       {
         name: 'San Blas / Stadium Area',
+        bestFor: 'match-day stadium access',
+        distance: 'walking distance to Riyadh Air Metropolitano',
         description: 'The area around the Riyadh Air Metropolitano in San Blas-Canillejas is functional rather than charming, with modern mid-range hotels near Barajas Airport. The trade-off is unbeatable match-day convenience — a 10-15 minute walk to the gates — plus quick airport transfers. Metro Line 7 links you to central Madrid in 25 minutes.',
         searchQuery: 'San Blas Madrid hotels',
       },
@@ -511,16 +553,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Central (Zone 1)',
+        bestFor: 'first-time visitors',
+        distance: '20-35 minutes by Tube to Wembley Stadium',
         description: 'Covent Garden, South Bank, and Bloomsbury put every venue within an hour\'s reach and put theaters, museums, and restaurants at your door. Rates are the city\'s highest, but for a first visit mixing events with sightseeing, the walkability pays for itself.',
         searchQuery: 'central London hotels',
       },
       {
         name: 'Wembley & Northwest London',
+        bestFor: 'event-day stadium access',
+        distance: 'walking distance to Wembley Stadium',
         description: 'Hotels around Wembley Park and along the Jubilee Line put you minutes from the stadium at a fraction of Zone 1 prices. The trade-off is a longer trek to Wimbledon or Twickenham — best for fans whose trip revolves around a Wembley final.',
         searchQuery: 'Wembley London hotels',
       },
       {
         name: 'South Kensington & Earls Court',
+        bestFor: 'museum days & family stays',
+        distance: 'about 30 minutes by Tube to Wembley Stadium',
         description: 'A smart middle ground — leafy, safe, and directly connected to Wimbledon via the District Line from Earls Court. Museum-quarter charm, family-run hotels, and easy Heathrow access round out a comfortable base for a two-week tennis fortnight.',
         searchQuery: 'Earls Court London hotels',
       },
@@ -583,16 +631,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Central (1st–7th arrondissements)',
+        bestFor: 'first-time visitors',
+        distance: '20-30 minutes by Métro to Roland Garros',
         description: 'Staying near the Louvre, the Marais, or the Eiffel Tower area puts Paris itself at your feet and every venue within a 30-40 minute metro ride. Expect smaller rooms and higher rates, but for first-timers combining tennis, football, and tourism, the location is unbeatable.',
         searchQuery: 'central Paris hotels',
       },
       {
         name: 'Boulogne / Porte d\'Auteuil',
+        bestFor: 'tournament access',
+        distance: 'walking distance to the Roland Garros gates',
         description: 'The quiet western edge of the 16th sits between Roland Garros and the Parc des Princes — both walkable on match days. Mid-range chains and aparthotels here cost far less than the center, with metro lines 9 and 10 covering the rest of the city quickly.',
         searchQuery: 'Boulogne Paris hotels',
       },
       {
         name: 'Saint-Denis / Stade de France',
+        bestFor: 'stadium access on match days',
+        distance: 'steps from the Stade de France',
         description: 'Modern hotels cluster around the Stade de France for football and rugby finals, at the city\'s most affordable rates. The area is business-oriented and quiet outside event nights; the RER B and D whisk you to the center in 15-20 minutes.',
         searchQuery: 'Saint-Denis hotels',
       },
@@ -650,16 +704,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Pest Inner City (District V–VII)',
+        bestFor: 'sightseeing & first-time visitors',
+        distance: 'about 20 minutes by tram or Metro to Puskás Aréna',
         description: 'The flat heart of Pest puts the Danube, ruin bars, and the Great Market Hall within a walk, and every venue within a 20-minute transit ride. Hotel rates remain gentle by Western standards; the Jewish Quarter\'s design hotels are the pick for atmosphere.',
         searchQuery: 'Budapest city center hotels',
       },
       {
         name: 'Around Puskás Aréna (District XIV)',
+        bestFor: 'event-day stadium access',
+        distance: 'walking distance to Puskás Aréna',
         description: 'Modern hotels near the stadium and the City Park lake cost noticeably less than the center and put football nights a 10-minute walk away. The M1 and trolleybus network keeps you connected in minutes.',
         searchQuery: 'Zuglo Budapest hotels',
       },
       {
         name: 'Buda Side',
+        bestFor: 'quiet stays & scenery',
+        distance: '25-35 minutes by public transit to Puskás Aréna',
         description: 'Across the river beneath the Castle, Buda is calmer and leafier — thermal baths at the Gellért and Rudas are on your doorstep for post-match recovery. Commuting to Pest venues takes 20-30 minutes but the sunsets over the Danube repay it.',
         searchQuery: 'Buda side Budapest hotels',
       },
@@ -717,16 +777,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'CBD (Collins & Flinders Streets)',
+        bestFor: 'first-time visitors & event access',
+        distance: 'short tram rides to the MCG; walkable to Melbourne Park',
         description: 'The heart of the city puts the free tram zone, laneway espresso bars, and a 15-minute walk to the MCG and Melbourne Park all around you. Grand Final and Australian Open fortnights push rates up steeply, but nothing beats the convenience.',
         searchQuery: 'Melbourne CBD hotels',
       },
       {
         name: 'Southbank & South Wharf',
+        bestFor: 'Australian Open access',
+        distance: '10-15 minutes\' walk to Melbourne Park',
         description: 'Across the Yarra from the CBD, Southbank\'s towers sit between the arts precinct and the sports precinct — the MCG and Rod Laver Arena are each a 12-15 minute walk. River-view rooms, the Crown complex\'s restaurants, and slightly gentler rates than Collins Street.',
         searchQuery: 'Southbank Melbourne hotels',
       },
       {
         name: 'St Kilda',
+        bestFor: 'beach add-ons & budget stays',
+        distance: 'about 25 minutes by tram to the MCG',
         description: 'The seaside suburb, a 25-minute tram ride down Fitzroy Street, pairs beach mornings with match afternoons at a distinctly lower price. Albert Park\'s F1 gates are a short ride away, and Acland Street\'s cake shops and bars handle the evenings.',
         searchQuery: 'St Kilda hotels',
       },
@@ -784,16 +850,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'South Beach',
+        bestFor: 'beach & nightlife trips',
+        distance: '20-30 minutes by rideshare to Hard Rock Stadium',
         description: 'The Art Deco district puts the beach, Ocean Drive\'s cafes, and the quintessential Miami mornings at your door — with the arena 20 minutes away downtown and event shuttles stopping nearby. Rates spike on race and Heat playoff weekends; book early or stay a few blocks west.',
         searchQuery: 'South Beach Miami hotels',
       },
       {
         name: 'Brickell / Downtown',
+        bestFor: 'business-style comfort',
+        distance: '25-35 minutes by car to Hard Rock Stadium, depending on traffic',
         description: 'The financial district\'s towers pair business-class hotels with the Kaseya Center a 10-minute walk away — the pick for Heat games and F1 weekend shuttles to Hard Rock. rooftop bars and the Metromover make a car unnecessary.',
         searchQuery: 'Brickell Miami hotels',
       },
       {
         name: 'Fort Lauderdale',
+        bestFor: 'beach resort add-ons',
+        distance: '45-60 minutes by car to Hard Rock Stadium, depending on traffic',
         description: 'For Inter Miami matches at Chase Stadium, staying near Fort Lauderdale puts you 10 minutes from the ground — and Brightline trains cover the Miami run in 30 minutes when the calendar calls you south. Airport-hotel rates here undercut Miami Beach meaningfully.',
         searchQuery: 'Fort Lauderdale hotels',
       },
@@ -851,16 +923,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Monaco (Monte Carlo & Port)',
+        bestFor: 'race weekend luxury',
+        distance: 'walking distance to the circuit and Casino Square',
         description: 'The principality\'s hotels — the Hermitage, the Métropole, the Fairmont at the hairpin — run princely for race week, but put you inside the circuit. For the Grand Prix experience itself, staying on the route means walking from bed to grandstand and skipping the cross-border crush entirely.',
         searchQuery: 'Monte Carlo hotels',
       },
       {
         name: 'Nice & Villefranche',
+        bestFor: 'value base for the Grand Prix',
+        distance: 'about 30 minutes to Monaco by train',
         description: 'France\'s nearby city offers a quarter of Monaco\'s hotel prices and a 20-minute train along the corniche to the circuit. Villefranche-sur-Mer\'s waterfront is the romantic middle ground — the train stops there too.',
         searchQuery: 'Nice France hotels',
       },
       {
         name: 'Menton & the Italian Border',
+        bestFor: 'quiet value stays',
+        distance: 'about 15-20 minutes to Monaco by train',
         description: 'East along the coast toward Italy, Menton\'s lemon-colored town offers the region\'s best value and a 15-minute train ride into Monaco. A quieter base that suits travelers pairing the Grand Prix with Riviera slow-mornings.',
         searchQuery: 'Menton hotels',
       },
@@ -918,16 +996,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Downtown / Monument Circle',
+        bestFor: 'first-time visitors',
+        distance: 'walkable to Gainbridge Fieldhouse; 15-20 minutes\' drive to the Speedway',
         description: 'The downtown core puts the Fieldhouse, Lucas Oil, and the Cultural Trail within a 10-minute walk, with race shuttles departing from surrounding hotels. May 500-weekend rates triple, but the walkability makes it worth every dollar.',
         searchQuery: 'downtown Indianapolis hotels',
       },
       {
         name: 'Speedway / West Side',
+        bestFor: 'Race Day access',
+        distance: 'minutes from the Indianapolis Motor Speedway gates',
         description: 'Staying near the track itself — 10 minutes west of downtown — puts you walking distance from Turn 1 or the museum, with locals renting driveways as grandstands. It\'s the true race-fan move for 500 weekend.',
         searchQuery: 'Speedway Indiana hotels',
       },
       {
         name: 'Broad Ripple',
+        bestFor: 'nightlife & a younger vibe',
+        distance: '20-25 minutes by car to the Speedway',
         description: 'The city\'s nightlife district, 15 minutes north, pairs bars and live music with Monon Trail jogs and cheaper boutique hotels. A young, lively base for race weekend groups.',
         searchQuery: 'Broad Ripple hotels',
       },
@@ -985,16 +1069,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Downtown / Whiskey Row',
+        bestFor: 'first-time visitors',
+        distance: 'about 10 minutes\' drive to Churchill Downs',
         description: 'Riverfront hotels near the Slugger Museum and Fourth Street Live put the bars, the museums, and the walks to Churchill within easy reach. Derby weekend books out a year ahead; every other weekend, the same rooms run pleasantly cheap.',
         searchQuery: 'downtown Louisville hotels',
       },
       {
         name: 'Old Louisville',
+        bestFor: 'character & charm',
+        distance: '5-10 minutes\' drive to Churchill Downs',
         description: 'The Victorian mansion district between downtown and Churchill Downs is the Derby connoisseur\'s stay — historic B&Bs in restored homes, a 25-minute walk to the track, and the prettiest streets in the city for your morning coffee.',
         searchQuery: 'Old Louisville bed and breakfast',
       },
       {
         name: 'Airport / Hurstbourne',
+        bestFor: 'budget & convenience',
+        distance: '20-25 minutes by car to Churchill Downs',
         description: 'The east-side corridor near I-64 offers dependable chain hotels at gentle rates and a 15-20 minute drive to everything. Best for race weekends when downtown is booked — book early even here.',
         searchQuery: 'Louisville Kentucky hotels',
       },
@@ -1057,16 +1147,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'City Center (O\'Connell Street)',
+        bestFor: 'first-time visitors',
+        distance: 'about 25 minutes by car to Adare Manor (Ryder Cup 2027)',
         description: 'Riverside hotels and guesthouses near King John\'s Castle put the Milk Market, the medieval quarter, and the pubs of Catherine Street in a five-minute walk, with Thomond Park 20 minutes on foot. The practical base for rugby weekends and Ryder Cup shuttle departures.',
         searchQuery: 'Limerick city centre hotels',
       },
       {
         name: 'Adare Village',
+        bestFor: 'Ryder Cup access',
+        distance: 'walking distance to Adare Manor golf club',
         description: 'Ireland\'s prettiest village — thatched cottages, the Adare Manor estate, and two golf courses — sits 25 minutes from the city. Book very early for Ryder Cup 2027; every room in the village is long committed, but cancellations reappear.',
         searchQuery: 'Adare Ireland hotels',
       },
       {
         name: 'Shannon / Ennis Road',
+        bestFor: 'early flights & budget stays',
+        distance: '10-15 minutes to the city center; convenient for Shannon Airport',
         description: 'Hotels along the N18 corridor toward Shannon Airport price gently and put the airport 20 minutes away — a sensible final-night base for early departures. Chain hotels and manor-house properties mix here.',
         searchQuery: 'Shannon Ireland hotels',
       },
@@ -1124,16 +1220,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Town Center (North Street/South Street)',
+        bestFor: 'golf week access',
+        distance: 'walking distance to the Old Course',
         description: 'Guesthouses and small hotels in the medieval core put the Old Course\'s 1st tee, the R&A clubhouse, and the fish-and-chip institution of the town all within a five-minute walk. Book 12+ months out for Open Championship years.',
         searchQuery: 'St Andrews town centre hotels',
       },
       {
         name: 'Old Course Hotel Side',
+        bestFor: 'luxury golf trips',
+        distance: 'steps from the Old Course, overlooking the 17th fairway',
         description: 'The famous roadside hotel — and the neighboring Hamilton Grand — sit directly over the 17th Road Hole. Pricey at any time, priceless in championship years, and within earshot of every historic roar.',
         searchQuery: 'Old Course Hotel St Andrews',
       },
       {
         name: 'Edinburgh Commuter Base',
+        bestFor: 'budget base for golf weeks',
+        distance: 'about 1-1.5 hours to St Andrews by car or train-plus-bus',
         description: 'St Andrews books out entirely for The Open — the classic move is an Edinburgh hotel and the 1-hour train/shuttle each morning. The city\'s restaurants and festivals give the evenings extra range.',
         searchQuery: 'Edinburgh hotels',
       },
@@ -1196,16 +1298,22 @@ export const citiesContent = {
     accommodationZones: [
       {
         name: 'Santa Clara / Great America',
+        bestFor: 'event-day stadium access',
+        distance: '15-20 minutes\' walk to Levi\'s Stadium gates',
         description: 'Hotels around the Santa Clara Convention Center and along Tasman Drive sit within a 15-20 minute walk of Levi\'s Stadium — the closest beds to the gates and the first to sell out for big events. Chain hotels dominate, and rates spike sharply on 49ers and concert weekends.',
         searchQuery: 'Santa Clara hotels near Levi\'s Stadium',
       },
       {
         name: 'Downtown San Jose',
+        bestFor: 'value & dining',
+        distance: 'about 15 minutes by light rail or car to Levi\'s Stadium',
         description: 'Ten minutes east by light rail or car, downtown San Jose adds the San Pedro Square food scene, the SAP Center, and a wider hotel range from boutiques to full-service towers. The sensible pick when Santa Clara sells out or rates surge.',
         searchQuery: 'downtown San Jose hotels',
       },
       {
         name: 'Palo Alto & Mountain View',
+        bestFor: 'Silicon Valley comfort',
+        distance: '15-20 minutes by car to Levi\'s Stadium; Caltrain links to San Francisco',
         description: 'Caltrain-linked suburbs 20-30 minutes north offer quieter, often cheaper rooms and easy light-rail access to the stadium via Mountain View. Stanford, downtown Palo Alto, and Castro Street\'s restaurants fill the non-game days.',
         searchQuery: 'Palo Alto California hotels',
       },
@@ -1216,6 +1324,11 @@ export const citiesContent = {
       'The 49ers Museum inside the stadium is open on non-event days — book a tour early in your trip and see all five Lombardi Trophies up close.',
       'Fly into SJC if you can — it\'s ten minutes from the stadium and one of America\'s least painful airports; SFO adds an hour of Bay Area traffic.',
       'Book Santa Clara hotels the moment your tickets are confirmed; 49ers playoff runs, concerts, and San Jose convention weeks all compete for the same rooms.',
+    ],
+    tripPlan: [
+      { day: 'Day 1', title: 'Silicon Valley Arrival', description: 'Fly into San Jose International (SJC), ten minutes from the stadium gates, and check into a Tasman Drive hotel — most walk to Levi\'s Stadium in under twenty minutes. Spend the afternoon on the 49ers Museum and stadium tour, then head for dinner on San Pedro Square in downtown San Jose, the South Bay\'s best run of restaurants and bars.' },
+      { day: 'Day 2', title: 'Match Day at Levi\'s Stadium', description: 'Ride VTA light rail to Great America station — it drops you across Tasman Drive from the gates — and arrive two hours early to soak up the tailgating scene that fills the parking lots before kickoff. Inside, the sunken design keeps sightlines tight from anywhere in the bowl. Post-game, let the exit crowds thin over a slow dinner before the light rail back.' },
+      { day: 'Day 3', title: 'San Francisco or San Jose Farewell', description: 'If the calendar allows an extra day, ride Caltrain from Mountain View or San Jose up the Peninsula to San Francisco for a city afternoon — the train skips stadium-weekend traffic entirely. Closer options include the Winchester Mystery House in San Jose or a Sharks game at SAP Center during the NHL season, before an easy ten-minute taxi back to SJC.' },
     ],
   },
 };

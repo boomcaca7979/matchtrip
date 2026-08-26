@@ -281,6 +281,8 @@ const schemaHtml = [collectionPageSchema, citySchema, imageSchema, breadcrumbSch
             {content.accommodationZones.map(zone => (
               <div class="guide-card">
                 <h3 class="guide-card-title">{zone.name}</h3>
+                {zone.bestFor && <span class="zone-bestfor">{zone.bestFor}</span>}
+                {zone.distance && <span class="zone-distance">{zone.distance}</span>}
                 <p>{zone.description}</p>
                 <a href={buildHotelLink({ city: zone.searchQuery, campaign: `city-${slug}` })} class="btn btn-outline guide-card-link" target="_blank" rel="noopener noreferrer sponsored">Search Hotels</a>
               </div>
@@ -288,6 +290,24 @@ const schemaHtml = [collectionPageSchema, citySchema, imageSchema, breadcrumbSch
           </div>
         </div>
       </section>
+
+      <!-- 3-Day Sports Trip (editorial itinerary from cities.js) -->
+      {content.tripPlan?.length > 0 && (
+        <section class="guide-section">
+          <div class="container narrow">
+            <h2>3-Day Sports Trip</h2>
+            <div class="trip-plan-list">
+              {content.tripPlan.map(stage => (
+                <article class="trip-plan-item">
+                  <span class="trip-plan-day">{stage.day}</span>
+                  <h3 class="trip-plan-title">{stage.title}</h3>
+                  <p>{stage.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <!-- Travel Tips -->
       <section class="guide-section">
@@ -391,19 +411,6 @@ const schemaHtml = [collectionPageSchema, citySchema, imageSchema, breadcrumbSch
       </div>
     </div>
   </section>
-
-  <!-- Things To Do -->
-  {activityUrl && (
-    <section class="activities-section">
-      <div class="container">
-        <div class="activities-card">
-          <h2>Things To Do in {city}</h2>
-          <p>Explore local experiences, tours, and attractions around {city}.</p>
-          <a href={activityUrl} class="btn btn-green" data-affiliate="viator" data-campaign={`city-${slug}`} data-destination="viator" target="_blank" rel="noopener noreferrer sponsored">Explore {city} Experiences</a>
-        </div>
-      </div>
-    </section>
-  )}
 
   <!-- Related Cities -->
   {relatedCities.length > 0 && (
@@ -731,6 +738,66 @@ const schemaHtml = [collectionPageSchema, citySchema, imageSchema, breadcrumbSch
     margin-top: 16px;
   }
 
+  .zone-bestfor,
+  .zone-distance {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin: 0 6px 10px 0;
+  }
+
+  .zone-bestfor {
+    background: #eef2ff;
+    color: #4f46e5;
+  }
+
+  .zone-distance {
+    background: #f0fdf4;
+    color: #15803d;
+  }
+
+  .trip-plan-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .trip-plan-item {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 22px;
+  }
+
+  .trip-plan-day {
+    display: inline-block;
+    background: #eef2ff;
+    color: #4f46e5;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+  }
+
+  .trip-plan-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 8px;
+  }
+
+  .trip-plan-item p {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+
   .tips-list {
     margin: 0;
     padding-left: 20px;
@@ -940,31 +1007,6 @@ const schemaHtml = [collectionPageSchema, citySchema, imageSchema, breadcrumbSch
   }
 
   .city-activities-card p {
-    color: #4b5563;
-    margin-bottom: 24px;
-  }
-
-  /* Activities */
-  .activities-section {
-    padding: 0 0 80px;
-  }
-
-  .activities-card {
-    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-    border: 1px solid #bbf7d0;
-    border-radius: 16px;
-    padding: 40px;
-    text-align: center;
-  }
-
-  .activities-card h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #111;
-    margin-bottom: 8px;
-  }
-
-  .activities-card p {
     color: #4b5563;
     margin-bottom: 24px;
   }
