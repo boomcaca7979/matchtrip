@@ -49,6 +49,39 @@ const availableCitySlugs = new Set(
 );
 const citySlugOf = (cityName: string) => cityName.toLowerCase().replace(/\s+/g, '-');
 
+// Related city pages: every event page links at least two city guides.
+// Same-continent cities come first; the event's own host cities are excluded.
+const ownCitySlugs = new Set((event.hostCities || []).map(c => citySlugOf(c)));
+const cityPageMap = new Map();
+Object.values(eventsData).forEach(e => {
+  const c = e.location?.city;
+  if (!c) return;
+  const s = citySlugOf(c);
+  if (!cityPageMap.has(s)) {
+    cityPageMap.set(s, { slug: s, city: c, continent: e.location?.continent });
+  }
+});
+const relatedCityLinks = Array.from(cityPageMap.values())
+  .filter(c => !ownCitySlugs.has(c.slug))
+  .sort((a, b) =>
+    (a.continent === event.location?.continent ? 0 : 1) -
+    (b.continent === event.location?.continent ? 0 : 1)
+  )
+  .slice(0, 3);
+
+// Venue guide fallback: when no venue lists this event in eventIds, link a
+// venue guide from the same city (e.g. Wimbledon → Wembley), or the venue hub
+// as a last resort — every event page keeps at least one venue link.
+const eventCitySlug = event.location?.city ? citySlugOf(event.location.city) : null;
+const cityVenue = !relatedVenue && eventCitySlug
+  ? Object.values(venuesData).find(v => v.citySlug === eventCitySlug) || null
+  : null;
+
+// "Best Sports Cities" card copy: the event city when we have one.
+const guidesCityLabel = event.location?.city
+  || (event.hostCities || []).find(c => availableCitySlugs.has(citySlugOf(c)))
+  || null;
+
 const refs = event.partnerRefs;
 const campaign = id as string;
 const city = event.location?.city || refs.hotelCity || event.hostCities[0] || '';
@@ -362,6 +395,41 @@ const breadcrumbSchema = {
   ]
 };
 const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema, null, '\t')}</script>`;
+
+// Sources & Official Information: first-party official links from event data.
+// Rows only render when their field is present on the event.
+const sourceHostname = url => {
+  try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; }
+};
+const sourceRows = [
+  {
+    label: 'Official website',
+    desc: `The official ${event.title} website — schedules, news and event-day information.`,
+    url: event.officialWebsite,
+  },
+  {
+    label: 'Official tickets',
+    desc: 'The primary official ticket seller — release dates, seat categories and face-value prices.',
+    url: event.ticketSource,
+  },
+  {
+    label: 'Venue information',
+    desc: 'Official venue details — seating maps, transport options and visitor guidance.',
+    url: event.venueSource,
+  },
+].filter(source => source.url)
+  .map(source => ({ ...source, host: sourceHostname(source.url) }));
+
+// ImageObject structured data: category artwork shown in the hero image section.
+const imageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "contentUrl": `https://matchtrip-blue.vercel.app/images/og/${heroImageFile}.png`,
+  "name": `${event.title} travel guide image`,
+  "caption": event.title,
+  "license": "https://matchtrip-blue.vercel.app/terms/",
+};
+const imageSchemaHtml = `<script type="application/ld+json">${JSON.stringify(imageSchema, null, '\t')}</script>`;
 ---
 
 <Layout
@@ -408,7 +476,7 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
   <!-- Hero category image (per-sport og artwork) -->
   <section class="hero-image-section">
     <div class="container">
-      <img class="event-hero-img" src={"/images/og/" + heroImageFile + ".png"} alt={event.title + " travel guide"} loading="lazy" width="1200" height="630" />
+      <img class="event-hero-img" src={"/images/og/" + heroImageFile + ".png"} alt={`${event.title} travel guide — tickets, hotels and ${event.location?.city} trip planning`} loading="lazy" width="1200" height="630" />
     </div>
   </section>
 
@@ -589,6 +657,19 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
               <a href={`/venues/${relatedVenue.slug}/`} class="btn btn-outline venue-guide-btn">Venue Guide</a>
             </div>
           )}
+          {!relatedVenue && cityVenue && (
+            <div class="venue-featured">
+              <a href={`/venues/${cityVenue.slug}/`} class="venue-featured-name">{cityVenue.name}</a>
+              <span class="venue-featured-capacity">{cityVenue.cityDisplay}</span>
+              <a href={`/venues/${cityVenue.slug}/`} class="btn btn-outline venue-guide-btn">Venue Guide</a>
+            </div>
+          )}
+          {!relatedVenue && !cityVenue && (
+            <div class="venue-featured">
+              <a href="/venues/" class="venue-featured-name">Browse all venue guides</a>
+              <a href="/venues/" class="btn btn-outline venue-guide-btn">Venue Guides</a>
+            </div>
+          )}
         </div>
         <div class="venues-card">
           <h3>Host Cities</h3>
@@ -599,6 +680,16 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
                 : <span class="city-tag">{city}</span>
             ))}
           </div>
+          {relatedCityLinks.length > 0 && (
+            <div class="city-more">
+              <span class="city-more-label">More sports cities</span>
+              <div class="city-tags">
+                {relatedCityLinks.map(rc => (
+                  <a href={`/cities/${rc.slug}/`} class="city-tag">{rc.city}</a>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -764,6 +855,49 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
           </details>
         ))}
       </div>
+      <p class="last-updated">Last Updated: August 2026</p>
+    </div>
+  </section>
+
+  <!-- Sources & Official Information (official first-party links) -->
+  {sourceRows.length > 0 && (
+    <section class="sources-section">
+      <div class="container">
+        <h2>Sources &amp; Official Information</h2>
+        <p class="section-sub">Official sources for schedules, tickets and venue details</p>
+        <div class="sources-grid">
+          {sourceRows.map(source => (
+            <a href={source.url} class="source-card" target="_blank" rel="noopener">
+              <span class="source-label">{source.label}</span>
+              <p class="source-desc">{source.desc}</p>
+              <span class="source-host">{source.host} &rarr;</span>
+            </a>
+          ))}
+        </div>
+        <p class="sources-warning">Always buy through official channels — tickets from unofficial sellers may be invalid, duplicated or overpriced.</p>
+      </div>
+    </section>
+  )}
+
+  <!-- Plan Your Trip (MatchTrip planning guides) -->
+  <section class="plan-guides-section">
+    <div class="container">
+      <h2>Plan Your Trip</h2>
+      <p class="section-sub">Planning guides from MatchTrip</p>
+      <div class="guide-grid">
+        <a href="/guides/sports-travel-planning/" class="guide-card plan-guide-card">
+          <h3>Sports Travel Planning</h3>
+          <p>Full planning playbook.</p>
+        </a>
+        <a href="/guides/sports-travel-budget/" class="guide-card plan-guide-card">
+          <h3>Sports Travel Budget</h3>
+          <p>What this trip costs at 3 budget levels.</p>
+        </a>
+        <a href="/guides/best-sports-cities/" class="guide-card plan-guide-card">
+          <h3>Best Sports Cities</h3>
+          <p>{guidesCityLabel ? `How ${guidesCityLabel} ranks` : "How the world's sports cities rank"}.</p>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -826,6 +960,8 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
 		<Fragment set:html={faqSchemaHtml} />
 		{/* Schema.org BreadcrumbList: Home > Events > Event */}
 		<Fragment set:html={breadcrumbSchemaHtml} />
+		{/* Schema.org ImageObject (hero category artwork) */}
+		<Fragment set:html={imageSchemaHtml} />
 <Footer />
 </Layout>
 
@@ -1451,6 +1587,43 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     align-items: center;
   }
 
+  /* Plan Your Trip guides */
+  .plan-guides-section { padding: 60px 0; background: #fafafa; }
+
+  .plan-guides-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #111;
+  }
+
+  .plan-guide-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .plan-guide-card:hover {
+    border-color: #c7d2fe;
+  }
+
+  /* Related city links (Host Cities card) */
+  .city-more {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .city-more-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+
   /* 3-Day Trip Itinerary */
   .itinerary-section { padding: 60px 0; }
 
@@ -1596,6 +1769,77 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     color: #4b5563;
     font-size: 0.9rem;
     line-height: 1.65;
+  }
+
+  .last-updated {
+    margin-top: 28px;
+    color: #6b7280;
+    opacity: 0.7;
+    font-size: 0.85rem;
+  }
+
+  /* Sources & Official Information */
+  .sources-section { padding: 0 0 60px; }
+
+  .sources-section h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #111;
+  }
+
+  .sources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .source-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .source-card:hover {
+    transform: translateY(-2px);
+    border-color: #c7d2fe;
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+  }
+
+  .source-label {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111;
+  }
+
+  .source-desc {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    flex-grow: 1;
+  }
+
+  .source-host {
+    color: #6366f1;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .sources-warning {
+    margin-top: 24px;
+    padding: 14px 20px;
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    border-radius: 10px;
+    color: #92400e;
+    font-size: 0.9rem;
   }
 
   /* Activities */
@@ -1970,5 +2214,6 @@ const breadcrumbSchemaHtml = `<script type="application/ld+json">${JSON.stringif
     .overview-card { padding: 24px 20px; }
     .faq-question { padding: 16px 20px; }
     .faq-answer { padding: 0 20px 16px; }
+    .sources-grid { grid-template-columns: 1fr; }
   }
 </style>

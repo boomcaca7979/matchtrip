@@ -59,6 +59,48 @@ import Footer from '../components/Footer.astro';
     </div>
   </section>
 
+  <section class="research">
+    <div class="container narrow">
+      <h2>How We Research Events</h2>
+      <p>Every event page on MatchTrip starts with an official source. Before an event goes live, we verify its dates, venues, and ticketing details against the organizer's own channels — the federation, the sanctioning body, or the host venue — rather than aggregators or resale marketplaces. When sources disagree, we cross-check multiple references, defer to the official announcement, and would rather delay a page than publish a guess.</p>
+      <p>The work doesn't stop at publication. We revisit our travel guide data throughout the year: ticket price ranges are checked against official sales phases, neighborhood and transport advice is reviewed ahead of each new edition of an event, and budget estimates are refreshed as host-city costs move. An annual review catches the slower drift too — a venue renamed, a ballot window shifted, a new transit line opening near a stadium.</p>
+      <p>We do not accept payment for rankings, reviews, or inclusion in our event lists. Events appear on MatchTrip because they matter to traveling fans, not because anyone paid for the placement.</p>
+    </div>
+  </section>
+
+  <section class="sources">
+    <div class="container narrow">
+      <h2 id="data-sources">Data Sources We Trust</h2>
+      <p>We build our event data on primary sources whenever they exist. Organizers know their own calendars, ballot windows, and venue changes first, and official channels are the only place where a date change is an announcement rather than a rumor. Secondary sources — ticket marketplaces, news coverage, travel forums — are useful for cross-checking, but they inherit delays and errors from wherever their data came. When an official body publishes, that is the version we follow.</p>
+      <ul class="source-list">
+        <li><a href="https://www.fifa.com" target="_blank" rel="noopener noreferrer">FIFA</a> — World Cups and international football</li>
+        <li><a href="https://www.uefa.com" target="_blank" rel="noopener noreferrer">UEFA</a> — Champions League and European football</li>
+        <li><a href="https://www.formula1.com" target="_blank" rel="noopener noreferrer">Formula 1</a> — Grand Prix calendars and ticketing</li>
+        <li><a href="https://www.usopen.org" target="_blank" rel="noopener noreferrer">US Open Tennis</a> — sessions and grounds passes at Flushing Meadows</li>
+        <li><a href="https://www.wimbledon.com" target="_blank" rel="noopener noreferrer">Wimbledon</a> — The Championships' ballots and ticketing</li>
+        <li><a href="https://www.masters.com" target="_blank" rel="noopener noreferrer">The Masters</a> — Augusta practice rounds and lotteries</li>
+        <li><a href="https://www.rydercup.com" target="_blank" rel="noopener noreferrer">Ryder Cup</a> — golf's team events in Europe and the US</li>
+        <li><a href="https://www.olympics.com" target="_blank" rel="noopener noreferrer">Olympics</a> — Olympic and Paralympic Games calendars</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="editorial">
+    <div class="container narrow">
+      <h2 id="editorial-policy">Editorial Policy</h2>
+      <p>MatchTrip's editorial judgment comes before everything else on this site. We decide which events to cover, what to say about them, and how to rank cities and venues based on what serves traveling fans — never on commercial relationships. Revenue follows the content; it does not direct it.</p>
+      <p>We make money through clearly disclosed affiliate links for hotels, flights, and experiences. Those links are marked on the pages where they appear, and using them never changes what you pay. We do not sell tickets and we are not a ticket broker: our job is the planning around the event — where to sleep, how to get there, what it should cost, and when to book. Any partnership that required us to change an opinion is a partnership we would rather lose.</p>
+    </div>
+  </section>
+
+  <section class="updates">
+    <div class="container narrow">
+      <h2>Update Policy</h2>
+      <p>Event information changes — venues get reassigned, kickoff times move, ballot windows open earlier than the year before. When an organizer announces a change, we update the affected page and refresh its "last updated" note so you can see at a glance how current the information is.</p>
+      <p>Major changes — a new venue, a rescheduled date, a ticketing process that now works differently — are pushed through as soon as they are confirmed by official sources. Minor refreshes, such as repriced hotel ranges or updated neighborhood notes, are batched into our regular review cycles. If you spot something out of date, tell us and we will verify it against the official record.</p>
+    </div>
+  </section>
+
   <section class="contact">
     <div class="container narrow">
       <h2>Get in Touch</h2>
@@ -114,6 +156,10 @@ import Footer from '../components/Footer.astro';
 
   .story,
   .values,
+  .research,
+  .sources,
+  .editorial,
+  .updates,
   .contact {
     padding: 80px 0;
   }
@@ -126,6 +172,10 @@ import Footer from '../components/Footer.astro';
 
   .story h2,
   .values h2,
+  .research h2,
+  .sources h2,
+  .editorial h2,
+  .updates h2,
   .contact h2 {
     font-size: 1.75rem;
     font-weight: 700;
@@ -133,8 +183,17 @@ import Footer from '../components/Footer.astro';
     color: #111;
   }
 
+  /* Anchored H2s (footer links) land below the sticky navbar */
+  h2[id] {
+    scroll-margin-top: 88px;
+  }
+
   .story p,
-  .values p {
+  .values p,
+  .research p,
+  .sources p,
+  .editorial p,
+  .updates p {
     color: #4b5563;
     font-size: 1.05rem;
     line-height: 1.8;
@@ -186,8 +245,39 @@ import Footer from '../components/Footer.astro';
     line-height: 1.7;
   }
 
-  .values {
+  .values,
+  .sources,
+  .updates {
     background: #f8fafc;
+  }
+
+  .source-list {
+    list-style: none;
+    margin: 28px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .source-list li {
+    padding: 12px 16px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    color: #4b5563;
+    line-height: 1.6;
+  }
+
+  .source-list a {
+    color: #4f46e5;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .source-list a:hover {
+    text-decoration: underline;
   }
 
   .contact {
@@ -237,6 +327,7 @@ import Footer from '../components/Footer.astro';
   @media (max-width: 768px) {
     .about-hero h1 { font-size: 2.25rem; }
     .mission-grid { grid-template-columns: 1fr; }
-    .story, .values, .contact { padding: 60px 0; }
+    .story, .values, .research, .sources, .editorial, .updates, .contact { padding: 60px 0; }
+    .source-list { grid-template-columns: 1fr; }
   }
 </style>

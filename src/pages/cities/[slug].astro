@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import { eventsData } from '../../data/events';
+import { venuesData } from '../../data/venues';
 import { citiesContent } from '../../data/cities';
 import { buildHotelLink, buildActivityLink } from '../../utils/affiliate-links';
 
@@ -35,7 +36,6 @@ export function getStaticPaths() {
 }
 
 const { city, country, continent, events } = Astro.props;
-const eventSlugs = events.map(e => e.id);
 
 const slug = city.toLowerCase().replace(/\s+/g, '-');
 const pageUrl = new URL(`/cities/${slug}/`, Astro.site).href;
@@ -79,6 +79,36 @@ Object.entries(eventsData).forEach(([, event]) => {
 const relatedCities = Array.from(allCities.values())
   .filter(c => c.slug !== slug && c.continent === continent)
   .slice(0, 4);
+
+// Plan-section event cards: this city's upcoming events (fall back to past
+// events when nothing is upcoming), capped at 3 — real events only.
+const planEventCards = (upcomingEvents.length > 0 ? upcomingEvents : events).slice(0, 3);
+
+// A city with a single event links only two event URLs (hub + event); top up
+// with upcoming events elsewhere (same continent first) so every city page
+// links at least three event pages.
+const ownEventIds = new Set(events.map(e => e.id));
+const moreEvents = events.length < 2
+  ? Object.entries(eventsData)
+      .filter(([id, e]) => !ownEventIds.has(id) && e.status !== 'ended')
+      .map(([id, e]) => ({ id, ...e }))
+      .sort((a, b) =>
+        (a.location?.continent === continent ? 0 : 1) -
+        (b.location?.continent === continent ? 0 : 1)
+      )
+      .slice(0, 2)
+  : [];
+
+// Venue guide cards: venues in this city first, then same continent, then the
+// rest of the catalogue — every city page links at least two venue pages.
+const venueRank = v => {
+  if (v.citySlug === slug) return 0;
+  if (v.continent === continent) return 1;
+  return 2;
+};
+const planVenueCards = Object.values(venuesData)
+  .sort((a, b) => venueRank(a) - venueRank(b))
+  .slice(0, 3);
 
 // Venue guide links for the More on MatchTrip section (only cities with editorial content)
 const linkedVenues = (content?.majorVenues || []).filter(v => v && v.venueSlug);
@@ -128,7 +158,17 @@ const breadcrumbSchema = {
   ],
 };
 
-const schemaHtml = [collectionPageSchema, citySchema, breadcrumbSchema]
+// ImageObject structured data: only when a hero city photo exists in /images/content/
+const imageSchema = hasCityImage ? {
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "contentUrl": `https://matchtrip-blue.vercel.app/images/content/${slug}.jpg`,
+  "name": `${city} travel guide image`,
+  "caption": `${city} sports travel guide — stadiums, events and where to stay in ${city}`,
+  "license": "https://matchtrip-blue.vercel.app/terms/",
+} : null;
+
+const schemaHtml = [collectionPageSchema, citySchema, imageSchema, breadcrumbSchema]
   .filter(Boolean)
   .map(schema => `<script type="application/ld+json">${JSON.stringify(schema, null, '\t')}</script>`)
   .join('\n');
@@ -150,7 +190,7 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
       <p class="city-subtitle">Plan your trip to {city} for the biggest sporting events. Find hotels, tickets, and things to do.</p>
       {hasCityImage && (
         <div class="city-hero-img">
-          <img src={"/images/content/" + slug + ".jpg"} alt={city + " sports travel guide"} loading="lazy" width="1200" height="630" />
+          <img src={"/images/content/" + slug + ".jpg"} alt={`${city} sports travel guide — stadiums, events and where to stay in ${city}`} loading="lazy" width="1200" height="630" />
         </div>
       )}
     </div>
@@ -414,7 +454,7 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
     </section>
   )}
 
-  <!-- Plan & Budget guides (all cities) -->
+  <!-- Plan & Budget guides + city events (all cities) -->
   <section class="related-section">
     <div class="container">
       <h2>Plan Your {city} Sports Trip</h2>
@@ -434,11 +474,47 @@ const pageDescription = `Plan your ${city} sports trip with event guides, hotels
           <h3>Best Sports Cities</h3>
           <p>How {city} compares to the world's great sports cities.</p>
         </a>
-        <a href={`/events/${eventSlugs[0]}/`} class="more-link-card">
-          <span class="more-link-tag">Event</span>
-          <h3>Next Event in {city}</h3>
-          <p>Travel guide, tickets, and hotels for {events[0]?.title || 'the next event'}.</p>
-        </a>
+        {planEventCards.map(ev => (
+          <a href={`/events/${ev.id}/`} class="more-link-card">
+            <span class="more-link-tag">Event</span>
+            <h3>{ev.title}</h3>
+            <p>Travel guide, tickets &amp; hotels{ev.date ? ` · ${ev.date}` : ''}.</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- More Events to Explore (only for cities with fewer than two events of their own) -->
+  {moreEvents.length > 0 && (
+    <section class="related-section">
+      <div class="container">
+        <h2>More Events to Explore</h2>
+        <div class="more-links-grid">
+          {moreEvents.map(ev => (
+            <a href={`/events/${ev.id}/`} class="more-link-card">
+              <span class="more-link-tag">Event</span>
+              <h3>{ev.title}</h3>
+              <p>{ev.location?.city}, {ev.location?.country} — travel guide, tickets &amp; hotels.</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Venue guides -->
+  <section class="related-section">
+    <div class="container">
+      <h2>Venue Guides</h2>
+      <div class="more-links-grid">
+        {planVenueCards.map(v => (
+          <a href={`/venues/${v.slug}/`} class="more-link-card">
+            <span class="more-link-tag">Venue</span>
+            <h3>{v.name}</h3>
+            <p>{v.cityDisplay}, {v.country} — seating, transport and match-day tips.</p>
+          </a>
+        ))}
       </div>
     </div>
   </section>

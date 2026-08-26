@@ -31,21 +31,33 @@ const venueEvents = (venue.eventIds || [])
 const upcomingEvents = venueEvents.filter(e => e.status !== 'ended');
 const pastEvents = venueEvents.filter(e => e.status === 'ended');
 
-// Interlinking: every venue page should link at least 3 event pages. When
-// eventIds alone fall short, top up with the most relevant upcoming events
-// (same city, then same sport, then same continent, then everything else).
+// Interlinking: every venue page links at least 3 event pages. Start from the
+// venue's own eventIds, then top up with same-city events (upcoming first,
+// ended editions allowed — e.g. Wembley → Wimbledon). Venues that list no
+// events of their own stick to same-city events only; venues that do also
+// fall back to same sport → same continent → everything else (upcoming only).
 const linkedEventIds = new Set(venueEvents.map(e => e.id));
-const candidateEvents = Object.entries(eventsData)
-  .filter(([id, e]) => !linkedEventIds.has(id) && e.status !== 'ended')
-  .map(([id, e]) => ({ id, ...e }));
+const sameCityEvents = Object.entries(eventsData)
+  .filter(([id, e]) => !linkedEventIds.has(id) && e.location?.city === venue.cityDisplay)
+  .map(([id, e]) => ({ id, ...e }))
+  .sort((a, b) => (a.status === 'upcoming' ? 0 : 1) - (b.status === 'upcoming' ? 0 : 1));
 const relevanceRank = e => {
   if (e.location?.city === venue.cityDisplay) return 0;
   if (venue.sports.includes(e.category)) return 1;
   if (e.location?.continent === venue.continent) return 2;
   return 3;
 };
-const relatedEvents = [...candidateEvents]
-  .sort((a, b) => relevanceRank(a) - relevanceRank(b))
+const fillerEvents = venueEvents.length > 0
+  ? Object.entries(eventsData)
+      .filter(([id, e]) =>
+        !linkedEventIds.has(id) &&
+        e.status !== 'ended' &&
+        e.location?.city !== venue.cityDisplay
+      )
+      .map(([id, e]) => ({ id, ...e }))
+      .sort((a, b) => relevanceRank(a) - relevanceRank(b))
+  : [];
+const relatedEvents = [...sameCityEvents, ...fillerEvents]
   .slice(0, Math.max(0, 3 - venueEvents.length));
 
 // City page link — only rendered when a matching city page exists (derived from eventsData).
@@ -117,7 +129,17 @@ const breadcrumbSchema = {
   ],
 };
 
-const schemaHtml = [placeSchema, faqSchema, breadcrumbSchema]
+// ImageObject structured data: hero venue photo (every venue has one in /images/content/)
+const imageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "contentUrl": `https://matchtrip-blue.vercel.app/images/content/${venue.slug}.jpg`,
+  "name": `${venue.name} travel guide image`,
+  "caption": `${venue.name} in ${venue.cityDisplay} — seating, transport and ${venue.country} sports travel venue guide`,
+  "license": "https://matchtrip-blue.vercel.app/terms/",
+};
+
+const schemaHtml = [placeSchema, imageSchema, faqSchema, breadcrumbSchema]
   .map(schema => `<script type="application/ld+json">${JSON.stringify(schema, null, '\t')}</script>`)
   .join('\n');
 
@@ -142,7 +164,7 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
       </div>
       <p class="venue-subtitle">Complete venue guide for sports travelers — capacity, transportation, hotels, and match day tips for your trip to {venue.cityDisplay}.</p>
       <div class="venue-hero-img">
-        <img src={"/images/content/" + venue.slug + ".jpg"} alt={venue.name + " " + venue.cityDisplay + " travel guide"} loading="lazy" width="1200" height="630" />
+        <img src={"/images/content/" + venue.slug + ".jpg"} alt={`${venue.name} in ${venue.cityDisplay} — seating, transport and ${venue.country} sports travel venue guide`} loading="lazy" width="1200" height="630" />
       </div>
     </div>
   </section>
@@ -410,20 +432,6 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
               </div>
             </>
           )}
-
-          {relatedEvents.length > 0 && (
-            <>
-              <h2 class="related-heading">More Events to Explore</h2>
-              <ul class="related-events-list">
-                {relatedEvents.map(event => (
-                  <li>
-                    <a href={`/events/${event.id}/`}>{event.title}</a>
-                    <span class="related-event-meta">{event.date} · {event.location.label}</span>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
         </>
       ) : (
         <div class="events-fallback-card">
@@ -431,6 +439,20 @@ const pageTitle = venue.seoTitle || (defaultTitle.length > 60 ? compactTitle : d
           <p><a href="/events/">Explore all upcoming events on our events calendar</a> to find the next big occasion at or near {venue.name}.</p>
           <a href="/events/" class="btn btn-primary">Explore All Events</a>
         </div>
+      )}
+
+      {relatedEvents.length > 0 && (
+        <>
+          <h2 class="related-heading">{venueEvents.length > 0 ? 'More Events to Explore' : `More Events in ${venue.cityDisplay}`}</h2>
+          <ul class="related-events-list">
+            {relatedEvents.map(event => (
+              <li>
+                <a href={`/events/${event.id}/`}>{event.title}</a>
+                <span class="related-event-meta">{event.date} · {event.location.label}</span>
+              </li>
+            ))}
+          </ul>
+        </>
       )}
     </div>
   </section>

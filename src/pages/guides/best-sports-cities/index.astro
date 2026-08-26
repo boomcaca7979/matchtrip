@@ -362,6 +362,11 @@ const schemaHtml = [articleSchema, breadcrumbSchema]
         matching <a href="/guides/">sports travel guide</a> — tickets, hotel zones, and transport
         included. The six cities above will do the rest.
       </p>
+
+      <div class="author-box">
+        <p><strong>Author:</strong> MatchTrip Editorial Team</p>
+        <p><strong>Reviewed:</strong> August 2026 · <a href="/about/">About our editorial process</a></p>
+      </div>
     </div>
   </article>
 
@@ -466,6 +471,23 @@ const schemaHtml = [articleSchema, breadcrumbSchema]
     line-height: 1.55;
     color: #374151;
     margin: 0;
+  }
+
+  .author-box {
+    margin-top: 44px;
+    padding: 18px 24px;
+    background: #f8fafc;
+    border-top: 3px solid #6366f1;
+    border-radius: 12px;
+  }
+
+  .author-box p {
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+  }
+
+  .author-box p:last-child {
+    margin-bottom: 0;
   }
 
   @media (max-width: 768px) {
