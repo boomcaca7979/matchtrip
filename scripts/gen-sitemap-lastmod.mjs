@@ -53,7 +53,6 @@ const citySlugs = new Set(
 for (const slug of citySlugs) {
   map[`/cities/${slug}/`] = latest(['src/data/cities.js', 'src/data/events.js', 'src/pages/cities/[slug].astro']);
 }
-map['/cities/'] = latest(['src/pages/cities/index.astro']);
 
 // Guides
 map['/guides/'] = latest(['src/pages/guides/index.astro', 'src/data/events.js']);
