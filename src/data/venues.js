@@ -44,7 +44,7 @@ export const venuesData = {
     emoji: '🏟️',
     seoTitle: 'SoFi Stadium Guide: Seating, Hotels & Super Bowl 2027 Tips',
     description: 'Get Super Bowl 2027 ready: seating picks, pre-booked parking and Inglewood hotels near $300/night, plus Metro C Line tips and LAX arrival advice.',
-    image: '/images/og/venues/sofi-stadium.png',
+    image: '/images/content/sofi-stadium.jpg',
     openingYear: 2020,
     architect: 'HKS',
     constructionNote:
@@ -214,7 +214,7 @@ export const venuesData = {
     emoji: '🏎️',
     seoTitle: 'Las Vegas Strip Circuit: F1 Seating, Hotels & Night Race',
     description: 'Las Vegas Strip Circuit guide: F1 grandstand picks, monorail routes and Strip hotels from $300/night. Plan your Vegas night-race weekend like a local.',
-    image: '/images/og/venues/las-vegas-strip-circuit.png',
+    image: '/images/content/las-vegas-strip-circuit.jpg',
     openingYear: 2023,
     architect: 'Tilke',
     constructionNote:
@@ -384,7 +384,7 @@ export const venuesData = {
     emoji: '⚽',
     seoTitle: 'Metropolitano Madrid Guide: Seating, Metro & CL Final 2027',
     description: 'Metropolitano guide: seating tips, Metro Line 7 access and San Blas hotels near $180/night. Everything you need for the 2027 Champions League final in Madrid.',
-    image: '/images/og/venues/metropolitano.png',
+    image: '/images/content/metropolitano.jpg',
     openingYear: 2017,
     architect: 'Cruz y Ortiz',
     constructionNote:
@@ -554,7 +554,7 @@ export const venuesData = {
     emoji: '🌃',
     seoTitle: 'Marina Bay Circuit Guide: F1 Singapore Seating, MRT & Hotels',
     description: 'Marina Bay Circuit guide: F1 Singapore grandstand picks, MRT routes and bayfront hotels from $250/night. Plan your night race with hawker food and local tips.',
-    image: '/images/og/venues/marina-bay-circuit.png',
+    image: '/images/content/marina-bay-circuit.jpg',
     openingYear: 2008,
     architect: 'Hermann Tilke',
     constructionNote:
@@ -724,7 +724,7 @@ export const venuesData = {
     emoji: '🎾',
     seoTitle: 'Arthur Ashe Stadium Guide: Seating, Subway & US Open Hotels',
     description: 'Arthur Ashe Stadium guide: best seats, subway access and Flushing hotels from $180/night. Perfect your US Open trip with session schedules and match-day tips.',
-    image: '/images/og/venues/arthur-ashe-stadium.png',
+    image: '/images/content/arthur-ashe-stadium.jpg',
     openingYear: 1997,
     architect: 'Rossetti',
     constructionNote:
@@ -894,7 +894,7 @@ export const venuesData = {
     emoji: '⚽',
     seoTitle: 'Wembley Stadium: Seating, Trains, Hotels & Matchday Tips',
     description: 'Wembley Stadium guide: seating picks, tube and train routes plus nearby hotels from $200/night. Plan your FA Cup final or concert trip with match-day tips.',
-    image: '/images/og/venues/wembley.png',
+    image: '/images/content/wembley.jpg',
     openingYear: 2007,
     architect: 'Populous / World Stadium Team',
     constructionNote:
@@ -1064,7 +1064,7 @@ export const venuesData = {
     emoji: '🏈',
     seoTitle: "Levi's Stadium Guide: Seating, Parking & Super Bowl Visitor Tips",
     description: "Levi's Stadium visitor guide: 49ers seating picks, pre-booked Red Lot parking, Santa Clara hotels from $250/night, plus VTA Great America and SJC arrival advice for game day.",
-    image: '/images/og/venues/levis-stadium.png',
+    image: '/images/content/levis-stadium.jpg',
     openingYear: 2014,
     architect: 'HNTB',
     constructionNote:
@@ -1220,6 +1220,7 @@ export const venuesData = {
 
   "indianapolis-motor-speedway": {
     slug: "indianapolis-motor-speedway",
+    image: "/images/content/indianapolis-motor-speedway.jpg",
     name: "Indianapolis Motor Speedway",
     cityDisplay: "Indianapolis",
     citySlug: "indianapolis",
@@ -1238,7 +1239,7 @@ export const venuesData = {
     emoji: "🏁",
     seoTitle: "Indianapolis Motor Speedway Visitor Guide | IMS Indy 500 Travel | MatchTrip",
     description: "Complete Indianapolis Motor Speedway visitor guide: Indy 500 tickets, seating guide, parking, transportation, nearby hotels, IMS Museum, race day tips and Gasoline Alley access for 2027.",
-    image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Photorealistic%20wide%20panorama%20of%20Indianapolis%20Motor%20Speedway%20on%20Indy%20500%20race%20morning%20with%20pennants%2C%20grandstands%2C%20pagoda%20tower%20and%20brickyard%20yard%20of%20bricks%20start%20finish%20line%20at%20sunrise%2C%20sports%20travel%20editorial&image_size=landscape_16_9",
+    
     openingYear: 1909,
     architect: "Carl G. Fisher, James A. Allison, Frank H. Wheeler, Arthur C. Newby",
     constructionNote: "Original 2.5-mile oval was paved with 3.2 million bricks in 1909, giving the track its enduring 'Brickyard' nickname. The 36-inch wide Yard of Bricks at the start/finish line is the last visible remnant.",
@@ -1363,6 +1364,7 @@ export const venuesData = {
 
   "hard-rock-stadium": {
     slug: "hard-rock-stadium",
+    image: "/images/content/hard-rock-stadium.jpg",
     name: "Hard Rock Stadium",
     cityDisplay: "Miami",
     citySlug: "miami",
@@ -1381,7 +1383,7 @@ export const venuesData = {
     emoji: "🏎️",
     seoTitle: "Hard Rock Stadium & Miami International Autodrome Guide | F1 Miami Travel | MatchTrip",
     description: "Hard Rock Stadium & Miami International Autodrome visitor guide: F1 Miami Grand Prix tickets, seating, parking, SunPass tolls, shuttle buses, nearby hotels and race weekend tips 2027.",
-    image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Photorealistic%20aerial%20view%20of%20Hard%20Rock%20Stadium%20Miami%20and%20the%20F1%20Miami%20International%20Autodrome%20paddock%20and%20Turn%2019%20hairpin%20at%20sunset%20with%20palm%20trees%2C%20yachts%20in%20the%20marina%2C%20paddock%20club%2C%20and%20palm-lined%20straight%20in%20Miami%20Gardens%2C%20sports%20travel%20editorial&image_size=landscape_16_9",
+    
     openingYear: 1987,
     architect: "HOK Sport (Populous), renovated by HOK in 2015 with canopies by Rossetti",
     constructionNote: "Originally constructed as Joe Robbie Stadium in 1987, the venue underwent a 500 million USD renovation between 2014 and 2016 that added a 160-foot tall open-air canopy covering every seat, four 1,472-screen LED video boards, 350-foot-wide open-air corner balconies, re-leveled lower bowl seating, and premium hospitality suites redesigned around the open-corner architecture. The temporary 3.363-mile Miami International Autodrome Formula 1 circuit was laid out around the stadium, perimeter roads, and nine-acre Hard Rock Lake for the first Miami Grand Prix in May 2022.",
@@ -1506,6 +1508,7 @@ export const venuesData = {
 
   "old-course-st-andrews": {
     slug: "old-course-st-andrews",
+    image: "/images/content/old-course-st-andrews.jpg",
     name: "Old Course, St Andrews",
     cityDisplay: "St Andrews",
     citySlug: "st-andrews",
@@ -1524,7 +1527,7 @@ export const venuesData = {
     emoji: "🏌️",
     seoTitle: "Old Course St Andrews Visitor Guide | The Open 2027 Travel | MatchTrip",
     description: "Old Course St Andrews complete visitor guide: The Open 2027 tickets, tee times, Swilcan Bridge, Road Hole, caddies, St Andrews transfer from Edinburgh, nearby hotels and travel tips.",
-    image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Photorealistic%20golden%20hour%20wide%20photo%20of%20the%20iconic%20Swilcan%20Bridge%20on%20the%2018th%20hole%20of%20the%20Old%20Course%20St%20Andrews%20with%20the%20Royal%20and%20Ancient%20clubhouse%20behind%2C%20golfers%20crossing%2C%20North%20Sea%20in%20the%20distance%20and%20stone%20ruins%20of%20St%20Andrews%20cathedral%20at%20sunset%2C%20golf%20travel%20editorial&image_size=landscape_16_9",
+    
     openingYear: 1552,
     architect: "Natural links terrain; formal routing shaped by Old Tom Morris (1865-1873), Allan Robertson (1842-1858), Martin Hawtree (2015 bunker restoration)",
     constructionNote: "The Old Course at St Andrews is the oldest continuously played golf course in the world. Its 18-hole routing was formally fixed by Act of the St Andrews Town Council in 1764 (reduced from 22 holes), with Old Tom Morris extending the 1st and 18th fairways, adding the current greensite on the Road Hole 17th, and establishing the iconic double greens shared across each outward and inward nine hole pairing. The 2015 Hawtree restoration returned 112 original revetted bunkers to their traditional shapes after a decade of modern tournament lengthening.",
@@ -1649,6 +1652,7 @@ export const venuesData = {
 
   "adare-manor": {
     slug: "adare-manor",
+    image: "/images/content/adare-manor.jpg",
     name: "Adare Manor",
     cityDisplay: "Limerick",
     citySlug: "limerick",
@@ -1667,7 +1671,7 @@ export const venuesData = {
     emoji: "🏌️",
     seoTitle: "Adare Manor Golf Resort Guide | Ryder Cup 2027 Travel | MatchTrip",
     description: "Adare Manor complete visitor guide for the 2027 Ryder Cup: tickets, resort layout, golf courses, Limerick transport, nearby hotels, village of Adare access, match day tips and Adare transfer from Shannon & Dublin.",
-    image: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Photorealistic%20golden%20hour%20wide%20photograph%20of%20Adare%20Manor%20neo-Gothic%20limestone%20mansion%20hotel%20overlooking%20the%2018th%20green%20of%20the%20Adare%20Manor%20Golf%20Course%20with%20the%20River%20Maigue%20bridge%2C%20Ivy-clad%20turrets%2C%20stone%20Irish%20countryside%20and%20Ryder%20Cup%20spectator%20grandstands%20in%20County%20Limerick%2C%20golf%20travel%20editorial&image_size=landscape_16_9",
+    
     openingYear: 1832,
     architect: "Original manor designed by James Pain and George Richard Pain for the 2nd Earl of Dunraven; original 1995 golf course by Robert Trent Jones Sr.; 2017 championship redesign and course rebuild by Tom Fazio II under the direction of J.P. McManus.",
     constructionNote: "Adare Manor's golf course was fully rebuilt between 2015 and 2017 by Tom Fazio II in preparation for championship tournament golf, involving the relocation of 875,000 cubic yards of earth, the re-grassing of all 18 greens with bentgrass grass, the installation of a state-of-the-art SubAir aeration system under every putting surface, the addition of 2.5 miles of spectator mounds, two championship-caliber on-course lakes, and a dedicated tournament spectator tunnel beneath the 18th fairway to handle 35,000+ daily Ryder Cup patrons.",
