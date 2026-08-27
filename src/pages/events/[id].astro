@@ -486,9 +486,17 @@ const sourceRows = [
 const imageSchema = {
   "@context": "https://schema.org",
   "@type": "ImageObject",
+  "url": `https://matchtrip-blue.vercel.app/images/og/${heroImageFile}.png`,
   "contentUrl": `https://matchtrip-blue.vercel.app/images/og/${heroImageFile}.png`,
   "name": `${event.title} travel guide image`,
   "caption": event.title,
+  "creator": {
+    "@type": "Organization",
+    "name": "MatchTrip",
+  },
+  "creditText": "MatchTrip",
+  "copyrightNotice": "© MatchTrip",
+  "acquireLicensePage": "https://matchtrip-blue.vercel.app/contact",
   "license": "https://matchtrip-blue.vercel.app/terms/",
 };
 const imageSchemaHtml = `<script type="application/ld+json">${JSON.stringify(imageSchema, null, '\t')}</script>`;

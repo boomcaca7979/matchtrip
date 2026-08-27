@@ -173,6 +173,13 @@ const imageSchema = hasCityImage ? {
   "contentUrl": `https://matchtrip-blue.vercel.app/images/content/${slug}.jpg`,
   "name": `${city} travel guide image`,
   "caption": `${city} sports travel guide — stadiums, events and where to stay in ${city}`,
+  "creator": {
+    "@type": "Organization",
+    "name": "MatchTrip",
+  },
+  "creditText": "MatchTrip",
+  "copyrightNotice": "© MatchTrip",
+  "acquireLicensePage": "https://matchtrip-blue.vercel.app/contact",
   "license": "https://matchtrip-blue.vercel.app/terms/",
 } : null;
 

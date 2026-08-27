@@ -158,6 +158,13 @@ const imageSchema = {
   "contentUrl": `https://matchtrip-blue.vercel.app/images/content/${venue.slug}.jpg`,
   "name": `${venue.name} travel guide image`,
   "caption": `${venue.name} in ${venue.cityDisplay} — seating, transport and ${venue.country} sports travel venue guide`,
+  "creator": {
+    "@type": "Organization",
+    "name": "MatchTrip",
+  },
+  "creditText": "MatchTrip",
+  "copyrightNotice": "© MatchTrip",
+  "acquireLicensePage": "https://matchtrip-blue.vercel.app/contact",
   "license": "https://matchtrip-blue.vercel.app/terms/",
 };
 
